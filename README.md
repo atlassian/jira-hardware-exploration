@@ -1,1 +1,1 @@
-# jira-hardware-exploration
+Run `./gradlew exploreHardware`
