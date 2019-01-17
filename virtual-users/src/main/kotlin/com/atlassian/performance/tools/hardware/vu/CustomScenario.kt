@@ -1,6 +1,5 @@
 package com.atlassian.performance.tools.hardware.vu
 
-import com.atlassian.performance.tools.jiraactions.api.SET_UP
 import com.atlassian.performance.tools.jiraactions.api.SeededRandom
 import com.atlassian.performance.tools.jiraactions.api.WebJira
 import com.atlassian.performance.tools.jiraactions.api.action.Action
@@ -14,9 +13,6 @@ class CustomScenario : Scenario {
         jira: WebJira,
         meter: ActionMeter
     ): Action {
-        meter.measure(SET_UP) {
-            jira.configureRichTextEditor().disable()
-        }
         return CustomSetup(jira, meter)
     }
 
