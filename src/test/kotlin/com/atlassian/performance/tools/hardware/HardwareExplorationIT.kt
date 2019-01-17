@@ -5,7 +5,9 @@ import com.amazonaws.regions.Regions
 import com.amazonaws.services.ec2.model.InstanceType.C52xlarge
 import com.atlassian.performance.tools.aws.api.Aws
 import com.atlassian.performance.tools.aws.api.Investment
+import com.atlassian.performance.tools.aws.api.StorageLocation
 import com.atlassian.performance.tools.aws.api.TextCapacityMediator
+import com.atlassian.performance.tools.awsinfrastructure.api.DatasetCatalogue
 import com.atlassian.performance.tools.awsinfrastructure.api.InfrastructureFormula
 import com.atlassian.performance.tools.awsinfrastructure.api.hardware.EbsEc2Instance
 import com.atlassian.performance.tools.awsinfrastructure.api.jira.DataCenterFormula
@@ -16,10 +18,7 @@ import com.atlassian.performance.tools.hardware.vu.CustomScenario
 import com.atlassian.performance.tools.infrastructure.api.app.Apps
 import com.atlassian.performance.tools.infrastructure.api.browser.Browser
 import com.atlassian.performance.tools.infrastructure.api.browser.Chromium
-import com.atlassian.performance.tools.infrastructure.api.database.MySqlDatabase
 import com.atlassian.performance.tools.infrastructure.api.dataset.Dataset
-import com.atlassian.performance.tools.infrastructure.api.dataset.HttpDatasetPackage
-import com.atlassian.performance.tools.infrastructure.api.jira.JiraHomePackage
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraLaunchTimeouts
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
 import com.atlassian.performance.tools.infrastructure.api.profiler.AsyncProfiler
@@ -48,6 +47,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import java.io.File
+import java.net.URI
 import java.time.Duration
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CompletableFuture.supplyAsync
@@ -329,25 +329,15 @@ class HardwareExplorationIT {
     }
 
     private fun getDataset(): Dataset {
-        val label = "1M issues"
-        val dataDimension = "base-dataset"
-        val databaseDownload = Duration.ofMinutes(20)
-        val jiraHomeDownload = Duration.ofMinutes(20)
-        val name = "jira-soke-scale-$dataDimension"
-        return Dataset(
-            label = label,
-            database = MySqlDatabase(
-                HttpDatasetPackage(
-                    downloadPath = "$name.mysql.db.home.tar.bz2",
-                    unpackedPath = "mysql",
-                    downloadTimeout = databaseDownload
-                )
+        return DatasetCatalogue().custom(
+            location = StorageLocation(
+                URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-1sjxdtrv5hdhj/")
+                    .resolve("a12fc4c5-3973-41f0-bf56-ede393677028"),
+                Regions.EU_WEST_1
             ),
-            jiraHomeSource = JiraHomePackage(HttpDatasetPackage(
-                downloadPath = "$name.mysql.home.tar.bz2",
-                unpackedPath = "jirahome",
-                downloadTimeout = jiraHomeDownload
-            ))
+            label = "1M issues",
+            databaseDownload = Duration.ofMinutes(20),
+            jiraHomeDownload = Duration.ofMinutes(20)
         )
     }
 
