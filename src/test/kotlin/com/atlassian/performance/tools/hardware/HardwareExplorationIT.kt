@@ -17,7 +17,7 @@ import com.atlassian.performance.tools.awsinfrastructure.api.virtualusers.Multic
 import com.atlassian.performance.tools.hardware.vu.CustomScenario
 import com.atlassian.performance.tools.infrastructure.api.app.Apps
 import com.atlassian.performance.tools.infrastructure.api.browser.Browser
-import com.atlassian.performance.tools.infrastructure.api.browser.Chromium
+import com.atlassian.performance.tools.infrastructure.api.browser.chromium.Chromium69
 import com.atlassian.performance.tools.infrastructure.api.dataset.Dataset
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraLaunchTimeouts
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
@@ -72,7 +72,7 @@ class HardwareExplorationIT {
         .browser(HeadlessChromeBrowser::class.java)
         .build()
 
-    private val browser: Browser = Chromium("69")
+    private val browser: Browser = Chromium69()
     private val root: RootWorkspace = RootWorkspace()
     private val task = root.isolateTask("QUICK-8")
     private val repeats = 2
