@@ -48,6 +48,7 @@ import org.junit.Before
 import org.junit.Test
 import java.io.File
 import java.net.URI
+import java.nio.file.Paths
 import java.time.Duration
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CompletableFuture.supplyAsync
@@ -73,7 +74,7 @@ class HardwareExplorationIT {
         .build()
 
     private val browser: Browser = Chromium69()
-    private val root: RootWorkspace = RootWorkspace()
+    private val root: RootWorkspace = RootWorkspace(Paths.get("build"))
     private val task = root.isolateTask("QUICK-8")
     private val repeats = 2
     private val awsParallelism = 8
@@ -328,6 +329,10 @@ class HardwareExplorationIT {
         )
     }
 
+    /**
+     * [Official timebomb licenses](https://developer.atlassian.com/platform/marketplace/timebomb-licenses-for-testing-server-apps/)
+     * The "10 user Jira Software Data Center license, expires in 3 hours".
+     */
     private fun getDataset(): Dataset {
         return DatasetCatalogue()
             .custom(
@@ -340,9 +345,9 @@ class HardwareExplorationIT {
                 databaseDownload = Duration.ofMinutes(20),
                 jiraHomeDownload = Duration.ofMinutes(20)
             )
-            .overrideDatabase {
+            .overrideDatabase { originalDataset ->
                 LicenseOverridingDatabase(
-                    it.database,
+                    originalDataset.database,
                     listOf(
                         """
                         AAAB8w0ODAoPeNp9Uk2P2jAQvedXWOoNydmELVKLFKlL4u7SLglKQj+27cEkA3gb7GjssMu/rwnQl
@@ -355,7 +360,7 @@ class HardwareExplorationIT {
                         dayEU7kb6lepJOxOLAf7XneFmkfCuCp95nh+LdwhfegL8E5l0LzNo4IVlApi0Vy0GZvs9O6b+vHZ
                         xzBv0toB3Yuk5lCwuualHs8fSD0/3NqdZ48nBd+5bjYilfNdokZr6zmP7TmY5YwLAIUNq8MbmR8G
                         faV9ulfLz1K+3g9j1YCFDeq7aYROMQbwMIvHimNt7/bJCCIX02nj
-                        """.trimIndent()
+                        """.lines().joinToString(separator = "") { it.trim() }
                     ))
             }
     }

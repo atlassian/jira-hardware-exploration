@@ -2,12 +2,16 @@ package com.atlassian.performance.tools.lib
 
 import com.atlassian.performance.tools.infrastructure.api.database.Database
 import com.atlassian.performance.tools.ssh.api.SshConnection
+import org.apache.logging.log4j.LogManager
 import java.net.URI
 
 internal class LicenseOverridingDatabase(
     private val database: Database,
     private val licenses: List<String>
 ) : Database {
+
+    private val logger = LogManager.getLogger(this::class.java)
+
     override fun setup(
         ssh: SshConnection
     ): String = database.setup(ssh)
@@ -17,16 +21,16 @@ internal class LicenseOverridingDatabase(
         ssh: SshConnection
     ) {
         database.start(jira, ssh)
-        val firstLicense = licenses.first()
         val licenseTable = "jiradb.productlicense"
-        val sql = "DELETE FROM $licenseTable; REPLACE INTO $licenseTable (LICENSE) VALUES (\"$firstLicense\");"
         val mysql = SshMysqlClient()
-        mysql.runSql(ssh, sql)
-        licenses.drop(1).forEach { license ->
+        mysql.runSql(ssh, "DELETE FROM $licenseTable;")
+        logger.info("Licenses nuked")
+        licenses.forEachIndexed { index, license ->
             mysql.runSql(
                 ssh = ssh,
-                sql = "INSERT INTO $licenseTable SELECT MAX(id)+1, \"$license\" FROM $licenseTable;"
+                sql = "INSERT INTO $licenseTable VALUES ($index, \"$license\");"
             )
+            logger.info("Added license: ${license.substring(0..8)}...")
         }
     }
 }
