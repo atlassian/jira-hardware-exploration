@@ -236,6 +236,7 @@ class HardwareExplorationIT {
         val hardwareResult = HardwareTestResult(
             hardware = hardware,
             apdex = Apdex().score(metrics),
+            apdexSpread = 0.0,
             httpThroughput = AccessLogThroughput().gauge(workspace.digOutTheRawResults(cohort)),
             results = listOf(results),
             errorRate = ErrorRate().measure(metrics)
@@ -380,6 +381,7 @@ class HardwareExplorationIT {
         return HardwareTestResult(
             hardware = hardware,
             apdex = apdexes.average(),
+            apdexSpread = apdexSpread,
             httpThroughput = averageThroughput,
             results = results.flatMap { it.results },
             errorRate = results.map { it.errorRate }.max() ?: Double.NaN
@@ -406,6 +408,7 @@ class HardwareExplorationIT {
             "node count",
             "error rate [%]",
             "apdex (0.0-1.0)",
+            "apdex spread (0.0-1.0)",
             "throughput [HTTP requests / second]"
         )
         val format = CSVFormat.DEFAULT.withHeader(*headers).withRecordSeparator('\n')
@@ -417,6 +420,7 @@ class HardwareExplorationIT {
                     it.hardware.nodeCount,
                     it.errorRate * 100,
                     it.apdex,
+                    it.apdexSpread,
                     it.httpThroughput.scalePeriod(Duration.ofSeconds(1)).count
                 )
             }

@@ -6,6 +6,7 @@ import com.atlassian.performance.tools.report.api.result.EdibleResult
 internal class HardwareTestResult(
     val hardware: Hardware,
     val apdex: Double,
+    val apdexSpread: Double,
     val httpThroughput: Throughput,
     val errorRate: Double,
     val results: List<EdibleResult>
@@ -13,6 +14,7 @@ internal class HardwareTestResult(
     override fun toString(): String = "HardwareTestResult(" +
         "hardware=$hardware" +
         ", apdex=$apdex" +
+        ", apdexSpread=$apdexSpread" +
         ", httpThroughput=$httpThroughput" +
         ", errorRate=$errorRate" +
         ")"
