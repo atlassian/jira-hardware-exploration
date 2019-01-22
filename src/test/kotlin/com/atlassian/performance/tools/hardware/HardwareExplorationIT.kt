@@ -3,6 +3,7 @@ package com.atlassian.performance.tools.hardware
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.ec2.model.InstanceType.C52xlarge
+import com.amazonaws.services.ec2.model.InstanceType.C54xlarge
 import com.atlassian.performance.tools.aws.api.Aws
 import com.atlassian.performance.tools.aws.api.Investment
 import com.atlassian.performance.tools.aws.api.StorageLocation
@@ -107,7 +108,8 @@ class HardwareExplorationIT {
     @Test
     fun shouldExploreHardware() {
         val instanceTypes = listOf(
-            C52xlarge
+            C52xlarge,
+            C54xlarge
         )
         for (instanceType in instanceTypes) {
             for (nodeCount in 1..4) {
