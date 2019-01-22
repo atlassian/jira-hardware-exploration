@@ -110,7 +110,7 @@ class HardwareExplorationIT {
             C52xlarge
         )
         for (instanceType in instanceTypes) {
-            for (nodeCount in 1..2) {
+            for (nodeCount in 1..4) {
                 val hardware = Hardware(instanceType, nodeCount)
                 if (shouldWeScaleHorizontally(hardware)) {
                     results[hardware] = supplyAsync { getRobustResult(hardware) }
