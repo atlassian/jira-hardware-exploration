@@ -41,7 +41,7 @@ dependencies {
     testCompile(project(":virtual-users"))
     testCompile("com.atlassian.performance.tools:jira-performance-tests:2.0.2-SNAPSHOT") // hack for JPERF-356
     testCompile("com.atlassian.performance.tools:infrastructure:[4.6.0,5.0.0)")
-    testCompile("com.atlassian.performance.tools:virtual-users:3.4.1-SNAPSHOT") // hack for JPERF-353
+    testCompile("com.atlassian.performance.tools:virtual-users:[3.4.1,4.0.0)")
     testCompile("com.atlassian.performance.tools:jira-software-actions:[1.1.0,2.0.0]")
     testCompile("com.atlassian.performance.tools:aws-infrastructure:2.1.0") // workaround for JPERF-357
     testCompile("org.apache.commons:commons-csv:1.4")
