@@ -127,6 +127,7 @@ class HardwareExplorationIT {
         hardware: Hardware
     ): Boolean {
         if (hardware.nodeCount < 4) {
+            logger.info("We're interested in scaling horizontally to $hardware for high availability")
             return true
         }
         val previousResults = results
@@ -134,7 +135,9 @@ class HardwareExplorationIT {
             .values
             .map { it.get() }
             .sortedBy { it.hardware.nodeCount }
-        if (previousResults.last().apdex >= 0.50) {
+        val lastResult = previousResults.last()
+        if (lastResult.apdex >= 0.50) {
+            logger.info("We're not testing $hardware, because we already got acceptable apdex from $lastResult")
             return false
         }
         val apdexIncrements = previousResults
@@ -142,6 +145,10 @@ class HardwareExplorationIT {
             .zipWithNext { a, b -> a - b }
         val canMoreNodesHelp = apdexIncrements.all { it > -0.02 }
         return if (canMoreNodesHelp) {
+            logger.info(
+                "We're interested in scaling horizontally to $hardware" +
+                    ", because we see adding more nodes improves Apdex"
+            )
             true
         } else {
             logger.info(
