@@ -142,7 +142,7 @@ class HardwareExplorationIT {
         }
         val apdexIncrements = previousResults
             .map { it.apdex }
-            .zipWithNext { a, b -> a - b }
+            .zipWithNext { a, b -> b - a }
         val canMoreNodesHelp = apdexIncrements.all { it > -0.02 }
         return if (canMoreNodesHelp) {
             logger.info(
