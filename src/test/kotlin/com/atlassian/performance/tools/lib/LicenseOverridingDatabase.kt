@@ -26,9 +26,10 @@ internal class LicenseOverridingDatabase(
         mysql.runSql(ssh, "DELETE FROM $licenseTable;")
         logger.info("Licenses nuked")
         licenses.forEachIndexed { index, license ->
+            val flattenedLicense = license.lines().joinToString(separator = "") { it.trim() }
             mysql.runSql(
                 ssh = ssh,
-                sql = "INSERT INTO $licenseTable VALUES ($index, \"$license\");"
+                sql = "INSERT INTO $licenseTable VALUES ($index, \"$flattenedLicense\");"
             )
             logger.info("Added license: ${license.substring(0..8)}...")
         }
