@@ -247,8 +247,10 @@ class HardwareExplorationIT {
             apdex = Apdex().score(metrics),
             apdexSpread = 0.0,
             httpThroughput = AccessLogThroughput().gauge(workspace.digOutTheRawResults(cohort)),
+            httpThroughputSpread = Throughput.ZERO,
             results = listOf(results),
-            errorRate = ErrorRate().measure(metrics)
+            errorRate = ErrorRate().measure(metrics),
+            errorRateSpread = 0.0
         )
         if (hardwareResult.errorRate > 0.03) {
             reportRaw("errors", listOf(hardwareResult), hardware)
@@ -375,27 +377,62 @@ class HardwareExplorationIT {
         hardware: Hardware
     ): HardwareTestResult {
         val apdexes = results.map { it.apdex }
-        val apdexSpread = apdexes.max()!! - apdexes.min()!!
+        val apdexSpread = apdexes.spread()
         if (apdexSpread > 0.10) {
             reportRaw("comparison", results, hardware)
             throw Exception("Apdex spread for $hardware is too big: $apdexSpread. Results: $results")
         }
         val throughputUnit = Duration.ofSeconds(1)
-        val averageThroughput = results
+        val throughputs = results
             .map { it.httpThroughput }
             .map { it.scalePeriod(throughputUnit) }
             .map { it.count }
-            .average()
-            .let { Throughput(it, throughputUnit) }
+        val errorRates = results.map { it.errorRate }
         return HardwareTestResult(
             hardware = hardware,
             apdex = apdexes.average(),
             apdexSpread = apdexSpread,
-            httpThroughput = averageThroughput,
+            httpThroughput = Throughput(throughputs.average(), throughputUnit),
+            httpThroughputSpread = Throughput(throughputs.spread(), throughputUnit),
             results = results.flatMap { it.results },
-            errorRate = results.map { it.errorRate }.max() ?: Double.NaN
+            errorRate = errorRates.average(),
+            errorRateSpread = errorRates.spread()
         )
     }
+
+    private fun summarize() {
+        val finishedResults = results.map { it.value.get() }
+
+        val headers = arrayOf(
+            "instance type",
+            "node count",
+            "error rate average [%]",
+            "error rate spread [%]",
+            "apdex average (0.0-1.0)",
+            "apdex spread (0.0-1.0)",
+            "throughput average [HTTP requests / second]",
+            "throughput spread [HTTP requests / second]"
+        )
+        val format = CSVFormat.DEFAULT.withHeader(*headers).withRecordSeparator('\n')
+        task.isolateReport("summary.csv").toFile().bufferedWriter().use { writer ->
+            val printer = CSVPrinter(writer, format)
+            finishedResults.forEach {
+                val throughputPeriod = Duration.ofSeconds(1)
+                printer.printRecord(
+                    it.hardware.instanceType,
+                    it.hardware.nodeCount,
+                    it.errorRate * 100,
+                    it.errorRateSpread * 100,
+                    it.apdex,
+                    it.apdexSpread,
+                    it.httpThroughput.scalePeriod(throughputPeriod).count,
+                    it.httpThroughputSpread.scalePeriod(throughputPeriod).count
+                )
+            }
+        }
+    }
+
+    private fun Iterable<Double>.spread() = max()!! - min()!!
 
     private fun reportRaw(
         reportName: String,
@@ -407,32 +444,5 @@ class HardwareExplorationIT {
             results = results.flatMap { it.results },
             workspace = TestWorkspace(workspace.directory)
         )
-    }
-
-    private fun summarize() {
-        val finishedResults = results.map { it.value.get() }
-
-        val headers = arrayOf(
-            "instance type",
-            "node count",
-            "error rate [%]",
-            "apdex (0.0-1.0)",
-            "apdex spread (0.0-1.0)",
-            "throughput [HTTP requests / second]"
-        )
-        val format = CSVFormat.DEFAULT.withHeader(*headers).withRecordSeparator('\n')
-        task.isolateReport("summary.csv").toFile().bufferedWriter().use { writer ->
-            val printer = CSVPrinter(writer, format)
-            finishedResults.forEach {
-                printer.printRecord(
-                    it.hardware.instanceType,
-                    it.hardware.nodeCount,
-                    it.errorRate * 100,
-                    it.apdex,
-                    it.apdexSpread,
-                    it.httpThroughput.scalePeriod(Duration.ofSeconds(1)).count
-                )
-            }
-        }
     }
 }

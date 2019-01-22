@@ -8,7 +8,9 @@ internal class HardwareTestResult(
     val apdex: Double,
     val apdexSpread: Double,
     val httpThroughput: Throughput,
+    val httpThroughputSpread: Throughput,
     val errorRate: Double,
+    val errorRateSpread: Double,
     val results: List<EdibleResult>
 ) {
     override fun toString(): String = "HardwareTestResult(" +
@@ -16,6 +18,8 @@ internal class HardwareTestResult(
         ", apdex=$apdex" +
         ", apdexSpread=$apdexSpread" +
         ", httpThroughput=$httpThroughput" +
+        ", httpThroughputSpread=$httpThroughputSpread" +
         ", errorRate=$errorRate" +
+        ", errorRateSpread=$errorRateSpread" +
         ")"
 }
