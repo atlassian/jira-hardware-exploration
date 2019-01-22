@@ -54,6 +54,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CompletableFuture.supplyAsync
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 class HardwareExplorationIT {
 
@@ -99,7 +100,8 @@ class HardwareExplorationIT {
 
     @After
     fun tearDown() {
-        awsExecutor.shutdownNow()
+        awsExecutor.shutdown()
+        awsExecutor.awaitTermination(70, TimeUnit.MINUTES)
     }
 
     @Test
