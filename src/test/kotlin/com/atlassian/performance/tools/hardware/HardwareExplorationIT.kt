@@ -170,7 +170,7 @@ class HardwareExplorationIT {
         val freshResults = runFreshResults(hardware, missingResultCount)
         val allResults = reusableResults + freshResults
         val robustResult = coalesce(allResults, hardware)
-        logger.info("The robust result for $hardware is $robustResult")
+        logger.info("The robust result derived from $repeats runs for $hardware is $robustResult")
         return robustResult
     }
 

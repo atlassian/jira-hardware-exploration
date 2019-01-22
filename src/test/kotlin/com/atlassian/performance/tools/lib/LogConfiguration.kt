@@ -18,7 +18,7 @@ internal class LogConfiguration(
     override fun doConfigure() {
         listOf(
             logToFile(
-                name = "com.atlassian.performance.tools",
+                name = "com.atlassian.performance.tools.hardware",
                 path = Paths.get("hardware-exploration.log")
             ).also { log ->
                 log.addAppender(
