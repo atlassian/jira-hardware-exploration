@@ -64,7 +64,7 @@ class HardwareExplorationIT {
             repeats = 2,
             investment = Investment(
                 useCase = "Test hardware recommendations",
-                lifespan = Duration.ofHours(1) + Duration.ofMinutes(20)
+                lifespan = Duration.ofHours(2)
             ),
             aws = Aws(
                 credentialsProvider = DefaultAWSCredentialsProviderChain(),
