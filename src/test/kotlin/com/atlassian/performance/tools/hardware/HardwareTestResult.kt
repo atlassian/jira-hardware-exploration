@@ -1,7 +1,7 @@
 package com.atlassian.performance.tools.hardware
 
 import com.atlassian.performance.tools.lib.Throughput
-import com.atlassian.performance.tools.report.api.result.EdibleResult
+import com.atlassian.performance.tools.report.api.result.CohortResult
 
 internal class HardwareTestResult(
     val hardware: Hardware,
@@ -11,7 +11,7 @@ internal class HardwareTestResult(
     val httpThroughputSpread: Throughput,
     val errorRate: Double,
     val errorRateSpread: Double,
-    val results: List<EdibleResult>
+    val results: List<CohortResult>
 ) {
     override fun toString(): String = "HardwareTestResult(" +
         "hardware=$hardware" +

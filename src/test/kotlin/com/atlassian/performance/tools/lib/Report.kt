@@ -6,7 +6,6 @@ import com.atlassian.performance.tools.jiraactions.api.parser.MergingActionMetri
 import com.atlassian.performance.tools.report.api.parser.MergingNodeCountParser
 import com.atlassian.performance.tools.report.api.parser.SystemMetricsParser
 import com.atlassian.performance.tools.report.api.result.CohortResult
-import com.atlassian.performance.tools.report.api.result.EdibleResult
 import com.atlassian.performance.tools.report.api.result.FailedCohortResult
 import com.atlassian.performance.tools.report.api.result.FullCohortResult
 import com.atlassian.performance.tools.workspace.api.TestWorkspace
@@ -29,10 +28,10 @@ fun TestWorkspace.readResult(cohort: String): CohortResult {
 }
 
 fun TestWorkspace.writeStatus(
-    results: EdibleResult
+    results: CohortResult
 ) {
-    val statusText = if (results.failure != null) {
-        "FAILED: ${results.failure}"
+    val statusText = if (results is FailedCohortResult) {
+        "FAILED"
     } else {
         "OK"
     }

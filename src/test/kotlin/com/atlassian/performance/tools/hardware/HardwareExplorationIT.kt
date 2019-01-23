@@ -33,6 +33,7 @@ import com.atlassian.performance.tools.report.api.FullReport
 import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.CohortResult
 import com.atlassian.performance.tools.report.api.result.EdibleResult
+import com.atlassian.performance.tools.report.api.result.FullCohortResult
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserLoad
 import com.atlassian.performance.tools.virtualusers.api.browsers.HeadlessChromeBrowser
 import com.atlassian.performance.tools.virtualusers.api.config.VirtualUserBehavior
@@ -186,9 +187,8 @@ class HardwareExplorationIT {
     ): HardwareTestResult? {
         val workspace = TestWorkspace(previousRun.toPath())
         val cohortResult = workspace.readResult(hardware.nameCohort(workspace))
-        val edibleResult = postProcess(cohortResult)
-        return if (edibleResult.failure == null) {
-            score(hardware, edibleResult, workspace)
+        return if (cohortResult is FullCohortResult) {
+            score(hardware, cohortResult, workspace)
         } else {
             null
         }
@@ -217,12 +217,13 @@ class HardwareExplorationIT {
 
     private fun score(
         hardware: Hardware,
-        results: EdibleResult,
+        results: CohortResult,
         workspace: TestWorkspace
     ): HardwareTestResult {
-        val cohort = results.cohort
-        if (results.failure != null) {
-            throw Exception("$cohort failed", results.failure)
+        val postProcessedResult = postProcess(results)
+        val cohort = postProcessedResult.cohort
+        if (postProcessedResult.failure != null) {
+            throw Exception("$cohort failed", postProcessedResult.failure)
         }
         val labels = listOf(
             VIEW_BACKLOG,
@@ -237,7 +238,7 @@ class HardwareExplorationIT {
             BROWSE_PROJECTS,
             BROWSE_BOARDS
         ).map { it.label }
-        val metrics = results.actionMetrics.filter { it.label in labels }
+        val metrics = postProcessedResult.actionMetrics.filter { it.label in labels }
         val hardwareResult = HardwareTestResult(
             hardware = hardware,
             apdex = Apdex().score(metrics),
@@ -249,7 +250,7 @@ class HardwareExplorationIT {
             errorRateSpread = 0.0
         )
         if (hardwareResult.errorRate > 0.05) {
-            reportRaw("errors", listOf(hardwareResult), hardware)
+            reportRaw("errors", listOf(postProcessedResult), hardware)
             throw Exception("Error rate for $cohort is too high: ${ErrorRate().measure(metrics)}")
         }
         return hardwareResult
@@ -294,9 +295,8 @@ class HardwareExplorationIT {
             awsExecutor,
             virtualUsers
         ).thenApply {
-            val results = postProcess(it)
-            workspace.writeStatus(results)
-            return@thenApply score(hardware, results, workspace)
+            workspace.writeStatus(it)
+            return@thenApply score(hardware, it, workspace)
         }
     }
 
@@ -375,7 +375,8 @@ class HardwareExplorationIT {
         val apdexes = results.map { it.apdex }
         val apdexSpread = apdexes.spread()
         if (apdexSpread > 0.10) {
-            reportRaw("comparison", results, hardware)
+            val postProcessedResults = results.flatMap { it.results }.map { postProcess(it) }
+            reportRaw("comparison", postProcessedResults, hardware)
             throw Exception("Apdex spread for $hardware is too big: $apdexSpread. Results: $results")
         }
         val throughputUnit = Duration.ofSeconds(1)
@@ -432,12 +433,12 @@ class HardwareExplorationIT {
 
     private fun reportRaw(
         reportName: String,
-        results: List<HardwareTestResult>,
+        results: List<EdibleResult>,
         hardware: Hardware
     ) {
         val workspace = hardware.isolateSubTask(task, reportName)
         FullReport().dump(
-            results = results.flatMap { it.results },
+            results = results,
             workspace = TestWorkspace(workspace.directory)
         )
     }
