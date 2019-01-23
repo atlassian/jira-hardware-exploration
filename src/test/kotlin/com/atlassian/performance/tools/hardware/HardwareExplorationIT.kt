@@ -39,8 +39,6 @@ import com.atlassian.performance.tools.virtualusers.api.browsers.HeadlessChromeB
 import com.atlassian.performance.tools.virtualusers.api.config.VirtualUserBehavior
 import com.atlassian.performance.tools.workspace.api.RootWorkspace
 import com.atlassian.performance.tools.workspace.api.TestWorkspace
-import org.apache.commons.csv.CSVFormat
-import org.apache.commons.csv.CSVPrinter
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.apache.logging.log4j.core.config.ConfigurationFactory
@@ -134,7 +132,11 @@ class HardwareExplorationIT {
             }
         }
         results.forEach { _, futureResult -> futureResult.get() }
-        summarize()
+        HardwareExplorationTable().summarize(
+            results = results.values.map { it.get() },
+            instanceTypesOrder = instanceTypes,
+            table = task.isolateReport("summary.csv")
+        )
     }
 
     private fun decideTesting(
@@ -406,69 +408,6 @@ class HardwareExplorationIT {
             errorRate = errorRates.average(),
             errorRateSpread = errorRates.spread()
         )
-    }
-
-    private fun summarize() {
-        val finishedResults = results
-            .map { it.value.get() }
-            .sortedWith(
-                compareBy<HardwareExplorationResult> {
-                    instanceTypes.indexOf(it.decision.hardware.instanceType)
-                }.thenComparing(
-                    compareBy<HardwareExplorationResult> {
-                        it.decision.hardware.nodeCount
-                    }
-                )
-            )
-
-        val headers = arrayOf(
-            "instance type",
-            "node count",
-            "error rate average [%]",
-            "error rate spread [%]",
-            "apdex average (0.0-1.0)",
-            "apdex spread (0.0-1.0)",
-            "throughput average [HTTP requests / second]",
-            "throughput spread [HTTP requests / second]",
-            "worth exploring?",
-            "reason"
-        )
-        val format = CSVFormat.DEFAULT.withHeader(*headers).withRecordSeparator('\n')
-        task.isolateReport("summary.csv").toFile().bufferedWriter().use { writer ->
-            val printer = CSVPrinter(writer, format)
-            finishedResults.forEach {
-                val result = it.testResult
-                val hardware = it.decision.hardware
-                val throughputPeriod = Duration.ofSeconds(1)
-                if (result != null) {
-                    printer.printRecord(
-                        hardware.instanceType,
-                        hardware.nodeCount,
-                        result.errorRate * 100,
-                        result.errorRateSpread * 100,
-                        result.apdex,
-                        result.apdexSpread,
-                        result.httpThroughput.scalePeriod(throughputPeriod).count,
-                        result.httpThroughputSpread.scalePeriod(throughputPeriod).count,
-                        if (it.decision.worthExploring) "YES" else "NO",
-                        it.decision.reason
-                    )
-                } else {
-                    printer.printRecord(
-                        hardware.instanceType,
-                        hardware.nodeCount,
-                        "-",
-                        "-",
-                        "-",
-                        "-",
-                        "-",
-                        "-",
-                        if (it.decision.worthExploring) "YES" else "NO",
-                        it.decision.reason
-                    )
-                }
-            }
-        }
     }
 
     private fun Iterable<Double>.spread() = max()!! - min()!!
