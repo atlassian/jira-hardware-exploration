@@ -2,8 +2,7 @@ package com.atlassian.performance.tools.hardware
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain
 import com.amazonaws.regions.Regions
-import com.amazonaws.services.ec2.model.InstanceType.C52xlarge
-import com.amazonaws.services.ec2.model.InstanceType.C54xlarge
+import com.amazonaws.services.ec2.model.InstanceType.*
 import com.atlassian.performance.tools.aws.api.Aws
 import com.atlassian.performance.tools.aws.api.Investment
 import com.atlassian.performance.tools.aws.api.StorageLocation
@@ -51,11 +50,8 @@ import java.io.File
 import java.net.URI
 import java.nio.file.Paths
 import java.time.Duration
-import java.util.concurrent.CompletableFuture
+import java.util.concurrent.*
 import java.util.concurrent.CompletableFuture.supplyAsync
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 
 class HardwareExplorationIT {
 
@@ -80,7 +76,7 @@ class HardwareExplorationIT {
     private val task = root.isolateTask("QUICK-8")
     private val repeats = 2
     private val awsParallelism = 8
-    private val results = mutableMapOf<Hardware, CompletableFuture<HardwareTestResult>>()
+    private val results = ConcurrentHashMap<Hardware, CompletableFuture<HardwareTestResult>>()
     private lateinit var logger: Logger
     private lateinit var aws: Aws
     private lateinit var awsExecutor: ExecutorService
@@ -109,15 +105,15 @@ class HardwareExplorationIT {
     fun shouldExploreHardware() {
         val instanceTypes = listOf(
             C52xlarge,
-            C54xlarge
+            C54xlarge,
+            C48xlarge,
+            C518xlarge
         )
-        for (instanceType in instanceTypes) {
+        instanceTypes.parallelStream().forEach { instanceType ->
             for (nodeCount in 1..4) {
                 val hardware = Hardware(instanceType, nodeCount)
                 if (shouldWeScaleHorizontally(hardware)) {
                     results[hardware] = supplyAsync { getRobustResult(hardware) }
-                } else {
-                    break
                 }
             }
         }
