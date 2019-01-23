@@ -52,6 +52,7 @@ import java.net.URI
 import java.nio.file.Paths
 import java.time.Duration
 import java.util.concurrent.*
+import java.util.concurrent.CompletableFuture.completedFuture
 import java.util.concurrent.CompletableFuture.supplyAsync
 
 class HardwareExplorationIT {
@@ -77,7 +78,7 @@ class HardwareExplorationIT {
     private val task = root.isolateTask("QUICK-8")
     private val repeats = 2
     private val awsParallelism = 8
-    private val results = ConcurrentHashMap<Hardware, CompletableFuture<HardwareTestResult>>()
+    private val results = ConcurrentHashMap<Hardware, CompletableFuture<HardwareExplorationResult>>()
     private lateinit var logger: Logger
     private lateinit var aws: Aws
     private lateinit var awsExecutor: ExecutorService
@@ -114,8 +115,21 @@ class HardwareExplorationIT {
         instanceTypes.parallelStream().forEach { instanceType ->
             for (nodeCount in 1..8) {
                 val hardware = Hardware(instanceType, nodeCount)
-                if (shouldWeScaleHorizontally(hardware)) {
-                    results[hardware] = supplyAsync { getRobustResult(hardware) }
+                val decision = decideTesting(hardware)
+                if (decision.worthExploring) {
+                    results[hardware] = supplyAsync {
+                        HardwareExplorationResult(
+                            decision = decision,
+                            testResult = getRobustResult(hardware)
+                        )
+                    }
+                } else {
+                    results[hardware] = completedFuture(
+                        HardwareExplorationResult(
+                            decision = decision,
+                            testResult = null
+                        )
+                    )
                 }
             }
         }
@@ -123,40 +137,52 @@ class HardwareExplorationIT {
         summarize()
     }
 
-    private fun shouldWeScaleHorizontally(
+    private fun decideTesting(
         hardware: Hardware
-    ): Boolean {
+    ): HardwareExplorationDecision {
         if (hardware.nodeCount < 4) {
-            logger.info("We're interested in scaling horizontally to $hardware for high availability")
-            return true
+            return HardwareExplorationDecision(
+                hardware = hardware,
+                worthExploring = true,
+                reason = "high availability"
+            )
         }
         val previousResults = results
             .filterKeys { it.instanceType == hardware.instanceType }
             .values
             .map { it.get() }
+            .mapNotNull { it.testResult }
             .sortedBy { it.hardware.nodeCount }
         val lastResult = previousResults.last()
-        if (lastResult.apdex >= 0.50) {
-            logger.info("We're not testing $hardware, because we already got acceptable apdex from $lastResult")
-            return false
+        val apdexThreshold = 0.50
+        if (lastResult.apdex >= apdexThreshold) {
+            return HardwareExplorationDecision(
+                hardware = hardware,
+                worthExploring = false,
+                reason = "Apdex is already higher than $apdexThreshold"
+            )
         }
         val apdexIncrements = previousResults
             .map { it.apdex }
             .zipWithNext { a, b -> b - a }
         val canMoreNodesHelp = apdexIncrements.all { it > -0.02 }
         return if (canMoreNodesHelp) {
-            logger.info(
-                "We're interested in scaling horizontally to $hardware" +
-                    ", because we see adding more nodes improves Apdex"
+            HardwareExplorationDecision(
+                hardware = hardware,
+                worthExploring = true,
+                reason = "adding more nodes didn't regress Apdex"
             )
-            true
         } else {
             logger.info(
                 "We're not testing $hardware" +
                     ", because previous results shown a decrease in Apdex: $apdexIncrements" +
                     ", previous results: $previousResults"
             )
-            false
+            HardwareExplorationDecision(
+                hardware = hardware,
+                worthExploring = false,
+                reason = "adding more nodes did not improve Apdex enough"
+            )
         }
     }
 
@@ -400,11 +426,11 @@ class HardwareExplorationIT {
         val finishedResults = results
             .map { it.value.get() }
             .sortedWith(
-                compareBy<HardwareTestResult> {
-                    instanceTypes.indexOf(it.hardware.instanceType)
+                compareBy<HardwareExplorationResult> {
+                    instanceTypes.indexOf(it.decision.hardware.instanceType)
                 }.thenComparing(
-                    compareBy<HardwareTestResult> {
-                        it.hardware.nodeCount
+                    compareBy<HardwareExplorationResult> {
+                        it.decision.hardware.nodeCount
                     }
                 )
             )
@@ -417,23 +443,44 @@ class HardwareExplorationIT {
             "apdex average (0.0-1.0)",
             "apdex spread (0.0-1.0)",
             "throughput average [HTTP requests / second]",
-            "throughput spread [HTTP requests / second]"
+            "throughput spread [HTTP requests / second]",
+            "worth exploring?",
+            "reason"
         )
         val format = CSVFormat.DEFAULT.withHeader(*headers).withRecordSeparator('\n')
         task.isolateReport("summary.csv").toFile().bufferedWriter().use { writer ->
             val printer = CSVPrinter(writer, format)
             finishedResults.forEach {
+                val result = it.testResult
+                val hardware = it.decision.hardware
                 val throughputPeriod = Duration.ofSeconds(1)
-                printer.printRecord(
-                    it.hardware.instanceType,
-                    it.hardware.nodeCount,
-                    it.errorRate * 100,
-                    it.errorRateSpread * 100,
-                    it.apdex,
-                    it.apdexSpread,
-                    it.httpThroughput.scalePeriod(throughputPeriod).count,
-                    it.httpThroughputSpread.scalePeriod(throughputPeriod).count
-                )
+                if (result != null) {
+                    printer.printRecord(
+                        hardware.instanceType,
+                        hardware.nodeCount,
+                        result.errorRate * 100,
+                        result.errorRateSpread * 100,
+                        result.apdex,
+                        result.apdexSpread,
+                        result.httpThroughput.scalePeriod(throughputPeriod).count,
+                        result.httpThroughputSpread.scalePeriod(throughputPeriod).count,
+                        if (it.decision.worthExploring) "YES" else "NO",
+                        it.decision.reason
+                    )
+                } else {
+                    printer.printRecord(
+                        hardware.instanceType,
+                        hardware.nodeCount,
+                        "-",
+                        "-",
+                        "-",
+                        "-",
+                        "-",
+                        "-",
+                        if (it.decision.worthExploring) "YES" else "NO",
+                        it.decision.reason
+                    )
+                }
             }
         }
     }
