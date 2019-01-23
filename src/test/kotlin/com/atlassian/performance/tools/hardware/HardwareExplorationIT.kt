@@ -102,14 +102,15 @@ class HardwareExplorationIT {
         awsExecutor.awaitTermination(70, TimeUnit.MINUTES)
     }
 
+    private val instanceTypes = listOf(
+        C52xlarge,
+        C54xlarge,
+        C48xlarge,
+        C518xlarge
+    )
+
     @Test
     fun shouldExploreHardware() {
-        val instanceTypes = listOf(
-            C52xlarge,
-            C54xlarge,
-            C48xlarge,
-            C518xlarge
-        )
         instanceTypes.parallelStream().forEach { instanceType ->
             for (nodeCount in 1..4) {
                 val hardware = Hardware(instanceType, nodeCount)
@@ -166,9 +167,7 @@ class HardwareExplorationIT {
         val missingResultCount = repeats - reusableResults.size
         val freshResults = runFreshResults(hardware, missingResultCount)
         val allResults = reusableResults + freshResults
-        val robustResult = coalesce(allResults, hardware)
-        logger.info("The robust result derived from $repeats runs for $hardware is $robustResult")
-        return robustResult
+        return coalesce(allResults, hardware)
     }
 
     private fun reuseResults(
@@ -398,7 +397,17 @@ class HardwareExplorationIT {
     }
 
     private fun summarize() {
-        val finishedResults = results.map { it.value.get() }
+        val finishedResults = results
+            .map { it.value.get() }
+            .sortedWith(
+                compareBy<HardwareTestResult> {
+                    instanceTypes.indexOf(it.hardware.instanceType)
+                }.thenComparing(
+                    compareBy<HardwareTestResult> {
+                        it.hardware.nodeCount
+                    }
+                )
+            )
 
         val headers = arrayOf(
             "instance type",
