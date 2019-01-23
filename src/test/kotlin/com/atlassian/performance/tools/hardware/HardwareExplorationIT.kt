@@ -112,7 +112,7 @@ class HardwareExplorationIT {
     @Test
     fun shouldExploreHardware() {
         instanceTypes.parallelStream().forEach { instanceType ->
-            for (nodeCount in 1..4) {
+            for (nodeCount in 1..8) {
                 val hardware = Hardware(instanceType, nodeCount)
                 if (shouldWeScaleHorizontally(hardware)) {
                     results[hardware] = supplyAsync { getRobustResult(hardware) }
