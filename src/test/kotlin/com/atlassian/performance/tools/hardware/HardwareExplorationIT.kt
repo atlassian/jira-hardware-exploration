@@ -153,31 +153,17 @@ class HardwareExplorationIT {
             .map { it.get() }
             .mapNotNull { it.testResult }
             .sortedBy { it.hardware.nodeCount }
-        val lastResult = previousResults.last()
-        val apdexThreshold = 0.50
-        if (lastResult.apdex >= apdexThreshold) {
-            return HardwareExplorationDecision(
-                hardware = hardware,
-                worthExploring = false,
-                reason = "Apdex is already higher than $apdexThreshold"
-            )
-        }
         val apdexIncrements = previousResults
             .map { it.apdex }
             .zipWithNext { a, b -> b - a }
-        val canMoreNodesHelp = apdexIncrements.all { it > -0.02 }
-        return if (canMoreNodesHelp) {
+        val strongPositiveImpact = apdexIncrements.all { it > 0.01 }
+        return if (strongPositiveImpact) {
             HardwareExplorationDecision(
                 hardware = hardware,
                 worthExploring = true,
-                reason = "adding more nodes didn't regress Apdex"
+                reason = "adding more nodes made enough positive impact on Apdex"
             )
         } else {
-            logger.info(
-                "We're not testing $hardware" +
-                    ", because previous results shown a decrease in Apdex: $apdexIncrements" +
-                    ", previous results: $previousResults"
-            )
             HardwareExplorationDecision(
                 hardware = hardware,
                 worthExploring = false,
