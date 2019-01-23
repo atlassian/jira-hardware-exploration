@@ -248,7 +248,7 @@ class HardwareExplorationIT {
             errorRate = ErrorRate().measure(metrics),
             errorRateSpread = 0.0
         )
-        if (hardwareResult.errorRate > 0.03) {
+        if (hardwareResult.errorRate > 0.05) {
             reportRaw("errors", listOf(hardwareResult), hardware)
             throw Exception("Error rate for $cohort is too high: ${ErrorRate().measure(metrics)}")
         }
