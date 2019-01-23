@@ -386,28 +386,28 @@ class HardwareExplorationIT {
         hardware: Hardware
     ): HardwareTestResult {
         val apdexes = results.map { it.apdex }
-        val apdexSpread = apdexes.spread()
-        if (apdexSpread > 0.10) {
-            val postProcessedResults = results.flatMap { it.results }.map { postProcess(it) }
-            reportRaw("comparison", postProcessedResults, hardware)
-            throw Exception("Apdex spread for $hardware is too big: $apdexSpread. Results: $results")
-        }
         val throughputUnit = Duration.ofSeconds(1)
         val throughputs = results
             .map { it.httpThroughput }
             .map { it.scalePeriod(throughputUnit) }
             .map { it.count }
         val errorRates = results.map { it.errorRate }
-        return HardwareTestResult(
+        val testResult = HardwareTestResult(
             hardware = hardware,
             apdex = apdexes.average(),
-            apdexSpread = apdexSpread,
+            apdexSpread = apdexes.spread(),
             httpThroughput = Throughput(throughputs.average(), throughputUnit),
             httpThroughputSpread = Throughput(throughputs.spread(), throughputUnit),
             results = results.flatMap { it.results },
             errorRate = errorRates.average(),
             errorRateSpread = errorRates.spread()
         )
+        if (testResult.apdexSpread > 0.10) {
+            val postProcessedResults = results.flatMap { it.results }.map { postProcess(it) }
+            reportRaw("comparison", postProcessedResults, hardware)
+            throw Exception("Apdex spread for $hardware is too big: ${apdexes.spread()}. Results: $results")
+        }
+        return testResult
     }
 
     private fun Iterable<Double>.spread() = max()!! - min()!!
