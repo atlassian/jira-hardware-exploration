@@ -48,6 +48,15 @@ class HardwareExplorationIT {
     @Test
     fun shouldExploreHardware() {
         HardwareExploration(
+            scale = ApplicationScale(
+                description = "Jira L profile",
+                dataset = oneMillionIssues,
+                load = VirtualUserLoad(
+                    virtualUsers = 200,
+                    ramp = Duration.ofSeconds(30),
+                    flat = Duration.ofMinutes(20)
+                )
+            ),
             instanceTypes = listOf(
                 C52xlarge,
                 C54xlarge,
@@ -55,12 +64,6 @@ class HardwareExplorationIT {
                 C518xlarge
             ),
             maxNodeCount = 16,
-            dataset = oneMillionIssues,
-            load = VirtualUserLoad(
-                virtualUsers = 200,
-                ramp = Duration.ofSeconds(30),
-                flat = Duration.ofMinutes(20)
-            ),
             repeats = 2,
             investment = Investment(
                 useCase = "Test hardware recommendations",

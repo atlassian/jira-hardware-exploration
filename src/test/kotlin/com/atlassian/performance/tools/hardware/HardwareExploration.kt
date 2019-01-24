@@ -13,7 +13,6 @@ import com.atlassian.performance.tools.hardware.vu.CustomScenario
 import com.atlassian.performance.tools.infrastructure.api.app.Apps
 import com.atlassian.performance.tools.infrastructure.api.browser.Browser
 import com.atlassian.performance.tools.infrastructure.api.browser.chromium.Chromium69
-import com.atlassian.performance.tools.infrastructure.api.dataset.Dataset
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraLaunchTimeouts
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
 import com.atlassian.performance.tools.infrastructure.api.profiler.AsyncProfiler
@@ -29,11 +28,11 @@ import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.CohortResult
 import com.atlassian.performance.tools.report.api.result.EdibleResult
 import com.atlassian.performance.tools.report.api.result.FullCohortResult
-import com.atlassian.performance.tools.virtualusers.api.VirtualUserLoad
 import com.atlassian.performance.tools.virtualusers.api.browsers.HeadlessChromeBrowser
 import com.atlassian.performance.tools.virtualusers.api.config.VirtualUserBehavior
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
 import com.atlassian.performance.tools.workspace.api.TestWorkspace
+import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.File
@@ -43,10 +42,9 @@ import java.util.concurrent.CompletableFuture.completedFuture
 import java.util.concurrent.CompletableFuture.supplyAsync
 
 class HardwareExploration(
+    private val scale: ApplicationScale,
     private val instanceTypes: List<InstanceType>,
     private val maxNodeCount: Int,
-    private val dataset: Dataset,
-    private val load: VirtualUserLoad,
     private val repeats: Int,
     private val investment: Investment,
     private val aws: Aws,
@@ -55,13 +53,14 @@ class HardwareExploration(
 
     private val browser: Browser = Chromium69()
     private val virtualUsers: VirtualUserBehavior = VirtualUserBehavior.Builder(CustomScenario::class.java)
-        .load(load)
+        .load(scale.load)
         .seed(78432)
         .diagnosticsLimit(32)
         .browser(HeadlessChromeBrowser::class.java)
         .build()
     private val awsParallelism = 8
     private val results = ConcurrentHashMap<Hardware, CompletableFuture<HardwareExplorationResult>>()
+    private val cache = HardwareExplorationResultCache(task.directory.resolve("result-cache.json"))
     private val logger: Logger = LogManager.getLogger(this::class.java)
 
     fun exploreHardware() {
@@ -99,10 +98,17 @@ class HardwareExploration(
             }
         }
         results.forEach { _, futureResult -> futureResult.get() }
+        val completedResults = results.values.map { it.get() }
+        cache.write(completedResults)
         HardwareExplorationTable().summarize(
-            results = results.values.map { it.get() },
+            results = completedResults,
             instanceTypesOrder = instanceTypes,
-            table = task.isolateReport("summary.csv")
+            table = task.isolateReport("exploration-table.csv")
+        )
+        HardwareExplorationChart(GitRepo.findFromCurrentDirectory()).plotApdex(
+            results = completedResults,
+            application = scale.description,
+            output = task.isolateReport("exploration-chart.html")
         )
     }
 
@@ -192,7 +198,7 @@ class HardwareExploration(
     private fun postProcess(
         rawResults: CohortResult
     ): EdibleResult {
-        val timeline = StandardTimeline(load.total)
+        val timeline = StandardTimeline(scale.load.total)
         return rawResults.prepareForJudgement(timeline)
     }
 
@@ -293,8 +299,8 @@ class HardwareExploration(
             jiraFormula = DataCenterFormula(
                 apps = Apps(emptyList()),
                 application = JiraSoftwareStorage("7.13.0"),
-                jiraHomeSource = dataset.jiraHomeSource,
-                database = dataset.database,
+                jiraHomeSource = scale.dataset.jiraHomeSource,
+                database = scale.dataset.database,
                 configs = (1..hardware.nodeCount).map {
                     JiraNodeConfig.Builder()
                         .name("jira-node-$it")

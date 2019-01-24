@@ -1,0 +1,790 @@
+[
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 7
+      },
+      "worthExploring": true,
+      "reason": "adding more nodes made enough positive impact on Apdex"
+    },
+    "testResult": {
+      "apdex": 0.5310545899930963,
+      "apdexSpread": 0.010542378824761056,
+      "errorRate": 0.00000928332714444857,
+      "errorRateSpread": 0.00001856665428889714,
+      "httpThroughput": {
+        "count": 671.4187603874786,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 10.01200150455145,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 7
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 8
+      },
+      "worthExploring": true,
+      "reason": "adding more nodes made enough positive impact on Apdex"
+    },
+    "testResult": {
+      "apdex": 0.5361075547182235,
+      "apdexSpread": 0.010170068490132134,
+      "errorRate": 0.000416217341127949,
+      "errorRateSpread": 0.000832434682255898,
+      "httpThroughput": {
+        "count": 675.1985587318716,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 27.104235311566413,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 8
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 5
+      },
+      "worthExploring": true,
+      "reason": "adding more nodes made enough positive impact on Apdex"
+    },
+    "testResult": {
+      "apdex": 0.4991084764525002,
+      "apdexSpread": 0.0007989730283636254,
+      "errorRate": 0.000050542968599062195,
+      "errorRateSpread": 0.000019246179443807346,
+      "httpThroughput": {
+        "count": 627.0036964455023,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 11.158275576931942,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 5
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 8
+      },
+      "worthExploring": true,
+      "reason": "adding more nodes made enough positive impact on Apdex"
+    },
+    "testResult": {
+      "apdex": 0.4679310295419461,
+      "apdexSpread": 0.0017376219368414603,
+      "errorRate": 0.0006946142923906362,
+      "errorRateSpread": 0.0011405960636475083,
+      "httpThroughput": {
+        "count": 519.2507140229144,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 3.963671678606943,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 8
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 7
+      },
+      "worthExploring": true,
+      "reason": "adding more nodes made enough positive impact on Apdex"
+    },
+    "testResult": {
+      "apdex": 0.4293413798768103,
+      "apdexSpread": 0.0007650710100938762,
+      "errorRate": 0.0001190804715847367,
+      "errorRateSpread": 0.00003370377694579726,
+      "httpThroughput": {
+        "count": 495.0013210776821,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 24.59752732348636,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 7
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 6
+      },
+      "worthExploring": true,
+      "reason": "adding more nodes made enough positive impact on Apdex"
+    },
+    "testResult": {
+      "apdex": 0.5146217269238376,
+      "apdexSpread": 0.007153428069368473,
+      "errorRate": 0.000009901774397972116,
+      "errorRateSpread": 0.000019803548795944232,
+      "httpThroughput": {
+        "count": 645.5805608843714,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 18.095279458348045,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 6
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 3
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.3531838457507231,
+      "apdexSpread": 0.0055873524575857925,
+      "errorRate": 0.0000747175108509579,
+      "errorRateSpread": 0.0000891359382479843,
+      "httpThroughput": {
+        "count": 440.18916852570425,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 4.2391164723322845,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 3
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 6
+      },
+      "worthExploring": true,
+      "reason": "adding more nodes made enough positive impact on Apdex"
+    },
+    "testResult": {
+      "apdex": 0.38755268364282724,
+      "apdexSpread": 0.021008016700318655,
+      "errorRate": 0.00022419103902019977,
+      "errorRateSpread": 0.000018063027201277356,
+      "httpThroughput": {
+        "count": 442.46031822700536,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 17.897709986833206,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 6
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 4
+      },
+      "worthExploring": true,
+      "reason": "adding more nodes made enough positive impact on Apdex"
+    },
+    "testResult": {
+      "apdex": 0.4468971333757368,
+      "apdexSpread": 0.008005602688049007,
+      "errorRate": 0.000058525435032975,
+      "errorRateSpread": 0.000022561937082225723,
+      "httpThroughput": {
+        "count": 548.7154967580973,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 7.770524170104636,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 4
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 5
+      },
+      "worthExploring": true,
+      "reason": "adding more nodes made enough positive impact on Apdex"
+    },
+    "testResult": {
+      "apdex": 0.35372619038312003,
+      "apdexSpread": 0.0036044730879630227,
+      "errorRate": 0.0005388925837857778,
+      "errorRateSpread": 0.000797996408084968,
+      "httpThroughput": {
+        "count": 385.8445586045447,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 3.6773352880751418,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 5
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 1
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.020420853770612132,
+      "apdexSpread": 0.00393304243583785,
+      "errorRate": 0.004171025529911871,
+      "errorRateSpread": 0.00017804525430850388,
+      "httpThroughput": {
+        "count": 159.03480883528022,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 1.70048000036374,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 1
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 4
+      },
+      "worthExploring": true,
+      "reason": "adding more nodes made enough positive impact on Apdex"
+    },
+    "testResult": {
+      "apdex": 0.2953376167402464,
+      "apdexSpread": 0.010890923901300587,
+      "errorRate": 0.00029615032174758736,
+      "errorRateSpread": 0.0002554443548093353,
+      "httpThroughput": {
+        "count": 327.14933584382226,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 6.042278655179757,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 4
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 2
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.1992357022179292,
+      "apdexSpread": 0.02058129866032718,
+      "errorRate": 0.0016055320386269187,
+      "errorRateSpread": 0.0006041315678399141,
+      "httpThroughput": {
+        "count": 288.75259493307317,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 8.074260312683975,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.4xlarge",
+        "nodeCount": 2
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 3
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.1898813844517412,
+      "apdexSpread": 0.0012855054154749523,
+      "errorRate": 0.0012483052231043277,
+      "errorRateSpread": 0.0002731529698328911,
+      "httpThroughput": {
+        "count": 255.43624723718085,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 2.1338652965916935,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 3
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 2
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.07601043582225411,
+      "apdexSpread": 0.004840030611130877,
+      "errorRate": 0.009650357404848422,
+      "errorRateSpread": 0.0007821962911783269,
+      "httpThroughput": {
+        "count": 167.13138653044547,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 0.7378494755956524,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 2
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 1
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.04912405381488556,
+      "apdexSpread": 0.011610022599403129,
+      "errorRate": 0.022105894695276393,
+      "errorRateSpread": 0.00798882473431927,
+      "httpThroughput": {
+        "count": 94.64453914141414,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 3.0220328282828177,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.2xlarge",
+        "nodeCount": 1
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.18xlarge",
+        "nodeCount": 4
+      },
+      "worthExploring": true,
+      "reason": "adding more nodes made enough positive impact on Apdex"
+    },
+    "testResult": {
+      "apdex": 0.5410015925237392,
+      "apdexSpread": 0.0004131881919580138,
+      "errorRate": 0.00018451223253708782,
+      "errorRateSpread": 0.0002591162384434123,
+      "httpThroughput": {
+        "count": 681.6117685542808,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 4.69724556646986,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.18xlarge",
+        "nodeCount": 4
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c4.8xlarge",
+        "nodeCount": 4
+      },
+      "worthExploring": true,
+      "reason": "adding more nodes made enough positive impact on Apdex"
+    },
+    "testResult": {
+      "apdex": 0.48212984570066225,
+      "apdexSpread": 0.004995537687482288,
+      "errorRate": 0.0000726511108388571,
+      "errorRateSpread": 0.000019653034209126495,
+      "httpThroughput": {
+        "count": 615.8158000913686,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 9.214915295111837,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c4.8xlarge",
+        "nodeCount": 4
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c4.8xlarge",
+        "nodeCount": 3
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.4070964165994451,
+      "apdexSpread": 0.008209447146328652,
+      "errorRate": 0.009129345441341193,
+      "errorRateSpread": 0.017837372155064944,
+      "httpThroughput": {
+        "count": 467.92519910736144,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 53.69882715191619,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c4.8xlarge",
+        "nodeCount": 3
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.18xlarge",
+        "nodeCount": 3
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.534389470038101,
+      "apdexSpread": 0.00877261696523135,
+      "errorRate": 0.00033508536234209117,
+      "errorRateSpread": 0.0004175604181836771,
+      "httpThroughput": {
+        "count": 634.020428748503,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 67.10648347656422,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.18xlarge",
+        "nodeCount": 3
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c4.8xlarge",
+        "nodeCount": 2
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.3099892869490464,
+      "apdexSpread": 0.019938169857688814,
+      "errorRate": 0.029347414612182494,
+      "errorRateSpread": 0.023625164879843136,
+      "httpThroughput": {
+        "count": 335.46777962978877,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 12.364149242368569,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c4.8xlarge",
+        "nodeCount": 2
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.18xlarge",
+        "nodeCount": 2
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.4731286941312989,
+      "apdexSpread": 0.016330516097458447,
+      "errorRate": 0.0006497977333571009,
+      "errorRateSpread": 0.0011609601008323654,
+      "httpThroughput": {
+        "count": 568.2027839944014,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 36.54000966204683,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.18xlarge",
+        "nodeCount": 2
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c4.8xlarge",
+        "nodeCount": 1
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.017664654900152156,
+      "apdexSpread": 0.002067017213913693,
+      "errorRate": 0.001604809028142665,
+      "errorRateSpread": 0.0002662773646002676,
+      "httpThroughput": {
+        "count": 182.52183512157512,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 3.393782940370386,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c4.8xlarge",
+        "nodeCount": 1
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.18xlarge",
+        "nodeCount": 1
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.12145476987689383,
+      "apdexSpread": 0.017939455988330952,
+      "errorRate": 0.0011950365801482853,
+      "errorRateSpread": 0.00009376050849705677,
+      "httpThroughput": {
+        "count": 285.19552133562206,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 8.893346818709517,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c5.18xlarge",
+        "nodeCount": 1
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.18xlarge",
+        "nodeCount": 8
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c4.8xlarge",
+        "nodeCount": 8
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.18xlarge",
+        "nodeCount": 7
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c4.8xlarge",
+        "nodeCount": 7
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.18xlarge",
+        "nodeCount": 6
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c4.8xlarge",
+        "nodeCount": 6
+      },
+      "worthExploring": true,
+      "reason": "adding more nodes made enough positive impact on Apdex"
+    },
+    "testResult": {
+      "apdex": 0.5131272568603562,
+      "apdexSpread": 0.0009979583362969002,
+      "errorRate": 0.000036932961282267835,
+      "errorRateSpread": 2.8917281745575676E-7,
+      "httpThroughput": {
+        "count": 687.5833139459401,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 2.8087582269909035,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c4.8xlarge",
+        "nodeCount": 6
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c5.18xlarge",
+        "nodeCount": 5
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "instanceType": "c4.8xlarge",
+        "nodeCount": 5
+      },
+      "worthExploring": true,
+      "reason": "adding more nodes made enough positive impact on Apdex"
+    },
+    "testResult": {
+      "apdex": 0.5060307029598834,
+      "apdexSpread": 0.0064748137409958995,
+      "errorRate": 0.000009720440141529609,
+      "errorRateSpread": 0.000019440880283059218,
+      "httpThroughput": {
+        "count": 666.3668955715694,
+        "period": "PT1S"
+      },
+      "httpThroughputSpread": {
+        "count": 23.997324959646676,
+        "period": "PT1S"
+      },
+      "hardware": {
+        "instanceType": "c4.8xlarge",
+        "nodeCount": 5
+      }
+    }
+  }
+]
