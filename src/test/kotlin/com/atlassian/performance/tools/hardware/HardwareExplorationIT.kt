@@ -54,7 +54,7 @@ class HardwareExplorationIT {
                 C48xlarge,
                 C518xlarge
             ),
-            maxNodeCount = 8,
+            maxNodeCount = 16,
             dataset = oneMillionIssues,
             load = VirtualUserLoad(
                 virtualUsers = 200,
