@@ -178,6 +178,7 @@ class HardwareExploration(
         return if (cohortResult is FullCohortResult) {
             score(hardware, cohortResult, workspace)
         } else {
+            logger.error("Previous result has failed in $workspace, better investigate or remove it")
             null
         }
     }
