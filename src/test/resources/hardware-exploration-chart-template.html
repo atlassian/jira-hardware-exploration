@@ -21,6 +21,7 @@
 </span>
 <canvas id="apdex-chart"></canvas>
 <canvas id="error-rate-chart"></canvas>
+<canvas id="throughput-chart"></canvas>
 <script>
     new Chart(
         document.getElementById("apdex-chart").getContext("2d"),
@@ -88,6 +89,52 @@
                             scaleLabel: {
                                 display: true,
                                 labelString: "error rate [%]"
+                            },
+                            ticks: {
+                                min: 0
+                            },
+                            gridLines: {
+                                drawOnChartArea: false
+                            }
+                        }
+                    ],
+                    xAxes: [
+                        {
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Jira nodes"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    );
+</script>
+<script>
+    new Chart(
+        document.getElementById("throughput-chart").getContext("2d"),
+        {
+            type: 'bar',
+            data: '<%= throughputChartData =%>',
+            options: {
+                responsive: true,
+                hoverMode: 'index',
+                stacked: false,
+                title: {
+                    display: true,
+                    text: '<%= application =%> hardware exploration: throughput'
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            type: "linear",
+                            display: true,
+                            position: "right",
+                            id: "throughput-axis",
+                            scaleLabel: {
+                                display: true,
+                                labelString: "HTTP / s"
                             },
                             ticks: {
                                 min: 0

@@ -39,6 +39,10 @@ internal class HardwareExplorationChart(
                 newValue = plotErrorRate(resultsPerInstanceType).toJson().toString()
             )
             .replace(
+                oldValue = "'<%= throughputChartData =%>'",
+                newValue = plotThroughput(resultsPerInstanceType).toJson().toString()
+            )
+            .replace(
                 oldValue = "<%= commit =%>",
                 newValue = repo.getHead()
             )
@@ -85,6 +89,25 @@ internal class HardwareExplorationChart(
                 type = "line",
                 hidden = false,
                 yAxisId = "error-rate-axis"
+            )
+        }
+        .let { Chart(it) }
+
+    private fun plotThroughput(
+        resultsPerInstanceType: Map<InstanceType, List<HardwareTestResult>>
+    ): Chart<NodeCount> = resultsPerInstanceType
+        .map { (instanceType, testResults) ->
+            ChartLine(
+                data = testResults.map {
+                    HardwarePoint(
+                        nodeCount = NodeCount(it.hardware.nodeCount),
+                        value = BigDecimal.valueOf(it.httpThroughput.count).setScale(0, RoundingMode.HALF_UP)
+                    )
+                },
+                label = instanceType.toString(),
+                type = "line",
+                hidden = false,
+                yAxisId = "throughput-axis"
             )
         }
         .let { Chart(it) }
