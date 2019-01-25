@@ -6,6 +6,8 @@ import com.atlassian.performance.tools.lib.chart.Chart
 import com.atlassian.performance.tools.lib.chart.ChartLine
 import com.atlassian.performance.tools.lib.chart.ErrorBar
 import com.atlassian.performance.tools.lib.chart.Point
+import com.atlassian.performance.tools.lib.chart.color.Color
+import com.atlassian.performance.tools.lib.chart.color.PresetLabelColor
 import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import org.apache.logging.log4j.LogManager
 import java.math.BigDecimal
@@ -16,6 +18,14 @@ internal class HardwareExplorationChart(
     private val repo: GitRepo
 ) {
     private val logger = LogManager.getLogger(this::class.java)
+    private val adgSecondaryPalette = listOf(
+        Color(255, 86, 48),
+        Color(255, 171, 0),
+        Color(54, 179, 126),
+        Color(0, 184, 217),
+        Color(101, 84, 192)
+    )
+    private val presetLabelColor: PresetLabelColor = PresetLabelColor(adgSecondaryPalette)
 
     fun plotApdex(
         results: List<HardwareExplorationResult>,
@@ -59,7 +69,7 @@ internal class HardwareExplorationChart(
         resultsPerInstanceType: Map<InstanceType, List<HardwareTestResult>>
     ): Chart<NodeCount> = resultsPerInstanceType
         .map { (instanceType, testResults) ->
-            ChartLine(
+            chartLine(
                 data = testResults.map {
                     HardwarePoint(
                         nodeCount = NodeCount(it.hardware.nodeCount),
@@ -74,19 +84,33 @@ internal class HardwareExplorationChart(
                         minus = spreadDiff
                     )
                 },
-                label = instanceType.toString(),
-                type = "line",
-                hidden = false,
-                yAxisId = "y-axis-0"
+                label = instanceType.toString()
             )
         }
         .let { Chart(it) }
+
+    private fun chartLine(
+        data: List<Point<NodeCount>>,
+        errorBars: List<ErrorBar>,
+        label: String
+    ): ChartLine<NodeCount> {
+        val labelColor = presetLabelColor
+        return ChartLine(
+            data = data,
+            errorBars = errorBars,
+            label = label,
+            type = "line",
+            hidden = false,
+            yAxisId = "y-axis-0",
+            labelColor = labelColor
+        )
+    }
 
     private fun plotErrorRate(
         resultsPerInstanceType: Map<InstanceType, List<HardwareTestResult>>
     ): Chart<NodeCount> = resultsPerInstanceType
         .map { (instanceType, testResults) ->
-            ChartLine(
+            chartLine(
                 data = testResults.map {
                     HardwarePoint(
                         nodeCount = NodeCount(it.hardware.nodeCount),
@@ -101,10 +125,7 @@ internal class HardwareExplorationChart(
                         minus = spreadDiff
                     )
                 },
-                label = instanceType.toString(),
-                type = "line",
-                hidden = false,
-                yAxisId = "y-axis-0"
+                label = instanceType.toString()
             )
         }
         .let { Chart(it) }
@@ -113,7 +134,7 @@ internal class HardwareExplorationChart(
         resultsPerInstanceType: Map<InstanceType, List<HardwareTestResult>>
     ): Chart<NodeCount> = resultsPerInstanceType
         .map { (instanceType, testResults) ->
-            ChartLine(
+            chartLine(
                 data = testResults.map {
                     HardwarePoint(
                         nodeCount = NodeCount(it.hardware.nodeCount),
@@ -128,10 +149,7 @@ internal class HardwareExplorationChart(
                         minus = spreadDiff
                     )
                 },
-                label = instanceType.toString(),
-                type = "line",
-                hidden = false,
-                yAxisId = "y-axis-0"
+                label = instanceType.toString()
             )
         }
         .let { Chart(it) }
