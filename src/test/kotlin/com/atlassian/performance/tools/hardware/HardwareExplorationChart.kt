@@ -27,14 +27,16 @@ internal class HardwareExplorationChart(
     )
     private val presetLabelColor: PresetLabelColor = PresetLabelColor(adgSecondaryPalette)
 
-    fun plotApdex(
+    fun plot(
         results: List<HardwareExplorationResult>,
         application: String,
-        output: Path
+        output: Path,
+        instanceTypeOrder: Comparator<InstanceType>
     ) {
         val resultsPerInstanceType = results
             .mapNotNull { it.testResult }
             .groupBy { it.hardware.instanceType }
+            .toSortedMap(instanceTypeOrder)
             .mapValues { (_, testResults) -> testResults.sortedBy { it.hardware.nodeCount } }
         val report = HardwareExplorationChart::class
             .java

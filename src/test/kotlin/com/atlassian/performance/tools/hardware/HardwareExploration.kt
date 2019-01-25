@@ -105,10 +105,11 @@ class HardwareExploration(
             instanceTypesOrder = instanceTypes,
             table = task.isolateReport("exploration-table.csv")
         )
-        HardwareExplorationChart(GitRepo.findFromCurrentDirectory()).plotApdex(
+        HardwareExplorationChart(GitRepo.findFromCurrentDirectory()).plot(
             results = completedResults,
             application = scale.description,
-            output = task.isolateReport("exploration-chart.html")
+            output = task.isolateReport("exploration-chart.html"),
+            instanceTypeOrder = compareBy { instanceTypes.indexOf(it) }
         )
     }
 

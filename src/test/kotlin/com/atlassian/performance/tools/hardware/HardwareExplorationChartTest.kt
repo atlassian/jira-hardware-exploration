@@ -19,10 +19,11 @@ class HardwareExplorationChartTest {
         val cachePath = File(javaClass.getResource("/8-node-exploration-cache.json").toURI()).toPath()
         val results = HardwareExplorationResultCache(cachePath).read()
 
-        chart.plotApdex(
+        chart.plot(
             results = results,
             application = "test",
-            output = workspace.isolateReport("hardware-exploration-chart.html")
+            output = workspace.isolateReport("hardware-exploration-chart.html"),
+            instanceTypeOrder = compareBy { it.ordinal }
         )
     }
 }
