@@ -31,8 +31,6 @@
             data: '<%= apdexChartData =%>',
             options: {
                 responsive: true,
-                hoverMode: 'index',
-                stacked: false,
                 title: {
                     display: true,
                     text: '<%= application =%> hardware exploration: Apdex'
@@ -74,8 +72,6 @@
             data: '<%= errorRateChartData =%>',
             options: {
                 responsive: true,
-                hoverMode: 'index',
-                stacked: false,
                 title: {
                     display: true,
                     text: '<%= application =%> hardware exploration: error rate'
@@ -93,9 +89,6 @@
                             },
                             ticks: {
                                 min: 0
-                            },
-                            gridLines: {
-                                drawOnChartArea: false
                             }
                         }
                     ],
@@ -120,8 +113,6 @@
             data: '<%= throughputChartData =%>',
             options: {
                 responsive: true,
-                hoverMode: 'index',
-                stacked: false,
                 title: {
                     display: true,
                     text: '<%= application =%> hardware exploration: throughput'
@@ -139,9 +130,6 @@
                             },
                             ticks: {
                                 min: 0
-                            },
-                            gridLines: {
-                                drawOnChartArea: false
                             }
                         }
                     ],
