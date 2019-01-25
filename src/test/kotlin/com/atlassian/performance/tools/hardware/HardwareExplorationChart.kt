@@ -150,7 +150,7 @@ private class HardwareErrorBar(
     private val nodeCount: NodeCount,
     override val plus: BigDecimal,
     override val minus: BigDecimal
-) : ErrorBar<NodeCount> {
+) : ErrorBar {
     override fun labelX(): String = nodeCount.toString()
 }
 

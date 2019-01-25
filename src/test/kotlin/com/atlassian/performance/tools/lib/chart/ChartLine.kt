@@ -11,7 +11,7 @@ internal class ChartLine<X>(
     private val type: String,
     private val yAxisId: String,
     private val hidden: Boolean = false,
-    private val errorBars: List<ErrorBar<X>> = emptyList()
+    private val errorBars: List<ErrorBar> = emptyList()
 ) where X : Comparable<X> {
     fun toJson(): JsonObject {
         val dataBuilder = Json.createArrayBuilder()
@@ -58,7 +58,7 @@ internal class ChartLine<X>(
     }
 }
 
-internal interface ErrorBar<X> {
+internal interface ErrorBar {
     val plus: BigDecimal
     val minus: BigDecimal
     fun labelX(): String
