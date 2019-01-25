@@ -10,7 +10,7 @@ import java.nio.file.Paths
 
 class HardwareExplorationChartTest {
 
-    private val workspace = RootWorkspace(Paths.get("build/jpt-workspace")).currentTask
+    private val workspace = RootWorkspace(Paths.get("build/jpt-workspace")).isolateTask(this::class.java.simpleName)
 
     @Test
     fun shouldPlot() {

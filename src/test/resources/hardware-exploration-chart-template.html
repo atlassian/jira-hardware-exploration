@@ -5,6 +5,7 @@
     <title><%= application =%> hardware exploration</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+    <script src="https://unpkg.com/chartjs-plugin-error-bars@1.1.0/build/Plugin.Errorbars.js"></script>
     <style>
         span.commit-flag {
             padding: 3px;
@@ -46,7 +47,7 @@
                                 display: true,
                                 labelString: "Apdex"
                             },
-                            id: "apdex-axis",
+                            id: "y-axis-0",
                             ticks: {
                                 min: 0
                             }
@@ -85,7 +86,7 @@
                             type: "linear",
                             display: true,
                             position: "left",
-                            id: "error-rate-axis",
+                            id: "y-axis-0",
                             scaleLabel: {
                                 display: true,
                                 labelString: "error rate [%]"
@@ -131,7 +132,7 @@
                             type: "linear",
                             display: true,
                             position: "left",
-                            id: "throughput-axis",
+                            id: "y-axis-0",
                             scaleLabel: {
                                 display: true,
                                 labelString: "HTTP / s"
