@@ -57,14 +57,20 @@ class HardwareExplorationIT {
                     flat = Duration.ofMinutes(20)
                 )
             ),
-            instanceTypes = listOf(
-                C52xlarge,
-                C54xlarge,
-                C48xlarge,
-                C518xlarge
+            guidance = ExplorationGuidance(
+                instanceTypes = listOf(
+                    C52xlarge,
+                    C54xlarge,
+                    C48xlarge,
+                    C518xlarge
+                ),
+                maxNodeCount = 16,
+                minNodeCountForAvailability = 3,
+                repeats = 2,
+                minApdexGain = 0.01,
+                maxApdexSpread = 0.10,
+                maxErrorRate = 0.05
             ),
-            maxNodeCount = 16,
-            repeats = 2,
             investment = Investment(
                 useCase = "Test hardware recommendations",
                 lifespan = Duration.ofHours(2)

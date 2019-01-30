@@ -43,9 +43,7 @@ import java.util.concurrent.CompletableFuture.supplyAsync
 
 class HardwareExploration(
     private val scale: ApplicationScale,
-    private val instanceTypes: List<InstanceType>,
-    private val maxNodeCount: Int,
-    private val repeats: Int,
+    private val guidance: ExplorationGuidance,
     private val investment: Investment,
     private val aws: Aws,
     private val task: TaskWorkspace
@@ -76,8 +74,8 @@ class HardwareExploration(
     private fun exploreHardwareInParallel(
         executor: ExecutorService
     ) {
-        instanceTypes.parallelStream().forEach { instanceType ->
-            for (nodeCount in 1..maxNodeCount) {
+        guidance.instanceTypes.parallelStream().forEach { instanceType ->
+            for (nodeCount in 1..guidance.maxNodeCount) {
                 val hardware = Hardware(instanceType, nodeCount)
                 val decision = decideTesting(hardware)
                 if (decision.worthExploring) {
@@ -102,21 +100,21 @@ class HardwareExploration(
         cache.write(completedResults)
         HardwareExplorationTable().summarize(
             results = completedResults,
-            instanceTypesOrder = instanceTypes,
+            instanceTypesOrder = guidance.instanceTypes,
             table = task.isolateReport("exploration-table.csv")
         )
         HardwareExplorationChart(GitRepo.findFromCurrentDirectory()).plot(
             results = completedResults,
             application = scale.description,
             output = task.isolateReport("exploration-chart.html"),
-            instanceTypeOrder = compareBy { instanceTypes.indexOf(it) }
+            instanceTypeOrder = compareBy { guidance.instanceTypes.indexOf(it) }
         )
     }
 
     private fun decideTesting(
         hardware: Hardware
     ): HardwareExplorationDecision {
-        if (hardware.nodeCount < 4) {
+        if (hardware.nodeCount <= guidance.minNodeCountForAvailability) {
             return HardwareExplorationDecision(
                 hardware = hardware,
                 worthExploring = true,
@@ -132,7 +130,7 @@ class HardwareExploration(
         val apdexIncrements = previousResults
             .map { it.apdex }
             .zipWithNext { a, b -> b - a }
-        val strongPositiveImpact = apdexIncrements.all { it > 0.01 }
+        val strongPositiveImpact = apdexIncrements.all { it > guidance.minApdexGain }
         return if (strongPositiveImpact) {
             HardwareExplorationDecision(
                 hardware = hardware,
@@ -153,7 +151,7 @@ class HardwareExploration(
         executor: ExecutorService
     ): HardwareTestResult {
         val reusableResults = reuseResults(hardware)
-        val missingResultCount = repeats - reusableResults.size
+        val missingResultCount = guidance.repeats - reusableResults.size
         val freshResults = runFreshResults(hardware, missingResultCount, executor)
         val allResults = reusableResults + freshResults
         return coalesce(allResults, hardware)
@@ -238,7 +236,7 @@ class HardwareExploration(
             errorRate = ErrorRate().measure(metrics),
             errorRateSpread = 0.0
         )
-        if (hardwareResult.errorRate > 0.05) {
+        if (hardwareResult.errorRate > guidance.maxErrorRate) {
             reportRaw("errors", listOf(postProcessedResult), hardware)
             throw Exception("Error rate for $cohort is too high: ${ErrorRate().measure(metrics)}")
         }
@@ -348,7 +346,7 @@ class HardwareExploration(
             errorRate = errorRates.average(),
             errorRateSpread = errorRates.spread()
         )
-        if (testResult.apdexSpread > 0.10) {
+        if (testResult.apdexSpread > guidance.maxApdexSpread) {
             val postProcessedResults = results.flatMap { it.results }.map { postProcess(it) }
             reportRaw("comparison", postProcessedResults, hardware)
             throw Exception("Apdex spread for $hardware is too big: ${apdexes.spread()}. Results: $results")
@@ -370,3 +368,13 @@ class HardwareExploration(
         )
     }
 }
+
+class ExplorationGuidance(
+    val instanceTypes: List<InstanceType>,
+    val maxNodeCount: Int,
+    val minNodeCountForAvailability: Int,
+    val repeats: Int,
+    val minApdexGain: Double,
+    val maxApdexSpread: Double,
+    val maxErrorRate: Double
+)
