@@ -1,6 +1,5 @@
 package com.atlassian.performance.tools.lib
 
-import com.atlassian.performance.tools.io.api.directories
 import com.atlassian.performance.tools.io.api.resolveSafely
 import com.atlassian.performance.tools.report.api.result.RawCohortResult
 import com.atlassian.performance.tools.workspace.api.TestWorkspace
@@ -54,12 +53,6 @@ fun TestWorkspace.digOutTheRawResults(
     cohort: String
 ): File = directory
     .resolveSafely(cohort)
-    .toFile()
-    .directories()
-    .single()
-    .directories()
-    .single()
-    .toPath()
     .toExistingFile()
     ?: throw Exception("The raw results for $cohort are missing in $directory")
 
