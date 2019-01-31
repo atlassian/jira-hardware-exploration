@@ -173,7 +173,7 @@ class HardwareExploration(
     ): HardwareTestResult? {
         val workspace = TestWorkspace(previousRun.toPath())
         val cohortResult = workspace.readResult(hardware.nameCohort(workspace))
-        return if (cohortResult.failure != null) {
+        return if (cohortResult.failure == null) {
             score(hardware, cohortResult, workspace)
         } else {
             logger.error("Previous result has failed in $workspace, better investigate or remove it")
