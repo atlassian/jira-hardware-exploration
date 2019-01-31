@@ -1,10 +1,7 @@
 package com.atlassian.performance.tools.lib
 
-import com.atlassian.performance.tools.jiraactions.api.parser.MergingActionMetricsParser
 import com.atlassian.performance.tools.report.api.StandardTimeline
-import com.atlassian.performance.tools.report.api.parser.MergingNodeCountParser
-import com.atlassian.performance.tools.report.api.parser.SystemMetricsParser
-import com.atlassian.performance.tools.report.api.result.FullCohortResult
+import com.atlassian.performance.tools.report.api.result.RawCohortResult
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
 import org.junit.Test
@@ -15,12 +12,9 @@ class ApdexTest {
 
     @Test
     fun shouldScore() {
-        val result = FullCohortResult(
+        val result = RawCohortResult.Factory().fullResult(
             cohort = "JIRA-JPTC-1339",
-            results = File(javaClass.getResource("/JIRA-JPTC-1339").toURI()).toPath(),
-            actionParser = MergingActionMetricsParser(),
-            nodeParser = MergingNodeCountParser(),
-            systemParser = SystemMetricsParser()
+            results = File(javaClass.getResource("/JIRA-JPTC-1339").toURI()).toPath()
         )
             .prepareForJudgement(StandardTimeline(Duration.ofMinutes(20)))
             .actionMetrics

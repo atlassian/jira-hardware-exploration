@@ -2,36 +2,40 @@ package com.atlassian.performance.tools.lib
 
 import com.atlassian.performance.tools.io.api.directories
 import com.atlassian.performance.tools.io.api.resolveSafely
-import com.atlassian.performance.tools.jiraactions.api.parser.MergingActionMetricsParser
-import com.atlassian.performance.tools.report.api.parser.MergingNodeCountParser
-import com.atlassian.performance.tools.report.api.parser.SystemMetricsParser
-import com.atlassian.performance.tools.report.api.result.CohortResult
-import com.atlassian.performance.tools.report.api.result.FailedCohortResult
-import com.atlassian.performance.tools.report.api.result.FullCohortResult
+import com.atlassian.performance.tools.report.api.result.RawCohortResult
 import com.atlassian.performance.tools.workspace.api.TestWorkspace
 import java.io.File
 import java.nio.file.Path
 
-fun TestWorkspace.readResult(cohort: String): CohortResult {
+fun TestWorkspace.readResult(cohort: String): RawCohortResult {
     val statusText = getStatusText()
+    val factory = RawCohortResult.Factory()
     return when (statusText) {
-        "OK" -> digOutTheCohortResult(cohort)
-        null -> FailedCohortResult(
+        "OK" -> factory.fullResult(
             cohort = cohort,
-            failure = Exception("Test for $cohort terminated abruptly")
+            results = digOutTheRawResults(cohort).toPath()
         )
-        else -> FailedCohortResult(
+        null -> {
+            factory.failedResult(
+                cohort = cohort,
+                failure = Exception("Test for $cohort terminated abruptly"),
+                results = directory
+            )
+        }
+        else -> factory.failedResult(
             cohort = cohort,
-            failure = Exception("Test for $cohort failed due to an error: $statusText")
+            failure = Exception("Test for $cohort failed due to an error: $statusText"),
+            results = directory
         )
     }
 }
 
 fun TestWorkspace.writeStatus(
-    results: CohortResult
+    results: RawCohortResult
 ) {
-    val statusText = if (results is FailedCohortResult) {
-        "FAILED"
+    val failure = results.failure
+    val statusText = if (failure != null) {
+        "FAILED: $failure"
     } else {
         "OK"
     }
@@ -59,12 +63,3 @@ fun TestWorkspace.digOutTheRawResults(
     .toExistingFile()
     ?: throw Exception("The raw results for $cohort are missing in $directory")
 
-private fun TestWorkspace.digOutTheCohortResult(
-    cohort: String
-): CohortResult = FullCohortResult(
-    cohort = cohort,
-    results = digOutTheRawResults(cohort).toPath(),
-    actionParser = MergingActionMetricsParser(),
-    systemParser = SystemMetricsParser(),
-    nodeParser = MergingNodeCountParser()
-)

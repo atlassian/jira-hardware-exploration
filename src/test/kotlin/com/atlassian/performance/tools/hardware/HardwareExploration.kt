@@ -27,7 +27,7 @@ import com.atlassian.performance.tools.report.api.FullReport
 import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.CohortResult
 import com.atlassian.performance.tools.report.api.result.EdibleResult
-import com.atlassian.performance.tools.report.api.result.FullCohortResult
+import com.atlassian.performance.tools.report.api.result.RawCohortResult
 import com.atlassian.performance.tools.virtualusers.api.browsers.HeadlessChromeBrowser
 import com.atlassian.performance.tools.virtualusers.api.config.VirtualUserBehavior
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
@@ -173,7 +173,7 @@ class HardwareExploration(
     ): HardwareTestResult? {
         val workspace = TestWorkspace(previousRun.toPath())
         val cohortResult = workspace.readResult(hardware.nameCohort(workspace))
-        return if (cohortResult is FullCohortResult) {
+        return if (cohortResult.failure != null) {
             score(hardware, cohortResult, workspace)
         } else {
             logger.error("Previous result has failed in $workspace, better investigate or remove it")
@@ -196,7 +196,7 @@ class HardwareExploration(
     }
 
     private fun postProcess(
-        rawResults: CohortResult
+        rawResults: RawCohortResult
     ): EdibleResult {
         val timeline = StandardTimeline(scale.load.total)
         return rawResults.prepareForJudgement(timeline)
@@ -204,7 +204,7 @@ class HardwareExploration(
 
     private fun score(
         hardware: Hardware,
-        results: CohortResult,
+        results: RawCohortResult,
         workspace: TestWorkspace
     ): HardwareTestResult {
         val postProcessedResult = postProcess(results)
@@ -284,8 +284,9 @@ class HardwareExploration(
             executor,
             virtualUsers
         ).thenApply {
-            workspace.writeStatus(it)
-            return@thenApply score(hardware, it, workspace)
+            @Suppress("DEPRECATION") val raw = CohortResult.toRawCohortResult(it)
+            workspace.writeStatus(raw)
+            return@thenApply score(hardware, raw, workspace)
         }
     }
 
