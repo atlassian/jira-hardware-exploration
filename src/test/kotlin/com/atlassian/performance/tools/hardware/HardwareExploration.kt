@@ -316,7 +316,7 @@ class HardwareExploration(
                 computer = EbsEc2Instance(hardware.instanceType)
             ),
             virtualUsersFormula = MulticastVirtualUsersFormula(
-                nodes = 8,
+                nodes = 16,
                 shadowJar = dereference("jpt.virtual-users.shadow-jar"),
                 splunkForwarder = DisabledSplunkForwarder(),
                 browser = browser

@@ -87,7 +87,7 @@ class HardwareExplorationIT {
     }
 
     companion object {
-        private val workspace = RootWorkspace(Paths.get("build")).isolateTask("QUICK-8")
+        private val workspace = RootWorkspace(Paths.get("build")).isolateTask("QUICK-53")
 
         @BeforeClass
         @JvmStatic
