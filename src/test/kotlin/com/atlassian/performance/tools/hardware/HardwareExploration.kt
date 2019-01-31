@@ -56,7 +56,7 @@ class HardwareExploration(
         .diagnosticsLimit(32)
         .browser(HeadlessChromeBrowser::class.java)
         .build()
-    private val awsParallelism = 8
+    private val awsParallelism = 4
     private val results = ConcurrentHashMap<Hardware, CompletableFuture<HardwareExplorationResult>>()
     private val cache = HardwareExplorationResultCache(task.directory.resolve("result-cache.json"))
     private val logger: Logger = LogManager.getLogger(this::class.java)
