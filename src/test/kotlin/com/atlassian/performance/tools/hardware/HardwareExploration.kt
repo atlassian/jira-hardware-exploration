@@ -75,10 +75,11 @@ class HardwareExploration(
         explorationExecutor: ExecutorService,
         awsExecutor: ExecutorService
     ) {
+        val completion = ExecutorCompletionService<HardwareExplorationResult>(explorationExecutor)
         guidance.instanceTypes.forEach { instanceType ->
             for (nodeCount in 1..guidance.maxNodeCount) {
                 val hardware = Hardware(instanceType, nodeCount)
-                results[hardware] = explorationExecutor.submit(explore(
+                results[hardware] = completion.submit(explore(
                     hardware,
                     awsExecutor
                 ))
@@ -88,16 +89,16 @@ class HardwareExploration(
         var oks = 0
         var fails = 0
         logger.info("Awaiting $resultSpace results")
-        val completedResults = results.values.mapNotNull {
+        val completedResults = (1..resultSpace).mapNotNull {
             try {
-                val result = it.get()
+                val result = completion.take().get()
                 oks++
                 result
             } catch (e: Exception) {
                 fails++
                 null
             } finally {
-                logger.info("OK: $oks, FAILS: $fails, REMAINING = ${resultSpace - oks - fails}")
+                logger.info("Result #$it complete. OK: $oks, FAILS: $fails, REMAINING: ${resultSpace - oks - fails}")
             }
         }
         cache.write(completedResults)
