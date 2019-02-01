@@ -85,22 +85,7 @@ class HardwareExploration(
                 ))
             }
         }
-        val resultSpace = results.size
-        var oks = 0
-        var fails = 0
-        logger.info("Awaiting $resultSpace results")
-        val completedResults = (1..resultSpace).mapNotNull {
-            try {
-                val result = completion.take().get()
-                oks++
-                result
-            } catch (e: Exception) {
-                fails++
-                null
-            } finally {
-                logger.info("Result #$it complete. OK: $oks, FAILS: $fails, REMAINING: ${resultSpace - oks - fails}")
-            }
-        }
+        val completedResults = awaitResults(completion)
         cache.write(completedResults)
         HardwareExplorationTable().summarize(
             results = completedResults,
@@ -114,6 +99,46 @@ class HardwareExploration(
             instanceTypeOrder = compareBy { guidance.instanceTypes.indexOf(it) }
         )
     }
+
+    private fun awaitResults(
+        completion: ExecutorCompletionService<HardwareExplorationResult>
+    ): List<HardwareExplorationResult> {
+        val resultCount = results.size
+        var tested = 0
+        var skipped = 0
+        var failed = 0
+        logger.info("Awaiting $resultCount results")
+        return (1..resultCount).mapNotNull {
+            val nextCompleted = completion.take()
+            val hardware = inferHardware(nextCompleted)
+            try {
+                val result = nextCompleted.get()
+                if (result.decision.worthExploring) {
+                    tested++
+                    logger.info("Finished $hardware")
+                } else {
+                    skipped++
+                    logger.info("Skipped testing $hardware")
+                }
+                result
+            } catch (e: Exception) {
+                failed++
+                logger.error("Failed when testing $hardware", e)
+                null
+            } finally {
+                val remaining = resultCount - tested - failed - skipped
+                logger.info("#$it: TESTED: $tested, SKIPPED: $skipped, FAILED: $failed, REMAINING: $remaining")
+            }
+        }
+    }
+
+    private fun inferHardware(
+        futureResult: Future<HardwareExplorationResult>
+    ): Hardware = results
+        .filterValues { it == futureResult }
+        .keys
+        .singleOrNull()
+        ?: throw Exception("Cannot find the hardware for $futureResult without risking an exception")
 
     private fun explore(
         hardware: Hardware,
@@ -184,7 +209,7 @@ class HardwareExploration(
     ): List<HardwareTestResult> {
         val reusableResults = listPreviousRuns(hardware).mapNotNull { reuseResult(hardware, it) }
         if (reusableResults.isNotEmpty()) {
-            logger.debug("Reusing results: $reusableResults")
+            logger.debug("Reusing ${reusableResults.size} results")
         }
         return reusableResults
     }
@@ -195,10 +220,11 @@ class HardwareExploration(
     ): HardwareTestResult? {
         val workspace = TestWorkspace(previousRun.toPath())
         val cohortResult = workspace.readResult(hardware.nameCohort(workspace))
-        return if (cohortResult.failure == null) {
+        val failure = cohortResult.failure
+        return if (failure == null) {
             score(hardware, cohortResult, workspace)
         } else {
-            logger.error("Previous result has failed in $workspace, better investigate or remove it")
+            guidance.pastFailures.handle(failure, workspace)
             null
         }
     }
@@ -399,5 +425,31 @@ class ExplorationGuidance(
     val repeats: Int,
     val minApdexGain: Double,
     val maxApdexSpread: Double,
-    val maxErrorRate: Double
+    val maxErrorRate: Double,
+    val pastFailures: FailureTolerance
 )
+
+interface FailureTolerance {
+    fun handle(failure: Exception, workspace: TestWorkspace)
+}
+
+class LoggingFailureTolerance(
+    private val logger: Logger
+) : FailureTolerance {
+
+    override fun handle(failure: Exception, workspace: TestWorkspace) {
+        logger.error("Previous result has failed in $workspace, better investigate or remove it")
+    }
+}
+
+class ThrowingFailureTolerance : FailureTolerance {
+    override fun handle(failure: Exception, workspace: TestWorkspace) {
+        throw Exception("Failed in $workspace", failure)
+    }
+}
+
+class CleaningFailureTolerance : FailureTolerance {
+    override fun handle(failure: Exception, workspace: TestWorkspace) {
+        workspace.directory.toFile().deleteRecursively()
+    }
+}

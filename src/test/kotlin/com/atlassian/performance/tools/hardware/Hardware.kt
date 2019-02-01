@@ -31,4 +31,6 @@ internal data class Hardware(
         val run = workspace.directory.fileName.toString()
         return "$instanceType, $nodeCount nodes, run $run"
     }
+
+    override fun toString(): String = "[$nodeCount * $instanceType]"
 }

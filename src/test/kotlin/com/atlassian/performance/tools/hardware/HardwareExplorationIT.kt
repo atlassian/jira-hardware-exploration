@@ -14,6 +14,8 @@ import com.atlassian.performance.tools.lib.overrideDatabase
 import com.atlassian.performance.tools.lib.toExistingFile
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserLoad
 import com.atlassian.performance.tools.workspace.api.RootWorkspace
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 import org.apache.logging.log4j.core.config.ConfigurationFactory
 import org.junit.BeforeClass
 import org.junit.Test
@@ -23,6 +25,7 @@ import java.time.Duration
 
 class HardwareExplorationIT {
 
+    private val logger: Logger = LogManager.getLogger(this::class.java)
     private val oneMillionIssues = DatasetCatalogue().custom(
         location = StorageLocation(
             uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-1sjxdtrv5hdhj/")
@@ -69,7 +72,8 @@ class HardwareExplorationIT {
                 repeats = 2,
                 minApdexGain = 0.01,
                 maxApdexSpread = 0.10,
-                maxErrorRate = 0.05
+                maxErrorRate = 0.05,
+                pastFailures = LoggingFailureTolerance(logger)
             ),
             investment = Investment(
                 useCase = "Test hardware recommendations",
