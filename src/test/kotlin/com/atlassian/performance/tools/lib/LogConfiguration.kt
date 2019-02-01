@@ -33,7 +33,7 @@ internal class LogConfiguration(
             logToFile(
                 name = "com.atlassian.performance.tools.jvmtasks.api.TaskTimer",
                 path = Paths.get("timing.log"),
-                pattern = "%d{ISO8601}{UTC}Z <%t> %x %msg%n"
+                pattern = "%d{ISO8601}{UTC}Z <%t> %X %x %msg%n"
             ),
             logToFile(
                 name = "com.atlassian.performance.tools.aws",
@@ -61,7 +61,7 @@ internal class LogConfiguration(
     private fun logToFile(
         name: String,
         path: Path,
-        pattern: String = "%d{ISO8601}{UTC}Z %-5level <%t> %x [%logger] %msg%n"
+        pattern: String = "%d{ISO8601}{UTC}Z %-5level <%t> %X %x [%logger] %msg%n"
     ): LoggerConfig {
         val log = LoggerConfig(
             name,
