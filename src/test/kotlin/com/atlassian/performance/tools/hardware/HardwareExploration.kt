@@ -38,7 +38,6 @@ import org.apache.logging.log4j.Logger
 import java.io.File
 import java.time.Duration
 import java.util.concurrent.*
-import java.util.concurrent.CompletableFuture.completedFuture
 
 class HardwareExploration(
     private val scale: ApplicationScale,
@@ -77,18 +76,30 @@ class HardwareExploration(
         awsExecutor: ExecutorService
     ) {
         guidance.instanceTypes.forEach { instanceType ->
-            explorationExecutor.submit {
-                for (nodeCount in 1..guidance.maxNodeCount) {
-                    explore(
-                        Hardware(instanceType, nodeCount),
-                        explorationExecutor,
-                        awsExecutor
-                    )
-                }
+            for (nodeCount in 1..guidance.maxNodeCount) {
+                val hardware = Hardware(instanceType, nodeCount)
+                results[hardware] = explorationExecutor.submit(explore(
+                    hardware,
+                    awsExecutor
+                ))
             }
         }
-        results.forEach { _, futureResult -> futureResult.get() }
-        val completedResults = results.values.map { it.get() }
+        val resultSpace = results.size
+        var oks = 0
+        var fails = 0
+        logger.info("Awaiting $resultSpace results")
+        val completedResults = results.values.mapNotNull {
+            try {
+                val result = it.get()
+                oks++
+                result
+            } catch (e: Exception) {
+                fails++
+                null
+            } finally {
+                logger.info("OK: $oks, FAILS: $fails, REMAINING = ${resultSpace - oks - fails}")
+            }
+        }
         cache.write(completedResults)
         HardwareExplorationTable().summarize(
             results = completedResults,
@@ -105,23 +116,18 @@ class HardwareExploration(
 
     private fun explore(
         hardware: Hardware,
-        explorationExecutor: ExecutorService,
         awsExecutor: ExecutorService
-    ) {
+    ): Callable<HardwareExplorationResult> = Callable {
         val decision = decideTesting(hardware)
         if (decision.worthExploring) {
-            results[hardware] = explorationExecutor.submit(Callable {
-                HardwareExplorationResult(
-                    decision = decision,
-                    testResult = getRobustResult(hardware, awsExecutor)
-                )
-            })
+            HardwareExplorationResult(
+                decision = decision,
+                testResult = getRobustResult(hardware, awsExecutor)
+            )
         } else {
-            results[hardware] = completedFuture(
-                HardwareExplorationResult(
-                    decision = decision,
-                    testResult = null
-                )
+            HardwareExplorationResult(
+                decision = decision,
+                testResult = null
             )
         }
     }
@@ -266,7 +272,7 @@ class HardwareExploration(
         if (missingResultCount <= 0) {
             return emptyList()
         }
-        logger.info("Running $missingResultCount tests to get the rest of the results for $hardware")
+        logger.debug("Running $missingResultCount tests to get the rest of the results for $hardware")
         val nextResultNumber = chooseNextRunNumber(hardware)
         val newRuns = nextResultNumber.until(nextResultNumber + missingResultCount)
         val workspace = hardware.isolateRuns(task).directory
