@@ -39,7 +39,6 @@ import java.io.File
 import java.time.Duration
 import java.util.concurrent.*
 import java.util.concurrent.CompletableFuture.completedFuture
-import java.util.concurrent.CompletableFuture.supplyAsync
 
 class HardwareExploration(
     private val scale: ApplicationScale,
@@ -57,40 +56,33 @@ class HardwareExploration(
         .browser(HeadlessChromeBrowser::class.java)
         .build()
     private val awsParallelism = 4
-    private val results = ConcurrentHashMap<Hardware, CompletableFuture<HardwareExplorationResult>>()
+    private val results = ConcurrentHashMap<Hardware, Future<HardwareExplorationResult>>()
     private val cache = HardwareExplorationResultCache(task.directory.resolve("result-cache.json"))
     private val logger: Logger = LogManager.getLogger(this::class.java)
 
     fun exploreHardware() {
-        val executor = Executors.newFixedThreadPool(awsParallelism)
+        val awsExecutor = Executors.newFixedThreadPool(awsParallelism)
+        val explorationExecutor = Executors.newCachedThreadPool()
         try {
-            exploreHardwareInParallel(executor)
+            exploreHardwareInParallel(explorationExecutor, awsExecutor)
         } finally {
-            executor.shutdown()
-            executor.awaitTermination(70, TimeUnit.MINUTES)
+            explorationExecutor.shutdown()
+            awsExecutor.shutdown()
+            explorationExecutor.awaitTermination(70, TimeUnit.MINUTES)
         }
     }
 
     private fun exploreHardwareInParallel(
-        executor: ExecutorService
+        explorationExecutor: ExecutorService,
+        awsExecutor: ExecutorService
     ) {
-        guidance.instanceTypes.parallelStream().forEach { instanceType ->
-            for (nodeCount in 1..guidance.maxNodeCount) {
-                val hardware = Hardware(instanceType, nodeCount)
-                val decision = decideTesting(hardware)
-                if (decision.worthExploring) {
-                    results[hardware] = supplyAsync {
-                        HardwareExplorationResult(
-                            decision = decision,
-                            testResult = getRobustResult(hardware, executor)
-                        )
-                    }
-                } else {
-                    results[hardware] = completedFuture(
-                        HardwareExplorationResult(
-                            decision = decision,
-                            testResult = null
-                        )
+        guidance.instanceTypes.forEach { instanceType ->
+            explorationExecutor.submit {
+                for (nodeCount in 1..guidance.maxNodeCount) {
+                    explore(
+                        Hardware(instanceType, nodeCount),
+                        explorationExecutor,
+                        awsExecutor
                     )
                 }
             }
@@ -109,6 +101,29 @@ class HardwareExploration(
             output = task.isolateReport("exploration-chart.html"),
             instanceTypeOrder = compareBy { guidance.instanceTypes.indexOf(it) }
         )
+    }
+
+    private fun explore(
+        hardware: Hardware,
+        explorationExecutor: ExecutorService,
+        awsExecutor: ExecutorService
+    ) {
+        val decision = decideTesting(hardware)
+        if (decision.worthExploring) {
+            results[hardware] = explorationExecutor.submit(Callable {
+                HardwareExplorationResult(
+                    decision = decision,
+                    testResult = getRobustResult(hardware, awsExecutor)
+                )
+            })
+        } else {
+            results[hardware] = completedFuture(
+                HardwareExplorationResult(
+                    decision = decision,
+                    testResult = null
+                )
+            )
+        }
     }
 
     private fun decideTesting(
