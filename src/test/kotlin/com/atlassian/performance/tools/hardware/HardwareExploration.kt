@@ -60,10 +60,13 @@ class HardwareExploration(
     private val logger: Logger = LogManager.getLogger(this::class.java)
 
     fun exploreHardware() {
+        val space = guidance.instanceTypes.flatMap { instanceType ->
+            (1..guidance.maxNodeCount).map { Hardware(instanceType, it) }
+        }
         val awsExecutor = Executors.newFixedThreadPool(awsParallelism)
-        val explorationExecutor = Executors.newCachedThreadPool()
+        val explorationExecutor = Executors.newFixedThreadPool(space.size)
         try {
-            exploreHardwareInParallel(explorationExecutor, awsExecutor)
+            exploreHardwareInParallel(space, explorationExecutor, awsExecutor)
         } finally {
             explorationExecutor.shutdown()
             awsExecutor.shutdown()
@@ -72,16 +75,17 @@ class HardwareExploration(
     }
 
     private fun exploreHardwareInParallel(
+        hardwareSpace: List<Hardware>,
         explorationExecutor: ExecutorService,
         awsExecutor: ExecutorService
     ) {
         val completion = ExecutorCompletionService<HardwareExplorationResult>(explorationExecutor)
-        guidance.instanceTypes.forEach { instanceType ->
-            for (nodeCount in 1..guidance.maxNodeCount) {
-                val hardware = Hardware(instanceType, nodeCount)
-                results[hardware] = completion.submit(explore(
+        hardwareSpace.forEach { hardware ->
+            results.computeIfAbsent(hardware) {
+                completion.submit(explore(
                     hardware,
-                    awsExecutor
+                    awsExecutor,
+                    completion
                 ))
             }
         }
@@ -142,9 +146,10 @@ class HardwareExploration(
 
     private fun explore(
         hardware: Hardware,
-        awsExecutor: ExecutorService
+        awsExecutor: ExecutorService,
+        completion: ExecutorCompletionService<HardwareExplorationResult>
     ): Callable<HardwareExplorationResult> = Callable {
-        val decision = decideTesting(hardware)
+        val decision = decideTesting(hardware, awsExecutor, completion)
         if (decision.worthExploring) {
             HardwareExplorationResult(
                 decision = decision,
@@ -159,7 +164,9 @@ class HardwareExploration(
     }
 
     private fun decideTesting(
-        hardware: Hardware
+        hardware: Hardware,
+        awsExecutor: ExecutorService,
+        completion: ExecutorCompletionService<HardwareExplorationResult>
     ): HardwareExplorationDecision {
         if (hardware.nodeCount <= guidance.minNodeCountForAvailability) {
             return HardwareExplorationDecision(
@@ -168,12 +175,21 @@ class HardwareExploration(
                 reason = "high availability"
             )
         }
-        val previousResults = results
-            .filterKeys { it.instanceType == hardware.instanceType }
-            .values
+        val previousResults = (1..hardware.nodeCount)
+            .map { Hardware(hardware.instanceType, it) }
+            .map { smallerHardware ->
+                results.computeIfAbsent(smallerHardware) {
+                    completion.submit(explore(
+                        hardware = it,
+                        awsExecutor = awsExecutor,
+                        completion = completion
+                    ))
+                }
+            }
             .map { it.get() }
             .mapNotNull { it.testResult }
             .sortedBy { it.hardware.nodeCount }
+            .toList()
         val apdexIncrements = previousResults
             .map { it.apdex }
             .zipWithNext { a, b -> b - a }
