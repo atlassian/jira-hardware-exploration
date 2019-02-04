@@ -175,7 +175,7 @@ class HardwareExploration(
                 reason = "high availability"
             )
         }
-        val previousResults = (1 until hardware.nodeCount)
+        val smallerHardwareTests = (1 until hardware.nodeCount)
             .asSequence()
             .map { Hardware(hardware.instanceType, it) }
             .map { smallerHardware ->
@@ -187,11 +187,19 @@ class HardwareExploration(
                     ))
                 }
             }
-            .map { it.get() }
+        val smallerHardwareResults = try {
+            smallerHardwareTests.map { it.get() }
+        } catch (e: Exception) {
+            return HardwareExplorationDecision(
+                hardware = hardware,
+                worthExploring = false,
+                reason = "testing smaller hardware has failed. ERROR: ${e.message}"
+            )
+        }
+        val apdexIncrements = smallerHardwareResults
             .mapNotNull { it.testResult }
             .sortedBy { it.hardware.nodeCount }
             .toList()
-        val apdexIncrements = previousResults
             .map { it.apdex }
             .zipWithNext { a, b -> b - a }
         val strongPositiveImpact = apdexIncrements.all { it > guidance.minApdexGain }
