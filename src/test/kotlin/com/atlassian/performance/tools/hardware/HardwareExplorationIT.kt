@@ -49,6 +49,22 @@ class HardwareExplorationIT {
     }
 
 
+    private val failureTolerance = object : FailureTolerance {
+        val cleaning = CleaningFailureTolerance()
+        val logging = LoggingFailureTolerance(logger)
+
+        override fun handle(failure: Exception, workspace: TestWorkspace) {
+            if (failure.message!!.contains("Failed to install")) {
+                logger.warn(
+                    "Failure in $workspace due to https://ecosystem.atlassian.net/browse/JPERF-387, cleaning..."
+                )
+                cleaning.handle(failure, workspace)
+            } else {
+                logging.handle(failure, workspace)
+            }
+        }
+    }
+
     @Test
     fun shouldExploreHardware() {
         HardwareExploration(
@@ -74,19 +90,7 @@ class HardwareExplorationIT {
                 minApdexGain = 0.01,
                 maxApdexSpread = 0.10,
                 maxErrorRate = 0.05,
-                pastFailures = object : FailureTolerance {
-                    val cleaning = CleaningFailureTolerance()
-                    val logging = LoggingFailureTolerance(logger)
-
-                    override fun handle(failure: Exception, workspace: TestWorkspace) {
-                        if (failure.message!!.contains("Failed to install")) {
-                            logger.warn("Failed due to https://ecosystem.atlassian.net/browse/JPERF-387, cleaning...")
-                            cleaning.handle(failure, workspace)
-                        } else {
-                            logging.handle(failure, workspace)
-                        }
-                    }
-                }
+                pastFailures = failureTolerance
             ),
             investment = Investment(
                 useCase = "Test hardware recommendations",

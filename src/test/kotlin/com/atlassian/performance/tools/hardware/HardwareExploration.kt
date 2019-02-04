@@ -176,6 +176,7 @@ class HardwareExploration(
             )
         }
         val previousResults = (1 until hardware.nodeCount)
+            .asSequence()
             .map { Hardware(hardware.instanceType, it) }
             .map { smallerHardware ->
                 results.computeIfAbsent(smallerHardware) {
@@ -454,7 +455,7 @@ class LoggingFailureTolerance(
 ) : FailureTolerance {
 
     override fun handle(failure: Exception, workspace: TestWorkspace) {
-        logger.error("Previous result has failed in $workspace, better investigate or remove it")
+        logger.error("Failure in $workspace, better investigate or remove it")
     }
 }
 
