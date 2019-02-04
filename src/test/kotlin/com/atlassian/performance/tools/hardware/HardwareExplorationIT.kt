@@ -14,6 +14,7 @@ import com.atlassian.performance.tools.lib.overrideDatabase
 import com.atlassian.performance.tools.lib.toExistingFile
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserLoad
 import com.atlassian.performance.tools.workspace.api.RootWorkspace
+import com.atlassian.performance.tools.workspace.api.TestWorkspace
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.apache.logging.log4j.core.config.ConfigurationFactory
@@ -73,7 +74,19 @@ class HardwareExplorationIT {
                 minApdexGain = 0.01,
                 maxApdexSpread = 0.10,
                 maxErrorRate = 0.05,
-                pastFailures = LoggingFailureTolerance(logger)
+                pastFailures = object : FailureTolerance {
+                    val cleaning = CleaningFailureTolerance()
+                    val logging = LoggingFailureTolerance(logger)
+
+                    override fun handle(failure: Exception, workspace: TestWorkspace) {
+                        if (failure.message!!.contains("Failed to install")) {
+                            logger.warn("Failed due to https://ecosystem.atlassian.net/browse/JPERF-387, cleaning...")
+                            cleaning.handle(failure, workspace)
+                        } else {
+                            logging.handle(failure, workspace)
+                        }
+                    }
+                }
             ),
             investment = Investment(
                 useCase = "Test hardware recommendations",
