@@ -175,7 +175,7 @@ class HardwareExploration(
                 reason = "high availability"
             )
         }
-        val previousResults = (1..hardware.nodeCount)
+        val previousResults = (1 until hardware.nodeCount)
             .map { Hardware(hardware.instanceType, it) }
             .map { smallerHardware ->
                 results.computeIfAbsent(smallerHardware) {
