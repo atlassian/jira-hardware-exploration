@@ -90,14 +90,20 @@ class HardwareExploration(
             }
         }
         val completedResults = awaitResults(completion)
-        cache.write(completedResults)
+        report(completedResults)
+    }
+
+    private fun report(
+        results: List<HardwareExplorationResult>
+    ) = synchronized(this) {
+        cache.write(results)
         HardwareExplorationTable().summarize(
-            results = completedResults,
+            results = results,
             instanceTypesOrder = guidance.instanceTypes,
             table = task.isolateReport("exploration-table.csv")
         )
         HardwareExplorationChart(GitRepo.findFromCurrentDirectory()).plot(
-            results = completedResults,
+            results = results,
             application = scale.description,
             output = task.isolateReport("exploration-chart.html"),
             instanceTypeOrder = compareBy { guidance.instanceTypes.indexOf(it) }
@@ -112,6 +118,7 @@ class HardwareExploration(
         var skipped = 0
         var failed = 0
         logger.info("Awaiting $resultCount results")
+        val resultsSoFar = mutableListOf<HardwareExplorationResult>()
         return (1..resultCount).mapNotNull {
             val nextCompleted = completion.take()
             val hardware = inferHardware(nextCompleted)
@@ -124,6 +131,8 @@ class HardwareExploration(
                     skipped++
                     logger.info("Skipped testing $hardware")
                 }
+                resultsSoFar += result
+                report(resultsSoFar)
                 result
             } catch (e: Exception) {
                 failed++
