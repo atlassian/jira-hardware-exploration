@@ -16,7 +16,7 @@ import java.time.Instant
 
 
 class CustomSetup(
-    jira: WebJira,
+    private val jira: WebJira,
     private val meter: ActionMeter
 ) : Action {
     private val logger = LogManager.getLogger(this::class.java)
@@ -27,6 +27,7 @@ class CustomSetup(
 
     override fun run() {
         meter.measure(SET_UP) {
+            jira.navigateTo("secure/admin/ConfigureRTE!default.jspa")
             disable()
         }
     }
