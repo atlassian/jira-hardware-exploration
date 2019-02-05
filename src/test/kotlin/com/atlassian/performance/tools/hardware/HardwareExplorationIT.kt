@@ -54,14 +54,32 @@ class HardwareExplorationIT {
         val logging = LoggingFailureTolerance(logger)
 
         override fun handle(failure: Exception, workspace: TestWorkspace) {
-            if (failure.message!!.contains("Failed to install")) {
-                logger.warn(
-                    "Failure in $workspace due to https://ecosystem.atlassian.net/browse/JPERF-387, cleaning..."
-                )
-                cleaning.handle(failure, workspace)
-            } else {
-                logging.handle(failure, workspace)
+            when {
+                causedByJperf387(failure) -> cleanAfterKnownIssue(failure, workspace, "JPERF-387")
+                causedByJperf382(failure) -> cleanAfterKnownIssue(failure, workspace, "JPERF-382")
+                else -> logging.handle(failure, workspace)
             }
+        }
+
+        private fun causedByJperf382(
+            failure: Exception
+        ): Boolean = failure
+            .stackTrace
+            .any { it.className == "com.atlassian.performance.tools.aws.api.Storage" && it.methodName == "download" }
+
+        private fun causedByJperf387(
+            failure: Exception
+        ): Boolean = failure
+            .message!!
+            .contains("Failed to install")
+
+        private fun cleanAfterKnownIssue(
+            failure: Exception,
+            workspace: TestWorkspace,
+            issueKey: String
+        ) {
+            logger.warn("Failure in $workspace due to https://ecosystem.atlassian.net/browse/$issueKey, cleaning...")
+            cleaning.handle(failure, workspace)
         }
     }
 
