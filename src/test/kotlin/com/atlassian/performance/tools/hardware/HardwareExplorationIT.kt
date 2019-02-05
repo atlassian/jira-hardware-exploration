@@ -64,8 +64,8 @@ class HardwareExplorationIT {
         private fun causedByJperf382(
             failure: Exception
         ): Boolean = failure
-            .stackTrace
-            .any { it.className == "com.atlassian.performance.tools.aws.api.Storage" && it.methodName == "download" }
+            .message!!
+            .contains("java.net.SocketTimeoutException: Read timed out")
 
         private fun causedByJperf387(
             failure: Exception
