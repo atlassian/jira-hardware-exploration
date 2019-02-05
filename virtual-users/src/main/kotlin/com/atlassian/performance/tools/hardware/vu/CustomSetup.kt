@@ -43,7 +43,7 @@ class CustomSetup(
         if (isSwitchPresent()) {
             ensureSwitchIsOff()
         } else {
-            logger.info("This Jira does not support RTE configuration, so RTE should be de facto disabled")
+            throw Exception("RTE config is missing")
         }
         if (prompted) {
             access.drop()
