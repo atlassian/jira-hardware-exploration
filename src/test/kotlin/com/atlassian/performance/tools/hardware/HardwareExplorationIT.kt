@@ -91,7 +91,7 @@ class HardwareExplorationIT {
                 dataset = oneMillionIssues,
                 load = VirtualUserLoad(
                     virtualUsers = 200,
-                    ramp = Duration.ofSeconds(30),
+                    ramp = Duration.ofSeconds(90),
                     flat = Duration.ofMinutes(20)
                 )
             ),
