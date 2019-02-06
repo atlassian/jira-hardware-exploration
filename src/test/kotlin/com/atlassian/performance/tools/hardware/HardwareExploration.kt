@@ -318,8 +318,8 @@ class HardwareExploration(
             errorRate = ErrorRate().measure(metrics),
             errorRateSpread = 0.0
         )
+        reportRaw("sub-reports", listOf(postProcessedResult), hardware)
         if (hardwareResult.errorRate > guidance.maxErrorRate) {
-            reportRaw("errors", listOf(postProcessedResult), hardware)
             throw Exception("Error rate for $cohort is too high: ${ErrorRate().measure(metrics)}")
         }
         return hardwareResult
