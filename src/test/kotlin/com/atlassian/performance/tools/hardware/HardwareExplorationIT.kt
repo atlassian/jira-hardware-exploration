@@ -111,7 +111,7 @@ class HardwareExplorationIT {
                 pastFailures = failureTolerance
             ),
             investment = Investment(
-                useCase = "Test hardware recommendations - 3rd go",
+                useCase = "Test hardware recommendations - 4th go",
                 lifespan = Duration.ofHours(2)
             ),
             aws = Aws(
@@ -126,7 +126,7 @@ class HardwareExplorationIT {
     }
 
     companion object {
-        private val workspace = RootWorkspace(Paths.get("build")).isolateTask("QUICK-53-fixed-rte")
+        private val workspace = RootWorkspace(Paths.get("build")).isolateTask("QUICK-78-drilldown")
 
         @BeforeClass
         @JvmStatic
