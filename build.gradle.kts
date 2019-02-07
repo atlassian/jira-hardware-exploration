@@ -35,6 +35,7 @@ task<Test>("exploreHardware").apply {
     dependsOn(shadowJarTask)
     systemProperty("jpt.virtual-users.shadow-jar", shadowJarTask.outputs.files.files.first())
     failFast = true
+    maxHeapSize = "8g"
 }
 
 dependencies {
