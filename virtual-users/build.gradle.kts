@@ -14,6 +14,7 @@ dependencies {
     compile("org.apache.logging.log4j:log4j-api:2.10.0")
     compile("org.seleniumhq.selenium:selenium-support:3.11.0")
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+    runtime("com.atlassian.performance.tools:io:1.1.1-SNAPSHOT")
     runtime("com.atlassian.performance.tools:virtual-users:[3.3.4,4.0.0)")
 }
 
@@ -39,5 +40,6 @@ configurations.all {
 }
 
 repositories {
+    mavenLocal()
     maven(url = URI("https://packages.atlassian.com/maven-external/"))
 }

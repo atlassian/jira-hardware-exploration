@@ -38,6 +38,7 @@ task<Test>("exploreHardware").apply {
 }
 
 dependencies {
+    testCompile(project(":virtual-users"))
     testCompile("com.atlassian.performance.tools:jira-performance-tests:[3.0.0,4.0.0)")
     testCompile("com.atlassian.performance.tools:infrastructure:[4.6.0,5.0.0)")
     testCompile("com.atlassian.performance.tools:virtual-users:[3.4.1,4.0.0)")
@@ -59,7 +60,6 @@ dependencies {
     }.forEach {
         testCompile(it)
     }
-    testCompile(project(":virtual-users"))
 }
 
 configurations.all {
