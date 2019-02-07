@@ -318,7 +318,6 @@ class HardwareExploration(
             errorRate = ErrorRate().measure(metrics),
             errorRateSpread = 0.0
         )
-        reportRaw("sub-reports", listOf(postProcessedResult), hardware)
         if (hardwareResult.errorRate > guidance.maxErrorRate) {
             throw Exception("Error rate for $cohort is too high: ${ErrorRate().measure(metrics)}")
         }
@@ -429,9 +428,9 @@ class HardwareExploration(
             errorRate = errorRates.average(),
             errorRateSpread = errorRates.spread()
         )
+        val postProcessedResults = results.flatMap { it.results }.map { postProcess(it) }
+        reportRaw("sub-test-comparison", postProcessedResults, hardware)
         if (testResult.apdexSpread > guidance.maxApdexSpread) {
-            val postProcessedResults = results.flatMap { it.results }.map { postProcess(it) }
-            reportRaw("comparison", postProcessedResults, hardware)
             throw Exception("Apdex spread for $hardware is too big: ${apdexes.spread()}. Results: $results")
         }
         return testResult
