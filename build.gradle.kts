@@ -2,6 +2,7 @@ import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.time.Instant
 import java.io.File
 import java.net.URI
@@ -25,6 +26,12 @@ repositories {
 tasks.getByName("test", Test::class).apply {
     filter {
         exclude("**/*IT.class")
+    }
+}
+
+tasks.withType(KotlinCompile::class).forEach {
+    it.kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 

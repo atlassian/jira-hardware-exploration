@@ -8,6 +8,7 @@ import java.time.Duration
 import java.time.Instant
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import java.util.stream.Stream
 
 class AccessLogThroughput {
 
@@ -26,48 +27,46 @@ class AccessLogThroughput {
     private fun gaugeNode(
         rawNodeResults: File
     ): Throughput {
-        return rawNodeResults
+        val logs = rawNodeResults
             .listFiles { file: File -> file.name.startsWith("access_log") }
-            .map { tryToGaugeAccessLog(it) }
-            .fold(Throughput.ZERO, Throughput::plus)
-    }
-
-    private fun tryToGaugeAccessLog(
-        accessLog: File
-    ): Throughput {
+            .sortedBy { it.name }
+        val readers = logs.map { it.bufferedReader() }
         try {
-            return gaugeAccessLog(accessLog)
-        } catch (e: Exception) {
-            throw Exception("Failed to gauge access log: $accessLog", e)
+            val allLines = readers
+                .map { it.lines() }
+                .fold(Stream.empty()) { next: Stream<String>, total ->
+                    Stream.concat(next, total)
+                }
+            return gaugeLines(allLines)
+        } finally {
+            readers.forEach { it.close() }
         }
     }
 
-    private fun gaugeAccessLog(
-        accessLog: File
+    private fun gaugeLines(
+        lines: Stream<String>
     ): Throughput {
         var firstEntry: AccessLogEntry? = null
         var lastEntry: AccessLogEntry? = null
         var count = 0
-        accessLog.useLines { lines ->
-            for (line in lines) {
-                count++
-                val entry = try {
-                    parse(line)
-                } catch (e: Exception) {
-                    logger.warn("Cannot parse $accessLog on line $count: `$line`")
-                    continue
-                }
-                if (firstEntry == null) {
-                    if (line.contains("login.jsp")) {
-                        firstEntry = entry
-                    }
-                }
-                lastEntry = entry
+        for (line in lines) {
+            count++
+            val entry = try {
+                parse(line)
+            } catch (e: Exception) {
+                logger.warn("Cannot parse line $count: `$line`")
+                continue
             }
+            if (firstEntry == null) {
+                if (line.contains("login.jsp")) {
+                    firstEntry = entry
+                }
+            }
+            lastEntry = entry
         }
         val span = Duration.between(
-            firstEntry?.timestamp ?: throw Exception("$accessLog does not have a first entry"),
-            lastEntry?.timestamp ?: throw Exception("$accessLog does not have a last entry")
+            firstEntry?.timestamp ?: throw Exception("There is no first entry"),
+            lastEntry?.timestamp ?: throw Exception("There is no last entry")
         )
         return Throughput(count.toDouble(), span).scalePeriod(Duration.ofSeconds(1))
     }
