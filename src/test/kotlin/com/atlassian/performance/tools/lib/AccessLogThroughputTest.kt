@@ -27,4 +27,11 @@ class AccessLogThroughputTest {
         assertThat(throughput.count, equalTo(9.626355296080066))
         assertThat(throughput.period, equalTo(Duration.ofSeconds(1)))
     }
+
+    @Test
+    fun shouldGaugeOvernightLogs() {
+        val rawResults = File(javaClass.getResource("/QUICK-73").toURI())
+
+        AccessLogThroughput().gauge(rawResults)
+    }
 }
