@@ -11,7 +11,6 @@ import com.atlassian.performance.tools.awsinfrastructure.api.storage.JiraSoftwar
 import com.atlassian.performance.tools.awsinfrastructure.api.virtualusers.MulticastVirtualUsersFormula
 import com.atlassian.performance.tools.hardware.vu.CustomScenario
 import com.atlassian.performance.tools.infrastructure.api.app.Apps
-import com.atlassian.performance.tools.infrastructure.api.browser.Browser
 import com.atlassian.performance.tools.infrastructure.api.browser.chromium.Chromium69
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraLaunchTimeouts
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
@@ -47,7 +46,6 @@ class HardwareExploration(
     private val task: TaskWorkspace
 ) {
 
-    private val browser: Browser = Chromium69()
     private val virtualUsers: VirtualUserBehavior = VirtualUserBehavior.Builder(CustomScenario::class.java)
         .load(scale.load)
         .seed(78432)
@@ -398,10 +396,10 @@ class HardwareExploration(
                 computer = EbsEc2Instance(hardware.instanceType)
             ),
             virtualUsersFormula = MulticastVirtualUsersFormula(
-                nodes = 16,
+                nodes = scale.vuNodes,
                 shadowJar = dereference("jpt.virtual-users.shadow-jar"),
                 splunkForwarder = DisabledSplunkForwarder(),
-                browser = browser
+                browser = Chromium69()
             ),
             aws = aws
         )

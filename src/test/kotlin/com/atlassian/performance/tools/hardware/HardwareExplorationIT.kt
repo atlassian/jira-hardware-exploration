@@ -90,10 +90,11 @@ class HardwareExplorationIT {
                 description = "Jira L profile",
                 dataset = oneMillionIssues,
                 load = VirtualUserLoad(
-                    virtualUsers = 200,
+                    virtualUsers = 75,
                     ramp = Duration.ofSeconds(90),
                     flat = Duration.ofMinutes(20)
-                )
+                ),
+                vuNodes = 6
             ),
             guidance = ExplorationGuidance(
                 instanceTypes = listOf(
@@ -111,7 +112,7 @@ class HardwareExplorationIT {
                 pastFailures = failureTolerance
             ),
             investment = Investment(
-                useCase = "Test hardware recommendations - 4th go",
+                useCase = "Test hardware recommendations - 5th go",
                 lifespan = Duration.ofHours(2)
             ),
             aws = Aws(
@@ -126,7 +127,7 @@ class HardwareExplorationIT {
     }
 
     companion object {
-        private val workspace = RootWorkspace(Paths.get("build")).isolateTask("QUICK-78-drilldown")
+        private val workspace = RootWorkspace(Paths.get("build")).isolateTask("QUICK-54")
 
         @BeforeClass
         @JvmStatic
