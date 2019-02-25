@@ -12,6 +12,7 @@ import com.atlassian.performance.tools.lib.LicenseOverridingDatabase
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import com.atlassian.performance.tools.lib.overrideDatabase
 import com.atlassian.performance.tools.lib.toExistingFile
+import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserLoad
 import com.atlassian.performance.tools.workspace.api.RootWorkspace
 import com.atlassian.performance.tools.workspace.api.TestWorkspace
@@ -89,11 +90,12 @@ class HardwareExplorationIT {
             scale = ApplicationScale(
                 description = "Jira L profile",
                 dataset = oneMillionIssues,
-                load = VirtualUserLoad(
-                    virtualUsers = 75,
-                    ramp = Duration.ofSeconds(90),
-                    flat = Duration.ofMinutes(20)
-                ),
+                load = VirtualUserLoad.Builder()
+                    .virtualUsers(75)
+                    .ramp(Duration.ofSeconds(90))
+                    .flat(Duration.ofMinutes(20))
+                    .maxOverallLoad(TemporalRate(15.0, Duration.ofSeconds(1)))
+                    .build(),
                 vuNodes = 6
             ),
             guidance = ExplorationGuidance(
@@ -112,7 +114,7 @@ class HardwareExplorationIT {
                 pastFailures = failureTolerance
             ),
             investment = Investment(
-                useCase = "Test hardware recommendations - 5th go",
+                useCase = "Test hardware recommendations - $taskName",
                 lifespan = Duration.ofHours(2)
             ),
             aws = Aws(
@@ -127,7 +129,8 @@ class HardwareExplorationIT {
     }
 
     companion object {
-        private val workspace = RootWorkspace(Paths.get("build")).isolateTask("QUICK-54")
+        const val taskName = "QUICK-54-controlled-load"
+        private val workspace = RootWorkspace(Paths.get("build")).isolateTask(taskName)
 
         @BeforeClass
         @JvmStatic
