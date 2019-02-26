@@ -86,6 +86,9 @@ class HardwareExplorationIT {
 
     @Test
     fun shouldExploreHardware() {
+        val vuNodes = 6
+        val maxOverallLoad = TemporalRate(15.0, Duration.ofSeconds(1))
+        val maxOverallLoadPerVuNode = TemporalRate(maxOverallLoad.change / vuNodes, maxOverallLoad.time)
         HardwareExploration(
             scale = ApplicationScale(
                 description = "Jira L profile",
@@ -94,9 +97,9 @@ class HardwareExplorationIT {
                     .virtualUsers(75)
                     .ramp(Duration.ofSeconds(90))
                     .flat(Duration.ofMinutes(20))
-                    .maxOverallLoad(TemporalRate(1.0, Duration.ofSeconds(1)))
+                    .maxOverallLoad(maxOverallLoadPerVuNode)
                     .build(),
-                vuNodes = 6
+                vuNodes = vuNodes
             ),
             guidance = ExplorationGuidance(
                 instanceTypes = listOf(
