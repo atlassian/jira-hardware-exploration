@@ -94,7 +94,7 @@ class HardwareExplorationIT {
                     .virtualUsers(75)
                     .ramp(Duration.ofSeconds(90))
                     .flat(Duration.ofMinutes(20))
-                    .maxOverallLoad(TemporalRate(15.0, Duration.ofSeconds(1)))
+                    .maxOverallLoad(TemporalRate(1.0, Duration.ofSeconds(1)))
                     .build(),
                 vuNodes = 6
             ),
@@ -129,7 +129,7 @@ class HardwareExplorationIT {
     }
 
     companion object {
-        const val taskName = "QUICK-54-controlled-load"
+        const val taskName = "QUICK-54-controlled-load-2"
         private val workspace = RootWorkspace(Paths.get("build")).isolateTask(taskName)
 
         @BeforeClass
