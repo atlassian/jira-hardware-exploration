@@ -86,9 +86,6 @@ class HardwareExplorationIT {
 
     @Test
     fun shouldExploreHardware() {
-        val vuNodes = 6
-        val maxOverallLoad = TemporalRate(15.0, Duration.ofSeconds(1))
-        val maxOverallLoadPerVuNode = TemporalRate(maxOverallLoad.change / vuNodes, maxOverallLoad.time)
         HardwareExploration(
             scale = ApplicationScale(
                 description = "Jira L profile",
@@ -97,9 +94,9 @@ class HardwareExplorationIT {
                     .virtualUsers(75)
                     .ramp(Duration.ofSeconds(90))
                     .flat(Duration.ofMinutes(20))
-                    .maxOverallLoad(maxOverallLoadPerVuNode)
+                    .maxOverallLoad(TemporalRate(15.0, Duration.ofSeconds(1)))
                     .build(),
-                vuNodes = vuNodes
+                vuNodes = 6
             ),
             guidance = ExplorationGuidance(
                 instanceTypes = listOf(
@@ -132,7 +129,7 @@ class HardwareExplorationIT {
     }
 
     companion object {
-        const val taskName = "QUICK-54-controlled-load-2"
+        const val taskName = "QUICK-54-controlled-load-3"
         private val workspace = RootWorkspace(Paths.get("build")).isolateTask(taskName)
 
         @BeforeClass
