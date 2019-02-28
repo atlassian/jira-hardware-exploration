@@ -61,7 +61,7 @@ class HardwareExploration(
 
     fun exploreHardware() {
         val space = guidance.instanceTypes.flatMap { instanceType ->
-            (1..guidance.maxNodeCount).map { Hardware(instanceType, it) }
+            (3..guidance.maxNodeCount).map { Hardware(instanceType, it) }
         }
         val awsExecutor = Executors.newFixedThreadPool(awsParallelism)
         val explorationExecutor = Executors.newFixedThreadPool(space.size)

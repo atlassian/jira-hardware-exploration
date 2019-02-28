@@ -97,21 +97,21 @@ class HardwareExplorationIT {
             ),
             guidance = ExplorationGuidance(
                 instanceTypes = listOf(
-                    C52xlarge,
-                    C54xlarge,
-                    C48xlarge,
+//                    C52xlarge,
+//                    C54xlarge,
+//                    C48xlarge,
                     C518xlarge
                 ),
-                maxNodeCount = 16,
+                maxNodeCount = 3,
                 minNodeCountForAvailability = 3,
-                repeats = 2,
+                repeats = 1,
                 minApdexGain = 0.01,
                 maxApdexSpread = 0.10,
                 maxErrorRate = 0.05,
-                pastFailures = failureTolerance
+                pastFailures = CleaningFailureTolerance()
             ),
             investment = Investment(
-                useCase = "Test hardware recommendations - 4th go",
+                useCase = "Test hardware recommendations - shipit",
                 lifespan = Duration.ofHours(2)
             ),
             aws = Aws(
@@ -126,7 +126,7 @@ class HardwareExplorationIT {
     }
 
     companion object {
-        private val workspace = RootWorkspace(Paths.get("build")).isolateTask("QUICK-78-drilldown")
+        private val workspace = RootWorkspace(Paths.get("build")).isolateTask("QUICK-78-drilldown-smaller-pool")
 
         @BeforeClass
         @JvmStatic
