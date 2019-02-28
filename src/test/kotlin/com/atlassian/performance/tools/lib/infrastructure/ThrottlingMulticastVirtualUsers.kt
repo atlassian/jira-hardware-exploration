@@ -4,7 +4,6 @@ import com.atlassian.performance.tools.concurrency.api.submitWithLogContext
 import com.atlassian.performance.tools.infrastructure.api.virtualusers.MulticastVirtualUsers
 import com.atlassian.performance.tools.infrastructure.api.virtualusers.SshVirtualUsers
 import com.atlassian.performance.tools.infrastructure.api.virtualusers.VirtualUsers
-import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserLoad
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserOptions
 import com.atlassian.performance.tools.virtualusers.api.config.VirtualUserBehavior
@@ -30,25 +29,13 @@ class ThrottlingMulticastVirtualUsers(
         if (nodeCount > virtualUsers) {
             throw Exception("$virtualUsers virtual users are not enough to spread into $nodeCount nodes")
         }
-        val vusPerNode = virtualUsers / nodeCount
-        val rampPerNode = load.ramp.dividedBy(nodeCount.toLong())
+        val loadSlices = load.slice(nodeCount)
         multicast("apply load") { node, index ->
             node.applyLoad(
                 VirtualUserOptions(
                     target = options.target,
                     behavior = VirtualUserBehavior.Builder(options.behavior)
-                        .load(
-                            VirtualUserLoad.Builder()
-                                .virtualUsers(vusPerNode)
-                                .hold(load.hold + rampPerNode.multipliedBy(index))
-                                .ramp(rampPerNode)
-                                .flat(load.flat + rampPerNode.multipliedBy(nodeCount - index - 1))
-                                .maxOverallLoad(TemporalRate(
-                                    load.maxOverallLoad.change / nodeCount,
-                                    load.maxOverallLoad.time
-                                ))
-                                .build()
-                        )
+                        .load(loadSlices[index])
                         .let { if (index > 0) it.skipSetup(true) else it }
                         .build()
                 )
@@ -62,7 +49,7 @@ class ThrottlingMulticastVirtualUsers(
      */
     private fun multicast(
         label: String,
-        operation: (VirtualUsers, Long) -> Unit
+        operation: (VirtualUsers, Int) -> Unit
     ) {
         val executor = Executors.newFixedThreadPool(
             nodes.size,
@@ -74,7 +61,7 @@ class ThrottlingMulticastVirtualUsers(
             .mapIndexed { index, node ->
                 executor.submitWithLogContext("$label $node") {
                     try {
-                        operation(node, index.toLong())
+                        operation(node, index)
                     } catch (e: Exception) {
                         throw Exception("$label failed on $node", e)
                     }
