@@ -23,6 +23,7 @@ import com.atlassian.performance.tools.jiraactions.api.*
 import com.atlassian.performance.tools.jiraperformancetests.api.ProvisioningPerformanceTest
 import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBacklogAction.Companion.VIEW_BACKLOG
 import com.atlassian.performance.tools.lib.*
+import com.atlassian.performance.tools.lib.infrastructure.Jstack
 import com.atlassian.performance.tools.report.api.FullReport
 import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.CohortResult
@@ -392,6 +393,7 @@ class HardwareExploration(
                                 .initTimeout(Duration.ofMinutes(7))
                                 .build()
                         )
+                        .profiler(Jstack(Duration.ofSeconds(10)))
                         .build()
                 },
                 loadBalancerFormula = ElasticLoadBalancerFormula(),
