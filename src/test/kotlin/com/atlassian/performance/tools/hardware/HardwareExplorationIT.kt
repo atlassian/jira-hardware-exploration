@@ -126,7 +126,7 @@ class HardwareExplorationIT {
     }
 
     companion object {
-        private val workspace = RootWorkspace(Paths.get("build")).isolateTask("QUICK-78-drilldown-smaller-pool")
+        private val workspace = RootWorkspace(Paths.get("build")).isolateTask("shipit-threaddumps")
 
         @BeforeClass
         @JvmStatic
