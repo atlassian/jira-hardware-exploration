@@ -1,10 +1,4 @@
-import org.gradle.api.tasks.Copy
-import org.gradle.api.tasks.bundling.Jar
-import org.gradle.api.tasks.testing.Test
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.time.Instant
-import java.io.File
 import java.net.URI
 
 buildscript {
@@ -43,6 +37,10 @@ task<Test>("exploreHardware").apply {
     systemProperty("jpt.virtual-users.shadow-jar", shadowJarTask.outputs.files.files.first())
     failFast = true
     maxHeapSize = "8g"
+}
+
+task<Test>("cleanUpAfterBamboo").apply {
+    include("**/BambooCleanupIT.class")
 }
 
 dependencies {
