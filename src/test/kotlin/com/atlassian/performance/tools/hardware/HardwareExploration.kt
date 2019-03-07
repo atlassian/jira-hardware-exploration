@@ -52,6 +52,7 @@ class HardwareExploration(
         .seed(78432)
         .diagnosticsLimit(32)
         .browser(HeadlessChromeBrowser::class.java)
+        .createUsers(true)
         .build()
     private val awsParallelism = 6
     private val results = ConcurrentHashMap<Hardware, Future<HardwareExplorationResult>>()
