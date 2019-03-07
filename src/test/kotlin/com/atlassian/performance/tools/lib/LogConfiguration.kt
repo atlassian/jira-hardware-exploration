@@ -34,7 +34,16 @@ internal class LogConfiguration(
                 name = "com.atlassian.performance.tools.jvmtasks.api.TaskTimer",
                 path = Paths.get("timing.log"),
                 pattern = "%d{ISO8601}{UTC}Z <%t> %X %x %msg%n"
-            ),
+            ).also { log ->
+                log.addAppender(
+                    KConsoleAppenderBuilder()
+                        .withName("console")
+                        .withLayout(layout("%d{ABSOLUTE} %highlight{%-5level} %x %msg%n"))
+                        .build(),
+                    Level.ALL,
+                    null
+                )
+            },
             logToFile(
                 name = "com.atlassian.performance.tools.aws",
                 path = Paths.get("aws.log")
