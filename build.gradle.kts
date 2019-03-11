@@ -30,6 +30,7 @@ tasks.withType(KotlinCompile::class).forEach {
 }
 
 task<Test>("exploreHardware").apply {
+    outputs.upToDateWhen { false }
     description = "Explores performance of different hardware setups for Jira."
     include("**/HardwareExplorationIT.class")
     val shadowJarTask = tasks.getByPath(":virtual-users:shadowJar")
@@ -45,6 +46,7 @@ task<Test>("exploreHardware").apply {
 }
 
 task<Test>("cleanUpAfterBamboo").apply {
+    outputs.upToDateWhen { false }
     include("**/BambooCleanupIT.class")
 }
 
