@@ -100,14 +100,11 @@ class HardwareExplorationIT {
             ),
             guidance = ExplorationGuidance(
                 instanceTypes = listOf(
-                    C52xlarge,
-                    C54xlarge,
-                    C48xlarge,
-                    C518xlarge
+                    C48xlarge
                 ),
-                maxNodeCount = 16,
-                minNodeCountForAvailability = 3,
-                repeats = 2,
+                maxNodeCount = 1,
+                minNodeCountForAvailability = 1,
+                repeats = 1,
                 minApdexGain = 0.01,
                 maxApdexSpread = 0.10,
                 maxErrorRate = 0.05,
@@ -129,7 +126,7 @@ class HardwareExplorationIT {
     }
 
     companion object {
-        const val taskName = "QUICK-94-multiusers-fix-1"
+        const val taskName = "QUICK-94-multiusers-repro"
         private val workspace = RootWorkspace(Paths.get("build")).isolateTask(taskName)
 
         @BeforeClass
