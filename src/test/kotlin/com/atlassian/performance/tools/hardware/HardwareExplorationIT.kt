@@ -129,7 +129,7 @@ class HardwareExplorationIT {
     }
 
     companion object {
-        const val taskName = "QUICK-94-multiusers"
+        const val taskName = "QUICK-94-multiusers-fix-1"
         private val workspace = RootWorkspace(Paths.get("build")).isolateTask(taskName)
 
         @BeforeClass
