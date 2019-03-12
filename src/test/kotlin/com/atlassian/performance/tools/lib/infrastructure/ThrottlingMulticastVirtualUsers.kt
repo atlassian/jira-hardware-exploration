@@ -1,13 +1,14 @@
 package com.atlassian.performance.tools.lib.infrastructure
 
-import com.atlassian.performance.tools.concurrency.api.submitWithLogContext
 import com.atlassian.performance.tools.infrastructure.api.virtualusers.MulticastVirtualUsers
 import com.atlassian.performance.tools.infrastructure.api.virtualusers.SshVirtualUsers
 import com.atlassian.performance.tools.infrastructure.api.virtualusers.VirtualUsers
+import com.atlassian.performance.tools.lib.jvmtasks.ContextTask
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserLoad
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserOptions
 import com.atlassian.performance.tools.virtualusers.api.config.VirtualUserBehavior
 import com.google.common.util.concurrent.ThreadFactoryBuilder
+import java.util.concurrent.ExecutorCompletionService
 import java.util.concurrent.Executors
 
 /**
@@ -57,17 +58,22 @@ class ThrottlingMulticastVirtualUsers(
                 .setNameFormat("multicast-virtual-users-$label-thread-%d")
                 .build()
         )
-        nodes
-            .mapIndexed { index, node ->
-                executor.submitWithLogContext("$label $node") {
+        val completion = ExecutorCompletionService<Unit>(executor)
+        nodes.forEachIndexed { index, node ->
+            completion.submit(
+                ContextTask("$label $node") {
                     try {
                         operation(node, index)
                     } catch (e: Exception) {
                         throw Exception("$label failed on $node", e)
                     }
                 }
-            }
-            .forEach { it.get() }
+            )
+        }
+        repeat(nodes.size) {
+            completion.take().get()
+        }
+
         executor.shutdownNow()
     }
 }
