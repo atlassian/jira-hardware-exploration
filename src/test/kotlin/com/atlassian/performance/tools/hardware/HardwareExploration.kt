@@ -5,8 +5,7 @@ import com.atlassian.performance.tools.aws.api.Aws
 import com.atlassian.performance.tools.aws.api.Investment
 import com.atlassian.performance.tools.awsinfrastructure.api.InfrastructureFormula
 import com.atlassian.performance.tools.awsinfrastructure.api.hardware.EbsEc2Instance
-import com.atlassian.performance.tools.awsinfrastructure.api.jira.DataCenterFormula
-import com.atlassian.performance.tools.awsinfrastructure.api.loadbalancer.ElasticLoadBalancerFormula
+import com.atlassian.performance.tools.awsinfrastructure.api.jira.StandaloneFormula
 import com.atlassian.performance.tools.awsinfrastructure.api.storage.JiraSoftwareStorage
 import com.atlassian.performance.tools.awsinfrastructure.api.virtualusers.MulticastVirtualUsersFormula
 import com.atlassian.performance.tools.hardware.vu.CustomScenario
@@ -357,7 +356,7 @@ class HardwareExploration(
         workspace: TestWorkspace,
         executor: ExecutorService
     ): CompletableFuture<HardwareTestResult> {
-        return dataCenter(
+        return jira(
             cohort = hardware.nameCohort(workspace),
             hardware = hardware
         ).runAsync(
@@ -371,21 +370,20 @@ class HardwareExploration(
         }
     }
 
-    private fun dataCenter(
+    private fun jira(
         cohort: String,
         hardware: Hardware
     ): ProvisioningPerformanceTest = ProvisioningPerformanceTest(
         cohort = cohort,
         infrastructureFormula = InfrastructureFormula(
             investment = investment,
-            jiraFormula = DataCenterFormula(
+            jiraFormula = StandaloneFormula(
                 apps = Apps(emptyList()),
                 application = JiraSoftwareStorage("7.13.0"),
                 jiraHomeSource = scale.dataset.jiraHomeSource,
                 database = scale.dataset.database,
-                configs = (1..hardware.nodeCount).map {
-                    JiraNodeConfig.Builder()
-                        .name("jira-node-$it")
+                config = JiraNodeConfig.Builder()
+                    .name("jira-node")
                         .profiler(AsyncProfiler())
                         .launchTimeouts(
                             JiraLaunchTimeouts.Builder()
@@ -393,8 +391,7 @@ class HardwareExploration(
                                 .build()
                         )
                         .build()
-                },
-                loadBalancerFormula = ElasticLoadBalancerFormula(),
+                ,
                 computer = EbsEc2Instance(hardware.instanceType)
             ),
             virtualUsersFormula = ThrottlingMulticastVirtualUsersFormula(
