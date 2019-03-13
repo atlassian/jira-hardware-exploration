@@ -66,7 +66,7 @@ class HardwareExplorationIT {
                 load = VirtualUserLoad.Builder()
                     .virtualUsers(75)
                     .ramp(Duration.ofSeconds(90))
-                    .flat(Duration.ofMinutes(20))
+                    .flat(Duration.ofMinutes(5))
                     .maxOverallLoad(TemporalRate(15.0, Duration.ofSeconds(1)))
                     .build(),
                 vuNodes = 6
