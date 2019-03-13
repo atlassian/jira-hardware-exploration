@@ -11,6 +11,7 @@ import com.atlassian.performance.tools.awsinfrastructure.api.virtualusers.Multic
 import com.atlassian.performance.tools.hardware.vu.CustomScenario
 import com.atlassian.performance.tools.infrastructure.api.app.Apps
 import com.atlassian.performance.tools.infrastructure.api.browser.chromium.Chromium69
+import com.atlassian.performance.tools.infrastructure.api.jira.JiraJvmArgs
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraLaunchTimeouts
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
 import com.atlassian.performance.tools.infrastructure.api.profiler.AsyncProfiler
@@ -383,14 +384,15 @@ class HardwareExploration(
                 jiraHomeSource = scale.dataset.jiraHomeSource,
                 database = scale.dataset.database,
                 config = JiraNodeConfig.Builder()
+                    .jvmArgs(JiraJvmArgs(xmx = "2g"))
                     .name("jira-node")
-                        .profiler(AsyncProfiler())
-                        .launchTimeouts(
-                            JiraLaunchTimeouts.Builder()
-                                .initTimeout(Duration.ofMinutes(7))
-                                .build()
-                        )
-                        .build()
+                    .profiler(AsyncProfiler())
+                    .launchTimeouts(
+                        JiraLaunchTimeouts.Builder()
+                            .initTimeout(Duration.ofMinutes(7))
+                            .build()
+                    )
+                    .build()
                 ,
                 computer = EbsEc2Instance(hardware.instanceType)
             ),
