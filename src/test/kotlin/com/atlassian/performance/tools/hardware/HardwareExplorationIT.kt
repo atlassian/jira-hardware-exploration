@@ -2,16 +2,11 @@ package com.atlassian.performance.tools.hardware
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain
 import com.amazonaws.regions.Regions.EU_WEST_1
-import com.amazonaws.services.ec2.model.InstanceType.*
+import com.amazonaws.services.ec2.model.InstanceType.C48xlarge
 import com.atlassian.performance.tools.aws.api.Aws
 import com.atlassian.performance.tools.aws.api.Investment
-import com.atlassian.performance.tools.aws.api.StorageLocation
 import com.atlassian.performance.tools.aws.api.TextCapacityMediator
-import com.atlassian.performance.tools.awsinfrastructure.api.DatasetCatalogue
-import com.atlassian.performance.tools.lib.LicenseOverridingDatabase
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
-import com.atlassian.performance.tools.lib.overrideDatabase
-import com.atlassian.performance.tools.lib.toExistingFile
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserLoad
 import com.atlassian.performance.tools.workspace.api.RootWorkspace
@@ -21,34 +16,12 @@ import org.apache.logging.log4j.Logger
 import org.apache.logging.log4j.core.config.ConfigurationFactory
 import org.junit.BeforeClass
 import org.junit.Test
-import java.net.URI
 import java.nio.file.Paths
 import java.time.Duration
 
 class HardwareExplorationIT {
 
     private val logger: Logger = LogManager.getLogger(this::class.java)
-    private val oneMillionIssues = DatasetCatalogue().custom(
-        location = StorageLocation(
-            uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-1sjxdtrv5hdhj/")
-                .resolve("a12fc4c5-3973-41f0-bf56-ede393677028"),
-            region = EU_WEST_1
-        ),
-        label = "1M issues",
-        databaseDownload = Duration.ofMinutes(20),
-        jiraHomeDownload = Duration.ofMinutes(20)
-    ).overrideDatabase { originalDataset ->
-        val localLicense = Paths.get("jira-license.txt")
-        LicenseOverridingDatabase(
-            originalDataset.database,
-            listOf(
-                localLicense
-                    .toExistingFile()
-                    ?.readText()
-                    ?: throw  Exception("Put a Jira license to ${localLicense.toAbsolutePath()}")
-            ))
-    }
-
 
     private val failureTolerance = object : FailureTolerance {
         val cleaning = CleaningFailureTolerance()
@@ -89,7 +62,7 @@ class HardwareExplorationIT {
         HardwareExploration(
             scale = ApplicationScale(
                 description = "Jira L profile",
-                dataset = oneMillionIssues,
+                dataset = MyDatasetCatalogue().sevenThousandIssues(),
                 load = VirtualUserLoad.Builder()
                     .virtualUsers(75)
                     .ramp(Duration.ofSeconds(90))
