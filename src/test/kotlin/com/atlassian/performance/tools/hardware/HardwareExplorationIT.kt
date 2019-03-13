@@ -62,7 +62,7 @@ class HardwareExplorationIT {
         HardwareExploration(
             scale = ApplicationScale(
                 description = "Jira L profile",
-                dataset = MyDatasetCatalogue().sevenThousandIssues(),
+                dataset = MyDatasetCatalogue().oneMillionIssues(),
                 load = VirtualUserLoad.Builder()
                     .virtualUsers(75)
                     .ramp(Duration.ofSeconds(90))
