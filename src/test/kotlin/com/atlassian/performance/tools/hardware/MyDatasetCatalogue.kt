@@ -3,7 +3,10 @@ package com.atlassian.performance.tools.hardware
 import com.amazonaws.regions.Regions
 import com.atlassian.performance.tools.aws.api.StorageLocation
 import com.atlassian.performance.tools.awsinfrastructure.api.DatasetCatalogue
+import com.atlassian.performance.tools.infrastructure.api.database.MySqlDatabase
 import com.atlassian.performance.tools.infrastructure.api.dataset.Dataset
+import com.atlassian.performance.tools.infrastructure.api.dataset.HttpDatasetPackage
+import com.atlassian.performance.tools.infrastructure.api.jira.JiraHomePackage
 import com.atlassian.performance.tools.lib.LicenseOverridingDatabase
 import com.atlassian.performance.tools.lib.overrideDatabase
 import com.atlassian.performance.tools.lib.toExistingFile
@@ -34,6 +37,26 @@ class MyDatasetCatalogue {
         databaseDownload = ofMinutes(5),
         jiraHomeDownload = ofMinutes(5)
     ).overrideDatabase { overrideLicense(it) }
+
+    fun hundredThousandUsers(): Dataset = URI("https://s3-eu-central-1.amazonaws.com/")
+        .resolve("jpt-custom-datasets-storage-a008820-datasetbucket-dah44h6l1l8p/")
+        .resolve("jsw-7.13.0-100k-users-sync/")
+        .let {
+            Dataset(
+                label = "100k users",
+                database = MySqlDatabase(HttpDatasetPackage(
+                    uri = it.resolve("database.tar.bz2"),
+                    downloadTimeout = ofMinutes(3)
+                )),
+                jiraHomeSource = JiraHomePackage(
+                    HttpDatasetPackage(
+                        uri = it.resolve("jirahome.tar.bz2"),
+                        downloadTimeout = ofMinutes(3)
+                    )
+                )
+            )
+        }
+        .overrideDatabase { overrideLicense(it) }
 
     private fun overrideLicense(
         originalDataset: Dataset
