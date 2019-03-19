@@ -2,16 +2,23 @@ package com.atlassian.performance.tools.hardware
 
 import com.amazonaws.regions.Regions.EU_WEST_1
 import com.amazonaws.services.ec2.model.InstanceType.*
+import com.amazonaws.services.s3.transfer.TransferManagerBuilder
+import com.atlassian.performance.tools.aws.api.Aws
 import com.atlassian.performance.tools.aws.api.Investment
 import com.atlassian.performance.tools.aws.api.StorageLocation
 import com.atlassian.performance.tools.awsinfrastructure.api.DatasetCatalogue
+import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.aws
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.logContext
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.taskName
+import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.workspace
+import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.LicenseOverridingDatabase
+import com.atlassian.performance.tools.lib.awsresources.S3Cache
 import com.atlassian.performance.tools.lib.overrideDatabase
 import com.atlassian.performance.tools.lib.toExistingFile
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserLoad
+import com.atlassian.performance.tools.workspace.api.TaskWorkspace
 import com.atlassian.performance.tools.workspace.api.TestWorkspace
 import org.apache.logging.log4j.Logger
 import org.junit.Test
@@ -80,6 +87,26 @@ class HardwareExplorationIT {
 
     @Test
     fun shouldExploreHardware() {
+        val cache = S3Cache(
+            transfer = TransferManagerBuilder.standard()
+                .withS3Client(aws.s3)
+                .build(),
+            bucketName = "quicksilver-jhwr-cache-ireland",
+            cacheKey = "$taskName/",
+            localPath = workspace.directory
+        )
+        time("download $cache") { cache.download() }
+        try {
+            explore(aws, workspace)
+        } finally {
+            time("upload $cache") { cache.upload() }
+        }
+    }
+
+    private fun explore(
+        aws: Aws,
+        workspace: TaskWorkspace
+    ) {
         HardwareExploration(
             scale = ApplicationScale(
                 description = "Jira L profile",
@@ -111,8 +138,8 @@ class HardwareExplorationIT {
                 useCase = "Test hardware recommendations - $taskName",
                 lifespan = Duration.ofHours(2)
             ),
-            aws = IntegrationTestRuntime.aws,
-            task = IntegrationTestRuntime.workspace
+            aws = aws,
+            task = workspace
         ).exploreHardware()
     }
 }
