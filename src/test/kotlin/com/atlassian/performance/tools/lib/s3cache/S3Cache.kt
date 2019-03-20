@@ -25,57 +25,66 @@ import java.time.Instant
 class S3Cache(
     private val transfer: TransferManager,
     private val bucketName: String,
-    private val cacheKey: String,
+    cacheKey: String,
     private val localPath: Path
 ) {
+    private val s3Prefix = "$cacheKey/"
     private val localDirectory = localPath.toFile().ensureDirectory()
     private val logger: Logger = LogManager.getLogger(this::class.java)
     private val etags = EtagCache(localPath.parent.resolve(".etags"))
 
     fun download() {
-        val countingFilter = CountingKeyFilter(FreshKeyFilter(cacheKey, localPath, etags))
-        val startedDownload = transfer.downloadDirectory(
-            bucketName,
-            cacheKey,
-            localDirectory.parentFile,
-            true,
-            countingFilter
-        )
+        val countingFilter = CountingKeyFilter(FreshKeyFilter(s3Prefix, localPath, etags))
+        val downloads = time("filter") {
+            transfer.downloadDirectory( // This can be quite slow due to https://github.com/aws/aws-sdk-java/issues/1215
+                bucketName,
+                s3Prefix,
+                localDirectory.parentFile,
+                true,
+                countingFilter
+            )
+        }
         val included = countingFilter.countIncluded()
         val excluded = countingFilter.countExcluded()
-        val progress = TransferLoggingProgress(logger, 10, included)
+        val progress = TransferLoggingProgress(logger, 50, included)
         logger.info("Downloading $included, skipping $excluded")
-        startedDownload
-            .apply { addProgressListener(progress) }
-            .also { it.waitForCompletion() }
-            .let { S3MultiDownload(it as MultipleFileDownloadImpl) }
-            .listDownloads()
-            .forEach { etags.write(it) }
+        time("transfer") {
+            downloads
+                .apply { addProgressListener(progress) }
+                .also { it.waitForCompletion() }
+                .let { S3MultiDownload(it as MultipleFileDownloadImpl) }
+                .listDownloads()
+                .forEach { etags.write(it) }
+        }
     }
 
     fun upload() {
-        val s3Objects = S3Listing(transfer.amazonS3Client).listObjects(bucketName, cacheKey)
         val allFiles = FileListing(localDirectory).listRecursively()
-        val freshFiles = time("filter uploads") { allFiles.filter { shouldUpload(it, s3Objects) } }
+        val freshFiles = time("filter") {
+            val s3Objects = S3Listing(transfer.amazonS3Client).listObjects(bucketName, s3Prefix)
+            allFiles.filter { shouldUpload(it, s3Objects) }
+        }
         val staleFiles = allFiles.size - freshFiles.size
-        val progress = TransferLoggingProgress(logger, 10, freshFiles.size)
+        val progress = TransferLoggingProgress(logger, 50, freshFiles.size)
         logger.info("Uploading ${freshFiles.size}, skipping $staleFiles")
-        transfer
-            .uploadFileList(
-                bucketName,
-                cacheKey,
-                localDirectory,
-                freshFiles
-            )
-            .apply { addProgressListener(progress) }
-            .waitForCompletion() // TODO extract uploaded ETags somehow and then cache them
+        time("transfer") {
+            transfer
+                .uploadFileList(
+                    bucketName,
+                    s3Prefix,
+                    localDirectory,
+                    freshFiles
+                )
+                .apply { addProgressListener(progress) }
+                .waitForCompletion() // TODO extract uploaded ETags somehow and then cache them
+        }
     }
 
     private fun shouldUpload(
         local: File,
         s3Objects: List<S3ObjectSummary>
     ): Boolean {
-        val localKey = cacheKey + local.relativeTo(localDirectory).path // TODO might not work on Windows
+        val localKey = s3Prefix + local.relativeTo(localDirectory).path // TODO might not work on Windows
         val s3Object = s3Objects.find { it.key == localKey } ?: return true
         val localEtag = etags.read(localKey)
         if (s3Object.eTag == localEtag) {
@@ -87,7 +96,7 @@ class S3Cache(
     }
 
     override fun toString(): String {
-        return "S3Cache(bucketName='$bucketName', cacheKey='$cacheKey', localPath=$localPath)"
+        return "S3Cache(bucketName='$bucketName', s3Prefix='$s3Prefix', localPath=$localPath)"
     }
 }
 

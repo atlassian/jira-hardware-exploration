@@ -13,8 +13,8 @@ import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.taskName
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.workspace
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.LicenseOverridingDatabase
-import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.lib.overrideDatabase
+import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.lib.toExistingFile
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserLoad
@@ -92,14 +92,15 @@ class HardwareExplorationIT {
                 .withS3Client(aws.s3)
                 .build(),
             bucketName = "quicksilver-jhwr-cache-ireland",
-            cacheKey = "$taskName/",
+            cacheKey = taskName,
             localPath = workspace.directory
         )
-        time("download $cache") { cache.download() }
+        logger.info("Using $cache")
+        time("download") { cache.download() }
         try {
             explore(aws, workspace)
         } finally {
-            time("upload $cache") { cache.upload() }
+            time("upload") { cache.upload() }
         }
     }
 
