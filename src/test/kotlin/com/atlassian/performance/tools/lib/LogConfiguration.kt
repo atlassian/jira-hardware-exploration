@@ -45,6 +45,19 @@ internal class LogConfiguration(
                 )
             },
             logToFile(
+                name = "com.atlassian.performance.tools.lib.s3cache",
+                path = Paths.get("s3-cache.log")
+            ).also { log ->
+                log.addAppender(
+                    KConsoleAppenderBuilder()
+                        .withName("console")
+                        .withLayout(layout("%d{ABSOLUTE} %highlight{%-5level} %x %msg%n"))
+                        .build(),
+                    Level.DEBUG,
+                    null
+                )
+            },
+            logToFile(
                 name = "com.atlassian.performance.tools.aws",
                 path = Paths.get("aws.log")
             ),

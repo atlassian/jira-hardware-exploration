@@ -1,4 +1,4 @@
-package com.atlassian.performance.tools.lib.awsresources
+package com.atlassian.performance.tools.lib.s3cache
 
 import com.amazonaws.event.ProgressEvent
 import com.amazonaws.event.ProgressEventType

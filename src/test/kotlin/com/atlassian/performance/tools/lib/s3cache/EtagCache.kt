@@ -1,4 +1,4 @@
-package com.atlassian.performance.tools.lib.awsresources
+package com.atlassian.performance.tools.lib.s3cache
 
 import com.amazonaws.services.s3.transfer.Download
 import com.atlassian.performance.tools.io.api.ensureParentDirectory
