@@ -1,4 +1,4 @@
-package com.atlassian.performance.tools.lib.awsresources
+package com.atlassian.performance.tools.lib.s3cache
 
 import com.amazonaws.services.s3.model.S3ObjectSummary
 import com.amazonaws.services.s3.transfer.KeyFilter
@@ -7,6 +7,8 @@ import com.amazonaws.services.s3.transfer.internal.MultipleFileDownloadImpl
 import com.amazonaws.services.s3.transfer.internal.S3MultiDownload
 import com.atlassian.performance.tools.io.api.ensureDirectory
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
+import com.atlassian.performance.tools.lib.awsresources.CountingKeyFilter
+import com.atlassian.performance.tools.lib.awsresources.S3Listing
 import com.atlassian.performance.tools.lib.io.FileListing
 import com.atlassian.performance.tools.lib.toExistingFile
 import net.jcip.annotations.NotThreadSafe
