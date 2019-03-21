@@ -9,7 +9,7 @@ import javax.json.Json
 import javax.json.JsonArray
 import javax.json.JsonObject
 
-internal class HardwareExplorationResultCache(
+class HardwareExplorationResultCache(
     private val cache: Path
 ) {
 
@@ -57,8 +57,9 @@ internal class HardwareExplorationResultCache(
         hardware: Hardware
     ): JsonObject = hardware.run {
         Json.createObjectBuilder()
-            .add("instanceType", instanceType.toString())
+            .add("jira", jira.toString())
             .add("nodeCount", nodeCount)
+            .add("db", db.toString())
             .build()
     }
 
@@ -99,7 +100,6 @@ internal class HardwareExplorationResultCache(
     private fun readResults(
         json: JsonArray
     ): List<HardwareExplorationResult> = json
-//        .getJsonArray("results")
         .map { readResult(it.asJsonObject()) }
 
     private fun readResult(
@@ -125,8 +125,9 @@ internal class HardwareExplorationResultCache(
         json: JsonObject
     ): Hardware = json.run {
         Hardware(
-            instanceType = InstanceType.fromValue(getString("instanceType")),
-            nodeCount = getInt("nodeCount")
+            jira = (getString("jira", null) ?: getString("instanceType")).let { InstanceType.fromValue(it) },
+            nodeCount = getInt("nodeCount"),
+            db = getString("db", null)?.let { InstanceType.fromValue(it) } ?: InstanceType.M4Xlarge
         )
     }
 
