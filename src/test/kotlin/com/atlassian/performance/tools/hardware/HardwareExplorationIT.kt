@@ -16,12 +16,17 @@ import com.atlassian.performance.tools.lib.LicenseOverridingDatabase
 import com.atlassian.performance.tools.lib.overrideDatabase
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.lib.toExistingFile
+import com.atlassian.performance.tools.lib.workspace.GitRepo2
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserLoad
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
 import com.atlassian.performance.tools.workspace.api.TestWorkspace
 import org.apache.logging.log4j.Logger
+import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.internal.storage.file.FileRepository
+import org.eclipse.jgit.lib.Repository
 import org.junit.Test
+import java.io.File
 import java.net.URI
 import java.nio.file.Paths
 import java.time.Duration
@@ -87,6 +92,7 @@ class HardwareExplorationIT {
 
     @Test
     fun shouldExploreHardware() {
+        requireCleanRepo()
         val cache = S3Cache(
             transfer = TransferManagerBuilder.standard()
                 .withS3Client(aws.s3)
@@ -101,6 +107,13 @@ class HardwareExplorationIT {
             explore(aws, workspace)
         } finally {
             time("upload") { cache.upload() }
+        }
+    }
+
+    private fun requireCleanRepo() {
+        val status = Git(GitRepo2.findInAncestors(File(".").absoluteFile)).status().call()
+        if (status.isClean.not()) {
+            throw Exception("Your Git repo is not clean. Please commit the changes and consider pushing them.")
         }
     }
 
