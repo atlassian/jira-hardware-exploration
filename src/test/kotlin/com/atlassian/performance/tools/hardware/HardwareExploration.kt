@@ -50,6 +50,7 @@ class HardwareExploration(
 
     private val virtualUsers: VirtualUserBehavior = VirtualUserBehavior.Builder(CustomScenario::class.java)
         .load(scale.load)
+        .createUsers(true)
         .seed(78432)
         .diagnosticsLimit(32)
         .browser(HeadlessChromeBrowser::class.java)
