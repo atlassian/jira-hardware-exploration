@@ -7,15 +7,13 @@ import com.atlassian.performance.tools.awsinfrastructure.api.InfrastructureFormu
 import com.atlassian.performance.tools.awsinfrastructure.api.hardware.EbsEc2Instance
 import com.atlassian.performance.tools.awsinfrastructure.api.jira.DataCenterFormula
 import com.atlassian.performance.tools.awsinfrastructure.api.loadbalancer.ElasticLoadBalancerFormula
-import com.atlassian.performance.tools.awsinfrastructure.api.storage.JiraSoftwareStorage
 import com.atlassian.performance.tools.awsinfrastructure.api.virtualusers.MulticastVirtualUsersFormula
 import com.atlassian.performance.tools.hardware.vu.CustomScenario
-import com.atlassian.performance.tools.infrastructure.api.app.Apps
 import com.atlassian.performance.tools.infrastructure.api.browser.chromium.Chromium69
+import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJiraSoftwareDistribution
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraLaunchTimeouts
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
 import com.atlassian.performance.tools.infrastructure.api.profiler.AsyncProfiler
-import com.atlassian.performance.tools.infrastructure.api.splunk.DisabledSplunkForwarder
 import com.atlassian.performance.tools.io.api.dereference
 import com.atlassian.performance.tools.io.api.directories
 import com.atlassian.performance.tools.jiraactions.api.*
@@ -25,7 +23,6 @@ import com.atlassian.performance.tools.lib.*
 import com.atlassian.performance.tools.lib.infrastructure.ThrottlingMulticastVirtualUsersFormula
 import com.atlassian.performance.tools.report.api.FullReport
 import com.atlassian.performance.tools.report.api.StandardTimeline
-import com.atlassian.performance.tools.report.api.result.CohortResult
 import com.atlassian.performance.tools.report.api.result.EdibleResult
 import com.atlassian.performance.tools.report.api.result.RawCohortResult
 import com.atlassian.performance.tools.virtualusers.api.browsers.HeadlessChromeBrowser
@@ -359,12 +356,11 @@ class HardwareExploration(
         return dataCenter(
             cohort = hardware.nameCohort(workspace),
             hardware = hardware
-        ).runAsync(
+        ).executeAsync(
             workspace,
             executor,
             virtualUsers
-        ).thenApply {
-            @Suppress("DEPRECATION") val raw = CohortResult.toRawCohortResult(it)
+        ).thenApply { raw ->
             workspace.writeStatus(raw)
             return@thenApply score(hardware, raw, workspace)
         }
@@ -377,12 +373,12 @@ class HardwareExploration(
         cohort = cohort,
         infrastructureFormula = InfrastructureFormula(
             investment = investment,
-            jiraFormula = DataCenterFormula(
-                apps = Apps(emptyList()),
-                application = JiraSoftwareStorage("7.13.0"),
+            jiraFormula = DataCenterFormula.Builder(
+                productDistribution = PublicJiraSoftwareDistribution("7.13.0"),
                 jiraHomeSource = scale.dataset.jiraHomeSource,
-                database = scale.dataset.database,
-                configs = (1..hardware.nodeCount).map {
+                database = scale.dataset.database
+            )
+                .configs((1..hardware.nodeCount).map {
                     JiraNodeConfig.Builder()
                         .name("jira-node-$it")
                         .profiler(AsyncProfiler())
@@ -390,19 +386,20 @@ class HardwareExploration(
                             JiraLaunchTimeouts.Builder()
                                 .initTimeout(Duration.ofMinutes(7))
                                 .build()
-                        )
-                        .build()
-                },
-                loadBalancerFormula = ElasticLoadBalancerFormula(),
-                computer = EbsEc2Instance(hardware.instanceType)
-            ),
+
+                        ).build()
+                })
+                .loadBalancerFormula(ElasticLoadBalancerFormula())
+                .computer(EbsEc2Instance(hardware.instanceType))
+                .build(),
             virtualUsersFormula = ThrottlingMulticastVirtualUsersFormula(
-                MulticastVirtualUsersFormula(
+                MulticastVirtualUsersFormula.Builder(
                     nodes = scale.vuNodes,
-                    shadowJar = dereference("jpt.virtual-users.shadow-jar"),
-                    splunkForwarder = DisabledSplunkForwarder(),
-                    browser = Chromium69()
+                    shadowJar = dereference("jpt.virtual-users.shadow-jar")
                 )
+                    .browser(Chromium69())
+                    .build()
+                    as MulticastVirtualUsersFormula
             ),
             aws = aws
         )
