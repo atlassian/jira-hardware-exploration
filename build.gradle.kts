@@ -60,6 +60,7 @@ dependencies {
     testCompile("com.atlassian.performance.tools:aws-resources:[1.3.4,2.0.0)")
     testCompile("com.atlassian.performance.tools:concurrency:[1.0.0,2.0.0)")
     testCompile("org.apache.commons:commons-csv:1.4")
+    testCompile("org.eclipse.jgit:org.eclipse.jgit:4.11.0.201803080745-r")
     testCompile("junit:junit:4.12")
     testCompile("org.hamcrest:hamcrest-library:1.3")
     testCompile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.70")
