@@ -76,7 +76,9 @@ class S3Cache(
                     freshFiles
                 )
                 .apply { addProgressListener(progress) }
-                .waitForCompletion() // TODO extract uploaded ETags somehow and then cache them
+                .also { it.waitForCompletion() }
+                .subTransfers
+                .forEach { etags.write(it) }
         }
     }
 
