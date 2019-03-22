@@ -22,8 +22,14 @@ class TransferLoggingProgress(
         if (event.eventType == ProgressEventType.TRANSFER_COMPLETED_EVENT) {
             val count = transferCount.incrementAndGet()
             if (count % granularity == 0) {
-                logger.debug("$count/$expectedTransfers transferred")
+                log(count)
+            } else if (count == expectedTransfers) {
+                log(count)
             }
         }
+    }
+
+    private fun log(count: Int) {
+        logger.debug("$count/$expectedTransfers transferred")
     }
 }
