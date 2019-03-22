@@ -1,13 +1,10 @@
 package com.atlassian.performance.tools.lib.s3cache
 
+import com.amazonaws.services.s3.model.GetObjectRequest
 import com.amazonaws.services.s3.model.S3ObjectSummary
-import com.amazonaws.services.s3.transfer.KeyFilter
 import com.amazonaws.services.s3.transfer.TransferManager
-import com.amazonaws.services.s3.transfer.internal.MultipleFileDownloadImpl
-import com.amazonaws.services.s3.transfer.internal.S3MultiDownload
 import com.atlassian.performance.tools.io.api.ensureDirectory
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
-import com.atlassian.performance.tools.lib.awsresources.CountingKeyFilter
 import com.atlassian.performance.tools.lib.awsresources.S3Listing
 import com.atlassian.performance.tools.lib.io.FileListing
 import com.atlassian.performance.tools.lib.toExistingFile
@@ -34,46 +31,74 @@ class S3Cache(
     private val etags = EtagCache(localPath.parent.resolve(".etags"))
 
     fun download() {
-        val countingFilter = CountingKeyFilter(FreshKeyFilter(s3Prefix, localPath, etags))
-        val downloads = time("filter") {
-            transfer.downloadDirectory( // This can be quite slow due to https://github.com/aws/aws-sdk-java/issues/1215
-                bucketName,
-                s3Prefix,
-                localDirectory.parentFile,
-                true,
-                countingFilter
-            )
+        val s3Objects = time("filter") {
+            val all = S3Listing(transfer.amazonS3Client).listObjects(bucketName, s3Prefix)
+            val filtered = all.filter { shouldDownload(it) }
+            Filtered(filtered, all.size - filtered.size)
         }
-        val included = countingFilter.countIncluded()
-        val excluded = countingFilter.countExcluded()
-        val progress = TransferLoggingProgress(logger, 50, included)
-        logger.info("Downloading $included, skipping $excluded")
         time("transfer") {
-            downloads
-                .apply { addProgressListener(progress) }
-                .also { it.waitForCompletion() }
-                .let { S3MultiDownload(it as MultipleFileDownloadImpl) }
-                .listDownloads()
+            val progress = TransferLoggingProgress(logger, 50, s3Objects.kept.size)
+            logger.info("Downloading ${s3Objects.kept.size}, skipping ${s3Objects.skipped}")
+            s3Objects
+                .kept
+                .map { transfer.download(GetObjectRequest(it.bucketName, it.key), findLocal(it).toFile()) }
+                .onEach { it.addProgressListener(progress) }
+                .onEach { it.waitForCompletion() }
                 .forEach { etags.write(it) }
         }
     }
 
-    fun upload() {
-        val allFiles = FileListing(localDirectory).listRecursively()
-        val freshFiles = time("filter") {
-            val s3Objects = S3Listing(transfer.amazonS3Client).listObjects(bucketName, s3Prefix)
-            allFiles.filter { shouldUpload(it, s3Objects) }
+    private fun shouldDownload(
+        objectSummary: S3ObjectSummary
+    ): Boolean {
+        val local = findLocal(objectSummary).toExistingFile()
+        val cachedEtag = etags.read(objectSummary.key)
+        return when {
+            local == null -> true
+            isProtected(local) -> false
+            cachedEtag == null -> true
+            objectSummary.eTag == cachedEtag -> false
+            else -> {
+                val s3Freshness = objectSummary.lastModified.toInstant()
+                val localFreshness = Instant.ofEpochMilli(local.lastModified())
+                s3Freshness > localFreshness
+            }
         }
-        val staleFiles = allFiles.size - freshFiles.size
-        val progress = TransferLoggingProgress(logger, 50, freshFiles.size)
-        logger.info("Uploading ${freshFiles.size}, skipping $staleFiles")
+    }
+
+    private fun findLocal(
+        objectSummary: S3ObjectSummary
+    ): Path = objectSummary
+        .key
+        .removePrefix(s3Prefix)
+        .let { localPath.resolve(it) }  // TODO might not work on Windows
+
+    private fun isProtected(
+        file: File
+    ): Boolean = file
+        .toPath()
+        .let { Files.getFileAttributeView(it, PosixFileAttributeView::class.java) }
+        ?.readAttributes()
+        ?.permissions()
+        ?.contains(PosixFilePermission.OTHERS_READ)?.not()
+        ?: false
+
+    fun upload() {
+        val files = time("filter") {
+            val s3Objects = S3Listing(transfer.amazonS3Client).listObjects(bucketName, s3Prefix)
+            val all = FileListing(localDirectory).listRecursively()
+            val filtered = all.filter { shouldUpload(it, s3Objects) }
+            Filtered(filtered, all.size - filtered.size)
+        }
         time("transfer") {
+            val progress = TransferLoggingProgress(logger, 50, files.kept.size)
+            logger.info("Uploading ${files.kept.size}, skipping ${files.skipped}")
             transfer
                 .uploadFileList(
                     bucketName,
                     s3Prefix,
                     localDirectory,
-                    freshFiles
+                    files.kept
                 )
                 .apply { addProgressListener(progress) }
                 .also { it.waitForCompletion() }
@@ -100,47 +125,9 @@ class S3Cache(
     override fun toString(): String {
         return "S3Cache(bucketName='$bucketName', s3Prefix='$s3Prefix', localPath=$localPath)"
     }
-}
 
-private class FreshKeyFilter(
-    private val cacheKey: String,
-    private val localPath: Path,
-    private val etags: EtagCache
-) : KeyFilter {
-
-    override fun shouldInclude(
-        objectSummary: S3ObjectSummary
-    ): Boolean {
-        val local = findLocal(objectSummary)
-        val cachedEtag = etags.read(objectSummary.key)
-        return when {
-            local == null -> true
-            isProtected(local) -> false
-            cachedEtag == null -> true
-            objectSummary.eTag == cachedEtag -> false
-            else -> {
-                val s3Freshness = objectSummary.lastModified.toInstant()
-                val localFreshness = Instant.ofEpochMilli(local.lastModified())
-                s3Freshness > localFreshness
-            }
-        }
-    }
-
-    private fun findLocal(
-        objectSummary: S3ObjectSummary
-    ): File? = objectSummary
-        .key
-        .removePrefix(cacheKey)
-        .let { localPath.resolve(it) }
-        .toExistingFile()
-
-    private fun isProtected(
-        file: File
-    ): Boolean = file
-        .toPath()
-        .let { Files.getFileAttributeView(it, PosixFileAttributeView::class.java) }
-        ?.readAttributes()
-        ?.permissions()
-        ?.contains(PosixFilePermission.OTHERS_READ)?.not()
-        ?: false
+    private class Filtered<T>(
+        val kept: List<T>,
+        val skipped: Int
+    )
 }
