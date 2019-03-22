@@ -104,9 +104,9 @@ class HardwareExplorationIT {
             Hardware(C48xlarge, 3, M4Xlarge)
         )
         logger.warn("Hand-picking hardware: $handPickedHardware")
-        val recommendations = jiraExploration.filter {
-            it.testResult?.hardware in handPickedHardware
-        }
+        val recommendations = jiraExploration
+            .mapNotNull { it.testResult }
+            .filter { it.hardware in handPickedHardware }
         logger.info("Recommending $recommendations")
         return handPickedHardware
     }
