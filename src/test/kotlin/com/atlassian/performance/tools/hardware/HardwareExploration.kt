@@ -21,7 +21,6 @@ import com.atlassian.performance.tools.jiraactions.api.*
 import com.atlassian.performance.tools.jiraperformancetests.api.ProvisioningPerformanceTest
 import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBacklogAction.Companion.VIEW_BACKLOG
 import com.atlassian.performance.tools.lib.*
-import com.atlassian.performance.tools.lib.infrastructure.ThrottlingMulticastVirtualUsersFormula
 import com.atlassian.performance.tools.report.api.FullReport
 import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.EdibleResult
@@ -348,15 +347,12 @@ class HardwareExploration(
                 .computer(EbsEc2Instance(hardware.jira))
                 .databaseComputer(EbsEc2Instance(hardware.db))
                 .build(),
-            virtualUsersFormula = ThrottlingMulticastVirtualUsersFormula(
-                MulticastVirtualUsersFormula.Builder(
-                    nodes = scale.vuNodes,
-                    shadowJar = dereference("jpt.virtual-users.shadow-jar")
-                )
-                    .browser(Chromium69())
-                    .build()
-                    as MulticastVirtualUsersFormula
-            ),
+            virtualUsersFormula = MulticastVirtualUsersFormula.Builder(
+                nodes = scale.vuNodes,
+                shadowJar = dereference("jpt.virtual-users.shadow-jar")
+            )
+                .browser(Chromium69())
+                .build(),
             aws = aws
         )
     )
