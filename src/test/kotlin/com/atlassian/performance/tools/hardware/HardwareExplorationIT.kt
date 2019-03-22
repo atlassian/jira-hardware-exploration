@@ -98,17 +98,14 @@ class HardwareExplorationIT {
 
     private fun recommendJiraHardware(
         jiraExploration: List<HardwareExplorationResult>
-    ): List<Hardware> {
-        val handPickedHardware = listOf(
-            Hardware(C48xlarge, 2, M4Xlarge),
-            Hardware(C48xlarge, 3, M4Xlarge)
-        )
-        logger.warn("Hand-picking hardware: $handPickedHardware")
+    ): List<HardwareTestResult> {
         val recommendations = jiraExploration
             .mapNotNull { it.testResult }
-            .filter { it.hardware in handPickedHardware }
+            .filter { it.apdex > 0.70 }
+            .sortedByDescending { it.apdex }
+            .take(2)
         logger.info("Recommending $recommendations")
-        return handPickedHardware
+        return recommendations
     }
 
     private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
@@ -150,7 +147,7 @@ class HardwareExplorationIT {
     ).exploreHardware()
 
     private fun exploreDbHardware(
-        jiraRecommendations: List<Hardware>,
+        jiraRecommendations: List<HardwareTestResult>,
         jiraExploration: List<HardwareExplorationResult>
     ): List<HardwareExplorationResult> = explore(
         DbExplorationGuidance(

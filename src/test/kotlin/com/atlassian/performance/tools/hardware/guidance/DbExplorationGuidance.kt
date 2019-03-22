@@ -1,10 +1,7 @@
 package com.atlassian.performance.tools.hardware.guidance
 
 import com.amazonaws.services.ec2.model.InstanceType
-import com.atlassian.performance.tools.hardware.Hardware
-import com.atlassian.performance.tools.hardware.HardwareExplorationDecision
-import com.atlassian.performance.tools.hardware.HardwareExplorationResult
-import com.atlassian.performance.tools.hardware.HardwareExplorationResultCache
+import com.atlassian.performance.tools.hardware.*
 import com.atlassian.performance.tools.hardware.report.DbInstanceTypeXAxis
 import com.atlassian.performance.tools.hardware.report.HardwareExplorationChart
 import com.atlassian.performance.tools.hardware.report.HardwareExplorationTable
@@ -15,7 +12,7 @@ import java.util.concurrent.Future
 
 class DbExplorationGuidance(
     private val dbs: List<InstanceType>,
-    private val jiraRecommendations: List<Hardware>,
+    private val jiraRecommendations: List<HardwareTestResult>,
     private val jiraExploration: List<HardwareExplorationResult>,
     private val jiraOrder: List<InstanceType>,
     private val resultsCache: HardwareExplorationResultCache
@@ -24,8 +21,8 @@ class DbExplorationGuidance(
     override fun space(): List<Hardware> = jiraRecommendations.flatMap { jiraRecommendation ->
         dbs.map { db ->
             Hardware(
-                jiraRecommendation.jira,
-                jiraRecommendation.nodeCount,
+                jiraRecommendation.hardware.jira,
+                jiraRecommendation.hardware.nodeCount,
                 db
             )
         }
@@ -62,7 +59,7 @@ class DbExplorationGuidance(
         )
         HardwareExplorationTable().summarize(
             results = sortedResults,
-            table = task.isolateReport("exploration-table.csv")
+            table = task.isolateReport("merged-exploration-table.csv")
         )
         HardwareExplorationChart(
             JiraClusterGrouping(jiraOrder),
