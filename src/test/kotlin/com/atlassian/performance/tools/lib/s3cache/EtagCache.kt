@@ -24,6 +24,7 @@ class EtagCache(
     fun write(
         download: Download
     ) {
+        download.waitForCompletion()
         locate(download.key)
             .toFile()
             .ensureParentDirectory()

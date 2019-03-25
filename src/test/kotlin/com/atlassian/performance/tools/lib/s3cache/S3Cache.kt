@@ -2,6 +2,7 @@ package com.atlassian.performance.tools.lib.s3cache
 
 import com.amazonaws.services.s3.model.GetObjectRequest
 import com.amazonaws.services.s3.model.S3ObjectSummary
+import com.amazonaws.services.s3.transfer.Download
 import com.amazonaws.services.s3.transfer.TransferManager
 import com.atlassian.performance.tools.io.api.ensureDirectory
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
@@ -34,16 +35,14 @@ class S3Cache(
         val s3Objects = time("filter") {
             val all = S3Listing(transfer.amazonS3Client).listObjects(bucketName, s3Prefix)
             val filtered = all.filter { shouldDownload(it) }
-            Filtered(filtered, all.size - filtered.size)
+            return@time Filtered(filtered, all.size - filtered.size)
         }
         time("transfer") {
             val progress = TransferLoggingProgress(logger, 50, s3Objects.kept.size)
             logger.info("Downloading ${s3Objects.kept.size}, skipping ${s3Objects.skipped}")
             s3Objects
                 .kept
-                .map { transfer.download(GetObjectRequest(it.bucketName, it.key), findLocal(it).toFile()) }
-                .onEach { it.addProgressListener(progress) }
-                .onEach { it.waitForCompletion() }
+                .map { startDownload(it, progress) }
                 .forEach { etags.write(it) }
         }
     }
@@ -82,6 +81,17 @@ class S3Cache(
         ?.permissions()
         ?.contains(PosixFilePermission.OTHERS_READ)?.not()
         ?: false
+
+    private fun startDownload(
+        s3Object: S3ObjectSummary,
+        progress: TransferLoggingProgress
+    ): Download {
+        val request = GetObjectRequest(s3Object.bucketName, s3Object.key)
+        val target = findLocal(s3Object).toFile()
+        val download = transfer.download(request, target)
+        download.addProgressListener(progress)
+        return download
+    }
 
     fun upload() {
         val files = time("filter") {
