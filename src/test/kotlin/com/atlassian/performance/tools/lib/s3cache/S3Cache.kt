@@ -70,7 +70,7 @@ class S3Cache(
     ): Path = objectSummary
         .key
         .removePrefix(s3Prefix)
-        .let { localPath.resolve(it) }  // TODO might not work on Windows
+        .let { localPath.resolve(it) }
 
     private fun isProtected(
         file: File

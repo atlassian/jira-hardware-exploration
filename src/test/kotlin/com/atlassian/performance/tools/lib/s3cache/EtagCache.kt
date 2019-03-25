@@ -19,7 +19,7 @@ class EtagCache(
 
     private fun locate(
         s3ObjectKey: String
-    ): Path = cache.resolve(s3ObjectKey) // TODO might not work on Windows
+    ): Path = cache.resolve(s3ObjectKey)
 
     fun write(
         download: Download
