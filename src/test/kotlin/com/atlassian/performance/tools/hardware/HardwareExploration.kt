@@ -229,7 +229,7 @@ class HardwareExploration(
 
     private fun postProcess(
         rawResults: RawCohortResult
-    ): EdibleResult {
+    ): EdibleResult = synchronized(this) {
         val timeline = StandardTimeline(scale.load.total)
         return rawResults.prepareForJudgement(timeline)
     }
