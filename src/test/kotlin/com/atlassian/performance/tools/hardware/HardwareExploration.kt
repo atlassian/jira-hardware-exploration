@@ -1,5 +1,6 @@
 package com.atlassian.performance.tools.hardware
 
+import com.amazonaws.services.ec2.model.InstanceType
 import com.atlassian.performance.tools.aws.api.Aws
 import com.atlassian.performance.tools.aws.api.Investment
 import com.atlassian.performance.tools.awsinfrastructure.api.InfrastructureFormula
@@ -54,8 +55,10 @@ class HardwareExploration(
         .seed(78432)
         .diagnosticsLimit(32)
         .browser(HeadlessChromeBrowser::class.java)
+        .createUsers(true)
+        .adminPassword(jiraAdminPassword)
         .build()
-    private val awsParallelism = 6
+    private val awsParallelism = 3
     private val results = ConcurrentHashMap<Hardware, Future<HardwareExplorationResult>>()
     private val logger: Logger = LogManager.getLogger(this::class.java)
 
@@ -351,8 +354,9 @@ class HardwareExploration(
                         ).build()
                 })
                 .loadBalancerFormula(ElasticLoadBalancerFormula())
-                .computer(EbsEc2Instance(hardware.jira))
-                .databaseComputer(EbsEc2Instance(hardware.db))
+                .computer(EbsEc2Instance(hardware.jira).withVolumeSize(300))
+                .databaseComputer(EbsEc2Instance(hardware.db).withVolumeSize(300))
+                .adminPwd(jiraAdminPassword)
                 .build(),
             virtualUsersFormula = MulticastVirtualUsersFormula.Builder(
                 nodes = scale.vuNodes,
