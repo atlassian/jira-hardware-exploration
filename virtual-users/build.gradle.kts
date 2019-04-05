@@ -9,6 +9,7 @@ plugins {
 }
 
 dependencies {
+    compile(fileTree(mapOf("dir" to "lib", "include" to "*.jar")))
     compile("com.atlassian.performance.tools:jira-actions:[3.0.0,4.0.0)")
     compile("com.atlassian.performance.tools:jira-software-actions:[1.0.0,2.0.0)")
     compile("org.apache.logging.log4j:log4j-api:2.10.0")

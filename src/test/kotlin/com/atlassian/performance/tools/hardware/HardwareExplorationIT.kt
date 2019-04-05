@@ -1,10 +1,12 @@
 package com.atlassian.performance.tools.hardware
 
+import com.amazonaws.regions.Regions
 import com.amazonaws.regions.Regions.EU_WEST_1
 import com.amazonaws.services.ec2.model.InstanceType.*
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
 import com.atlassian.performance.tools.aws.api.Investment
 import com.atlassian.performance.tools.aws.api.StorageLocation
+import com.atlassian.performance.tools.awsinfrastructure.S3DatasetPackage
 import com.atlassian.performance.tools.awsinfrastructure.api.DatasetCatalogue
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.aws
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.logContext
@@ -14,6 +16,7 @@ import com.atlassian.performance.tools.hardware.failure.BugAwareTolerance
 import com.atlassian.performance.tools.hardware.guidance.DbExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
+import com.atlassian.performance.tools.infrastructure.api.database.PostgresDatabase
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.LicenseOverridingDatabase
 import com.atlassian.performance.tools.lib.overrideDatabase
@@ -30,18 +33,36 @@ import java.net.URI
 import java.nio.file.Paths
 import java.time.Duration
 
+const val jiraAdminPassword = "MasterPassword18"
+
 class HardwareExplorationIT {
 
     private val logger: Logger = logContext.getLogger(this::class.java.canonicalName)
-    private val oneMillionIssues = DatasetCatalogue().custom(
-        location = StorageLocation(
-            uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-1sjxdtrv5hdhj/")
-                .resolve("a12fc4c5-3973-41f0-bf56-ede393677028"),
-            region = EU_WEST_1
+
+    val location = StorageLocation(
+        //s3://jpt-custom-postgres-xl/dataset-7m/jirahome.tar.bz2
+        uri = URI("s3://jpt-custom-postgres-xl/")
+            .resolve("dataset-7m"),
+        region = Regions.EU_WEST_1
+    )
+
+    val databse = PostgresDatabase(
+        source = S3DatasetPackage(
+            artifactName = "database.tar.bz2",
+            location = location,
+            unpackedPath = "database",
+            downloadTimeout = Duration.ofMinutes(20)
         ),
-        label = "1M issues",
-        databaseDownload = Duration.ofMinutes(20),
-        jiraHomeDownload = Duration.ofMinutes(20)
+        dbName = "atldb",
+        dbUser = "postgres",
+        dbPassword ="postgres"
+    )
+
+    val sevenMillionIssues = DatasetCatalogue().custom(
+        location = location,
+        label = "7M issues",
+        jiraHomeDownload = Duration.ofMinutes(40),
+        databse = databse
     ).overrideDatabase { originalDataset ->
         val localLicense = Paths.get("jira-license.txt")
         LicenseOverridingDatabase(
@@ -50,9 +71,10 @@ class HardwareExplorationIT {
                 localLicense
                     .toExistingFile()
                     ?.readText()
-                    ?: throw Exception("Put a Jira license to ${localLicense.toAbsolutePath()}")
+                    ?: throw  Exception("Put a Jira license to ${localLicense.toAbsolutePath()}")
             ))
     }
+
     private val jiraInstanceTypes = listOf(
         C52xlarge,
         C54xlarge,
@@ -124,14 +146,14 @@ class HardwareExplorationIT {
     ): List<HardwareExplorationResult> = HardwareExploration(
         scale = ApplicationScale(
             description = "Jira L profile",
-            dataset = oneMillionIssues,
+            dataset = sevenMillionIssues,
             load = VirtualUserLoad.Builder()
-                .virtualUsers(75)
+                .virtualUsers(150)
                 .ramp(Duration.ofSeconds(90))
                 .flat(Duration.ofMinutes(20))
-                .maxOverallLoad(TemporalRate(15.0, Duration.ofSeconds(1)))
+                .maxOverallLoad(TemporalRate(30.0, Duration.ofSeconds(1)))
                 .build(),
-            vuNodes = 6
+            vuNodes = 12
         ),
         guidance = guidance,
         maxApdexSpread = 0.10,
