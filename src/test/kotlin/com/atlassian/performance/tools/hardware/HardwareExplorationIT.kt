@@ -1,13 +1,11 @@
 package com.atlassian.performance.tools.hardware
 
 import com.amazonaws.regions.Regions
-import com.amazonaws.regions.Regions.EU_WEST_1
 import com.amazonaws.services.ec2.model.InstanceType.*
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
 import com.atlassian.performance.tools.aws.api.Investment
 import com.atlassian.performance.tools.aws.api.StorageLocation
 import com.atlassian.performance.tools.awsinfrastructure.S3DatasetPackage
-import com.atlassian.performance.tools.awsinfrastructure.api.DatasetCatalogue
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.aws
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.logContext
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.taskName
@@ -17,6 +15,8 @@ import com.atlassian.performance.tools.hardware.guidance.DbExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
 import com.atlassian.performance.tools.infrastructure.api.database.PostgresDatabase
+import com.atlassian.performance.tools.infrastructure.api.dataset.Dataset
+import com.atlassian.performance.tools.infrastructure.api.jira.JiraHomePackage
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.LicenseOverridingDatabase
 import com.atlassian.performance.tools.lib.overrideDatabase
@@ -39,31 +39,33 @@ class HardwareExplorationIT {
 
     private val logger: Logger = logContext.getLogger(this::class.java.canonicalName)
 
-    val location = StorageLocation(
-        //s3://jpt-custom-postgres-xl/dataset-7m/jirahome.tar.bz2
-        uri = URI("s3://jpt-custom-postgres-xl/")
-            .resolve("dataset-7m"),
+    private val sevenMillionIssues = StorageLocation(
+        uri = URI("s3://jpt-custom-postgres-xl/dataset-7m"),
         region = Regions.EU_WEST_1
-    )
-
-    val databse = PostgresDatabase(
-        source = S3DatasetPackage(
-            artifactName = "database.tar.bz2",
-            location = location,
-            unpackedPath = "database",
-            downloadTimeout = Duration.ofMinutes(20)
-        ),
-        dbName = "atldb",
-        dbUser = "postgres",
-        dbPassword ="postgres"
-    )
-
-    val sevenMillionIssues = DatasetCatalogue().custom(
-        location = location,
-        label = "7M issues",
-        jiraHomeDownload = Duration.ofMinutes(40),
-        databse = databse
-    ).overrideDatabase { originalDataset ->
+    ).let { location ->
+        Dataset(
+            label = "7M issues",
+            database = PostgresDatabase(
+                source = S3DatasetPackage(
+                    artifactName = "database.tar.bz2",
+                    location = location,
+                    unpackedPath = "database",
+                    downloadTimeout = Duration.ofMinutes(40)
+                ),
+                dbName = "atldb",
+                dbUser = "postgres",
+                dbPassword = "postgres"
+            ),
+            jiraHomeSource = JiraHomePackage(
+                S3DatasetPackage(
+                    artifactName = "jirahome.tar.bz2",
+                    location = location,
+                    unpackedPath = "jirahome",
+                    downloadTimeout = Duration.ofMinutes(40)
+                )
+            )
+        )
+    }.overrideDatabase { originalDataset ->
         val localLicense = Paths.get("jira-license.txt")
         LicenseOverridingDatabase(
             originalDataset.database,
