@@ -2,14 +2,19 @@ package com.atlassian.performance.tools.lib
 
 import com.atlassian.performance.tools.ssh.api.SshConnection
 
-class SshMysqlClient : SshSqlClient{
+class SshPostgresClient(
+    private val dbName: String = "atldb",
+    private val dbUser: String = "postgres",
+    private val dbPassword: String ="postgres"): SshSqlClient {
+
+    val connectStr = "PGPASSWORD=$dbPassword psql -h 127.0.0.1 -U $dbUser -d $dbName -c"
 
     override fun runSql(
         ssh: SshConnection,
         sql: String
     ): SshConnection.SshResult {
         val quotedSql = sql.quote('"')
-        return ssh.execute("mysql -h 127.0.0.1 -u root -e $quotedSql")
+        return ssh.execute("$connectStr $quotedSql")
     }
 
     private fun String.quote(
@@ -22,4 +27,5 @@ class SshMysqlClient : SshSqlClient{
         oldValue = character.toString(),
         newValue = "\\$character"
     )
+
 }
