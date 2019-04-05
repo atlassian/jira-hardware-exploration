@@ -82,7 +82,7 @@ class CustomSetup(
 }
 
 private class CustomPatience(
-    private val timeout: Duration = ofSeconds(10)
+    private val timeout: Duration = ofSeconds(60)
 ) {
     fun test(
         condition: () -> Boolean
