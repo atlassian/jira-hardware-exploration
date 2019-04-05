@@ -17,7 +17,7 @@ import java.util.*
 
 object IntegrationTestRuntime {
 
-    const val taskName = "QUICK-110-3rd-go"
+    const val taskName = "QUICK-103"
     val workspace = RootWorkspace(Paths.get("build")).isolateTask(taskName)
 
     val aws: Aws
