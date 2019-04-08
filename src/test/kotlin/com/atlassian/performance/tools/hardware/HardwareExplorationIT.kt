@@ -39,7 +39,7 @@ class HardwareExplorationIT {
 
     private val logger: Logger = logContext.getLogger(this::class.java.canonicalName)
 
-    private val sevenMillionIssues = StorageLocation(
+    val sevenMillionIssues = StorageLocation(
         uri = URI("s3://jpt-custom-postgres-xl/dataset-7m"),
         region = Regions.EU_WEST_1
     ).let { location ->
