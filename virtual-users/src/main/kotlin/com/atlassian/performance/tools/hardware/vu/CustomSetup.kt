@@ -22,7 +22,7 @@ class CustomSetup(
     private val logger = LogManager.getLogger(this::class.java)
 
     private val driver: WebDriver = jira.driver
-    private val access: AdminAccess = AdminAccess(driver, jira, "admin")
+    private val access: AdminAccess = AdminAccess(driver, jira, jira.adminPassword())
     private val switchLocator = By.id("rte-switch")
 
     override fun run() {
