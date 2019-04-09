@@ -1,6 +1,7 @@
 package com.atlassian.performance.tools.lib
 
 import com.atlassian.performance.tools.io.api.directories
+import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.File
@@ -16,17 +17,17 @@ class AccessLogThroughput {
 
     fun gauge(
         rawResults: File
-    ): Throughput {
+    ): TemporalRate {
         return rawResults
             .directories()
             .filter { it.name.startsWith("jira-node") }
             .map { gaugeNode(it) }
-            .fold(Throughput.ZERO, Throughput::plus)
+            .fold(ZERO_RATE, TemporalRate::plus)
     }
 
     private fun gaugeNode(
         rawNodeResults: File
-    ): Throughput {
+    ): TemporalRate {
         val logs = rawNodeResults
             .listFiles { file: File -> file.name.startsWith("access_log") }
             .sortedBy { it.name }
@@ -45,7 +46,7 @@ class AccessLogThroughput {
 
     private fun gaugeLines(
         lines: Stream<String>
-    ): Throughput {
+    ): TemporalRate {
         var firstEntry: AccessLogEntry? = null
         var lastEntry: AccessLogEntry? = null
         var count = 0
@@ -68,7 +69,7 @@ class AccessLogThroughput {
             firstEntry?.timestamp ?: throw Exception("There is no first entry"),
             lastEntry?.timestamp ?: throw Exception("There is no last entry")
         )
-        return Throughput(count.toDouble(), span).scalePeriod(Duration.ofSeconds(1))
+        return TemporalRate(count.toDouble(), span).scaleTime(Duration.ofSeconds(1))
     }
 
     private fun parse(
@@ -82,7 +83,6 @@ class AccessLogThroughput {
             timestamp = ZonedDateTime.parse(timestamp, format).toInstant()
         )
     }
-
 }
 
 private class AccessLogEntry(
