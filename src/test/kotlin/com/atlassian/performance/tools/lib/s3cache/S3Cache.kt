@@ -130,12 +130,8 @@ class S3Cache(
     ): Boolean {
         val localKey = s3Prefix + local.relativeTo(localDirectory).path // TODO might not work on Windows
         val s3Object = s3Objects.find { it.key == localKey } ?: return true
-        val localEtag = etags.read(localKey)
-        if (s3Object.eTag == localEtag) {
-            return false
-        }
-        val s3Freshness = s3Object.lastModified.toInstant()
-        val localFreshness = Instant.ofEpochMilli(local.lastModified())
+        val localFreshness = local.lastModified()
+        val s3Freshness = s3Object.lastModified.time
         return localFreshness > s3Freshness
     }
 
