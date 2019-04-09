@@ -1,7 +1,7 @@
 package com.atlassian.performance.tools.lib.s3cache
 
 import com.amazonaws.services.s3.transfer.Download
-import com.amazonaws.services.s3.transfer.Upload
+import com.amazonaws.services.s3.transfer.model.UploadResult
 import com.atlassian.performance.tools.io.api.ensureParentDirectory
 import com.atlassian.performance.tools.lib.toExistingFile
 import net.jcip.annotations.NotThreadSafe
@@ -24,7 +24,6 @@ class EtagCache(
     fun write(
         download: Download
     ) {
-        download.waitForCompletion()
         locate(download.key)
             .toFile()
             .ensureParentDirectory()
@@ -32,13 +31,12 @@ class EtagCache(
     }
 
     fun write(
-        upload: Upload
+        upload: UploadResult
     ) {
-        val uploadResult = upload.waitForUploadResult()
-        locate(uploadResult.key)
+        locate(upload.key)
             .toFile()
             .ensureParentDirectory()
-            .writeText(uploadResult.eTag)
+            .writeText(upload.eTag)
 
     }
 }
