@@ -2,11 +2,12 @@ package com.atlassian.performance.tools.hardware
 
 import com.amazonaws.services.ec2.model.InstanceType
 import com.atlassian.performance.tools.io.api.ensureParentDirectory
-import com.atlassian.performance.tools.lib.Throughput
+import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import java.nio.file.Path
 import java.time.Duration
-import javax.json.Json
+import javax.json.Json.*
 import javax.json.JsonArray
+import javax.json.JsonNumber
 import javax.json.JsonObject
 
 class HardwareExplorationResultCache(
@@ -27,7 +28,7 @@ class HardwareExplorationResultCache(
     private fun writeResults(
         results: List<HardwareExplorationResult>
     ): JsonArray {
-        val builder = Json.createArrayBuilder()
+        val builder = createArrayBuilder()
         results.map { writeResult(it) }.forEach { builder.add(it) }
         return builder.build()
     }
@@ -35,7 +36,7 @@ class HardwareExplorationResultCache(
     private fun writeResult(
         result: HardwareExplorationResult
     ): JsonObject {
-        val builder = Json.createObjectBuilder()
+        val builder = createObjectBuilder()
         builder.add("decision", writeDecision(result.decision))
         if (result.testResult != null) {
             builder.add("testResult", writeTestResult(result.testResult))
@@ -46,7 +47,7 @@ class HardwareExplorationResultCache(
     private fun writeDecision(
         decision: HardwareExplorationDecision
     ): JsonObject = decision.run {
-        Json.createObjectBuilder()
+        createObjectBuilder()
             .add("hardware", writeHardware(hardware))
             .add("worthExploring", worthExploring)
             .add("reason", reason)
@@ -56,7 +57,7 @@ class HardwareExplorationResultCache(
     private fun writeHardware(
         hardware: Hardware
     ): JsonObject = hardware.run {
-        Json.createObjectBuilder()
+        createObjectBuilder()
             .add("jira", jira.toString())
             .add("nodeCount", nodeCount)
             .add("db", db.toString())
@@ -66,23 +67,31 @@ class HardwareExplorationResultCache(
     private fun writeTestResult(
         testResult: HardwareTestResult
     ): JsonObject = testResult.run {
-        Json.createObjectBuilder()
+        createObjectBuilder()
             .add("apdex", apdex)
-            .add("apdexSpread", apdexSpread)
+            .add("apdexes", createArrayBuilder(apdexes).build())
             .add("errorRate", errorRate)
-            .add("errorRateSpread", errorRateSpread)
+            .add("errorRates", createArrayBuilder(errorRates).build())
             .add("httpThroughput", writeThroughput(httpThroughput))
-            .add("httpThroughputSpread", writeThroughput(httpThroughputSpread))
+            .add("httpThroughputs",
+                createArrayBuilder()
+                    .also { array ->
+                        httpThroughputs
+                            .map { writeThroughput(it) }
+                            .forEach { array.add(it) }
+                    }
+                    .build()
+            )
             .add("hardware", writeHardware(hardware))
             .build()
     }
 
     private fun writeThroughput(
-        throughput: Throughput
+        throughput: TemporalRate
     ): JsonObject = throughput.run {
-        Json.createObjectBuilder()
-            .add("count", count)
-            .add("period", writeDuration(period))
+        createObjectBuilder()
+            .add("change", change)
+            .add("time", writeDuration(time))
             .build()
     }
 
@@ -93,7 +102,7 @@ class HardwareExplorationResultCache(
     fun read(): List<HardwareExplorationResult> = cache
         .toFile()
         .bufferedReader()
-        .use { Json.createReader(it).read() }
+        .use { createReader(it).read() }
         .asJsonArray()
         .let { readResults(it) }
 
@@ -137,21 +146,21 @@ class HardwareExplorationResultCache(
         HardwareTestResult(
             hardware = readHardware(getJsonObject("hardware")),
             apdex = getJsonNumber("apdex").doubleValue(),
-            apdexSpread = getJsonNumber("apdexSpread").doubleValue(),
+            apdexes = getJsonArray("apdexes").map { it as JsonNumber }.map { it.doubleValue() },
             errorRate = getJsonNumber("errorRate").doubleValue(),
-            errorRateSpread = getJsonNumber("errorRateSpread").doubleValue(),
+            errorRates = getJsonArray("errorRates").map { it as JsonNumber }.map { it.doubleValue() },
             httpThroughput = readThroughput(getJsonObject("httpThroughput")),
-            httpThroughputSpread = readThroughput(getJsonObject("httpThroughputSpread")),
+            httpThroughputs = getJsonArray("httpThroughputs").map { it.asJsonObject() }.map { readThroughput(it) },
             results = emptyList()
         )
     }
 
     private fun readThroughput(
         json: JsonObject
-    ): Throughput = json.run {
-        Throughput(
-            count = getJsonNumber("count").doubleValue(),
-            period = readDuration(getString("period"))
+    ): TemporalRate = json.run {
+        TemporalRate(
+            change = getJsonNumber("change").doubleValue(),
+            time = readDuration(getString("time"))
         )
     }
 

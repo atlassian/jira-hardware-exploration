@@ -25,6 +25,7 @@ import com.atlassian.performance.tools.report.api.FullReport
 import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.EdibleResult
 import com.atlassian.performance.tools.report.api.result.RawCohortResult
+import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.virtualusers.api.browsers.HeadlessChromeBrowser
 import com.atlassian.performance.tools.virtualusers.api.config.VirtualUserBehavior
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
@@ -261,18 +262,21 @@ class HardwareExploration(
             BROWSE_BOARDS
         ).map { it.label }
         val metrics = postProcessedResult.actionMetrics.filter { it.label in labels }
+        val apdex = Apdex().score(metrics)
+        val throughput = AccessLogThroughput().gauge(workspace.digOutTheRawResults(cohort))
+        val errorRate = ErrorRate().measure(metrics)
         val hardwareResult = HardwareTestResult(
             hardware = hardware,
-            apdex = Apdex().score(metrics),
-            apdexSpread = 0.0,
-            httpThroughput = AccessLogThroughput().gauge(workspace.digOutTheRawResults(cohort)),
-            httpThroughputSpread = Throughput.ZERO,
+            apdex = apdex,
+            apdexes = listOf(apdex),
+            httpThroughput = throughput,
+            httpThroughputs = listOf(throughput),
             results = listOf(results),
-            errorRate = ErrorRate().measure(metrics),
-            errorRateSpread = 0.0
+            errorRate = errorRate,
+            errorRates = listOf(errorRate)
         )
         if (hardwareResult.errorRate > maxErrorRate) {
-            throw Exception("Error rate for $cohort is too high: ${ErrorRate().measure(metrics)}")
+            throw Exception("Error rate for $cohort is too high: $errorRate")
         }
         return hardwareResult
     }
@@ -368,23 +372,24 @@ class HardwareExploration(
         val throughputUnit = Duration.ofSeconds(1)
         val throughputs = results
             .map { it.httpThroughput }
-            .map { it.scalePeriod(throughputUnit) }
-            .map { it.count }
+            .map { it.scaleTime(throughputUnit) }
+            .map { it.change }
         val errorRates = results.map { it.errorRate }
         val testResult = HardwareTestResult(
             hardware = hardware,
             apdex = apdexes.average(),
-            apdexSpread = apdexes.spread(),
-            httpThroughput = Throughput(throughputs.average(), throughputUnit),
-            httpThroughputSpread = Throughput(throughputs.spread(), throughputUnit),
+            apdexes = results.flatMap { it.apdexes },
+            httpThroughput = TemporalRate(throughputs.average(), throughputUnit),
+            httpThroughputs = results.flatMap { it.httpThroughputs },
             results = results.flatMap { it.results },
             errorRate = errorRates.average(),
-            errorRateSpread = errorRates.spread()
+            errorRates = results.flatMap { it.errorRates }
         )
         val postProcessedResults = results.flatMap { it.results }.map { postProcess(it) }
         reportRaw("sub-test-comparison", postProcessedResults, hardware)
-        if (testResult.apdexSpread > maxApdexSpread) {
-            throw Exception("Apdex spread for $hardware is too big: ${apdexes.spread()}. Results: $results")
+        val apdexSpread = apdexes.spread()
+        if (apdexSpread > maxApdexSpread) {
+            throw Exception("Apdex spread for $hardware is too big: $apdexSpread. Results: $results")
         }
         return testResult
     }

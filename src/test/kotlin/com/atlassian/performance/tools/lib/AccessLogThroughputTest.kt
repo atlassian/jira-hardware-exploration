@@ -14,8 +14,8 @@ class AccessLogThroughputTest {
 
         val throughput = AccessLogThroughput().gauge(rawResults)
 
-        assertThat(throughput.count, equalTo(41.70824779594451))
-        assertThat(throughput.period, equalTo(Duration.ofSeconds(1)))
+        assertThat(throughput.change, equalTo(41.70824779594451))
+        assertThat(throughput.time, equalTo(Duration.ofSeconds(1)))
     }
 
     @Test
@@ -24,8 +24,8 @@ class AccessLogThroughputTest {
 
         val throughput = AccessLogThroughput().gauge(rawResults)
 
-        assertThat(throughput.count, equalTo(9.626355296080066))
-        assertThat(throughput.period, equalTo(Duration.ofSeconds(1)))
+        assertThat(throughput.change, equalTo(9.626355296080066))
+        assertThat(throughput.time, equalTo(Duration.ofSeconds(1)))
     }
 
     @Test

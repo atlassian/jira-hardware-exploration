@@ -47,7 +47,8 @@
                             },
                             id: "y-axis-0",
                             ticks: {
-                                min: 0
+                                min: 0,
+                                max: '<%= maxApdex =%>'
                             }
                         }
                     ],
@@ -95,7 +96,8 @@
                                 labelString: "error rate [%]"
                             },
                             ticks: {
-                                min: 0
+                                min: 0,
+                                max: '<%= maxErrorRate =%>'
                             }
                         }
                     ],
@@ -143,7 +145,8 @@
                                 labelString: "HTTP throughput [requests / s]"
                             },
                             ticks: {
-                                min: 0
+                                min: 0,
+                                max: '<%= maxThroughput =%>'
                             }
                         }
                     ],
