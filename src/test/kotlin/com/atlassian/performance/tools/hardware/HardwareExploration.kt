@@ -60,6 +60,9 @@ class HardwareExploration(
 
     fun exploreHardware(): List<HardwareExplorationResult> {
         val space = guidance.space()
+        if (space.isEmpty()) {
+            return emptyList()
+        }
         val awsExecutor = Executors.newFixedThreadPool(awsParallelism)
         val explorationExecutor = Executors.newFixedThreadPool(space.size)
         try {
