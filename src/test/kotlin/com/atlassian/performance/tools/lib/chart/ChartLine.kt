@@ -31,7 +31,7 @@ internal class ChartLine<X>(
                 errorBar.labelX(),
                 Json.createObjectBuilder()
                     .add("plus", errorBar.plus)
-                    .add("minus", errorBar.minus)
+                    .add("minus", errorBar.minus.negate())
             )
         }
         val chartDataBuilder = Json.createObjectBuilder()

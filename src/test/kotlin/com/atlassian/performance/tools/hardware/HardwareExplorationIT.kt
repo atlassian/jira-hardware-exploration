@@ -59,7 +59,7 @@ class HardwareExplorationIT {
         C48xlarge,
         C518xlarge
     )
-    private val resultCache = HardwareExplorationResultCache(workspace.directory.resolve("result-cache.json"))
+    private val resultCache = HardwareExplorationResultCache(workspace.directory.resolve("out-of-bounds-error-bars-cache.json"))
 
     @Test
     fun shouldExploreHardware() {

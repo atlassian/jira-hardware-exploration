@@ -28,9 +28,9 @@ internal class HardwareExplorationTable {
         val format = CSVFormat.DEFAULT.withHeader(*headers).withRecordSeparator('\n')
         table.toFile().bufferedWriter().use { writer ->
             val printer = CSVPrinter(writer, format)
-            results.forEach {
-                val result = it.testResult
-                val hardware = it.decision.hardware
+            results.forEach { exploration ->
+                val result = exploration.testResult
+                val hardware = exploration.decision.hardware
                 val throughputPeriod = Duration.ofSeconds(1)
                 if (result != null) {
                     printer.printRecord(
@@ -38,13 +38,13 @@ internal class HardwareExplorationTable {
                         hardware.nodeCount,
                         hardware.db,
                         result.errorRate * 100,
-                        result.errorRateSpread * 100,
+                        result.errorRates.spread() * 100,
                         result.apdex,
-                        result.apdexSpread,
-                        result.httpThroughput.scalePeriod(throughputPeriod).count,
-                        result.httpThroughputSpread.scalePeriod(throughputPeriod).count,
-                        if (it.decision.worthExploring) "YES" else "NO",
-                        it.decision.reason
+                        result.apdexes.spread(),
+                        result.httpThroughput.scaleTime(throughputPeriod).change,
+                        result.httpThroughputs.map { it.scaleTime(throughputPeriod).change }.spread(),
+                        if (exploration.decision.worthExploring) "YES" else "NO",
+                        exploration.decision.reason
                     )
                 } else {
                     printer.printRecord(
@@ -57,11 +57,15 @@ internal class HardwareExplorationTable {
                         "-",
                         "-",
                         "-",
-                        if (it.decision.worthExploring) "YES" else "NO",
-                        it.decision.reason
+                        if (exploration.decision.worthExploring) "YES" else "NO",
+                        exploration.decision.reason
                     )
                 }
             }
         }
+    }
+
+    private fun List<Double>.spread(): Double {
+        return max()!! - min()!!
     }
 }

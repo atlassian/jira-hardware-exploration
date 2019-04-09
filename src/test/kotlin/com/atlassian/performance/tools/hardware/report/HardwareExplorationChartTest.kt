@@ -53,4 +53,21 @@ class HardwareExplorationChartTest {
             output = workspace.isolateReport("db-hardware-exploration-chart.html")
         )
     }
+
+    @Test
+    fun shouldKeepErrorBarsWithinTheChart() {
+        val chart = HardwareExplorationChart(
+            JiraInstanceTypeGrouping(compareBy { it.ordinal }),
+            NodeCountXAxis(),
+            HardcodedGitRepo("whatevs")
+        )
+        val cachePath = File(javaClass.getResource("/out-of-bounds-error-bars-cache.json").toURI()).toPath()
+        val results = HardwareExplorationResultCache(cachePath).read()
+
+        chart.plot(
+            results = results,
+            application = "error bar test",
+            output = workspace.isolateReport("error-bars-test.html")
+        )
+    }
 }

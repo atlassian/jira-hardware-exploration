@@ -1,0 +1,1025 @@
+[
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 1,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.6857075016866321,
+      "apdexes": [
+        0.6789112635538836,
+        0.6925037398193805
+      ],
+      "errorRate": 0.0,
+      "errorRates": [
+        0.0,
+        0.0
+      ],
+      "httpThroughput": {
+        "change": 163.52989158253035,
+        "time": "PT1S"
+      },
+      "httpThroughputs": [
+        {
+          "change": 163.40554339897884,
+          "time": "PT1S"
+        },
+        {
+          "change": 163.65423976608187,
+          "time": "PT1S"
+        }
+      ],
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 1,
+        "db": "m4.xlarge"
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 1,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.27448993811398104,
+      "apdexes": [
+        0.2692999357739242,
+        0.2796799404540379
+      ],
+      "errorRate": 0.00018990904133028955,
+      "errorRates": [
+        0.00012367054167697252,
+        0.00025614754098360657
+      ],
+      "httpThroughput": {
+        "change": 80.16024978871255,
+        "time": "PT1S"
+      },
+      "httpThroughputs": [
+        {
+          "change": 78.85673146148307,
+          "time": "PT1S"
+        },
+        {
+          "change": 81.46376811594203,
+          "time": "PT1S"
+        }
+      ],
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 1,
+        "db": "m4.xlarge"
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 15,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.2xlarge Jira, m4.xlarge DB, run 1 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 5,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.2xlarge Jira, m4.xlarge DB, run 1 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 13,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.2xlarge Jira, m4.xlarge DB, run 1 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 14,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.2xlarge Jira, m4.xlarge DB, run 1 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 12,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.2xlarge Jira, m4.xlarge DB, run 1 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 16,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.2xlarge Jira, m4.xlarge DB, run 1 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 4,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.2xlarge Jira, m4.xlarge DB, run 1 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 10,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.2xlarge Jira, m4.xlarge DB, run 1 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 8,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.2xlarge Jira, m4.xlarge DB, run 1 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 7,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.2xlarge Jira, m4.xlarge DB, run 1 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 11,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.2xlarge Jira, m4.xlarge DB, run 1 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 6,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.2xlarge Jira, m4.xlarge DB, run 1 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 9,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.2xlarge Jira, m4.xlarge DB, run 1 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 1,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.4116769288461962,
+      "apdexes": [
+        0.4084344500131891,
+        0.4149194076792033
+      ],
+      "errorRate": 0.00045933505557092065,
+      "errorRates": [
+        0.0003922850604772801,
+        0.0005263850506645612
+      ],
+      "httpThroughput": {
+        "change": 139.46387283236993,
+        "time": "PT1S"
+      },
+      "httpThroughputs": [
+        {
+          "change": 138.99855491329478,
+          "time": "PT1S"
+        },
+        {
+          "change": 139.92919075144508,
+          "time": "PT1S"
+        }
+      ],
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 1,
+        "db": "m4.xlarge"
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 1,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.43967373227602236,
+      "apdexes": [
+        0.4352554205544741,
+        0.44409204399757063
+      ],
+      "errorRate": 0.00033639822676601397,
+      "errorRates": [
+        0.00013400335008375208,
+        0.0005387931034482759
+      ],
+      "httpThroughput": {
+        "change": 137.5635909980947,
+        "time": "PT1S"
+      },
+      "httpThroughputs": [
+        {
+          "change": 137.45328467153286,
+          "time": "PT1S"
+        },
+        {
+          "change": 137.67389732465654,
+          "time": "PT1S"
+        }
+      ],
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 1,
+        "db": "m4.xlarge"
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 2,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.6753272360326582,
+      "apdexes": [
+        0.6691944169688977,
+        0.6814600550964187
+      ],
+      "errorRate": 0.0,
+      "errorRates": [
+        0.0,
+        0.0
+      ],
+      "httpThroughput": {
+        "change": 165.23771959267032,
+        "time": "PT1S"
+      },
+      "httpThroughputs": [
+        {
+          "change": 164.41946607514626,
+          "time": "PT1S"
+        },
+        {
+          "change": 166.05597311019437,
+          "time": "PT1S"
+        }
+      ],
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 2,
+        "db": "m4.xlarge"
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 2,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.6922022927712153,
+      "apdexes": [
+        0.6888689205885656,
+        0.6955356649538649
+      ],
+      "errorRate": 0.0017046238257920558,
+      "errorRates": [
+        0.0001655811899768187,
+        0.003243666461607293
+      ],
+      "httpThroughput": {
+        "change": 165.90146736949333,
+        "time": "PT1S"
+      },
+      "httpThroughputs": [
+        {
+          "change": 165.53345940125848,
+          "time": "PT1S"
+        },
+        {
+          "change": 166.26947533772818,
+          "time": "PT1S"
+        }
+      ],
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 2,
+        "db": "m4.xlarge"
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 3,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.736202936938445,
+      "apdexes": [
+        0.7356890264117582,
+        0.7367168474651318
+      ],
+      "errorRate": 0.0,
+      "errorRates": [
+        0.0,
+        0.0
+      ],
+      "httpThroughput": {
+        "change": 167.68487242554602,
+        "time": "PT1S"
+      },
+      "httpThroughputs": [
+        {
+          "change": 166.67857201476903,
+          "time": "PT1S"
+        },
+        {
+          "change": 168.691172836323,
+          "time": "PT1S"
+        }
+      ],
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 3,
+        "db": "m4.xlarge"
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 3,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.665399401293508,
+      "apdexes": [
+        0.6625793979563657,
+        0.6682194046306504
+      ],
+      "errorRate": 0.0,
+      "errorRates": [
+        0.0,
+        0.0
+      ],
+      "httpThroughput": {
+        "change": 167.00652507967686,
+        "time": "PT1S"
+      },
+      "httpThroughputs": [
+        {
+          "change": 166.56412311213552,
+          "time": "PT1S"
+        },
+        {
+          "change": 167.4489270472182,
+          "time": "PT1S"
+        }
+      ],
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 3,
+        "db": "m4.xlarge"
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 4,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 5,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 6,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 7,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 8,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 9,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 10,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 11,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 12,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 13,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 14,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 15,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.18xlarge",
+        "nodeCount": 16,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 12,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.4xlarge Jira, m4.xlarge DB, run 2 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 5,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.4xlarge Jira, m4.xlarge DB, run 2 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 14,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.4xlarge Jira, m4.xlarge DB, run 2 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 9,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.4xlarge Jira, m4.xlarge DB, run 2 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 10,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.4xlarge Jira, m4.xlarge DB, run 2 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 6,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.4xlarge Jira, m4.xlarge DB, run 2 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 8,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.4xlarge Jira, m4.xlarge DB, run 2 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 13,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.4xlarge Jira, m4.xlarge DB, run 2 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 4,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.4xlarge Jira, m4.xlarge DB, run 2 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 16,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.4xlarge Jira, m4.xlarge DB, run 2 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 7,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.4xlarge Jira, m4.xlarge DB, run 2 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 15,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.4xlarge Jira, m4.xlarge DB, run 2 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 11,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "testing smaller hardware had failed, ERROR: java.util.concurrent.ExecutionException: java.lang.Exception: 2 x c5.4xlarge Jira, m4.xlarge DB, run 2 failed"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 3,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.6587277948911209,
+      "apdexes": [
+        0.6575349986275048,
+        0.659920591154737
+      ],
+      "errorRate": 0.0,
+      "errorRates": [
+        0.0,
+        0.0
+      ],
+      "httpThroughput": {
+        "change": 165.3380750209854,
+        "time": "PT1S"
+      },
+      "httpThroughputs": [
+        {
+          "change": 164.65410652496067,
+          "time": "PT1S"
+        },
+        {
+          "change": 166.02204351701013,
+          "time": "PT1S"
+        }
+      ],
+      "hardware": {
+        "jira": "c5.4xlarge",
+        "nodeCount": 3,
+        "db": "m4.xlarge"
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 3,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": true,
+      "reason": "high availability"
+    },
+    "testResult": {
+      "apdex": 0.6805815555284891,
+      "apdexes": [
+        0.6774291722000885,
+        0.6837339388568897
+      ],
+      "errorRate": 0.0,
+      "errorRates": [
+        0.0,
+        0.0
+      ],
+      "httpThroughput": {
+        "change": 164.72628067543232,
+        "time": "PT1S"
+      },
+      "httpThroughputs": [
+        {
+          "change": 164.71097291201622,
+          "time": "PT1S"
+        },
+        {
+          "change": 164.74158843884842,
+          "time": "PT1S"
+        }
+      ],
+      "hardware": {
+        "jira": "c5.2xlarge",
+        "nodeCount": 3,
+        "db": "m4.xlarge"
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 4,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": true,
+      "reason": "adding more nodes made enough positive impact on Apdex"
+    },
+    "testResult": {
+      "apdex": 0.7331830561288554,
+      "apdexes": [
+        0.7325259131977163,
+        0.7338401990599944
+      ],
+      "errorRate": 0.0,
+      "errorRates": [
+        0.0,
+        0.0
+      ],
+      "httpThroughput": {
+        "change": 165.63424516529219,
+        "time": "PT1S"
+      },
+      "httpThroughputs": [
+        {
+          "change": 164.84922788593383,
+          "time": "PT1S"
+        },
+        {
+          "change": 166.41926244465054,
+          "time": "PT1S"
+        }
+      ],
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 4,
+        "db": "m4.xlarge"
+      }
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 5,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 6,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 7,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 8,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 9,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 10,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 11,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 12,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 13,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 14,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 15,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  },
+  {
+    "decision": {
+      "hardware": {
+        "jira": "c4.8xlarge",
+        "nodeCount": 16,
+        "db": "m4.xlarge"
+      },
+      "worthExploring": false,
+      "reason": "adding more nodes did not improve Apdex enough"
+    }
+  }
+]

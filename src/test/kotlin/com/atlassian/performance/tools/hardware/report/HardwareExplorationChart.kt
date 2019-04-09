@@ -12,6 +12,7 @@ import com.atlassian.performance.tools.lib.chart.color.PresetLabelColor
 import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import org.apache.logging.log4j.LogManager
 import java.math.BigDecimal
+import java.math.MathContext
 import java.math.RoundingMode.HALF_UP
 import java.nio.file.Path
 
@@ -33,14 +34,15 @@ internal class HardwareExplorationChart<S, X>(
         Color(101, 84, 192)
     )
     private val presetLabelColor: PresetLabelColor = PresetLabelColor(adgSecondaryPalette)
+    private val mathContext = MathContext(3, HALF_UP)
 
     fun plot(
         results: List<HardwareExplorationResult>,
         application: String,
         output: Path
     ) {
-        val resultsPerSeries = results
-            .mapNotNull { it.testResult }
+        val testResults = results.mapNotNull { it.testResult }
+        val resultsPerSeries = testResults
             .let { seriesGrouping.group(it) }
             .mapValues { (_, testResults) -> testResults.sortedBy { xAxis.getX(it) } }
         val report = HardwareExplorationChart::class
@@ -53,12 +55,24 @@ internal class HardwareExplorationChart<S, X>(
                 newValue = plotApdex(resultsPerSeries).toJson().toString()
             )
             .replace(
+                oldValue = "'<%= maxApdex =%>'",
+                newValue = "1.00"
+            )
+            .replace(
                 oldValue = "'<%= errorRateChartData =%>'",
                 newValue = plotErrorRate(resultsPerSeries).toJson().toString()
             )
             .replace(
+                oldValue = "'<%= maxErrorRate =%>'",
+                newValue = testResults.flatMap { it.errorRates }.map { it * 100 }.maxAxis()
+            )
+            .replace(
                 oldValue = "'<%= throughputChartData =%>'",
                 newValue = plotThroughput(resultsPerSeries).toJson().toString()
+            )
+            .replace(
+                oldValue = "'<%= maxThroughput =%>'",
+                newValue = testResults.flatMap { it.httpThroughputs }.map { it.change }.maxAxis()
             )
             .replace(
                 oldValue = "<%= commit =%>",
@@ -80,15 +94,14 @@ internal class HardwareExplorationChart<S, X>(
                 data = testResults.map {
                     HardwarePoint(
                         x = xAxis.getX(it),
-                        value = BigDecimal.valueOf(it.apdex).setScale(3, HALF_UP)
+                        value = it.apdex.toBigDecimal(mathContext)
                     )
                 },
-                errorBars = testResults.map {
-                    val spreadDiff = BigDecimal.valueOf(it.apdexSpread / 2).setScale(3, HALF_UP)
-                    HardwareErrorBar(
-                        x = xAxis.getX(it),
-                        plus = spreadDiff,
-                        minus = spreadDiff
+                errorBars = testResults.map { result ->
+                    plotErrorBar(
+                        x = xAxis.getX(result),
+                        y = result.apdex,
+                        yRange = result.apdexes
                     )
                 },
                 label = series.toString()
@@ -121,15 +134,14 @@ internal class HardwareExplorationChart<S, X>(
                 data = testResults.map {
                     HardwarePoint(
                         x = xAxis.getX(it),
-                        value = BigDecimal.valueOf(it.errorRate * 100).setScale(2, HALF_UP)
+                        value = it.errorRate.times(100).toBigDecimal(mathContext)
                     )
                 },
-                errorBars = testResults.map {
-                    val spreadDiff = BigDecimal.valueOf((it.errorRateSpread / 2) * 100).setScale(2, HALF_UP)
-                    HardwareErrorBar(
-                        x = xAxis.getX(it),
-                        plus = spreadDiff,
-                        minus = spreadDiff
+                errorBars = testResults.map { result ->
+                    plotErrorBar(
+                        x = xAxis.getX(result),
+                        y = result.errorRate * 100,
+                        yRange = result.errorRates.map { it * 100 }
                     )
                 },
                 label = series.toString()
@@ -145,21 +157,32 @@ internal class HardwareExplorationChart<S, X>(
                 data = testResults.map {
                     HardwarePoint(
                         x = xAxis.getX(it),
-                        value = BigDecimal.valueOf(it.httpThroughput.count).setScale(0, HALF_UP)
+                        value = it.httpThroughput.change.toBigDecimal(mathContext)
                     )
                 },
-                errorBars = testResults.map {
-                    val spreadDiff = BigDecimal.valueOf(it.httpThroughputSpread.count / 2).setScale(2, HALF_UP)
-                    HardwareErrorBar(
-                        x = xAxis.getX(it),
-                        plus = spreadDiff,
-                        minus = spreadDiff
+                errorBars = testResults.map { result ->
+                    plotErrorBar(
+                        x = xAxis.getX(result),
+                        y = result.httpThroughput.change,
+                        yRange = result.httpThroughputs.map { throughput -> throughput.change }
                     )
                 },
                 label = series.toString()
             )
         }
         .let { Chart(it) }
+
+    private fun plotErrorBar(
+        x: X,
+        y: Double,
+        yRange: List<Double>
+    ): ErrorBar = HardwareErrorBar(
+        x = x,
+        plus = yRange.max()!!.minus(y).toBigDecimal(mathContext),
+        minus = yRange.min()!!.minus(y).toBigDecimal(mathContext)
+    )
+
+    private fun List<Double>.maxAxis(): String = max()!!.toString()
 }
 
 private class HardwarePoint<X>(
