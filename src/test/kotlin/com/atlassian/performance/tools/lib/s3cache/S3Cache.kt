@@ -101,7 +101,9 @@ class S3Cache(
 
     fun upload() {
         val files = time("filter") {
-            val s3Objects = S3Listing(transfer.amazonS3Client).listObjects(bucketName, s3Prefix)
+            val s3Objects = S3Listing(transfer.amazonS3Client)
+                .listObjects(bucketName, s3Prefix)
+                .associateBy { it.key }
             val all = FileListing(localDirectory).listRecursively()
             val filtered = all.filter { shouldUpload(it, s3Objects) }
             Filtered(filtered, all.size - filtered.size)
@@ -126,10 +128,10 @@ class S3Cache(
 
     private fun shouldUpload(
         local: File,
-        s3Objects: List<S3ObjectSummary>
+        s3Objects: Map<String, S3ObjectSummary>
     ): Boolean {
         val localKey = s3Prefix + local.relativeTo(localDirectory).path // TODO might not work on Windows
-        val s3Object = s3Objects.find { it.key == localKey } ?: return true
+        val s3Object = s3Objects[localKey] ?: return true
         val localFreshness = local.lastModified()
         val s3Freshness = s3Object.lastModified.time
         return localFreshness > s3Freshness
