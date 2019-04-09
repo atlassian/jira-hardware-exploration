@@ -1,5 +1,6 @@
 package com.atlassian.performance.tools.lib.s3cache
 
+import com.amazonaws.event.ProgressListener
 import com.amazonaws.services.s3.model.GetObjectRequest
 import com.amazonaws.services.s3.model.S3ObjectSummary
 import com.amazonaws.services.s3.transfer.Download
@@ -43,7 +44,9 @@ class S3Cache(
             s3Objects
                 .kept
                 .map { startDownload(it, progress) }
-                .forEach { etags.write(it) }
+                .onEach { it.download.waitForCompletion() }
+                .onEach { it.local.setLastModified(it.download.objectMetadata.lastModified.time) }
+                .forEach { etags.write(it.download) }
         }
     }
 
@@ -84,13 +87,16 @@ class S3Cache(
 
     private fun startDownload(
         s3Object: S3ObjectSummary,
-        progress: TransferLoggingProgress
-    ): Download {
+        progress: ProgressListener
+    ): LocalDownload {
         val request = GetObjectRequest(s3Object.bucketName, s3Object.key)
         val target = findLocal(s3Object).toFile()
         val download = transfer.download(request, target)
         download.addProgressListener(progress)
-        return download
+        return LocalDownload(
+            target,
+            download
+        )
     }
 
     fun upload() {
@@ -113,6 +119,7 @@ class S3Cache(
                 .apply { addProgressListener(progress) }
                 .also { it.waitForCompletion() }
                 .subTransfers
+                .map { it.waitForUploadResult() }
                 .forEach { etags.write(it) }
         }
     }
@@ -139,5 +146,10 @@ class S3Cache(
     private class Filtered<T>(
         val kept: List<T>,
         val skipped: Int
+    )
+
+    private class LocalDownload(
+        val local: File,
+        val download: Download
     )
 }
