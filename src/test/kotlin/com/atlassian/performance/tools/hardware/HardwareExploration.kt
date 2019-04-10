@@ -1,6 +1,5 @@
 package com.atlassian.performance.tools.hardware
 
-import com.amazonaws.services.ec2.model.InstanceType
 import com.atlassian.performance.tools.aws.api.Aws
 import com.atlassian.performance.tools.aws.api.Investment
 import com.atlassian.performance.tools.awsinfrastructure.api.InfrastructureFormula
@@ -12,7 +11,7 @@ import com.atlassian.performance.tools.hardware.failure.FailureTolerance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.vu.CustomScenario
 import com.atlassian.performance.tools.infrastructure.api.browser.chromium.Chromium69
-import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJiraSoftwareDistribution
+import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraLaunchTimeouts
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
 import com.atlassian.performance.tools.infrastructure.api.profiler.AsyncProfiler
@@ -38,6 +37,7 @@ import java.time.Duration
 import java.util.concurrent.*
 
 class HardwareExploration(
+    private val product: ProductDistribution,
     private val scale: ApplicationScale,
     private val guidance: ExplorationGuidance,
     private val investment: Investment,
@@ -339,7 +339,7 @@ class HardwareExploration(
         infrastructureFormula = InfrastructureFormula(
             investment = investment,
             jiraFormula = DataCenterFormula.Builder(
-                productDistribution = PublicJiraSoftwareDistribution("7.13.0"),
+                productDistribution = product,
                 jiraHomeSource = scale.dataset.jiraHomeSource,
                 database = scale.dataset.database
             )
