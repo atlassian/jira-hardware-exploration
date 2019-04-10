@@ -80,7 +80,7 @@ class HardwareExplorationIT {
     private val jiraInstanceTypes = listOf(
         C48xlarge
     )
-    private val resultCache = HardwareExplorationResultCache(workspace.directory.resolve("out-of-bounds-error-bars-cache.json"))
+    private val resultCache = HardwareExplorationResultCache(workspace.directory.resolve("processed-cache.json"))
 
     @Test
     fun shouldExploreHardware() {
