@@ -11,6 +11,7 @@ import com.atlassian.performance.tools.hardware.failure.BugAwareTolerance
 import com.atlassian.performance.tools.hardware.guidance.DbExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
+import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJiraSoftwareDistribution
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.lib.workspace.GitRepo2
@@ -95,6 +96,7 @@ class HardwareExplorationIT {
     private fun explore(
         guidance: ExplorationGuidance
     ): List<HardwareExplorationResult> = HardwareExploration(
+        product = PublicJiraSoftwareDistribution("7.13.0"),
         scale = JIRA_EXTRA_LARGE,
         guidance = guidance,
         maxApdexSpread = 0.10,
