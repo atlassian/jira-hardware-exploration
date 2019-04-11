@@ -37,17 +37,17 @@ internal class HardwareExplorationChart<S, X>(
     private val mathContext = MathContext(3, HALF_UP)
 
     fun plot(
-        results: List<HardwareExplorationResult>,
+        exploration: List<HardwareExplorationResult>,
         application: String,
         output: Path
     ) {
-        val testResults = results.mapNotNull { it.testResult }
-        if (testResults.isEmpty()) {
+        val results = exploration.mapNotNull { it.testResult }
+        if (results.isEmpty()) {
             return
         }
-        val resultsPerSeries = testResults
+        val resultsPerSeries = results
             .let { seriesGrouping.group(it) }
-            .mapValues { (_, testResults) -> testResults.sortedBy { xAxis.getX(it) } }
+            .mapValues { (_, resultGroup) -> resultGroup.sortedBy { xAxis.getX(it) } }
         val report = HardwareExplorationChart::class
             .java
             .getResourceAsStream("/hardware-exploration-chart-template.html")
@@ -67,7 +67,7 @@ internal class HardwareExplorationChart<S, X>(
             )
             .replace(
                 oldValue = "'<%= maxErrorRate =%>'",
-                newValue = testResults.flatMap { it.errorRates }.map { it * 100 }.maxAxis()
+                newValue = results.flatMap { it.errorRates }.map { it * 100 }.maxAxis()
             )
             .replace(
                 oldValue = "'<%= throughputChartData =%>'",
@@ -75,7 +75,7 @@ internal class HardwareExplorationChart<S, X>(
             )
             .replace(
                 oldValue = "'<%= maxThroughput =%>'",
-                newValue = testResults.flatMap { it.httpThroughputs }.map { it.change }.maxAxis()
+                newValue = results.flatMap { it.httpThroughputs }.map { it.change }.maxAxis()
             )
             .replace(
                 oldValue = "<%= commit =%>",

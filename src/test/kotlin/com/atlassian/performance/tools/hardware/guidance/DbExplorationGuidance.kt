@@ -38,13 +38,13 @@ class DbExplorationGuidance(
     )
 
     override fun report(
-        results: List<HardwareExplorationResult>,
+        exploration: List<HardwareExplorationResult>,
         task: TaskWorkspace,
         title: String
     ) = synchronized(this) {
-        val mergedResults = jiraExploration + results
-        resultsCache.write(mergedResults)
-        val sortedResults = mergedResults.sortedWith(
+        val mergedExploration = jiraExploration + exploration
+        resultsCache.write(mergedExploration)
+        val sortedResults = mergedExploration.sortedWith(
             compareBy<HardwareExplorationResult> {
                 jiraOrder.indexOf(it.decision.hardware.jira)
             }.thenComparing(
@@ -66,7 +66,7 @@ class DbExplorationGuidance(
             DbInstanceTypeXAxis(),
             GitRepo.findFromCurrentDirectory()
         ).plot(
-            results = mergedResults,
+            exploration = mergedExploration,
             application = title,
             output = task.isolateReport("db-exploration-chart.html")
         )

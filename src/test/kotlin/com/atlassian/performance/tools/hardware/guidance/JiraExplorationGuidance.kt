@@ -73,12 +73,12 @@ class JiraExplorationGuidance(
     }
 
     override fun report(
-        results: List<HardwareExplorationResult>,
+        exploration: List<HardwareExplorationResult>,
         task: TaskWorkspace,
         title: String
     ) = synchronized(this) {
-        resultsCache.write(results)
-        val sortedResults = results.sortedWith(
+        resultsCache.write(exploration)
+        val sortedResults = exploration.sortedWith(
             compareBy<HardwareExplorationResult> {
                 instanceTypes.indexOf(it.decision.hardware.jira)
             }.thenComparing(
@@ -96,7 +96,7 @@ class JiraExplorationGuidance(
             NodeCountXAxis(),
             GitRepo.findFromCurrentDirectory()
         ).plot(
-            results = results,
+            exploration = exploration,
             application = title,
             output = task.isolateReport("jira-exploration-chart.html")
         )

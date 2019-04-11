@@ -15,7 +15,7 @@ interface ExplorationGuidance {
     ): HardwareExplorationDecision
 
     fun report(
-        results: List<HardwareExplorationResult>,
+        exploration: List<HardwareExplorationResult>,
         task: TaskWorkspace,
         title: String
     )
