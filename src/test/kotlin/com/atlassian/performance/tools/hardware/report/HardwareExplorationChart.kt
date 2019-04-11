@@ -42,6 +42,9 @@ internal class HardwareExplorationChart<S, X>(
         output: Path
     ) {
         val testResults = results.mapNotNull { it.testResult }
+        if (testResults.isEmpty()) {
+            return
+        }
         val resultsPerSeries = testResults
             .let { seriesGrouping.group(it) }
             .mapValues { (_, testResults) -> testResults.sortedBy { xAxis.getX(it) } }
