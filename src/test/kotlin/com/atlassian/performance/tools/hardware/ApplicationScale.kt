@@ -1,5 +1,6 @@
 package com.atlassian.performance.tools.hardware
 
+import com.amazonaws.regions.Regions.EU_CENTRAL_1
 import com.amazonaws.regions.Regions.EU_WEST_1
 import com.atlassian.performance.tools.aws.api.StorageLocation
 import com.atlassian.performance.tools.awsinfrastructure.S3DatasetPackage
@@ -51,11 +52,22 @@ private val JIRA_XL_DATASET = StorageLocation(
     )
 }.overrideDatabase { overrideLicense(it) }
 
-private val JIRA_L_DATASET = DatasetCatalogue().custom(
+private val JIRA_PRE8_L_DATASET = DatasetCatalogue().custom(
     location = StorageLocation(
         uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-1sjxdtrv5hdhj/")
             .resolve("a12fc4c5-3973-41f0-bf56-ede393677028"),
         region = EU_WEST_1
+    ),
+    label = "1M issues",
+    databaseDownload = Duration.ofMinutes(20),
+    jiraHomeDownload = Duration.ofMinutes(20)
+).overrideDatabase { overrideLicense(it) }
+
+private val JIRA_POST8_L_DATASET = DatasetCatalogue().custom(
+    location = StorageLocation(
+        uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-dah44h6l1l8p/")
+            .resolve("dataset-2719279d-0b30-4050-8d98-0a9499ec36a0"),
+        region = EU_CENTRAL_1
     ),
     label = "1M issues",
     databaseDownload = Duration.ofMinutes(20),
@@ -76,9 +88,11 @@ private fun overrideLicense(
         ))
 }
 
-val JIRA_EXTRA_LARGE = ApplicationScale(
+fun extraLarge(
+    jira8: Boolean
+) = ApplicationScale(
     description = "Jira XL profile",
-    dataset = JIRA_XL_DATASET,
+    dataset = if (jira8) throw Exception("We don't have an XL dataset for Jira 8") else JIRA_XL_DATASET,
     load = VirtualUserLoad.Builder()
         .virtualUsers(150)
         .ramp(Duration.ofSeconds(90))
@@ -88,9 +102,11 @@ val JIRA_EXTRA_LARGE = ApplicationScale(
     vuNodes = 12
 )
 
-val JIRA_LARGE = ApplicationScale(
+fun large(
+    jira8: Boolean
+) = ApplicationScale(
     description = "Jira L profile",
-    dataset = JIRA_L_DATASET,
+    dataset = if (jira8) JIRA_POST8_L_DATASET else JIRA_PRE8_L_DATASET,
     load = VirtualUserLoad.Builder()
         .virtualUsers(75)
         .ramp(Duration.ofSeconds(90))
