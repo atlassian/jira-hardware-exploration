@@ -9,6 +9,7 @@ import com.atlassian.performance.tools.infrastructure.api.database.PostgresDatab
 import com.atlassian.performance.tools.infrastructure.api.dataset.Dataset
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraHomePackage
 import com.atlassian.performance.tools.lib.LicenseOverridingDatabase
+import com.atlassian.performance.tools.lib.infrastructure.AdminDataset
 import com.atlassian.performance.tools.lib.overrideDatabase
 import com.atlassian.performance.tools.lib.toExistingFile
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
@@ -19,7 +20,7 @@ import java.time.Duration
 
 class ApplicationScale(
     val description: String,
-    val dataset: Dataset,
+    val dataset: AdminDataset,
     val load: VirtualUserLoad,
     val vuNodes: Int
 )
@@ -50,7 +51,15 @@ private val JIRA_XL_DATASET = StorageLocation(
             )
         )
     )
-}.overrideDatabase { overrideLicense(it) }
+}.overrideDatabase { original ->
+    overrideLicense(original)
+}.let { dataset ->
+    AdminDataset(
+        dataset = dataset,
+        adminLogin = "admin",
+        adminPassword = "MasterPassword18"
+    )
+}
 
 private val JIRA_PRE8_L_DATASET = DatasetCatalogue().custom(
     location = StorageLocation(
@@ -61,7 +70,15 @@ private val JIRA_PRE8_L_DATASET = DatasetCatalogue().custom(
     label = "1M issues",
     databaseDownload = Duration.ofMinutes(20),
     jiraHomeDownload = Duration.ofMinutes(20)
-).overrideDatabase { overrideLicense(it) }
+).overrideDatabase { original ->
+    overrideLicense(original)
+}.let { dataset ->
+    AdminDataset(
+        dataset = dataset,
+        adminLogin = "admin",
+        adminPassword = "admin"
+    )
+}
 
 private val JIRA_POST8_L_DATASET = DatasetCatalogue().custom(
     location = StorageLocation(
@@ -72,7 +89,15 @@ private val JIRA_POST8_L_DATASET = DatasetCatalogue().custom(
     label = "1M issues",
     databaseDownload = Duration.ofMinutes(20),
     jiraHomeDownload = Duration.ofMinutes(20)
-).overrideDatabase { overrideLicense(it) }
+).overrideDatabase { original ->
+    overrideLicense(original)
+}.let { dataset ->
+    AdminDataset(
+        dataset = dataset,
+        adminLogin = "admin",
+        adminPassword = "admin"
+    )
+}
 
 private fun overrideLicense(
     dataset: Dataset
