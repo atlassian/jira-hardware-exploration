@@ -123,6 +123,8 @@ class HardwareExploration(
             val hardware = inferHardware(nextCompleted)
             try {
                 val result = nextCompleted.get()
+                resultsSoFar += result
+                report(resultsSoFar)
                 if (result.decision.worthExploring) {
                     tested++
                     logger.info("Finished $hardware")
@@ -130,8 +132,6 @@ class HardwareExploration(
                     skipped++
                     logger.info("Skipped testing $hardware")
                 }
-                resultsSoFar += result
-                report(resultsSoFar)
                 result
             } catch (e: Exception) {
                 failed++
