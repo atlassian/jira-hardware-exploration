@@ -97,7 +97,7 @@ class HardwareExplorationIT {
         guidance: ExplorationGuidance
     ): List<HardwareExplorationResult> = HardwareExploration(
         product = PublicJiraSoftwareDistribution("7.13.0"),
-        scale = JIRA_EXTRA_LARGE,
+        scale = extraLarge(jira8 = false),
         guidance = guidance,
         maxApdexSpread = 0.10,
         maxErrorRate = 0.05,
