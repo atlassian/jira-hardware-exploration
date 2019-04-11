@@ -118,7 +118,7 @@ class HardwareExploration(
         var failed = 0
         logger.info("Awaiting $resultCount results")
         val resultsSoFar = mutableListOf<HardwareExplorationResult>()
-        return (1..resultCount).mapNotNull {
+        return (1..resultCount).mapNotNull { number ->
             val nextCompleted = completion.take()
             val hardware = inferHardware(nextCompleted)
             try {
@@ -132,14 +132,14 @@ class HardwareExploration(
                     skipped++
                     logger.info("Skipped testing $hardware")
                 }
-                result
+                return@mapNotNull result
             } catch (e: Exception) {
                 failed++
                 logger.error("Failed when testing $hardware", e)
-                null
+                return@mapNotNull null
             } finally {
                 val remaining = resultCount - tested - failed - skipped
-                logger.info("#$it: TESTED: $tested, SKIPPED: $skipped, FAILED: $failed, REMAINING: $remaining")
+                logger.info("#$number: TESTED: $tested, SKIPPED: $skipped, FAILED: $failed, REMAINING: $remaining")
             }
         }
     }
