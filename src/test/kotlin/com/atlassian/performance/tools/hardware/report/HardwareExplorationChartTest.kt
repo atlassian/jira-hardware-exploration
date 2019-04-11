@@ -1,6 +1,7 @@
 package com.atlassian.performance.tools.hardware.report
 
 import com.amazonaws.services.ec2.model.InstanceType
+import com.atlassian.performance.tools.hardware.HardwareExplorationResult
 import com.atlassian.performance.tools.hardware.HardwareExplorationResultCache
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import com.atlassian.performance.tools.workspace.api.RootWorkspace
@@ -27,11 +28,11 @@ class HardwareExplorationChartTest {
             NodeCountXAxis(),
             HardcodedGitRepo("5fcd73c04783561c3ad672101ac8f759de00dea7")
         )
-        val cachePath = File(javaClass.getResource("/8-node-exploration-cache.json").toURI()).toPath()
-        val results = HardwareExplorationResultCache(cachePath).read()
+        val resourcePath = "/8-node-exploration-cache.json"
+        val exploration = readExploration(resourcePath)
 
         chart.plot(
-            results = results,
+            exploration = exploration,
             application = "test",
             output = workspace.isolateReport("jira-hardware-exploration-chart.html")
         )
@@ -44,11 +45,10 @@ class HardwareExplorationChartTest {
             DbInstanceTypeXAxis(),
             HardcodedGitRepo("fake commit")
         )
-        val cachePath = File(javaClass.getResource("/8-node-exploration-cache.json").toURI()).toPath()
-        val results = HardwareExplorationResultCache(cachePath).read()
+        val exploration = readExploration("/8-node-exploration-cache.json")
 
         chart.plot(
-            results = results,
+            exploration = exploration,
             application = "test",
             output = workspace.isolateReport("db-hardware-exploration-chart.html")
         )
@@ -61,13 +61,22 @@ class HardwareExplorationChartTest {
             NodeCountXAxis(),
             HardcodedGitRepo("whatevs")
         )
-        val cachePath = File(javaClass.getResource("/out-of-bounds-error-bars-cache.json").toURI()).toPath()
-        val results = HardwareExplorationResultCache(cachePath).read()
+        val exploration = readExploration("/out-of-bounds-error-bars-cache.json")
 
         chart.plot(
-            results = results,
+            exploration = exploration,
             application = "error bar test",
             output = workspace.isolateReport("error-bars-test.html")
         )
     }
+
+    private fun readExploration(
+        resourcePath: String
+    ): List<HardwareExplorationResult> = resourcePath
+        .let { javaClass.getResource(it) }
+        .toURI()
+        .let { File(it) }
+        .toPath()
+        .let { HardwareExplorationResultCache(it) }
+        .read()
 }
