@@ -56,7 +56,8 @@ class HardwareExploration(
         .diagnosticsLimit(32)
         .browser(HeadlessChromeBrowser::class.java)
         .createUsers(true)
-        .adminPassword(jiraAdminPassword)
+        .adminUser(scale.dataset.adminLogin)
+        .adminPassword(scale.dataset.adminPassword)
         .skipSetup(true)
         .build()
     private val awsParallelism = 3
@@ -340,8 +341,8 @@ class HardwareExploration(
             investment = investment,
             jiraFormula = DataCenterFormula.Builder(
                 productDistribution = product,
-                jiraHomeSource = scale.dataset.jiraHomeSource,
-                database = scale.dataset.database
+                jiraHomeSource = scale.dataset.dataset.jiraHomeSource,
+                database = scale.dataset.dataset.database
             )
                 .configs((1..hardware.nodeCount).map {
                     JiraNodeConfig.Builder()
@@ -357,7 +358,8 @@ class HardwareExploration(
                 .loadBalancerFormula(ElasticLoadBalancerFormula())
                 .computer(EbsEc2Instance(hardware.jira).withVolumeSize(300))
                 .databaseComputer(EbsEc2Instance(hardware.db).withVolumeSize(300))
-                .adminPwd(jiraAdminPassword)
+                .adminUser(scale.dataset.adminLogin)
+                .adminPwd(scale.dataset.adminPassword)
                 .build(),
             virtualUsersFormula = MulticastVirtualUsersFormula.Builder(
                 nodes = scale.vuNodes,
