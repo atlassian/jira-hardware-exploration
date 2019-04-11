@@ -25,7 +25,7 @@ class ApplicationScale(
     val vuNodes: Int
 )
 
-private val JIRA_XL_DATASET = StorageLocation(
+private val JIRA_PRE8_XL_DATASET = StorageLocation(
     uri = URI("s3://jpt-custom-postgres-xl/dataset-7m"),
     region = EU_WEST_1
 ).let { location ->
@@ -58,6 +58,25 @@ private val JIRA_XL_DATASET = StorageLocation(
         dataset = dataset,
         adminLogin = "admin",
         adminPassword = "MasterPassword18"
+    )
+}
+
+private val JIRA_POST8_XL_DATASET = DatasetCatalogue().custom(
+    location = StorageLocation(
+        uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-dah44h6l1l8p/")
+            .resolve("dataset-6ed65a53-86cb-457e-a87f-cbcce67787c3"),
+        region = EU_CENTRAL_1
+    ),
+    label = "7M issues",
+    databaseDownload = Duration.ofMinutes(55),
+    jiraHomeDownload = Duration.ofMinutes(55)
+).overrideDatabase { original ->
+    overrideLicense(original)
+}.let { dataset ->
+    AdminDataset(
+        dataset = dataset,
+        adminLogin = "admin",
+        adminPassword = "admin"
     )
 }
 
@@ -117,7 +136,7 @@ fun extraLarge(
     jira8: Boolean
 ) = ApplicationScale(
     description = "Jira XL profile",
-    dataset = if (jira8) throw Exception("We don't have an XL dataset for Jira 8") else JIRA_XL_DATASET,
+    dataset = if (jira8) JIRA_POST8_XL_DATASET else JIRA_PRE8_XL_DATASET,
     load = VirtualUserLoad.Builder()
         .virtualUsers(150)
         .ramp(Duration.ofSeconds(90))
