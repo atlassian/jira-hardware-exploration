@@ -21,8 +21,6 @@ import org.junit.Test
 import java.io.File
 import java.time.Duration
 
-const val jiraAdminPassword = "MasterPassword18"
-
 class HardwareExplorationIT {
 
     private val logger: Logger = logContext.getLogger(this::class.java.canonicalName)
