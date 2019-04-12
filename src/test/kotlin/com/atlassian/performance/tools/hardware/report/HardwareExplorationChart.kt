@@ -182,7 +182,7 @@ internal class HardwareExplorationChart<S, X>(
         minus = yRange.min()!!.minus(y).toBigDecimal(mathContext)
     )
 
-    private fun List<Double>.maxAxis(): String = max()!!.toString()
+    private fun List<Double>.maxAxis(): String = max()!!.times(1.15).toString()
 }
 
 private class HardwarePoint<X>(
