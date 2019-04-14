@@ -50,6 +50,18 @@ task<Test>("cleanUpAfterBamboo").apply {
     include("**/BambooCleanupIT.class")
 }
 
+task<Test>("testManually").apply {
+    outputs.upToDateWhen{false}
+    description = "Provision a Jira Instance only"
+    include("**/JiraInstanceTest.class")
+    failFast = true
+    testLogging {
+        if (System.getenv("bamboo_buildResultKey") != null) {
+            showStandardStreams = true
+        }
+    }
+}
+
 dependencies {
     testCompile(project(":virtual-users"))
     testCompile(fileTree(mapOf("dir" to "lib", "include" to "*.jar")))

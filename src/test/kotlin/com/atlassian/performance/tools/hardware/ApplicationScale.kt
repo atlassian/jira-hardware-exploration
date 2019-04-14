@@ -5,6 +5,7 @@ import com.amazonaws.regions.Regions.EU_WEST_1
 import com.atlassian.performance.tools.aws.api.StorageLocation
 import com.atlassian.performance.tools.awsinfrastructure.S3DatasetPackage
 import com.atlassian.performance.tools.awsinfrastructure.api.DatasetCatalogue
+import com.atlassian.performance.tools.infrastructure.api.database.MySqlDatabase
 import com.atlassian.performance.tools.infrastructure.api.database.PostgresDatabase
 import com.atlassian.performance.tools.infrastructure.api.dataset.Dataset
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraHomePackage
@@ -61,17 +62,33 @@ private val JIRA_XL_DATASET = StorageLocation(
     )
 }
 
-
-private val JIRA_POST8_XL_DATASET = DatasetCatalogue().custom(
-    location = StorageLocation(
-        uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-dah44h6l1l8p/")
-            .resolve("dataset-6ed65a53-86cb-457e-a87f-cbcce67787c3"),
-        region = EU_CENTRAL_1
-    ),
-    label = "7M issues",
-    databaseDownload = Duration.ofMinutes(40),
-    jiraHomeDownload = Duration.ofMinutes(40)
-).overrideDatabase { original ->
+private val JIRA_POST8_XL_DATASET = StorageLocation(
+    uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-dah44h6l1l8p/dataset-6ed65a53-86cb-457e-a87f-cbcce67787c3"),
+    region = EU_CENTRAL_1
+).let { location ->
+    Dataset(
+        label = "7M issues",
+        database = MySqlDatabase(
+            source = S3DatasetPackage(
+                artifactName = "database.tar.bz2",
+                location = location,
+                unpackedPath = "database",
+                downloadTimeout = Duration.ofMinutes(55)
+            ),
+            maxConnections = 151,
+            innodb_buffer_pool_size = "40G",
+            innodb_log_file_size = "2146435072"
+        ),
+        jiraHomeSource = JiraHomePackage(
+            S3DatasetPackage(
+                artifactName = "jirahome.tar.bz2",
+                location = location,
+                unpackedPath = "jirahome",
+                downloadTimeout = Duration.ofMinutes(55)
+            )
+        )
+    )
+}.overrideDatabase { original ->
     overrideLicense(original)
 }.let { dataset ->
     AdminDataset(

@@ -351,6 +351,7 @@ class HardwareExploration(
                         .launchTimeouts(
                             JiraLaunchTimeouts.Builder()
                                 .initTimeout(Duration.ofMinutes(7))
+                                .offlineTimeout(Duration.ofMinutes(15))
                                 .build()
 
                         ).build()
