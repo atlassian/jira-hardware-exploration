@@ -36,7 +36,7 @@ private val JIRA_XL_DATASET = StorageLocation(
                 artifactName = "database.tar.bz2",
                 location = location,
                 unpackedPath = "database",
-                downloadTimeout = Duration.ofMinutes(40)
+                downloadTimeout = Duration.ofMinutes(55)
             ),
             dbName = "atldb",
             dbUser = "postgres",
@@ -47,7 +47,7 @@ private val JIRA_XL_DATASET = StorageLocation(
                 artifactName = "jirahome.tar.bz2",
                 location = location,
                 unpackedPath = "jirahome",
-                downloadTimeout = Duration.ofMinutes(40)
+                downloadTimeout = Duration.ofMinutes(55)
             )
         )
     )
