@@ -28,7 +28,7 @@ class HardwareExplorationIT {
     private val jiraInstanceTypes = listOf(
 //        C52xlarge,
 //        C54xlarge,
-//        C48xlarge,
+        C48xlarge,
         C518xlarge
     )
     private val resultCache = HardwareExplorationResultCache(workspace.directory.resolve("processed-cache.json"))
@@ -83,7 +83,7 @@ class HardwareExplorationIT {
     private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
         JiraExplorationGuidance(
             instanceTypes = jiraInstanceTypes,
-            maxNodeCount = 1,
+            maxNodeCount = 16,
             minNodeCountForAvailability = 3,
             minApdexGain = 0.01,
             db = M44xlarge,
@@ -94,8 +94,8 @@ class HardwareExplorationIT {
     private fun explore(
         guidance: ExplorationGuidance
     ): List<HardwareExplorationResult> = HardwareExploration(
-        product = PublicJiraSoftwareDistribution("8.1.0"),
-        scale = extraLarge(jira8 = true),
+        product = PublicJiraSoftwareDistribution("7.13.0"),
+        scale = large(jira8 = false),
         guidance = guidance,
         maxApdexSpread = 0.10,
         maxErrorRate = 0.05,

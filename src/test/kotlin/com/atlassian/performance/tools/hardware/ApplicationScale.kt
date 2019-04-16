@@ -77,7 +77,7 @@ private val JIRA_POST8_XL_DATASET = StorageLocation(
             ),
             maxConnections = 151,
             innodb_buffer_pool_size = "40G",
-            innodb_log_file_size = "2G"
+            innodb_log_file_size = "2146435072"
         ),
         jiraHomeSource = JiraHomePackage(
             S3DatasetPackage(
@@ -98,16 +98,33 @@ private val JIRA_POST8_XL_DATASET = StorageLocation(
     )
 }
 
-private val JIRA_PRE8_L_DATASET = DatasetCatalogue().custom(
-    location = StorageLocation(
-        uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-1sjxdtrv5hdhj/")
-            .resolve("a12fc4c5-3973-41f0-bf56-ede393677028"),
-        region = EU_WEST_1
-    ),
-    label = "1M issues",
-    databaseDownload = Duration.ofMinutes(20),
-    jiraHomeDownload = Duration.ofMinutes(20)
-).overrideDatabase { original ->
+private val JIRA_PRE8_L_DATASET = StorageLocation(
+    uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-1sjxdtrv5hdhj/a12fc4c5-3973-41f0-bf56-ede393677028"),
+    region = EU_WEST_1
+).let { location ->
+    Dataset(
+        label = "1M issues",
+        database = MySqlDatabase(
+            source = S3DatasetPackage(
+                artifactName = "database.tar.bz2",
+                location = location,
+                unpackedPath = "database",
+                downloadTimeout = Duration.ofMinutes(20)
+            ),
+            maxConnections = 151,
+            innodb_buffer_pool_size = "40G",
+            innodb_log_file_size = "2146435072"
+        ),
+        jiraHomeSource = JiraHomePackage(
+            S3DatasetPackage(
+                artifactName = "jirahome.tar.bz2",
+                location = location,
+                unpackedPath = "jirahome",
+                downloadTimeout = Duration.ofMinutes(20)
+            )
+        )
+    )
+}.overrideDatabase { original ->
     overrideLicense(original)
 }.let { dataset ->
     AdminDataset(
