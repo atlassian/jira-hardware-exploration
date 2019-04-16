@@ -28,9 +28,9 @@ class HardwareExplorationIT {
     private val logger: Logger = logContext.getLogger(this::class.java.canonicalName)
 
     private val jiraInstanceTypes = listOf(
-        C52xlarge,
-        C54xlarge,
-        C48xlarge,
+//        C52xlarge,
+//        C54xlarge,
+//        C48xlarge,
         C518xlarge
     )
     private val resultCache = HardwareExplorationResultCache(workspace.directory.resolve("processed-cache.json"))
@@ -57,7 +57,7 @@ class HardwareExplorationIT {
     private fun requireCleanRepo() {
         val status = Git(GitRepo2.findInAncestors(File(".").absoluteFile)).status().call()
         if (status.isClean.not()) {
-            throw Exception("Your Git repo is not clean. Please commit the changes and consider pushing them.")
+//            throw Exception("Your Git repo is not clean. Please commit the changes and consider pushing them.")
         }
     }
 
@@ -85,10 +85,10 @@ class HardwareExplorationIT {
     private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
         JiraExplorationGuidance(
             instanceTypes = jiraInstanceTypes,
-            maxNodeCount = 16,
-            minNodeCountForAvailability = 3,
+            maxNodeCount = 4,
+            minNodeCountForAvailability = 2,
             minApdexGain = 0.01,
-            db = M4Xlarge,
+            db = M44xlarge,
             resultsCache = resultCache
         )
     )
@@ -117,9 +117,9 @@ class HardwareExplorationIT {
     ): List<HardwareExplorationResult> = explore(
         DbExplorationGuidance(
             dbs = listOf(
-                M4Large,
-                M4Xlarge,
-                M42xlarge,
+//                M4Large,
+//                M4Xlarge,
+//                M42xlarge,
                 M44xlarge
             ),
             jiraRecommendations = jiraRecommendations,

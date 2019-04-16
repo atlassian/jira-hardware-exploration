@@ -343,7 +343,7 @@ class HardwareExploration(
                 jiraHomeSource = scale.dataset.jiraHomeSource,
                 database = scale.dataset.database
             )
-                .configs((1..hardware.nodeCount).map {
+                .configs((1..2).map {
                     JiraNodeConfig.Builder()
                         .name("jira-node-$it")
                         .profiler(AsyncProfiler())
