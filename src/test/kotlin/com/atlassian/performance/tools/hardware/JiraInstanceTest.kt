@@ -64,9 +64,9 @@ class JiraInstanceTest {
                 database = dataset.database,
                 jiraHomeSource = dataset.jiraHomeSource,
                 productDistribution = PublicJiraSoftwareDistribution(jiraVersion))
-                .computer(EbsEc2Instance(InstanceType.M44xlarge).withVolumeSize(300))
-                .databaseComputer(EbsEc2Instance(InstanceType.M44xlarge).withVolumeSize(300))
-                .configs((1..2).map {
+                .computer(EbsEc2Instance(InstanceType.C518xlarge).withVolumeSize(500))
+                .databaseComputer(EbsEc2Instance(InstanceType.C518xlarge).withVolumeSize(500))
+                .configs((1..1).map {
                     JiraNodeConfig.Builder()
                         .name("jira-node-$it")
                         .profiler(AsyncProfiler())

@@ -12,6 +12,7 @@ import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.vu.CustomScenario
 import com.atlassian.performance.tools.infrastructure.api.browser.chromium.Chromium69
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
+import com.atlassian.performance.tools.infrastructure.api.jira.JiraJvmArgs
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraLaunchTimeouts
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
 import com.atlassian.performance.tools.infrastructure.api.profiler.AsyncProfiler
@@ -348,6 +349,9 @@ class HardwareExploration(
                     JiraNodeConfig.Builder()
                         .name("jira-node-$it")
                         .profiler(AsyncProfiler())
+                        .jvmArgs(JiraJvmArgs("31G", "31G",
+                            listOf(
+                                com.atlassian.performance.tools.infrastructure.api.jvm.JvmArg("-XX:+UseG1GC"))))
                         .launchTimeouts(
                             JiraLaunchTimeouts.Builder()
                                 .initTimeout(Duration.ofMinutes(7))

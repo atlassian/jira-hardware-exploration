@@ -63,8 +63,9 @@ private val JIRA_XL_DATASET = StorageLocation(
 }
 
 private val JIRA_POST8_XL_DATASET = StorageLocation(
-    uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-dah44h6l1l8p/dataset-6ed65a53-86cb-457e-a87f-cbcce67787c3"),
-    region = EU_CENTRAL_1
+    //uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-dah44h6l1l8p/dataset-6ed65a53-86cb-457e-a87f-cbcce67787c3"),
+    uri = URI("s3://jpt-custom-mysql-xl/dataset-7m-jira8-reindexed"),
+    region = EU_WEST_1
 ).let { location ->
     Dataset(
         label = "7M issues",
@@ -77,7 +78,7 @@ private val JIRA_POST8_XL_DATASET = StorageLocation(
             ),
             maxConnections = 151,
             innodb_buffer_pool_size = "40G",
-            innodb_log_file_size = "2146435072"
+            innodb_log_file_size = "2G --innodb-buffer-pool-instances=20 --innodb-buffer-pool-load-at-startup=ON --innodb-sort-buffer-size=4M --join-buffer-size=4M"
         ),
         jiraHomeSource = JiraHomePackage(
             S3DatasetPackage(
