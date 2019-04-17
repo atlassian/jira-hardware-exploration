@@ -94,8 +94,8 @@ class HardwareExplorationIT {
     private fun explore(
         guidance: ExplorationGuidance
     ): List<HardwareExplorationResult> = HardwareExploration(
-        product = PublicJiraSoftwareDistribution("7.13.0"),
-        scale = extraLarge(jira8 = false, postgres = true),
+        product = PublicJiraSoftwareDistribution("8.1.0"),
+        scale = extraLarge(jira8 = true, postgres = true),
         guidance = guidance,
         maxApdexSpread = 0.10,
         maxErrorRate = 0.05,
