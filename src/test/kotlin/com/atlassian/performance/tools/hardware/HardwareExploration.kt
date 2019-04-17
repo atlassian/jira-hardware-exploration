@@ -60,7 +60,7 @@ class HardwareExploration(
         .adminPassword(scale.dataset.adminPassword)
         .skipSetup(true)
         .build()
-    private val awsParallelism = 3
+    private val awsParallelism = 6
     private val results = ConcurrentHashMap<Hardware, Future<HardwareExplorationResult>>()
     private val logger: Logger = LogManager.getLogger(this::class.java)
 
