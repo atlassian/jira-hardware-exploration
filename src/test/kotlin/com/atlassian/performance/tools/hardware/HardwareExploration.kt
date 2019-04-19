@@ -11,7 +11,6 @@ import com.atlassian.performance.tools.awsinfrastructure.api.virtualusers.Multic
 import com.atlassian.performance.tools.hardware.failure.FailureTolerance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.vu.CustomScenario
-import com.atlassian.performance.tools.infrastructure.api.browser.chromium.Chromium69
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraLaunchTimeouts
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
@@ -22,6 +21,7 @@ import com.atlassian.performance.tools.jiraactions.api.*
 import com.atlassian.performance.tools.jiraperformancetests.api.ProvisioningPerformanceTest
 import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBacklogAction.Companion.VIEW_BACKLOG
 import com.atlassian.performance.tools.lib.*
+import com.atlassian.performance.tools.lib.infrastructure.PatientChromium69
 import com.atlassian.performance.tools.report.api.FullReport
 import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.EdibleResult
@@ -357,7 +357,7 @@ class HardwareExploration(
                 nodes = scale.vuNodes,
                 shadowJar = dereference("jpt.virtual-users.shadow-jar")
             )
-                .browser(Chromium69())
+                .browser(PatientChromium69())
                 .build(),
             aws = aws
         )
