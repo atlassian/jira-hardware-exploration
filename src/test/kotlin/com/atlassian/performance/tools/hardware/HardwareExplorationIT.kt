@@ -98,7 +98,7 @@ class HardwareExplorationIT {
         scale = extraLarge(jira8 = true, postgres = true),
         guidance = guidance,
         maxApdexSpread = 0.10,
-        maxErrorRate = 0.05,
+        errorRateWarningThreshold = 0.05,
         pastFailures = BugAwareTolerance(logger),
         repeats = 2,
         investment = Investment(

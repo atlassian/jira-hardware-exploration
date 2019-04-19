@@ -49,7 +49,7 @@ class HardwareExploration(
     private val task: TaskWorkspace,
     private val repeats: Int,
     private val pastFailures: FailureTolerance,
-    private val maxErrorRate: Double,
+    private val errorRateWarningThreshold: Double,
     private val maxApdexSpread: Double
 ) {
     private val awsParallelism = 6
@@ -272,8 +272,8 @@ class HardwareExploration(
             errorRate = errorRate,
             errorRates = listOf(errorRate)
         )
-        if (hardwareResult.errorRate > maxErrorRate) {
-            throw Exception("Error rate for $cohort is too high: $errorRate")
+        if (hardwareResult.errorRate > errorRateWarningThreshold) {
+            logger.warn("Error rate for $cohort is too high: $errorRate")
         }
         return hardwareResult
     }
