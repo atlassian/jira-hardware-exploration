@@ -44,21 +44,8 @@ class DbExplorationGuidance(
     ) = synchronized(this) {
         val mergedExploration = jiraExploration + exploration
         resultsCache.write(mergedExploration)
-        val sortedResults = mergedExploration.sortedWith(
-            compareBy<HardwareExplorationResult> {
-                jiraOrder.indexOf(it.decision.hardware.jira)
-            }.thenComparing(
-                compareBy<HardwareExplorationResult> {
-                    it.decision.hardware.nodeCount
-                }
-            ).thenComparing(
-                compareBy<HardwareExplorationResult> {
-                    dbs.indexOf(it.decision.hardware.db)
-                }
-            )
-        )
         HardwareExplorationTable().summarize(
-            results = sortedResults,
+            results = sort(mergedExploration),
             table = task.isolateReport("merged-exploration-table.csv")
         )
         HardwareExplorationChart(
@@ -66,9 +53,25 @@ class DbExplorationGuidance(
             DbInstanceTypeXAxis(),
             GitRepo.findFromCurrentDirectory()
         ).plot(
-            exploration = mergedExploration,
+            exploration = sort(exploration),
             application = title,
             output = task.isolateReport("db-exploration-chart.html")
         )
     }
+
+    private fun sort(
+        exploration: List<HardwareExplorationResult>
+    ): List<HardwareExplorationResult> = exploration.sortedWith(
+        compareBy<HardwareExplorationResult> {
+            jiraOrder.indexOf(it.decision.hardware.jira)
+        }.thenComparing(
+            compareBy<HardwareExplorationResult> {
+                it.decision.hardware.nodeCount
+            }
+        ).thenComparing(
+            compareBy<HardwareExplorationResult> {
+                dbs.indexOf(it.decision.hardware.db)
+            }
+        )
+    )
 }
