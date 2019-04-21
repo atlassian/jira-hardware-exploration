@@ -26,8 +26,8 @@ class HardwareExplorationIT {
     private val logger: Logger = logContext.getLogger(this::class.java.canonicalName)
 
     private val jiraInstanceTypes = listOf(
-//        C52xlarge,
-//        C54xlarge,
+        C52xlarge,
+        C54xlarge,
         C48xlarge,
         C518xlarge
     )
@@ -95,7 +95,7 @@ class HardwareExplorationIT {
         guidance: ExplorationGuidance
     ): List<HardwareExplorationResult> = HardwareExploration(
         product = PublicJiraSoftwareDistribution("7.13.0"),
-        scale = large(jira8 = false),
+        scale = extraLarge(jira8 = false),
         guidance = guidance,
         maxApdexSpread = 0.10,
         maxErrorRate = 0.05,

@@ -27,21 +27,21 @@ class ApplicationScale(
 )
 
 private val JIRA_XL_DATASET = StorageLocation(
-    uri = URI("s3://jpt-custom-postgres-xl/dataset-7m"),
+    uri = URI("s3://jpt-custom-mysql-xl/dataset-7m-jira7"),
     region = EU_WEST_1
 ).let { location ->
     Dataset(
         label = "7M issues",
-        database = PostgresDatabase(
+        database = MySqlDatabase(
             source = S3DatasetPackage(
                 artifactName = "database.tar.bz2",
                 location = location,
                 unpackedPath = "database",
                 downloadTimeout = Duration.ofMinutes(55)
             ),
-            dbName = "atldb",
-            dbUser = "postgres",
-            dbPassword = "postgres"
+            maxConnections = 151,
+            innodb_buffer_pool_size = "40G",
+            innodb_log_file_size = "2G"
         ),
         jiraHomeSource = JiraHomePackage(
             S3DatasetPackage(
@@ -58,7 +58,7 @@ private val JIRA_XL_DATASET = StorageLocation(
     AdminDataset(
         dataset = dataset,
         adminLogin = "admin",
-        adminPassword = "MasterPassword18"
+        adminPassword = "admin"
     )
 }
 
