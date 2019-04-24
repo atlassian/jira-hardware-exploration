@@ -22,7 +22,7 @@ class JiraExplorationGuidance(
     private val resultsCache: HardwareExplorationResultCache
 ) : ExplorationGuidance {
 
-    val minNode = 3;
+    val minNode = 4;
 
     override fun space(): List<Hardware> = instanceTypes.flatMap { instanceType ->
         (minNode..maxNodeCount).map { Hardware(instanceType, it, db) }
