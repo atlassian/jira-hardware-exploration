@@ -54,6 +54,9 @@ task<Test>("testManually").apply {
     outputs.upToDateWhen{false}
     description = "Provision a Jira Instance only"
     include("**/JiraInstanceTest.class")
+    val shadowJarTask = tasks.getByPath(":virtual-users:shadowJar")
+    dependsOn(shadowJarTask)
+    systemProperty("jpt.virtual-users.shadow-jar", shadowJarTask.outputs.files.files.first())
     failFast = true
     testLogging {
         if (System.getenv("bamboo_buildResultKey") != null) {
