@@ -349,7 +349,7 @@ class HardwareExploration(
                     JiraNodeConfig.Builder()
                         .name("jira-node-$it")
                         .profiler(AsyncProfiler())
-                        .jvmArgs(JiraJvmArgs("31G", "31G",
+                        .jvmArgs(JiraJvmArgs("50G", "50G",
                             listOf(
                                 com.atlassian.performance.tools.infrastructure.api.jvm.JvmArg("-XX:+UseG1GC"))))
                         .launchTimeouts(

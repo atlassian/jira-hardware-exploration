@@ -88,13 +88,13 @@ class JiraInstanceTest {
                 })
                 .adminPwd(adminPwd)
                 .build(),
-            virtualUsersFormula = MulticastVirtualUsersFormula.Builder(
-                nodes = 12,
-                shadowJar = dereference("jpt.virtual-users.shadow-jar")
-            )
-                .browser(Chromium69())
-                .build(),
-//            virtualUsersFormula = AbsentVirtualUsersFormula(),
+//            virtualUsersFormula = MulticastVirtualUsersFormula.Builder(
+//                nodes = 12,
+//                shadowJar = dereference("jpt.virtual-users.shadow-jar")
+//            )
+//                .browser(Chromium69())
+//                .build(),
+            virtualUsersFormula = AbsentVirtualUsersFormula(),
             aws = aws
         ).provision(testWorkspace.directory).infrastructure
         CustomDatasetSourceRegistry(rootWorkspace).register(infrastructure)

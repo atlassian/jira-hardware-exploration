@@ -28,8 +28,8 @@ class HardwareExplorationIT {
     private val jiraInstanceTypes = listOf(
 //        C52xlarge,  //NA--16G Memory only
 //        C54xlarge,  //NA--32G Memory onbly
-        R52xlarge, //8cpu, 64G
-        M54xlarge, //16cpu, 64G
+//        R52xlarge, //8cpu, 64G
+//        M54xlarge, //16cpu, 64G
         C48xlarge, //36cpu, 60G
         C59xlarge, //36cpu, 72G
         C518xlarge //72cpu, 144G
@@ -87,9 +87,9 @@ class HardwareExplorationIT {
         JiraExplorationGuidance(
             instanceTypes = jiraInstanceTypes,
             maxNodeCount = 16,
-            minNodeCountForAvailability = 3,
+            minNodeCountForAvailability = 5,
             minApdexGain = 0.01,
-            db = M512xlarge,
+            db = M44xlarge,
             resultsCache = resultCache
         )
     )
