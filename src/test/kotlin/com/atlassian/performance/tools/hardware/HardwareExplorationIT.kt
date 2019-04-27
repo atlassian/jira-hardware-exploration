@@ -30,7 +30,7 @@ class HardwareExplorationIT {
 //        C54xlarge,  //NA--32G Memory onbly
 //        R52xlarge, //8cpu, 64G
 //        M54xlarge, //16cpu, 64G
-//        C48xlarge, //36cpu, 60G
+        C48xlarge, //36cpu, 60G
         C59xlarge, //36cpu, 72G
         C518xlarge //72cpu, 144G
     )
@@ -86,7 +86,7 @@ class HardwareExplorationIT {
     private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
         JiraExplorationGuidance(
             instanceTypes = jiraInstanceTypes,
-            maxNodeCount = 16,
+            maxNodeCount = 7,
             minNodeCountForAvailability = 5,
             minApdexGain = 0.01,
             db = M44xlarge,
