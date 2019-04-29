@@ -22,10 +22,17 @@ class JiraExplorationGuidance(
     private val resultsCache: HardwareExplorationResultCache
 ) : ExplorationGuidance {
 
-    val minNode = 4;
+    fun minNode(instanceType:InstanceType) : Int{
+        return when(instanceType){
+            InstanceType.C48xlarge -> 6
+            InstanceType.C59xlarge -> 4
+            InstanceType.C518xlarge -> 4
+            else -> 4
+        }
+    }
 
     override fun space(): List<Hardware> = instanceTypes.flatMap { instanceType ->
-        (minNode..maxNodeCount).map { Hardware(instanceType, it, db) }
+        (minNode(instanceType)..maxNodeCount).map { Hardware(instanceType, it, db) }
     }
 
     override fun decideTesting(
@@ -39,7 +46,7 @@ class JiraExplorationGuidance(
                 reason = "high availability"
             )
         }
-        val smallerHardwareTests = (minNode until hardware.nodeCount)
+        val smallerHardwareTests = (minNode(hardware.jira) until hardware.nodeCount)
             .map { Hardware(hardware.jira, it, db) }
             .map { smallerHardware -> benchmark(smallerHardware) }
         val smallerHardwareResults = try {
