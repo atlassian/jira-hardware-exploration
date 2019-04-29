@@ -20,6 +20,7 @@ import com.atlassian.performance.tools.jiraactions.api.*
 import com.atlassian.performance.tools.jiraperformancetests.api.ProvisioningPerformanceTest
 import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBacklogAction.Companion.VIEW_BACKLOG
 import com.atlassian.performance.tools.lib.*
+import com.atlassian.performance.tools.lib.infrastructure.BestEffortProfiler
 import com.atlassian.performance.tools.lib.infrastructure.PatientChromium69
 import com.atlassian.performance.tools.report.api.FullReport
 import com.atlassian.performance.tools.report.api.StandardTimeline
@@ -347,7 +348,7 @@ class HardwareExploration(
                 .configs((1..hardware.nodeCount).map {
                     JiraNodeConfig.Builder()
                         .name("jira-node-$it")
-                        .profiler(AsyncProfiler())
+                        .profiler(BestEffortProfiler(AsyncProfiler()))
                         .launchTimeouts(
                             JiraLaunchTimeouts.Builder()
                                 .initTimeout(Duration.ofMinutes(7))
