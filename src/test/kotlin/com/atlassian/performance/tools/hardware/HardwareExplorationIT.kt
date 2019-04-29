@@ -26,7 +26,10 @@ class HardwareExplorationIT {
     private val logger: Logger = logContext.getLogger(this::class.java.canonicalName)
 
     private val jiraInstanceTypes = listOf(
-        C48xlarge
+        C52xlarge,
+        C54xlarge,
+        C48xlarge,
+        C518xlarge
     )
     private val resultCache = HardwareExplorationResultCache(workspace.directory.resolve("processed-cache.json"))
 
@@ -80,8 +83,8 @@ class HardwareExplorationIT {
     private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
         JiraExplorationGuidance(
             instanceTypes = jiraInstanceTypes,
-            maxNodeCount = 1,
-            minNodeCountForAvailability = 1,
+            maxNodeCount = 16,
+            minNodeCountForAvailability = 3,
             minApdexGain = 0.01,
             db = M4Xlarge,
             resultsCache = resultCache
@@ -97,7 +100,7 @@ class HardwareExplorationIT {
         maxApdexSpread = 0.10,
         errorRateWarningThreshold = 0.05,
         pastFailures = BugAwareTolerance(logger),
-        repeats = 1,
+        repeats = 2,
         investment = Investment(
             useCase = "Test hardware recommendations - $taskName",
             lifespan = Duration.ofHours(2)
