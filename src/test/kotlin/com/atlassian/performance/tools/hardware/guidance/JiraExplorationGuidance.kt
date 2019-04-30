@@ -24,10 +24,10 @@ class JiraExplorationGuidance(
 
     fun minNode(instanceType:InstanceType) : Int{
         return when(instanceType){
-            InstanceType.C48xlarge -> 6
-            InstanceType.C59xlarge -> 4
-            InstanceType.C518xlarge -> 4
-            else -> 4
+            InstanceType.C48xlarge -> 1
+            InstanceType.C59xlarge -> 1
+            InstanceType.C518xlarge -> 1
+            else -> 1
         }
     }
 
