@@ -20,7 +20,7 @@ class JiraInstanceTest {
     private val aws = IntegrationTestRuntime.aws
     private val rootWorkspace = RootWorkspace()
     private val testWorkspace = rootWorkspace.currentTask.isolateTest("JiraInstanceTest")
-    private val extraLarge = extraLarge(true)
+    private val extraLarge = extraLarge(jira8 = true, postgres = false)
     private val dataset = extraLarge.dataset.dataset
 
     val adminPwd = "admin"//"MasterPassword18"
