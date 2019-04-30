@@ -98,12 +98,12 @@ class HardwareExplorationIT {
         guidance: ExplorationGuidance
     ): List<HardwareExplorationResult> = HardwareExploration(
         product = PublicJiraSoftwareDistribution("8.1.0"),
-        scale = extraLarge(jira8 = true),
+        scale = extraLarge(jira8 = true, postgres = false),
         guidance = guidance,
         maxApdexSpread = 0.10,
-        maxErrorRate = 0.05,
+        errorRateWarningThreshold = 0.05,
         pastFailures = BugAwareTolerance(logger),
-        repeats = 2,
+        repeats = 1,
         investment = Investment(
             useCase = "Test hardware recommendations - $taskName",
             lifespan = Duration.ofHours(2)

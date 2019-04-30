@@ -25,7 +25,7 @@ class JiraInstanceTest {
     private val aws = IntegrationTestRuntime.aws
     private val rootWorkspace = RootWorkspace()
     private val testWorkspace = rootWorkspace.currentTask.isolateTest("JiraInstanceTest")
-    private val extraLarge = extraLarge(false)
+    private val extraLarge = extraLarge(jira8 = false, postgres = false)
     private val dataset = extraLarge.dataset.dataset
 
     val adminPwd = "admin"//"MasterPassword18"
@@ -88,13 +88,13 @@ class JiraInstanceTest {
                 })
                 .adminPwd(adminPwd)
                 .build(),
-//            virtualUsersFormula = MulticastVirtualUsersFormula.Builder(
-//                nodes = 12,
-//                shadowJar = dereference("jpt.virtual-users.shadow-jar")
-//            )
-//                .browser(Chromium69())
-//                .build(),
-            virtualUsersFormula = AbsentVirtualUsersFormula(),
+            virtualUsersFormula = MulticastVirtualUsersFormula.Builder(
+                nodes = 12,
+                shadowJar = dereference("jpt.virtual-users.shadow-jar")
+            )
+                .browser(Chromium69())
+                .build(),
+//            virtualUsersFormula = AbsentVirtualUsersFormula(),
             aws = aws
         ).provision(testWorkspace.directory).infrastructure
         CustomDatasetSourceRegistry(rootWorkspace).register(infrastructure)
