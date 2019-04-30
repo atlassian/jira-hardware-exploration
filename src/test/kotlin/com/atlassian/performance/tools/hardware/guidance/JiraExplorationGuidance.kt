@@ -22,7 +22,7 @@ class JiraExplorationGuidance(
     private val resultsCache: HardwareExplorationResultCache
 ) : ExplorationGuidance {
 
-    val minNode : Int = 4
+    val minNode : Int = 1
 
     override fun space(): List<Hardware> = instanceTypes.flatMap { instanceType ->
         (minNode..maxNodeCount).map { Hardware(instanceType, it, db) }
@@ -42,15 +42,34 @@ class JiraExplorationGuidance(
         val smallerHardwareTests = (minNode until hardware.nodeCount)
             .map { Hardware(hardware.jira, it, db) }
             .map { smallerHardware -> benchmark(smallerHardware) }
-        val smallerHardwareResults = try {
-            smallerHardwareTests.map { it.get() }
-        } catch (e: Exception) {
+
+        val smallerHardwareResults = mutableListOf<HardwareExplorationResult>()
+        smallerHardwareTests.forEach {
+            try{
+                smallerHardwareResults.add(it.get())
+            } catch (e: Exception) {
+                //ignore the individual exception
+            }
+        }
+
+        if (smallerHardwareResults.filter { it.testResult?.hardware?.nodeCount == (hardware.nodeCount-1) }.isEmpty()){
             return HardwareExplorationDecision(
                 hardware = hardware,
                 worthExploring = false,
-                reason = "testing smaller hardware had failed, ERROR: ${e.message}"
+                reason = "testing smaller hardware had failed"
             )
         }
+
+//        val smallerHardwareResults = try {
+//            smallerHardwareTests.map { it.get() }
+//        } catch (e: Exception) {
+//            return HardwareExplorationDecision(
+//                hardware = hardware,
+//                worthExploring = false,
+//                reason = "testing smaller hardware had failed, ERROR: ${e.message}"
+//            )
+//        }
+
         val apdexIncrements = smallerHardwareResults
             .asSequence()
             .mapNotNull { it.testResult }
