@@ -103,7 +103,7 @@ class HardwareExplorationIT {
         maxApdexSpread = 0.10,
         errorRateWarningThreshold = 0.05,
         pastFailures = BugAwareTolerance(logger),
-        repeats = 1,
+        repeats = 2,
         investment = Investment(
             useCase = "Test hardware recommendations - $taskName",
             lifespan = Duration.ofHours(2)
@@ -118,9 +118,10 @@ class HardwareExplorationIT {
     ): List<HardwareExplorationResult> = explore(
         DbExplorationGuidance(
             dbs = listOf(
-                M512xlarge,
-                M524xlarge,
-                M44xlarge
+                M42xlarge,
+                M44xlarge,
+                M54xlarge,
+                M512xlarge
             ),
             jiraRecommendations = jiraRecommendations,
             jiraExploration = jiraExploration,
