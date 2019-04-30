@@ -97,7 +97,7 @@ class HardwareExplorationIT {
         product = PublicJiraSoftwareDistribution("8.1.0"),
         scale = extraLarge(jira8 = true, postgres = true),
         guidance = guidance,
-        maxApdexSpread = 0.10,
+        apdexSpreadWarningThreshold = 0.10,
         errorRateWarningThreshold = 0.05,
         pastFailures = BugAwareTolerance(logger),
         repeats = 2,

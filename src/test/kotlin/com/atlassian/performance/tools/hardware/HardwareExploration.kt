@@ -47,7 +47,7 @@ class HardwareExploration(
     private val repeats: Int,
     private val pastFailures: FailureTolerance,
     private val errorRateWarningThreshold: Double,
-    private val maxApdexSpread: Double
+    private val apdexSpreadWarningThreshold: Double
 ) {
 
     private val virtualUsers: VirtualUserBehavior = VirtualUserBehavior.Builder(CustomScenario::class.java)
@@ -396,8 +396,8 @@ class HardwareExploration(
         val postProcessedResults = results.flatMap { it.results }.map { postProcess(it) }
         reportRaw("sub-test-comparison", postProcessedResults, hardware)
         val apdexSpread = apdexes.spread()
-        if (apdexSpread > maxApdexSpread) {
-            throw Exception("Apdex spread for $hardware is too big: $apdexSpread. Results: $results")
+        if (apdexSpread > apdexSpreadWarningThreshold) {
+            logger.warn("Apdex spread for $hardware is too big: $apdexSpread. Results: $results")
         }
         return testResult
     }
