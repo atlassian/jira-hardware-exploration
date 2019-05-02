@@ -10,7 +10,7 @@ import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.workspace
 import com.atlassian.performance.tools.hardware.failure.BugAwareTolerance
 import com.atlassian.performance.tools.hardware.guidance.DbExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
-import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
+import com.atlassian.performance.tools.hardware.guidance.SingleHardwareGuidance
 import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJiraSoftwareDistribution
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
@@ -81,13 +81,12 @@ class HardwareExplorationIT {
     }
 
     private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
-        JiraExplorationGuidance(
-            instanceTypes = jiraInstanceTypes,
-            maxNodeCount = 16,
-            minNodeCountForAvailability = 3,
-            minApdexGain = 0.01,
-            db = M4Xlarge,
-            resultsCache = resultCache
+        SingleHardwareGuidance(
+            Hardware(
+                jira = C518xlarge,
+                nodeCount = 5,
+                db = M44xlarge
+            )
         )
     )
 
