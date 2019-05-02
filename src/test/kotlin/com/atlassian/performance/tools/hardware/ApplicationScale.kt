@@ -11,6 +11,7 @@ class ApplicationScale(
     val load: VirtualUserLoad,
     val vuNodes: Int
 )
+
 private val DATASETS = HwrDatasetCatalogue()
 
 fun extraLarge(
