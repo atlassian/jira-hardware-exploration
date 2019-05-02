@@ -10,7 +10,6 @@ import com.atlassian.performance.tools.awsinfrastructure.api.virtualusers.Multic
 import com.atlassian.performance.tools.hardware.failure.FailureTolerance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.vu.CustomScenario
-import com.atlassian.performance.tools.infrastructure.api.browser.chromium.Chromium69
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraLaunchTimeouts
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
@@ -21,6 +20,8 @@ import com.atlassian.performance.tools.jiraactions.api.*
 import com.atlassian.performance.tools.jiraperformancetests.api.ProvisioningPerformanceTest
 import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBacklogAction.Companion.VIEW_BACKLOG
 import com.atlassian.performance.tools.lib.*
+import com.atlassian.performance.tools.lib.infrastructure.BestEffortProfiler
+import com.atlassian.performance.tools.lib.infrastructure.PatientChromium69
 import com.atlassian.performance.tools.report.api.FullReport
 import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.EdibleResult
@@ -45,8 +46,8 @@ class HardwareExploration(
     private val task: TaskWorkspace,
     private val repeats: Int,
     private val pastFailures: FailureTolerance,
-    private val maxErrorRate: Double,
-    private val maxApdexSpread: Double
+    private val errorRateWarningThreshold: Double,
+    private val apdexSpreadWarningThreshold: Double
 ) {
 
     private val virtualUsers: VirtualUserBehavior = VirtualUserBehavior.Builder(CustomScenario::class.java)
@@ -60,7 +61,7 @@ class HardwareExploration(
         .adminPassword(scale.dataset.adminPassword)
         .skipSetup(true)
         .build()
-    private val awsParallelism = 3
+    private val awsParallelism = 6
     private val results = ConcurrentHashMap<Hardware, Future<HardwareExplorationResult>>()
     private val logger: Logger = LogManager.getLogger(this::class.java)
 
@@ -280,8 +281,8 @@ class HardwareExploration(
             errorRate = errorRate,
             errorRates = listOf(errorRate)
         )
-        if (hardwareResult.errorRate > maxErrorRate) {
-            throw Exception("Error rate for $cohort is too high: $errorRate")
+        if (hardwareResult.errorRate > errorRateWarningThreshold) {
+            logger.warn("Error rate for $cohort is too high: $errorRate")
         }
         return hardwareResult
     }
@@ -347,7 +348,7 @@ class HardwareExploration(
                 .configs((1..hardware.nodeCount).map {
                     JiraNodeConfig.Builder()
                         .name("jira-node-$it")
-                        .profiler(AsyncProfiler())
+                        .profiler(BestEffortProfiler(AsyncProfiler()))
                         .launchTimeouts(
                             JiraLaunchTimeouts.Builder()
                                 .initTimeout(Duration.ofMinutes(7))
@@ -366,7 +367,7 @@ class HardwareExploration(
                 nodes = scale.vuNodes,
                 shadowJar = dereference("jpt.virtual-users.shadow-jar")
             )
-                .browser(Chromium69())
+                .browser(PatientChromium69())
                 .build(),
             aws = aws
         )
@@ -396,8 +397,8 @@ class HardwareExploration(
         val postProcessedResults = results.flatMap { it.results }.map { postProcess(it) }
         reportRaw("sub-test-comparison", postProcessedResults, hardware)
         val apdexSpread = apdexes.spread()
-        if (apdexSpread > maxApdexSpread) {
-            throw Exception("Apdex spread for $hardware is too big: $apdexSpread. Results: $results")
+        if (apdexSpread > apdexSpreadWarningThreshold) {
+            logger.warn("Apdex spread for $hardware is too big: $apdexSpread. Results: $results")
         }
         return testResult
     }
