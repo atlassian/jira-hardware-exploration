@@ -17,7 +17,7 @@ import java.util.*
 
 object IntegrationTestRuntime {
 
-    const val taskName = "QUICK-124-jira7-xl-Mysql-50G-Heap"
+    const val taskName = "QUICK-132"
     val workspace = RootWorkspace(Paths.get("build")).isolateTask(taskName)
 
     val aws: Aws
