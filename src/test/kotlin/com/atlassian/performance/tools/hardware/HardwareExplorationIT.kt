@@ -8,9 +8,9 @@ import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.logContex
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.taskName
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.workspace
 import com.atlassian.performance.tools.hardware.failure.BugAwareTolerance
-import com.atlassian.performance.tools.hardware.guidance.DbExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
-import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
+import com.atlassian.performance.tools.hardware.guidance.SingleHardwareGuidance
+import com.atlassian.performance.tools.hardware.guidance.SkippedGuidance
 import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJiraSoftwareDistribution
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
@@ -81,13 +81,12 @@ class HardwareExplorationIT {
     }
 
     private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
-        JiraExplorationGuidance(
-            instanceTypes = jiraInstanceTypes,
-            maxNodeCount = 16,
-            minNodeCountForAvailability = 3,
-            minApdexGain = 0.01,
-            db = M44xlarge,
-            resultsCache = resultCache
+        SingleHardwareGuidance(
+            Hardware(
+                jira = C518xlarge,
+                nodeCount = 5,
+                db = M44xlarge
+            )
         )
     )
 
@@ -100,7 +99,7 @@ class HardwareExplorationIT {
         apdexSpreadWarningThreshold = 0.10,
         errorRateWarningThreshold = 0.05,
         pastFailures = BugAwareTolerance(logger),
-        repeats = 2,
+        repeats = 1,
         investment = Investment(
             useCase = "Test hardware recommendations - $taskName",
             lifespan = Duration.ofHours(2)
@@ -113,17 +112,6 @@ class HardwareExplorationIT {
         jiraRecommendations: List<HardwareTestResult>,
         jiraExploration: List<HardwareExplorationResult>
     ): List<HardwareExplorationResult> = explore(
-        DbExplorationGuidance(
-            dbs = listOf(
-                M4Large,
-                M4Xlarge,
-                M42xlarge,
-                M44xlarge
-            ),
-            jiraRecommendations = jiraRecommendations,
-            jiraExploration = jiraExploration,
-            jiraOrder = jiraInstanceTypes,
-            resultsCache = resultCache
-        )
+        SkippedGuidance()
     )
 }
