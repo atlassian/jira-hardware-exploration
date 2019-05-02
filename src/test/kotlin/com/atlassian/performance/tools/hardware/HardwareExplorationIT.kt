@@ -1,6 +1,5 @@
 package com.atlassian.performance.tools.hardware
 
-import com.amazonaws.services.ec2.model.InstanceType.*
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
 import com.atlassian.performance.tools.aws.api.Investment
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.aws
@@ -8,15 +7,13 @@ import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.logContex
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.taskName
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.workspace
 import com.atlassian.performance.tools.hardware.failure.BugAwareTolerance
-import com.atlassian.performance.tools.hardware.guidance.DbExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
-import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
+import com.atlassian.performance.tools.hardware.guidance.GuideCatalogue
 import com.atlassian.performance.tools.hardware.tuning.HeapTuning
 import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJiraSoftwareDistribution
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.lib.workspace.GitRepo2
-import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import org.apache.logging.log4j.Logger
 import org.eclipse.jgit.api.Git
 import org.junit.Test
@@ -26,15 +23,6 @@ import java.time.Duration
 class HardwareExplorationIT {
 
     private val logger: Logger = logContext.getLogger(this::class.java.canonicalName)
-
-    private val jiraInstanceTypes = listOf(
-        C52xlarge,
-        C54xlarge,
-        C48xlarge,
-        C59xlarge,
-        C518xlarge
-    )
-    private val resultCache = HardwareExplorationResultCache(workspace.directory.resolve("processed-cache.json"))
     private val s3Cache = S3Cache(
         transfer = TransferManagerBuilder.standard()
             .withS3Client(aws.s3)
@@ -43,6 +31,7 @@ class HardwareExplorationIT {
         cacheKey = taskName,
         localPath = workspace.directory
     )
+    private val guides = GuideCatalogue()
 
     @Test
     fun shouldExploreHardware() {
@@ -105,15 +94,7 @@ class HardwareExplorationIT {
     }
 
     private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
-        JiraExplorationGuidance(
-            instanceTypes = jiraInstanceTypes,
-            maxNodeCount = 16,
-            minNodeCountForAvailability = 3,
-            minApdexGain = 0.01,
-            minThroughputGain = TemporalRate(5.0, Duration.ofSeconds(1)),
-            db = M44xlarge,
-            resultsCache = resultCache
-        )
+        guides.jiraExtraLarge()
     )
 
     private fun explore(
@@ -125,7 +106,7 @@ class HardwareExplorationIT {
         apdexSpreadWarningThreshold = 0.10,
         errorRateWarningThreshold = 0.05,
         pastFailures = BugAwareTolerance(logger),
-        repeats = 2,
+        repeats = 1,
         investment = Investment(
             useCase = "Test hardware recommendations - $taskName",
             lifespan = Duration.ofHours(2)
@@ -140,17 +121,6 @@ class HardwareExplorationIT {
         jiraRecommendations: List<HardwareTestResult>,
         jiraExploration: List<HardwareExplorationResult>
     ): List<HardwareExplorationResult> = explore(
-        DbExplorationGuidance(
-            dbs = listOf(
-                M42xlarge,
-                M44xlarge,
-                M410xlarge,
-                M416xlarge
-            ),
-            jiraRecommendations = jiraRecommendations,
-            jiraExploration = jiraExploration,
-            jiraOrder = jiraInstanceTypes,
-            resultsCache = resultCache
-        )
+        guides.dbExtraLarge(jiraRecommendations, jiraExploration)
     )
 }

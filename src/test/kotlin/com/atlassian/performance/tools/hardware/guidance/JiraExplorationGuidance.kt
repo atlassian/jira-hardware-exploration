@@ -15,7 +15,7 @@ import com.atlassian.performance.tools.workspace.api.TaskWorkspace
 import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import java.util.concurrent.Future
 
-class JiraExplorationGuidance(
+internal class JiraExplorationGuidance(
     private val instanceTypes: List<InstanceType>,
     private val maxNodeCount: Int,
     private val minNodeCountForAvailability: Int,

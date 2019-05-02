@@ -10,7 +10,7 @@ import com.atlassian.performance.tools.workspace.api.TaskWorkspace
 import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import java.util.concurrent.Future
 
-class DbExplorationGuidance(
+internal class DbExplorationGuidance(
     private val dbs: List<InstanceType>,
     private val jiraRecommendations: List<HardwareTestResult>,
     private val jiraExploration: List<HardwareExplorationResult>,
