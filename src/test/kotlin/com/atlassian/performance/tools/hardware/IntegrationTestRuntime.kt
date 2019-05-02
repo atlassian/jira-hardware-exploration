@@ -17,7 +17,7 @@ import java.util.*
 
 object IntegrationTestRuntime {
 
-    const val taskName = "QUICK-124-jira7-xl-Mysql-More-WriteAction"
+    const val taskName = "QUICK-124-jira7-xl-Mysql-More-WriteAction-2nd"
     val workspace = RootWorkspace(Paths.get("build")).isolateTask(taskName)
 
     val aws: Aws

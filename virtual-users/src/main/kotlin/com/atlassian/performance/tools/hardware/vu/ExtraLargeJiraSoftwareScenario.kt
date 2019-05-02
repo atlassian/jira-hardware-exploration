@@ -101,12 +101,12 @@ class ExtraLargeJiraSoftwareScenario : Scenario{
             boardMemory = scrumBoardMemory
         ) { it.issuesInBacklog != 0 }
         val actionProportions = mapOf(
-            createIssue to 15, //5
+            createIssue to 25, //5
             searchWithJql to 20,
             viewIssue to 55,
             projectSummary to 5,
             viewDashboard to 10,
-            editIssue to 5,
+            editIssue to 25, //5
             addComment to 30, //2
             browseProjects to 5,
             viewBoard to 10,
