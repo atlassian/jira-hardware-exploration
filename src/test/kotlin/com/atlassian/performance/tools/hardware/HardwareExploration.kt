@@ -3,6 +3,7 @@ package com.atlassian.performance.tools.hardware
 import com.atlassian.performance.tools.aws.api.Aws
 import com.atlassian.performance.tools.aws.api.Investment
 import com.atlassian.performance.tools.awsinfrastructure.api.InfrastructureFormula
+import com.atlassian.performance.tools.awsinfrastructure.api.TargetingVirtualUserOptions
 import com.atlassian.performance.tools.awsinfrastructure.api.hardware.EbsEc2Instance
 import com.atlassian.performance.tools.awsinfrastructure.api.jira.DataCenterFormula
 import com.atlassian.performance.tools.awsinfrastructure.api.loadbalancer.ElasticLoadBalancerFormula
@@ -26,13 +27,16 @@ import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.EdibleResult
 import com.atlassian.performance.tools.report.api.result.RawCohortResult
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
+import com.atlassian.performance.tools.virtualusers.api.VirtualUserOptions
 import com.atlassian.performance.tools.virtualusers.api.browsers.HeadlessChromeBrowser
 import com.atlassian.performance.tools.virtualusers.api.config.VirtualUserBehavior
+import com.atlassian.performance.tools.virtualusers.api.config.VirtualUserTarget
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
 import com.atlassian.performance.tools.workspace.api.TestWorkspace
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.File
+import java.net.URI
 import java.time.Duration
 import java.util.concurrent.*
 
@@ -48,18 +52,6 @@ class HardwareExploration(
     private val maxErrorRate: Double,
     private val maxApdexSpread: Double
 ) {
-
-    private val virtualUsers: VirtualUserBehavior = VirtualUserBehavior.Builder(CustomScenario::class.java)
-        .load(scale.load)
-        .createUsers(true)
-        .seed(78432)
-        .diagnosticsLimit(32)
-        .browser(HeadlessChromeBrowser::class.java)
-        .createUsers(true)
-        .adminUser(scale.dataset.adminLogin)
-        .adminPassword(scale.dataset.adminPassword)
-        .skipSetup(true)
-        .build()
     private val awsParallelism = 6
     private val results = ConcurrentHashMap<Hardware, Future<HardwareExplorationResult>>()
     private val logger: Logger = LogManager.getLogger(this::class.java)
@@ -325,7 +317,7 @@ class HardwareExploration(
         ).executeAsync(
             workspace,
             executor,
-            virtualUsers
+            ScaleVirtualUserOptions(scale)
         ).thenApply { raw ->
             workspace.writeStatus(raw)
             return@thenApply score(hardware, raw, workspace)
@@ -412,6 +404,29 @@ class HardwareExploration(
         FullReport().dump(
             results = results,
             workspace = TestWorkspace(workspace.directory)
+        )
+    }
+
+    private class ScaleVirtualUserOptions(
+        private val scale: ApplicationScale
+    ) : TargetingVirtualUserOptions {
+        override fun target(
+            jira: URI
+        ): VirtualUserOptions = VirtualUserOptions(
+            target = VirtualUserTarget(
+                webApplication = jira,
+                userName = scale.dataset.adminLogin,
+                password = scale.dataset.adminPassword
+            ),
+            behavior = VirtualUserBehavior.Builder(CustomScenario::class.java)
+                .load(scale.load)
+                .createUsers(true)
+                .seed(78432)
+                .diagnosticsLimit(32)
+                .browser(HeadlessChromeBrowser::class.java)
+                .createUsers(true)
+                .skipSetup(true)
+                .build()
         )
     }
 }
