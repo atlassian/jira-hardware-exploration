@@ -4,6 +4,7 @@ import com.amazonaws.regions.Regions
 import com.atlassian.performance.tools.aws.api.StorageLocation
 import com.atlassian.performance.tools.awsinfrastructure.S3DatasetPackage
 import com.atlassian.performance.tools.awsinfrastructure.api.DatasetCatalogue
+import com.atlassian.performance.tools.infrastructure.api.database.MySqlDatabase
 import com.atlassian.performance.tools.infrastructure.api.database.PostgresDatabase
 import com.atlassian.performance.tools.infrastructure.api.dataset.Dataset
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraHomePackage
@@ -72,15 +73,33 @@ class HwrDatasetCatalogue {
         )
     }
 
-    fun xl7Mysql() = DatasetCatalogue().custom(
-        location = StorageLocation(
-            uri = URI("s3://jpt-custom-mysql-xl/dataset-7m-jira7"),
-            region = Regions.EU_WEST_1
-        ),
-        label = "7M issues",
-        databaseDownload = Duration.ofMinutes(55),
-        jiraHomeDownload = Duration.ofMinutes(55)
-    ).overrideDatabase { original ->
+    fun xl7Mysql() = StorageLocation(
+        uri = URI("s3://jpt-custom-mysql-xl/dataset-7m-jira7"),
+        region = Regions.EU_WEST_1
+    ).let { location ->
+        Dataset(
+            label = "7M issues",
+            database = MySqlDatabase(
+                source = S3DatasetPackage(
+                    artifactName = "database.tar.bz2",
+                    location = location,
+                    unpackedPath = "database",
+                    downloadTimeout = Duration.ofMinutes(55)
+                ),
+                maxConnections = 151,
+                innodb_buffer_pool_size = "40G",
+                innodb_log_file_size = "2G"
+            ),
+            jiraHomeSource = JiraHomePackage(
+                S3DatasetPackage(
+                    artifactName = "jirahome.tar.bz2",
+                    location = location,
+                    unpackedPath = "jirahome",
+                    downloadTimeout = Duration.ofMinutes(55)
+                )
+            )
+        )
+    }.overrideDatabase { original ->
         overrideLicense(original)
     }.let { dataset ->
         AdminDataset(
