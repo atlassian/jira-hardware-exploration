@@ -26,7 +26,7 @@ class CustomScenario : Scenario {
         val drilldownMeter = meter.withW3cPerformanceTimeline(
             JavascriptW3cPerformanceTimeline(jira.driver as JavascriptExecutor)
         )
-        return ExtraLargeJiraSoftwareScenario().getActions(jira, seededRandom, drilldownMeter)
+        return JiraSoftwareScenario().getActions(jira, seededRandom, drilldownMeter)
     }
 }
 
