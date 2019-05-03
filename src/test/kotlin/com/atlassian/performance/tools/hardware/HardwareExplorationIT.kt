@@ -118,6 +118,8 @@ class HardwareExplorationIT {
     ): List<HardwareExplorationResult> = explore(
         DbExplorationGuidance(
             dbs = listOf(
+                M4Large,
+                M4Xlarge,
                 M42xlarge,
                 M44xlarge,
                 M54xlarge,
