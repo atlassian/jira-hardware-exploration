@@ -22,6 +22,7 @@ fun extraLarge(
     dataset = when {
         jira8 && postgres -> DATASETS.xl8Postgres()
         jira8 && !postgres -> DATASETS.xl8Mysql()
+        !jira8 && !postgres -> DATASETS.xl7Mysql()
         else -> throw Exception("We don't have an XL dataset matching jira8=$jira8 and postgres=$postgres")
     },
     load = VirtualUserLoad.Builder()
