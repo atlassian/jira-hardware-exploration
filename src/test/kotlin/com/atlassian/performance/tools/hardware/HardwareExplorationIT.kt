@@ -83,8 +83,8 @@ class HardwareExplorationIT {
     private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
         SingleHardwareGuidance(
             Hardware(
-                jira = C518xlarge,
-                nodeCount = 5,
+                jira = C59xlarge,
+                nodeCount = 6,
                 db = M44xlarge
             )
         )
@@ -99,7 +99,7 @@ class HardwareExplorationIT {
         apdexSpreadWarningThreshold = 0.10,
         errorRateWarningThreshold = 0.05,
         pastFailures = BugAwareTolerance(logger),
-        repeats = 2,
+        repeats = 1,
         investment = Investment(
             useCase = "Test hardware recommendations - $taskName",
             lifespan = Duration.ofHours(2)
