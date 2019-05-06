@@ -8,9 +8,9 @@ import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.logContex
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.taskName
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.workspace
 import com.atlassian.performance.tools.hardware.failure.BugAwareTolerance
-import com.atlassian.performance.tools.hardware.guidance.DbExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.SingleHardwareGuidance
+import com.atlassian.performance.tools.hardware.guidance.SkippedGuidance
 import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJiraSoftwareDistribution
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
@@ -112,17 +112,6 @@ class HardwareExplorationIT {
         jiraRecommendations: List<HardwareTestResult>,
         jiraExploration: List<HardwareExplorationResult>
     ): List<HardwareExplorationResult> = explore(
-        DbExplorationGuidance(
-            dbs = listOf(
-                M4Large,
-                M4Xlarge,
-                M42xlarge,
-                M44xlarge
-            ),
-            jiraRecommendations = jiraRecommendations,
-            jiraExploration = jiraExploration,
-            jiraOrder = jiraInstanceTypes,
-            resultsCache = resultCache
-        )
+        SkippedGuidance()
     )
 }
