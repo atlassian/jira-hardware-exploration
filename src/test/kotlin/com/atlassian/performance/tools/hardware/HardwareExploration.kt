@@ -54,7 +54,7 @@ class HardwareExploration(
     private val errorRateWarningThreshold: Double,
     private val apdexSpreadWarningThreshold: Double
 ) {
-    private val awsParallelism = 6
+    private val awsParallelism = 4
     private val results = ConcurrentHashMap<Hardware, Future<HardwareExplorationResult>>()
     private val logger: Logger = LogManager.getLogger(this::class.java)
 
