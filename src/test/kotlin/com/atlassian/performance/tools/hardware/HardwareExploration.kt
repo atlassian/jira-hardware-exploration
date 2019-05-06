@@ -12,8 +12,10 @@ import com.atlassian.performance.tools.hardware.failure.FailureTolerance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.vu.CustomScenario
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
+import com.atlassian.performance.tools.infrastructure.api.jira.JiraJvmArgs
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraLaunchTimeouts
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
+import com.atlassian.performance.tools.infrastructure.api.jvm.JvmArg
 import com.atlassian.performance.tools.infrastructure.api.profiler.AsyncProfiler
 import com.atlassian.performance.tools.io.api.dereference
 import com.atlassian.performance.tools.io.api.directories
@@ -341,6 +343,12 @@ class HardwareExploration(
                     JiraNodeConfig.Builder()
                         .name("jira-node-$it")
                         .profiler(BestEffortProfiler(AsyncProfiler()))
+                        .jvmArgs(
+                            JiraJvmArgs(
+                                xms = "50G",
+                                xmx = "50G",
+                                extra = listOf(JvmArg("-XX:+UseG1GC")))
+                        )
                         .launchTimeouts(
                             JiraLaunchTimeouts.Builder()
                                 .initTimeout(Duration.ofMinutes(7))
