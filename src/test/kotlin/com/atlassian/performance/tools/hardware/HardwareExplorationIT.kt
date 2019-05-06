@@ -8,9 +8,7 @@ import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.logContex
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.taskName
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.workspace
 import com.atlassian.performance.tools.hardware.failure.BugAwareTolerance
-import com.atlassian.performance.tools.hardware.guidance.DbExplorationGuidance
-import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
-import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
+import com.atlassian.performance.tools.hardware.guidance.*
 import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJiraSoftwareDistribution
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
@@ -103,7 +101,7 @@ class HardwareExplorationIT {
         apdexSpreadWarningThreshold = 0.10,
         errorRateWarningThreshold = 0.05,
         pastFailures = BugAwareTolerance(logger),
-        repeats = 2,
+        repeats = 1,
         investment = Investment(
             useCase = "Test hardware recommendations - $taskName",
             lifespan = Duration.ofHours(2)
