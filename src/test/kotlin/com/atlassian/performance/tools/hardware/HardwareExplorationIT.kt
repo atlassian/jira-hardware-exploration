@@ -85,7 +85,7 @@ class HardwareExplorationIT {
             Hardware(
                 jira = C518xlarge,
                 nodeCount = 5,
-                db = M44xlarge
+                db = M4Xlarge
             )
         )
     )
