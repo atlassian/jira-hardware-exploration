@@ -27,7 +27,7 @@ class PatientBrowseBoardsAction(
 
     override fun run() {
         val browseBoardsPage = meter.measure(BROWSE_BOARDS) {
-            jiraSoftware.goToBrowseBoards().waitForBoardsList(Duration.ofMinutes(2))
+            jiraSoftware.goToBrowseBoards().waitForBoardsList(Duration.ofMinutes(10))
         }
         boardsMemory.remember(browseBoardsPage.getBoardIds().map { AgileBoard(it) })
         scrumBoardsMemory.remember(browseBoardsPage.getScrumBoardIds().map { ScrumBoard(it) })
