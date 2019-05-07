@@ -86,7 +86,7 @@ class HardwareExplorationIT {
     private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
         JiraExplorationGuidance(
             instanceTypes = jiraInstanceTypes,
-            maxNodeCount = 16,
+            maxNodeCount = 7,
             minNodeCountForAvailability = 5,
             minApdexGain = 0.01,
             db = M44xlarge,
