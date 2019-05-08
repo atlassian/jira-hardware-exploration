@@ -76,6 +76,9 @@ class HardwareExplorationIT {
             .filter { it.apdex > 0.70 }
             .sortedByDescending { it.apdex }
             .take(2)
+        if (recommendations.isEmpty()) {
+            throw Exception("We have nothing to recommend")
+        }
         logger.info("Recommending $recommendations")
         return recommendations
     }
