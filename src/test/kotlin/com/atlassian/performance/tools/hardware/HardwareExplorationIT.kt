@@ -11,6 +11,7 @@ import com.atlassian.performance.tools.hardware.failure.BugAwareTolerance
 import com.atlassian.performance.tools.hardware.guidance.DbExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
+import com.atlassian.performance.tools.hardware.tuning.HeapTuning
 import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJiraSoftwareDistribution
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
@@ -108,6 +109,7 @@ class HardwareExplorationIT {
             useCase = "Test hardware recommendations - $taskName",
             lifespan = Duration.ofHours(2)
         ),
+        tuning = HeapTuning(),
         aws = aws,
         task = workspace
     ).exploreHardware()
