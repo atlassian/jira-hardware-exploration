@@ -29,7 +29,7 @@ class HwrDatasetCatalogue {
                     artifactName = "database.tar.bz2",
                     location = location,
                     unpackedPath = "database",
-                    downloadTimeout = Duration.ofMinutes(55)
+                    downloadTimeout = Duration.ofMinutes(75)
                 ),
                 extraDockerArgs = listOf(
                     "--max_connections=151",
@@ -42,7 +42,7 @@ class HwrDatasetCatalogue {
                     artifactName = "jirahome.tar.bz2",
                     location = location,
                     unpackedPath = "jirahome",
-                    downloadTimeout = Duration.ofMinutes(55)
+                    downloadTimeout = Duration.ofMinutes(75)
                 )
             )
         )
