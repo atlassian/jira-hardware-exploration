@@ -84,7 +84,7 @@ class HardwareExplorationIT {
         SingleHardwareGuidance(
             Hardware(
                 jira = C518xlarge,
-                nodeCount = 4,
+                nodeCount = 5,
                 db = M4Xlarge
             )
         )
