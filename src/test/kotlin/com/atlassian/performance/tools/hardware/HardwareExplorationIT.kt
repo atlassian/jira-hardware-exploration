@@ -1,5 +1,6 @@
 package com.atlassian.performance.tools.hardware
 
+import com.amazonaws.services.ec2.model.InstanceType
 import com.amazonaws.services.ec2.model.InstanceType.*
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
 import com.atlassian.performance.tools.aws.api.Investment
@@ -11,6 +12,8 @@ import com.atlassian.performance.tools.hardware.failure.BugAwareTolerance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.SingleHardwareGuidance
 import com.atlassian.performance.tools.hardware.guidance.SkippedGuidance
+import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
+import com.atlassian.performance.tools.hardware.tuning.HeapTuning
 import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJiraSoftwareDistribution
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
@@ -76,19 +79,26 @@ class HardwareExplorationIT {
             .filter { it.apdex > 0.70 }
             .sortedByDescending { it.apdex }
             .take(2)
+        if (recommendations.isEmpty()) {
+            throw Exception("We have nothing to recommend")
+        }
         logger.info("Recommending $recommendations")
         return recommendations
     }
 
-    private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
-        SingleHardwareGuidance(
-            Hardware(
-                jira = C518xlarge,
-                nodeCount = 5,
-                db = M4Xlarge
+    private fun exploreJiraHardware(): List<HardwareExplorationResult> =
+        listOf(M4Large, M4Xlarge, M42xlarge).flatMap { dbInstanceType ->
+            explore(
+                JiraExplorationGuidance(
+                    instanceTypes = jiraInstanceTypes,
+                    maxNodeCount = 5,
+                    minNodeCountForAvailability = 5,
+                    minApdexGain = 0.01,
+                    db = dbInstanceType,
+                    resultsCache = resultCache
+                )
             )
-        )
-    )
+        }
 
     private fun explore(
         guidance: ExplorationGuidance
@@ -104,6 +114,7 @@ class HardwareExplorationIT {
             useCase = "Test hardware recommendations - $taskName",
             lifespan = Duration.ofHours(2)
         ),
+        tuning = HeapTuning(),
         aws = aws,
         task = workspace
     ).exploreHardware()
