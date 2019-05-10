@@ -10,10 +10,9 @@ import com.atlassian.performance.tools.awsinfrastructure.api.loadbalancer.Elasti
 import com.atlassian.performance.tools.awsinfrastructure.api.virtualusers.MulticastVirtualUsersFormula
 import com.atlassian.performance.tools.hardware.failure.FailureTolerance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
+import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
 import com.atlassian.performance.tools.hardware.vu.CustomScenario
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
-import com.atlassian.performance.tools.infrastructure.api.jira.JiraJvmArgs
-import com.atlassian.performance.tools.infrastructure.api.jira.JiraLaunchTimeouts
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
 import com.atlassian.performance.tools.infrastructure.api.profiler.AsyncProfiler
 import com.atlassian.performance.tools.io.api.dereference
@@ -47,6 +46,7 @@ class HardwareExploration(
     private val scale: ApplicationScale,
     private val guidance: ExplorationGuidance,
     private val investment: Investment,
+    private val tuning: JiraNodeTuning,
     private val aws: Aws,
     private val task: TaskWorkspace,
     private val repeats: Int,
@@ -338,20 +338,12 @@ class HardwareExploration(
                 jiraHomeSource = scale.dataset.dataset.jiraHomeSource,
                 database = scale.dataset.dataset.database
             )
-                .configs((1..hardware.nodeCount).map {
+                .configs((1..hardware.nodeCount).map { nodeNumber ->
                     JiraNodeConfig.Builder()
-                        .name("jira-node-$it")
+                        .name("jira-node-$nodeNumber")
                         .profiler(BestEffortProfiler(AsyncProfiler()))
-                        .jvmArgs(JiraJvmArgs("50G", "50G",
-                            listOf(
-                                com.atlassian.performance.tools.infrastructure.api.jvm.JvmArg("-XX:+UseG1GC"))))
-                        .launchTimeouts(
-                            JiraLaunchTimeouts.Builder()
-                                .initTimeout(Duration.ofMinutes(7))
-                                .offlineTimeout(Duration.ofMinutes(15))
-                                .build()
-
-                        ).build()
+                        .build()
+                        .let { tuning.tune(it, hardware, scale) }
                 })
                 .loadBalancerFormula(ElasticLoadBalancerFormula())
                 .computer(EbsEc2Instance(hardware.jira).withVolumeSize(300))

@@ -10,6 +10,7 @@ import com.atlassian.performance.tools.infrastructure.api.dataset.Dataset
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraHomePackage
 import com.atlassian.performance.tools.lib.LicenseOverridingDatabase
 import com.atlassian.performance.tools.lib.infrastructure.AdminDataset
+import com.atlassian.performance.tools.lib.infrastructure.ConfigurableMysqlDatabase
 import com.atlassian.performance.tools.lib.overrideDatabase
 import com.atlassian.performance.tools.lib.toExistingFile
 import java.net.URI
@@ -17,6 +18,44 @@ import java.nio.file.Paths
 import java.time.Duration
 
 class HwrDatasetCatalogue {
+
+    fun xl7Mysql() = StorageLocation(
+        uri = URI("s3://jpt-custom-mysql-xl/dataset-7m-jira7"),
+        region = Regions.EU_WEST_1
+    ).let { location ->
+        Dataset(
+            label = "7M issues",
+            database = ConfigurableMysqlDatabase(
+                source = S3DatasetPackage(
+                    artifactName = "database.tar.bz2",
+                    location = location,
+                    unpackedPath = "database",
+                    downloadTimeout = Duration.ofMinutes(55)
+                ),
+                extraDockerArgs = listOf(
+                    "--max_connections=151",
+                    "--innodb-buffer-pool-size=40G",
+                    "--innodb-log-file-size=2146435072"
+                )
+            ),
+            jiraHomeSource = JiraHomePackage(
+                S3DatasetPackage(
+                    artifactName = "jirahome.tar.bz2",
+                    location = location,
+                    unpackedPath = "jirahome",
+                    downloadTimeout = Duration.ofMinutes(55)
+                )
+            )
+        )
+    }.overrideDatabase { original ->
+        overrideLicense(original)
+    }.let { dataset ->
+        AdminDataset(
+            dataset = dataset,
+            adminLogin = "admin",
+            adminPassword = "admin"
+        )
+    }
 
     fun xl8Postgres() = StorageLocation(
         uri = URI("s3://jpt-custom-postgres-xl/dataset-7m"),
@@ -64,42 +103,6 @@ class HwrDatasetCatalogue {
         databaseDownload = Duration.ofMinutes(55),
         jiraHomeDownload = Duration.ofMinutes(55)
     ).overrideDatabase { original ->
-        overrideLicense(original)
-    }.let { dataset ->
-        AdminDataset(
-            dataset = dataset,
-            adminLogin = "admin",
-            adminPassword = "admin"
-        )
-    }
-
-    fun xl7Mysql() = StorageLocation(
-        uri = URI("s3://jpt-custom-mysql-xl/dataset-7m-jira7"),
-        region = Regions.EU_WEST_1
-    ).let { location ->
-        Dataset(
-            label = "7M issues",
-            database = MySqlDatabase(
-                source = S3DatasetPackage(
-                    artifactName = "database.tar.bz2",
-                    location = location,
-                    unpackedPath = "database",
-                    downloadTimeout = Duration.ofMinutes(55)
-                ),
-                maxConnections = 151,
-                innodb_buffer_pool_size = "40G",
-                innodb_log_file_size = "2G"
-            ),
-            jiraHomeSource = JiraHomePackage(
-                S3DatasetPackage(
-                    artifactName = "jirahome.tar.bz2",
-                    location = location,
-                    unpackedPath = "jirahome",
-                    downloadTimeout = Duration.ofMinutes(55)
-                )
-            )
-        )
-    }.overrideDatabase { original ->
         overrideLicense(original)
     }.let { dataset ->
         AdminDataset(
