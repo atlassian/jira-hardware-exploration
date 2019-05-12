@@ -87,7 +87,7 @@ class HardwareExplorationIT {
     }
 
     private fun exploreJiraHardware(): List<HardwareExplorationResult> =
-        listOf(M42xlarge).flatMap { dbInstanceType ->
+        listOf(M4Large, M4Xlarge, M42xlarge).flatMap { dbInstanceType ->
             explore(
                 JiraExplorationGuidance(
                     instanceTypes = jiraInstanceTypes,
