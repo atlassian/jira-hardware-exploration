@@ -67,7 +67,12 @@ internal class HardwareExplorationChart<S, X>(
             )
             .replace(
                 oldValue = "'<%= maxErrorRate =%>'",
-                newValue = results.flatMap { it.errorRates }.map { it * 100 }.maxAxis()
+                newValue = results
+                    .flatMap { it.errorRates }
+                    .map { it * 100 }
+                    .maxAxis()
+                    .coerceAtMost(100.0)
+                    .toString()
             )
             .replace(
                 oldValue = "'<%= throughputChartData =%>'",
@@ -75,7 +80,15 @@ internal class HardwareExplorationChart<S, X>(
             )
             .replace(
                 oldValue = "'<%= maxThroughput =%>'",
-                newValue = results.flatMap { it.httpThroughputs }.map { it.change }.maxAxis()
+                newValue = results
+                    .flatMap { it.httpThroughputs }
+                    .map { it.change }
+                    .maxAxis()
+                    .toString()
+            )
+            .replace(
+                oldValue = "<%= xAxisLabel =%>",
+                newValue = xAxis.label
             )
             .replace(
                 oldValue = "<%= commit =%>",
@@ -185,7 +198,7 @@ internal class HardwareExplorationChart<S, X>(
         minus = yRange.min()!!.minus(y).toBigDecimal(mathContext)
     )
 
-    private fun List<Double>.maxAxis(): String = max()!!.times(1.15).toString()
+    private fun List<Double>.maxAxis(): Double = max()!!.times(1.15)
 }
 
 private class HardwarePoint<X>(

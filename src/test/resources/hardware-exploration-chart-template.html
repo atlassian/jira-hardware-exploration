@@ -13,6 +13,11 @@
             font-family: monospace;
             color: white;
         }
+
+        canvas.chartjs-render-monitor {
+            border: 5pt black solid;
+            margin: 0 -5pt
+        }
     </style>
 </head>
 <body>
@@ -56,17 +61,10 @@
                         {
                             scaleLabel: {
                                 display: true,
-                                labelString: "Jira nodes"
+                                labelString: "<%= xAxisLabel =%>"
                             }
                         }
                     ]
-                },
-                tooltips: {
-                    callbacks: {
-                        title: function(tooltipItems) {
-                            return tooltipItems[0].xLabel + " Jira nodes";
-                        }
-                    }
                 }
             }
         }
@@ -105,17 +103,10 @@
                         {
                             scaleLabel: {
                                 display: true,
-                                labelString: "Jira nodes"
+                                labelString: "<%= xAxisLabel =%>"
                             }
                         }
                     ]
-                },
-                tooltips: {
-                    callbacks: {
-                        title: function(tooltipItems) {
-                            return tooltipItems[0].xLabel + " Jira nodes";
-                        }
-                    }
                 }
             }
         }
@@ -154,17 +145,10 @@
                         {
                             scaleLabel: {
                                 display: true,
-                                labelString: "Jira nodes"
+                                labelString: "<%= xAxisLabel =%>"
                             }
                         }
                     ]
-                },
-                tooltips: {
-                    callbacks: {
-                        title: function(tooltipItems) {
-                            return tooltipItems[0].xLabel + " Jira nodes";
-                        }
-                    }
                 }
             }
         }
