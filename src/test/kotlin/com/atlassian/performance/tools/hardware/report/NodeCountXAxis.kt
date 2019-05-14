@@ -3,6 +3,8 @@ package com.atlassian.performance.tools.hardware.report
 import com.atlassian.performance.tools.hardware.HardwareTestResult
 
 class NodeCountXAxis : HardwareXAxis<NodeCount> {
+
+    override val label: String = "DC nodes [#]"
     override fun getX(it: HardwareTestResult): NodeCount = NodeCount(it.hardware.nodeCount)
 }
 
