@@ -56,12 +56,12 @@ class JiraExplorationGuidance(
             .map { it.apdex }
             .zipWithNext { a, b -> b - a }
             .toList()
-        val strongPositiveImpact = apdexIncrements.all { it > minApdexGain }
+        val strongPositiveImpact = apdexIncrements.last() > minApdexGain
         return if (strongPositiveImpact) {
             HardwareExplorationDecision(
                 hardware = hardware,
                 worthExploring = true,
-                reason = "adding more nodes made enough positive impact on Apdex"
+                reason = "adding a node made improved Apdex enough"
             )
         } else {
             HardwareExplorationDecision(
