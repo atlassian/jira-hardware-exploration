@@ -23,6 +23,7 @@ import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBackl
 import com.atlassian.performance.tools.lib.*
 import com.atlassian.performance.tools.lib.infrastructure.BestEffortProfiler
 import com.atlassian.performance.tools.lib.infrastructure.PatientChromium69
+import com.atlassian.performance.tools.lib.infrastructure.WgetOracleJdk
 import com.atlassian.performance.tools.report.api.FullReport
 import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.EdibleResult
@@ -342,6 +343,7 @@ class HardwareExploration(
                     JiraNodeConfig.Builder()
                         .name("jira-node-$nodeNumber")
                         .profiler(BestEffortProfiler(AsyncProfiler()))
+                        .jdk(WgetOracleJdk())
                         .build()
                         .let { tuning.tune(it, hardware, scale) }
                 })
