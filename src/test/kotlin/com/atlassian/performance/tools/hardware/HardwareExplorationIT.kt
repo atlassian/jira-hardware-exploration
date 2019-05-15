@@ -87,18 +87,11 @@ class HardwareExplorationIT {
     }
 
     private fun exploreJiraHardware(): List<HardwareExplorationResult> =
-        listOf(M4Large, M4Xlarge, M42xlarge).flatMap { dbInstanceType ->
-            explore(
-                JiraExplorationGuidance(
-                    instanceTypes = jiraInstanceTypes,
-                    maxNodeCount = 5,
-                    minNodeCountForAvailability = 5,
-                    minApdexGain = 0.01,
-                    db = dbInstanceType,
-                    resultsCache = resultCache
-                )
-            )
-        }
+        explore(SingleHardwareGuidance(
+            hardware = Hardware(
+                jira = C59xlarge,
+                nodeCount = 4,
+                db = M44xlarge)))
 
     private fun explore(
         guidance: ExplorationGuidance
