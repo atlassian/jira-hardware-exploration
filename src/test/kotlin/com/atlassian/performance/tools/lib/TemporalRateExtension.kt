@@ -27,4 +27,11 @@ operator fun TemporalRate.minus(
     )
 }
 
+fun TemporalRate.invert(): TemporalRate {
+    return TemporalRate(
+        1.0 / change,
+        time
+    )
+}
+
 val ZERO_RATE = TemporalRate(0.0, Duration.ofSeconds(1))
