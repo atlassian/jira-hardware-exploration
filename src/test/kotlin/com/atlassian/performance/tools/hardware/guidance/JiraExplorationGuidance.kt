@@ -9,6 +9,8 @@ import com.atlassian.performance.tools.hardware.report.HardwareExplorationChart
 import com.atlassian.performance.tools.hardware.report.HardwareExplorationTable
 import com.atlassian.performance.tools.hardware.report.JiraInstanceTypeGrouping
 import com.atlassian.performance.tools.hardware.report.NodeCountXAxis
+import com.atlassian.performance.tools.lib.minus
+import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
 import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import java.util.concurrent.Future
@@ -18,6 +20,7 @@ class JiraExplorationGuidance(
     private val maxNodeCount: Int,
     private val minNodeCountForAvailability: Int,
     private val minApdexGain: Double,
+    private val minThroughputGain: TemporalRate,
     private val db: InstanceType,
     private val resultsCache: HardwareExplorationResultCache
 ) : ExplorationGuidance {
@@ -49,22 +52,30 @@ class JiraExplorationGuidance(
                 reason = "testing smaller hardware had failed, ERROR: ${e.message}"
             )
         }
-        val apdexIncrements = smallerHardwareResults
+        val sortedPreviousResults = smallerHardwareResults
             .asSequence()
             .mapNotNull { it.testResult }
             .sortedBy { it.hardware.nodeCount }
+        val apdexIncrements = sortedPreviousResults
             .map { it.apdex }
             .zipWithNext { a, b -> b - a }
-            .toList()
-        val strongPositiveImpact = apdexIncrements.last() > minApdexGain
-        return if (strongPositiveImpact) {
-            HardwareExplorationDecision(
+        val throughputIncrements = sortedPreviousResults
+            .map { it.httpThroughput }
+            .zipWithNext { a, b -> b.minus(a) }
+        val apdexBoostedEnough = apdexIncrements.last() > minApdexGain
+        val throughputBoostedEnough = throughputIncrements.last() > minThroughputGain
+        return when {
+            apdexBoostedEnough -> HardwareExplorationDecision(
                 hardware = hardware,
                 worthExploring = true,
                 reason = "adding a node made improved Apdex enough"
             )
-        } else {
-            HardwareExplorationDecision(
+            throughputBoostedEnough -> HardwareExplorationDecision(
+                hardware = hardware,
+                worthExploring = true,
+                reason = "adding a node made improved throughput enough"
+            )
+            else -> HardwareExplorationDecision(
                 hardware = hardware,
                 worthExploring = false,
                 reason = "adding more nodes did not improve Apdex enough"

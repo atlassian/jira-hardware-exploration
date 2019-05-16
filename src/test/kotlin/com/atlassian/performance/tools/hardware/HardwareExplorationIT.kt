@@ -16,6 +16,7 @@ import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJir
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.lib.workspace.GitRepo2
+import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import org.apache.logging.log4j.Logger
 import org.eclipse.jgit.api.Git
 import org.junit.Test
@@ -91,6 +92,7 @@ class HardwareExplorationIT {
             maxNodeCount = 16,
             minNodeCountForAvailability = 3,
             minApdexGain = 0.01,
+            minThroughputGain = TemporalRate(5.0, Duration.ofSeconds(1)),
             db = M44xlarge,
             resultsCache = resultCache
         )
