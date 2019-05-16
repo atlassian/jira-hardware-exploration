@@ -72,16 +72,16 @@ class HardwareExplorationIT {
     private fun recommendJiraHardware(
         jiraExploration: List<HardwareExplorationResult>
     ): List<HardwareTestResult> {
-        val recommendations = jiraExploration
+        val candidates = jiraExploration
             .mapNotNull { it.testResult }
             .filter { it.apdex > 0.70 }
+            .filter { it.errorRate < 0.01 }
+        val highestApdex = candidates
             .sortedByDescending { it.apdex }
-            .take(2)
-        if (recommendations.isEmpty()) {
-            throw Exception("We have nothing to recommend")
-        }
-        logger.info("Recommending $recommendations")
-        return recommendations
+            .firstOrNull()
+            ?: throw Exception("We don't have a highest Apdex recommendation")
+        logger.info("Recommending due to highest Apdex: $highestApdex")
+        return listOf(highestApdex)
     }
 
     private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
