@@ -105,7 +105,7 @@ class HardwareExplorationIT {
         repeats = 1,
         investment = Investment(
             useCase = "Test hardware recommendations - $taskName",
-            lifespan = Duration.ofHours(2)
+            lifespan = Duration.ofHours(3)
         ),
         tuning = HeapTuning(),
         aws = aws,

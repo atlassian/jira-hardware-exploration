@@ -28,7 +28,7 @@ fun extraLarge(
     load = VirtualUserLoad.Builder()
         .virtualUsers(150)
         .ramp(Duration.ofSeconds(90))
-        .flat(Duration.ofMinutes(20))
+        .flat(Duration.ofMinutes(90))
         .maxOverallLoad(TemporalRate(30.0, Duration.ofSeconds(1)))
         .build(),
     vuNodes = 12
