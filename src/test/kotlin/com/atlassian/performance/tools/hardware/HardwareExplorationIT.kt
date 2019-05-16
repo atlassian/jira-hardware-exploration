@@ -78,12 +78,32 @@ class HardwareExplorationIT {
             .mapNotNull { it.testResult }
             .filter { it.apdex > 0.70 }
             .filter { it.errorRate < 0.01 }
+        return listOf(
+            recommendByApdex(candidates),
+            recommendByCostEffectiveness(candidates)
+        )
+    }
+
+    private fun recommendByApdex(
+        candidates: List<HardwareTestResult>
+    ): HardwareTestResult {
         val highestApdex = candidates
             .sortedByDescending { it.apdex }
             .firstOrNull()
-            ?: throw Exception("We don't have a highest Apdex recommendation")
-        logger.info("Recommending due to highest Apdex: $highestApdex")
-        return listOf(highestApdex)
+            ?: throw Exception("We don't have an Apdex recommendation")
+        logger.info("Recommended the highest Apdex: $highestApdex")
+        return highestApdex
+    }
+
+    private fun recommendByCostEffectiveness(
+        candidates: List<HardwareTestResult>
+    ): HardwareTestResult {
+        val mostCostEfficient = candidates
+            .sortedByDescending { it.apdexPerUsdUpkeep }
+            .firstOrNull()
+            ?: throw Exception("We don't have a cost-effectiveness recommendation")
+        logger.info("Recommended the most cost-efficient: $mostCostEfficient")
+        return mostCostEfficient
     }
 
     private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
