@@ -37,6 +37,5 @@ class EtagCache(
             .toFile()
             .ensureParentDirectory()
             .writeText(upload.eTag)
-
     }
 }
