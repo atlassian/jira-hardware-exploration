@@ -35,23 +35,30 @@ class HardwareExplorationIT {
         C518xlarge
     )
     private val resultCache = HardwareExplorationResultCache(workspace.directory.resolve("processed-cache.json"))
+    private val s3Cache = S3Cache(
+        transfer = TransferManagerBuilder.standard()
+            .withS3Client(aws.s3)
+            .build(),
+        bucketName = "quicksilver-jhwr-cache-ireland",
+        cacheKey = taskName,
+        localPath = workspace.directory
+    )
 
     @Test
     fun shouldExploreHardware() {
         requireCleanRepo()
-        val cache = getWorkspaceCache()
-        logger.info("Using $cache")
-        time("download") { cache.download() }
+        logger.info("Using $s3Cache")
+        time("download") { s3Cache.download() }
         val jiraExploration = try {
             exploreJiraHardware()
         } finally {
-            time("upload") { cache.upload() }
+            time("upload") { s3Cache.upload() }
         }
         val jiraRecommendations = recommendJiraHardware(jiraExploration)
         try {
             exploreDbHardware(jiraRecommendations, jiraExploration)
         } finally {
-            time("upload") { cache.upload() }
+            time("upload") { s3Cache.upload() }
         }
     }
 
@@ -61,15 +68,6 @@ class HardwareExplorationIT {
             throw Exception("Your Git repo is not clean. Please commit the changes and consider pushing them.")
         }
     }
-
-    private fun getWorkspaceCache(): S3Cache = S3Cache(
-        transfer = TransferManagerBuilder.standard()
-            .withS3Client(aws.s3)
-            .build(),
-        bucketName = "quicksilver-jhwr-cache-ireland",
-        cacheKey = taskName,
-        localPath = workspace.directory
-    )
 
     private fun recommendJiraHardware(
         jiraExploration: List<HardwareExplorationResult>
@@ -133,6 +131,7 @@ class HardwareExplorationIT {
             lifespan = Duration.ofHours(2)
         ),
         tuning = HeapTuning(),
+        cache = s3Cache,
         aws = aws,
         task = workspace
     ).exploreHardware()

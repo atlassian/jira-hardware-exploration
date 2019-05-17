@@ -31,6 +31,7 @@ class S3Cache(
     private val localDirectory = localPath.toFile().ensureDirectory()
     private val logger: Logger = LogManager.getLogger(this::class.java)
     private val etags = EtagCache(localPath.parent.resolve(".etags"))
+    private val uploadLock = Object()
 
     fun download() {
         val s3Objects = time("filter") {
@@ -99,12 +100,16 @@ class S3Cache(
         )
     }
 
-    fun upload() {
+    fun upload() = upload(localDirectory)
+
+    fun upload(
+        directory: File
+    ) = synchronized(uploadLock) {
         val files = time("filter") {
             val s3Objects = S3Listing(transfer.amazonS3Client)
                 .listObjects(bucketName, s3Prefix)
                 .associateBy { it.key }
-            val all = FileListing(localDirectory).listRecursively()
+            val all = FileListing(directory).listRecursively()
             val filtered = all.filter { shouldUpload(it, s3Objects) }
             Filtered(filtered, all.size - filtered.size)
         }

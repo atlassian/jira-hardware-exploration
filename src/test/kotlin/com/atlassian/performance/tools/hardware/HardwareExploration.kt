@@ -24,6 +24,7 @@ import com.atlassian.performance.tools.lib.*
 import com.atlassian.performance.tools.lib.infrastructure.BestEffortProfiler
 import com.atlassian.performance.tools.lib.infrastructure.PatientChromium69
 import com.atlassian.performance.tools.lib.infrastructure.WgetOracleJdk
+import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.report.api.FullReport
 import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.EdibleResult
@@ -53,7 +54,8 @@ class HardwareExploration(
     private val repeats: Int,
     private val pastFailures: FailureTolerance,
     private val errorRateWarningThreshold: Double,
-    private val apdexSpreadWarningThreshold: Double
+    private val apdexSpreadWarningThreshold: Double,
+    private val cache: S3Cache
 ) {
     private val awsParallelism = 6
     private val results = ConcurrentHashMap<Hardware, Future<HardwareExplorationResult>>()
@@ -323,6 +325,7 @@ class HardwareExploration(
             ScaleVirtualUserOptions(scale)
         ).thenApply { raw ->
             workspace.writeStatus(raw)
+            cache.upload(workspace.directory.toFile())
             return@thenApply score(hardware, raw, workspace)
         }
     }
