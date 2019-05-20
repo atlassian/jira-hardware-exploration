@@ -23,7 +23,7 @@ class JiraExplorationGuidance(
 ) : ExplorationGuidance {
 
     override fun space(): List<Hardware> = instanceTypes.flatMap { instanceType ->
-        (1..maxNodeCount).map { Hardware(instanceType, it, db) }
+        (3..4).map { Hardware(instanceType, it, db) }
     }
 
     override fun decideTesting(
