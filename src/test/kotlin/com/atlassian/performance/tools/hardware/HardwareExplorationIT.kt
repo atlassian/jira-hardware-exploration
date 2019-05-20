@@ -57,6 +57,7 @@ class HardwareExplorationIT {
         C52xlarge,
         C54xlarge,
         C48xlarge,
+        C59xlarge,
         C518xlarge
     )
     private val resultCache = HardwareExplorationResultCache(workspace.directory.resolve("out-of-bounds-error-bars-cache.json"))
