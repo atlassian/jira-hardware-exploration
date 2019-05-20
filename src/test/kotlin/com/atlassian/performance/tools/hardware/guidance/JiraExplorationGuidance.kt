@@ -37,7 +37,7 @@ class JiraExplorationGuidance(
                 reason = "high availability"
             )
         }
-        val smallerHardwareTests = (1 until hardware.nodeCount)
+        val smallerHardwareTests = (3 until hardware.nodeCount)
             .map { Hardware(hardware.jira, it, db) }
             .map { smallerHardware -> benchmark(smallerHardware) }
         val smallerHardwareResults = try {
