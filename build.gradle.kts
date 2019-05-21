@@ -37,7 +37,7 @@ task<Test>("exploreHardware").apply {
     dependsOn(shadowJarTask)
     systemProperty("jpt.virtual-users.shadow-jar", shadowJarTask.outputs.files.files.first())
     failFast = true
-    maxHeapSize = "8g"
+    maxHeapSize = "16g"
     testLogging {
         if (System.getenv("bamboo_buildResultKey") != null) {
             showStandardStreams = true
