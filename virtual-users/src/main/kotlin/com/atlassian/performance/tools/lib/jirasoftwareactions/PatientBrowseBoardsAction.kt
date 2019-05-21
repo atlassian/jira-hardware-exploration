@@ -1,15 +1,15 @@
-package com.atlassian.performance.tools.hardware.vu
+package com.atlassian.performance.tools.lib.jirasoftwareactions
 
 import com.atlassian.performance.tools.jiraactions.api.BROWSE_BOARDS
 import com.atlassian.performance.tools.jiraactions.api.action.Action
 import com.atlassian.performance.tools.jiraactions.api.measure.ActionMeter
-import com.atlassian.performance.tools.jiraactions.api.page.JiraErrors
 import com.atlassian.performance.tools.jiraactions.api.page.wait
 import com.atlassian.performance.tools.jirasoftwareactions.api.WebJiraSoftware
 import com.atlassian.performance.tools.jirasoftwareactions.api.boards.AgileBoard
 import com.atlassian.performance.tools.jirasoftwareactions.api.boards.ScrumBoard
 import com.atlassian.performance.tools.jirasoftwareactions.api.memories.BoardMemory
 import com.atlassian.performance.tools.jirasoftwareactions.api.page.BrowseBoardsPage
+import com.atlassian.performance.tools.lib.jiraactions.MoreVigilantJiraErrors
 import net.jcip.annotations.NotThreadSafe
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
@@ -36,7 +36,7 @@ class PatientBrowseBoardsAction(
     private fun BrowseBoardsPage.waitForBoardsList(
         patience: Duration
     ): BrowseBoardsPage {
-        val jiraErrors = JiraErrors(driver)
+        val jiraErrors = MoreVigilantJiraErrors(driver)
         driver.wait(
             patience,
             ExpectedConditions.or(

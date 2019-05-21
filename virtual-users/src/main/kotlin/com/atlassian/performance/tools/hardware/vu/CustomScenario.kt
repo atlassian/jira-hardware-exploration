@@ -17,6 +17,7 @@ import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBoard
 import com.atlassian.performance.tools.jirasoftwareactions.api.boards.AgileBoard
 import com.atlassian.performance.tools.jirasoftwareactions.api.boards.ScrumBoard
 import com.atlassian.performance.tools.jirasoftwareactions.api.memories.AdaptiveBoardMemory
+import com.atlassian.performance.tools.lib.jirasoftwareactions.PatientBrowseBoardsAction
 import org.openqa.selenium.JavascriptExecutor
 
 class CustomScenario : Scenario {
