@@ -1,5 +1,6 @@
 package com.atlassian.performance.tools.hardware
 
+import com.amazonaws.services.ec2.model.InstanceType
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
 import com.atlassian.performance.tools.aws.api.Investment
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.aws
@@ -94,7 +95,13 @@ class HardwareExplorationIT {
     }
 
     private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
-        guides.jiraExtraLarge()
+        guides.focus(
+            Hardware(
+                jira = InstanceType.C48xlarge,
+                nodeCount = 4,
+                db = InstanceType.M44xlarge
+            )
+        )
     )
 
     private fun explore(
@@ -121,6 +128,6 @@ class HardwareExplorationIT {
         jiraRecommendations: List<HardwareTestResult>,
         jiraExploration: List<HardwareExplorationResult>
     ): List<HardwareExplorationResult> = explore(
-        guides.dbExtraLarge(jiraRecommendations, jiraExploration)
+        guides.skip()
     )
 }
