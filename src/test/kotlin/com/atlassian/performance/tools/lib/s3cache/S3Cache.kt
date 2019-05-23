@@ -19,13 +19,17 @@ import java.nio.file.Path
 import java.nio.file.attribute.PosixFileAttributeView
 import java.nio.file.attribute.PosixFilePermission
 import java.time.Instant
+import java.nio.file.FileSystems
+import java.nio.file.Paths
+
 
 @NotThreadSafe
 class S3Cache(
     private val transfer: TransferManager,
     private val bucketName: String,
     cacheKey: String,
-    private val localPath: Path
+    private val localPath: Path,
+    private val searchPattern: String = ""
 ) {
     private val s3Prefix = "$cacheKey/"
     private val localDirectory = localPath.toFile().ensureDirectory()
@@ -56,7 +60,9 @@ class S3Cache(
     ): Boolean {
         val local = findLocal(objectSummary).toExistingFile()
         val cachedEtag = etags.read(objectSummary.key)
+        val match = matchesSearchPattern(objectSummary)
         return when {
+            !match -> false
             local == null -> true
             isProtected(local) -> false
             cachedEtag == null -> true
@@ -67,6 +73,12 @@ class S3Cache(
                 s3Freshness > localFreshness
             }
         }
+    }
+
+    private fun matchesSearchPattern(objectSummary: S3ObjectSummary): Boolean {
+        val matcher = FileSystems.getDefault().getPathMatcher("glob:$searchPattern")
+        val path = Paths.get(objectSummary.key)
+        return matcher.matches(path)
     }
 
     private fun findLocal(

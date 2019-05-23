@@ -12,10 +12,23 @@ class Apdex {
     fun score(
         metrics: List<ActionMetric>
     ): Double {
-        return metrics
-            .filter { it.result == ActionResult.OK }
-            .map { score(it) }
+        return average(weight(metrics
+            .filter { it.result == ActionResult.OK }))
+    }
+
+    fun average(
+        weightedMetrics: List<WeightedActionMetric>
+    ): Double {
+        return weightedMetrics
+            .map { it.weight }
             .average()
+    }
+
+    fun weight(
+        metrics: List<ActionMetric>
+    ): List<WeightedActionMetric> {
+        return metrics
+            .map { WeightedActionMetric(it, score(it)) }
     }
 
     private fun score(
