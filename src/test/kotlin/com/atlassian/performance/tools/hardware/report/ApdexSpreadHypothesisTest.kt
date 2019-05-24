@@ -18,12 +18,8 @@ class ApdexSpreadHypothesisTest {
         val processedCache = Paths.get("build/jpt-workspace/QUICK-132-fix-v3/processed-cache.json")
         val exploration = readExploration(processedCache)
         val testResults = exploration.mapNotNull { it.testResult }
-        val resultsPerApdexSpread = testResults.groupBy { it.apdexSpread() > 0.03 }
-        val highApdexSpread: List<HardwareTestResult> = resultsPerApdexSpread[true]
-            ?: error("No results for high Apdex spread")
-        val resultsPerErrorRateSpread = testResults.groupBy { it.errorRateSpread() > 0.01 }
-        val highErrorRateSpread: List<HardwareTestResult> = resultsPerErrorRateSpread[true]
-            ?: error("No results for high error rate spread")
+        val highApdexSpread = testResults.filter { it.apdexSpread() > 0.03 }
+        val highErrorRateSpread = testResults.filter { it.errorRateSpread() > 0.01 }
 
         val quality = measureQuality(
             population = testResults,
