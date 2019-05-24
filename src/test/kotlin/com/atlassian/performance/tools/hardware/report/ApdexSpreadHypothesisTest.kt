@@ -21,7 +21,7 @@ class ApdexSpreadHypothesisTest {
         val resultsPerApdexSpread = testResults.groupBy { it.apdexSpread() > 0.03 }
         val highApdexSpread: List<HardwareTestResult> = resultsPerApdexSpread[true]
             ?: error("No results for high Apdex spread")
-        val resultsPerErrorRateSpread = testResults.groupBy { it.errorRateSpread() > 0.03 }
+        val resultsPerErrorRateSpread = testResults.groupBy { it.errorRateSpread() > 0.01 }
         val highErrorRateSpread: List<HardwareTestResult> = resultsPerErrorRateSpread[true]
             ?: error("No results for high error rate spread")
 
