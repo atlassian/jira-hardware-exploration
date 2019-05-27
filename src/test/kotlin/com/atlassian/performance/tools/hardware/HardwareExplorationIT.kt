@@ -104,7 +104,7 @@ class HardwareExplorationIT {
         JiraExplorationGuidance(
             instanceTypes = jiraInstanceTypes,
             maxNodeCount = 6,
-            minNodeCountForAvailability = 3,
+            minNodeCountForAvailability = 6,
             minApdexGain = 0.01,
             minThroughputGain = TemporalRate(5.0, Duration.ofSeconds(1)),
             db = M44xlarge,
