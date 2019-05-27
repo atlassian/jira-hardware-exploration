@@ -103,7 +103,7 @@ class HardwareExplorationIT {
     private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
         JiraExplorationGuidance(
             instanceTypes = jiraInstanceTypes,
-            maxNodeCount = 6,
+            maxNodeCount = 2,
             minNodeCountForAvailability = 6,
             minApdexGain = 0.01,
             minThroughputGain = TemporalRate(5.0, Duration.ofSeconds(1)),

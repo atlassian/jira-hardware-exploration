@@ -26,7 +26,7 @@ class JiraExplorationGuidance(
 ) : ExplorationGuidance {
 
     override fun space(): List<Hardware> = instanceTypes.flatMap { instanceType ->
-        (6..maxNodeCount).map { Hardware(instanceType, it, db) }
+        (2..maxNodeCount).map { Hardware(instanceType, it, db) }
     }
 
     override fun decideTesting(
@@ -40,7 +40,7 @@ class JiraExplorationGuidance(
                 reason = "high availability"
             )
         }
-        val smallerHardwareTests = (6 until hardware.nodeCount)
+        val smallerHardwareTests = (2 until hardware.nodeCount)
             .map { Hardware(hardware.jira, it, db) }
             .map { smallerHardware -> benchmark(smallerHardware) }
         val smallerHardwareResults = try {
