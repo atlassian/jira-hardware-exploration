@@ -28,10 +28,6 @@ class HardwareExplorationIT {
     private val logger: Logger = logContext.getLogger(this::class.java.canonicalName)
 
     private val jiraInstanceTypes = listOf(
-        C52xlarge,
-        C54xlarge,
-        C48xlarge,
-        C59xlarge,
         C518xlarge
     )
     private val resultCache = HardwareExplorationResultCache(workspace.directory.resolve("processed-cache.json"))
@@ -107,7 +103,7 @@ class HardwareExplorationIT {
     private fun exploreJiraHardware(): List<HardwareExplorationResult> = explore(
         JiraExplorationGuidance(
             instanceTypes = jiraInstanceTypes,
-            maxNodeCount = 16,
+            maxNodeCount = 6,
             minNodeCountForAvailability = 3,
             minApdexGain = 0.01,
             minThroughputGain = TemporalRate(5.0, Duration.ofSeconds(1)),
@@ -142,10 +138,7 @@ class HardwareExplorationIT {
     ): List<HardwareExplorationResult> = explore(
         DbExplorationGuidance(
             dbs = listOf(
-                M42xlarge,
-                M44xlarge,
-                M410xlarge,
-                M416xlarge
+                M44xlarge
             ),
             jiraRecommendations = jiraRecommendations,
             jiraExploration = jiraExploration,
