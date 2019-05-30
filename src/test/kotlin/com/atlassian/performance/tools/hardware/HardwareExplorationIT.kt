@@ -142,7 +142,10 @@ class HardwareExplorationIT {
     ): List<HardwareExplorationResult> = explore(
         DbExplorationGuidance(
             dbs = listOf(
-                M44xlarge
+                M42xlarge,
+                M44xlarge,
+                M410xlarge,
+                M416xlarge
             ),
             jiraRecommendations = jiraRecommendations,
             jiraExploration = jiraExploration,
