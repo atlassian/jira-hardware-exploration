@@ -43,14 +43,23 @@ class ApdexSpreadHypothesisTest {
         val falsePositives = healthy.intersect(diagnosed)
         val falseNegatives = sick.intersect(undiagnosed)
 
-        val sensitivity = truePositives.size.toDouble() / sick.size.toDouble()
-        val specificity = trueNegatives.size.toDouble() / healthy.size.toDouble()
-        return TestQuality(sensitivity, specificity)
+        val tp = truePositives.size.toDouble()
+        val tn = trueNegatives.size.toDouble()
+        val p = sick.size.toDouble()
+        val n = healthy.size.toDouble()
+        return TestQuality(
+            sensitivity = tp / p,
+            specificity = tn / n,
+            accuracy = (tp + tn) / (p + n),
+            prevalence = p / (p + n)
+        )
     }
 
     private data class TestQuality(
         val sensitivity: Double,
-        val specificity: Double
+        val specificity: Double,
+        val accuracy: Double,
+        val prevalence: Double
     )
 
     private fun readExploration(
