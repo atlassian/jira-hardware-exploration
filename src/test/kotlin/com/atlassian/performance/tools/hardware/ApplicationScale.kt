@@ -12,43 +12,56 @@ class ApplicationScale(
     val vuNodes: Int
 )
 
-private val DATASETS = HwrDatasetCatalogue()
+class ApplicationScales {
+    private val datasets = HwrDatasetCatalogue()
 
-fun extraLarge(
-    jira8: Boolean,
-    postgres: Boolean
-): ApplicationScale = ApplicationScale(
-    description = "Jira XL profile",
-    dataset = when {
-        jira8 && postgres -> DATASETS.xl8Postgres()
-        jira8 && !postgres -> DATASETS.xl8Mysql()
-        !jira8 && !postgres -> DATASETS.xl7Mysql()
-        else -> throw Exception("We don't have an XL dataset matching jira8=$jira8 and postgres=$postgres")
-    },
-    load = VirtualUserLoad.Builder()
-        .virtualUsers(150)
-        .ramp(Duration.ofSeconds(90))
-        .flat(Duration.ofMinutes(20))
-        .maxOverallLoad(TemporalRate(30.0, Duration.ofSeconds(1)))
-        .build(),
-    vuNodes = 12
-)
+    fun extraLarge(
+        jiraVersion: String,
+        postgres: Boolean
+    ): ApplicationScale {
+        val jira8 = isJira8(jiraVersion)
+        return ApplicationScale(
+            description = "Jira XL profile",
+            dataset = when {
+                jira8 && postgres -> datasets.xl8Postgres()
+                jira8 && !postgres -> datasets.xl8Mysql()
+                !jira8 && !postgres -> datasets.xl7Mysql()
+                else -> throw Exception("We don't have an XL dataset matching jira8=$jira8 and postgres=$postgres")
+            },
+            load = VirtualUserLoad.Builder()
+                .virtualUsers(150)
+                .ramp(Duration.ofSeconds(90))
+                .flat(Duration.ofMinutes(20))
+                .maxOverallLoad(TemporalRate(30.0, Duration.ofSeconds(1)))
+                .build(),
+            vuNodes = 12
+        )
+    }
 
-fun large(
-    jira8: Boolean,
-    postgres: Boolean
-) = ApplicationScale(
-    description = "Jira L profile",
-    dataset = when {
-        jira8 && !postgres -> DATASETS.l8Mysql()
-        !jira8 && !postgres -> DATASETS.l7Mysql()
-        else -> throw Exception("We don't have an L dataset matching jira8=$jira8 and postgres=$postgres")
-    },
-    load = VirtualUserLoad.Builder()
-        .virtualUsers(75)
-        .ramp(Duration.ofSeconds(90))
-        .flat(Duration.ofMinutes(20))
-        .maxOverallLoad(TemporalRate(15.0, Duration.ofSeconds(1)))
-        .build(),
-    vuNodes = 6
-)
+    fun large(
+        jiraVersion: String
+    ): ApplicationScale {
+        val jira8 = isJira8(jiraVersion)
+        return ApplicationScale(
+            description = "Jira L profile",
+            dataset = when {
+                jira8 -> datasets.l8Mysql()
+                else -> datasets.l7Mysql()
+            },
+            load = VirtualUserLoad.Builder()
+                .virtualUsers(75)
+                .ramp(Duration.ofSeconds(90))
+                .flat(Duration.ofMinutes(20))
+                .maxOverallLoad(TemporalRate(15.0, Duration.ofSeconds(1)))
+                .build(),
+            vuNodes = 6
+        )
+    }
+
+    private fun isJira8(jiraVersion: String): Boolean {
+        return jiraVersion
+            .split(".")
+            .first()
+            .toInt() >= 8
+    }
+}
