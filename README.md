@@ -6,9 +6,10 @@
 2. Create a `jira-license.txt` file and fill it with a Jira license
     * BYO
     * Or reuse the one from [Bamboo]
-3. Run `exploreHardware` Gradle task
-    * From terminal: `./gradlew exploreHardware`
-    * Or from IntelliJ: Double tap `Ctrl` and type `gradle exploreHardware`.
+3. Run `recommendHardware` Gradle task
+    * From terminal: `./gradlew recommendHardware`
+    * Or in short: `./gradlew recHar`
+    * Or from IntelliJ: Double tap `Ctrl` and type `gradle recommendHardware`.
 
 This runs the entire hardware recommendation.
 It will run all the tests, produce all the charts and print out the recommendations.
@@ -38,7 +39,7 @@ Feel free to chat, ask for help, bounce ideas on the [JPT Community Slack].
 
 [default AWS credentials]: https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html
 [Bamboo]: https://server-gdn-bamboo.internal.atlassian.com/browse/QUICK-JHWR
-[test source]: src/test/kotlin/com/atlassian/performance/tools/hardware/HardwareExplorationIT.kt
+[test source]: src/test/kotlin/com/atlassian/performance/tools/hardware/HardwareRecommendationIT.kt
 [a cached file]: https://s3-eu-west-1.amazonaws.com/quicksilver-jhwr-cache-ireland/QUICK-132-fix-v3/jira-exploration-chart.html
 [runtime config]: src/test/kotlin/com/atlassian/performance/tools/hardware/IntegrationTestRuntime.kt
 [JPT Community Slack]: http://go.atlassian.com/jpt-slack

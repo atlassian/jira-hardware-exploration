@@ -29,10 +29,10 @@ tasks.withType(KotlinCompile::class).forEach {
     }
 }
 
-task<Test>("exploreHardware").apply {
+task<Test>("recommendHardware").apply {
     outputs.upToDateWhen { false }
-    description = "Explores performance of different hardware setups for Jira."
-    include("**/HardwareExplorationIT.class")
+    description = "Recommends hardware setups for Jira based on performance tests"
+    include("**/HardwareRecommendationIT.class")
     val shadowJarTask = tasks.getByPath(":virtual-users:shadowJar")
     dependsOn(shadowJarTask)
     systemProperty("jpt.virtual-users.shadow-jar", shadowJarTask.outputs.files.files.first())
