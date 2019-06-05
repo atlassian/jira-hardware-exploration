@@ -9,6 +9,7 @@
 3. Run `recommendHardware` Gradle task
     * From terminal: `./gradlew recommendHardware`
     * Or in short: `./gradlew recHar`
+    * Or if you want to override Jira Software version without code changes: `./gradlew recHar -Dhwr.jsw.version=8.1.0`
     * Or from IntelliJ: Double tap `Ctrl` and type `gradle recommendHardware`.
 
 This runs the entire hardware recommendation.

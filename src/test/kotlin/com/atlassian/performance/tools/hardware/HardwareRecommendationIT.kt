@@ -20,9 +20,10 @@ class HardwareRecommendationIT {
     @Test
     fun shouldRecommendHardware() {
         requireCleanRepo()
+        val jswVersion = System.getProperty("hwr.jsw.version") ?: "7.13.0"
         val engine = HardwareRecommendationEngine(
-            product = PublicJiraSoftwareDistribution("7.13.0"),
-            scale = extraLarge(jira8 = false, postgres = false),
+            product = PublicJiraSoftwareDistribution(jswVersion),
+            scale = ApplicationScales().extraLarge(jiraVersion = jswVersion, postgres = false),
             jiraExploration = JiraExplorationGuidance(
                 instanceTypes = listOf(
                     C52xlarge,

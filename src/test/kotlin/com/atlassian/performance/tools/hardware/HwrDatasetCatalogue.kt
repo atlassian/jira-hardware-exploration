@@ -23,7 +23,7 @@ class HwrDatasetCatalogue {
         region = Regions.EU_WEST_1
     ).let { location ->
         Dataset(
-            label = "7M issues",
+            label = "7M issues JSW 7 MySQL",
             database = ConfigurableMysqlDatabase(
                 source = S3DatasetPackage(
                     artifactName = "database.tar.bz2",
@@ -61,7 +61,7 @@ class HwrDatasetCatalogue {
         region = Regions.EU_WEST_1
     ).let { location ->
         Dataset(
-            label = "7M issues",
+            label = "7M issues JSW 8 Postgres",
             database = PostgresDatabase(
                 source = S3DatasetPackage(
                     artifactName = "database.tar.bz2",
@@ -98,7 +98,7 @@ class HwrDatasetCatalogue {
                 .resolve("dataset-6ed65a53-86cb-457e-a87f-cbcce67787c3"),
             region = Regions.EU_CENTRAL_1
         ),
-        label = "7M issues",
+        label = "7M issues JSW 8 MySQL",
         databaseDownload = Duration.ofMinutes(55),
         jiraHomeDownload = Duration.ofMinutes(55)
     ).overrideDatabase { original ->
@@ -117,7 +117,7 @@ class HwrDatasetCatalogue {
                 .resolve("a12fc4c5-3973-41f0-bf56-ede393677028"),
             region = Regions.EU_WEST_1
         ),
-        label = "1M issues",
+        label = "1M issues JSW 7 MySQL",
         databaseDownload = Duration.ofMinutes(20),
         jiraHomeDownload = Duration.ofMinutes(20)
     ).overrideDatabase { original ->
@@ -136,7 +136,7 @@ class HwrDatasetCatalogue {
                 .resolve("dataset-2719279d-0b30-4050-8d98-0a9499ec36a0"),
             region = Regions.EU_CENTRAL_1
         ),
-        label = "1M issues",
+        label = "1M issues JSW 8 MySQL",
         databaseDownload = Duration.ofMinutes(20),
         jiraHomeDownload = Duration.ofMinutes(20)
     ).overrideDatabase { original ->
