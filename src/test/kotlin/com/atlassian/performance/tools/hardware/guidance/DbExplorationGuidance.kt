@@ -12,19 +12,21 @@ import java.util.concurrent.Future
 
 class DbExplorationGuidance(
     private val dbs: List<InstanceType>,
-    private val jiraRecommendations: List<HardwareTestResult>,
-    private val jiraExploration: List<HardwareExplorationResult>,
-    private val jiraOrder: List<InstanceType>,
-    private val resultsCache: HardwareExplorationResultCache
+    private val jiraRecommendations: List<Recommendation>,
+    private val jiraExploration: List<HardwareExplorationResult>
 ) : ExplorationGuidance {
+
+    private val instanceTypeOrder = InstanceType.values().toList()
 
     override fun space(): List<Hardware> = jiraRecommendations.flatMap { jiraRecommendation ->
         dbs.map { db ->
-            Hardware(
-                jiraRecommendation.hardware.jira,
-                jiraRecommendation.hardware.nodeCount,
-                db
-            )
+            jiraRecommendation.testResult.hardware.let { hardware ->
+                Hardware(
+                    hardware.jira,
+                    hardware.nodeCount,
+                    db
+                )
+            }
         }
     }
 
@@ -40,7 +42,8 @@ class DbExplorationGuidance(
     override fun report(
         exploration: List<HardwareExplorationResult>,
         task: TaskWorkspace,
-        title: String
+        title: String,
+        resultsCache: HardwareExplorationResultCache
     ) = synchronized(this) {
         val mergedExploration = jiraExploration + exploration
         resultsCache.write(mergedExploration)
@@ -49,7 +52,7 @@ class DbExplorationGuidance(
             table = task.isolateReport("merged-exploration-table.csv")
         )
         HardwareExplorationChart(
-            JiraClusterGrouping(jiraOrder),
+            JiraClusterGrouping(instanceTypeOrder),
             DbInstanceTypeXAxis(),
             GitRepo.findFromCurrentDirectory()
         ).plot(
@@ -63,7 +66,7 @@ class DbExplorationGuidance(
         exploration: List<HardwareExplorationResult>
     ): List<HardwareExplorationResult> = exploration.sortedWith(
         compareBy<HardwareExplorationResult> {
-            jiraOrder.indexOf(it.decision.hardware.jira)
+            instanceTypeOrder.indexOf(it.decision.hardware.jira)
         }.thenComparing(
             compareBy<HardwareExplorationResult> {
                 it.decision.hardware.nodeCount

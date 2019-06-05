@@ -55,7 +55,8 @@ class HardwareExploration(
     private val pastFailures: FailureTolerance,
     private val errorRateWarningThreshold: Double,
     private val apdexSpreadWarningThreshold: Double,
-    private val cache: S3Cache
+    private val s3Cache: S3Cache,
+    private val explorationCache: HardwareExplorationResultCache
 ) {
     private val awsParallelism = 6
     private val results = ConcurrentHashMap<Hardware, Future<HardwareExplorationResult>>()
@@ -103,7 +104,8 @@ class HardwareExploration(
         guidance.report(
             results,
             task,
-            scale.description
+            scale.description,
+            explorationCache
         )
     }
 
@@ -325,7 +327,7 @@ class HardwareExploration(
             ScaleVirtualUserOptions(scale)
         ).thenApply { raw ->
             workspace.writeStatus(raw)
-            cache.upload(workspace.directory.toFile())
+            s3Cache.upload(workspace.directory.toFile())
             return@thenApply score(hardware, raw, workspace)
         }
     }

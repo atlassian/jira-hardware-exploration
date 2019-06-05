@@ -21,8 +21,7 @@ class JiraExplorationGuidance(
     private val minNodeCountForAvailability: Int,
     private val minApdexGain: Double,
     private val minThroughputGain: TemporalRate,
-    private val db: InstanceType,
-    private val resultsCache: HardwareExplorationResultCache
+    private val db: InstanceType
 ) : ExplorationGuidance {
 
     override fun space(): List<Hardware> = instanceTypes.flatMap { instanceType ->
@@ -86,7 +85,8 @@ class JiraExplorationGuidance(
     override fun report(
         exploration: List<HardwareExplorationResult>,
         task: TaskWorkspace,
-        title: String
+        title: String,
+        resultsCache: HardwareExplorationResultCache
     ) = synchronized(this) {
         resultsCache.write(exploration)
         val sortedResults = exploration.sortedWith(
