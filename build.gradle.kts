@@ -40,9 +40,7 @@ task<Test>("recommendHardware").apply {
     failFast = true
     maxHeapSize = "8g"
     testLogging {
-        if (System.getenv("bamboo_buildResultKey") != null) {
-            showStandardStreams = true
-        }
+        showStandardStreams = true
     }
 }
 
