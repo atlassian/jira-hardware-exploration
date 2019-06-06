@@ -10,7 +10,7 @@
     * From terminal: `./gradlew recommendHardware`
     * Or in short: `./gradlew recHar`
     * Or if you want to override Jira Software version without code changes: `./gradlew recHar -Dhwr.jsw.version=8.1.0`
-    * Or from IntelliJ: Double tap `Ctrl` and type `gradle recommendHardware`.
+    * Or from IntelliJ 2019+: `Run anything` (e.g. double tap `Ctrl`) and type `gradle recommendHardware`
 
 This runs the entire hardware recommendation.
 It will run all the tests, produce all the charts and print out the recommendations.
