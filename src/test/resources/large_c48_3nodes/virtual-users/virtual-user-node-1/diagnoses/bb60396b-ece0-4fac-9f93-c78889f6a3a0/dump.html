@@ -1,0 +1,1132 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en" class="webkit chrome"><head>
+    
+
+
+
+
+
+
+
+
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="application-name" content="JIRA" data-name="jira" data-version="7.13.0" /><meta name="ajs-server-scheme" content="http" />
+<meta name="ajs-server-port" content="80" />
+<meta name="ajs-server-name" content="jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com" />
+<meta name="ajs-behind-proxy" content="null" />
+<meta name="ajs-base-url" content="http://jpt-d3449-LoadBala-1297K42UK9ZJV-1115872238.eu-west-1.elb.amazonaws.com/" />
+<meta name="ajs-viewissue-use-history-api" content="false" />
+<meta name="ajs-jira-base-url" content="http://jpt-d3449-LoadBala-1297K42UK9ZJV-1115872238.eu-west-1.elb.amazonaws.com/" />
+<meta name="ajs-serverRenderedViewIssue" content="true" />
+<meta name="ajs-dev-mode" content="false" />
+<meta name="ajs-context-path" content="" />
+<meta name="ajs-version-number" content="7.13.0" />
+<meta name="ajs-build-number" content="713000" />
+<meta name="ajs-is-beta" content="false" />
+<meta name="ajs-is-rc" content="false" />
+<meta name="ajs-is-snapshot" content="false" />
+<meta name="ajs-is-milestone" content="false" />
+<meta name="ajs-remote-user" content="jpt-167d499d-e252-4e94-acf4-f13cc3b72d80" />
+<meta name="ajs-remote-user-fullname" content="New JPT VU jpt-167d499d-e252-4e94-acf4-f13cc3b72d80" />
+<meta name="ajs-user-locale" content="en_US" />
+<meta name="ajs-user-locale-group-separator" content="," />
+<meta name="ajs-app-title" content="Your Company Jira" />
+<meta name="ajs-keyboard-shortcuts-enabled" content="true" />
+<meta name="ajs-keyboard-accesskey-modifier" content="Alt" />
+<meta name="ajs-enabled-dark-features" content="[&quot;com.atlassian.jira.agile.darkfeature.editable.detailsview&quot;,&quot;nps.survey.inline.dialog&quot;,&quot;com.atlassian.jira.agile.darkfeature.edit.closed.sprint.enabled&quot;,&quot;jira.plugin.devstatus.phasetwo&quot;,&quot;jira.frother.reporter.field&quot;,&quot;atlassian.rest.xsrf.legacy.enabled&quot;,&quot;jira.issue.status.lozenge&quot;,&quot;com.atlassian.jira.config.BIG_PIPE&quot;,&quot;com.atlassian.jira.projects.issuenavigator&quot;,&quot;com.atlassian.jira.config.PDL&quot;,&quot;jira.plugin.devstatus.phasetwo.enabled&quot;,&quot;atlassian.aui.raphael.disabled&quot;,&quot;app-switcher.new&quot;,&quot;frother.assignee.field&quot;,&quot;com.atlassian.jira.projects.ProjectCentricNavigation.Switch&quot;,&quot;jira.onboarding.cyoa&quot;,&quot;com.atlassian.jira.agile.darkfeature.kanplan.enabled&quot;,&quot;com.atlassian.jira.config.ProjectConfig.MENU&quot;,&quot;com.atlassian.jira.projects.sidebar.DEFER_RESOURCES&quot;,&quot;com.atlassian.jira.agile.darkfeature.kanplan.epics.and.versions.enabled&quot;,&quot;com.atlassian.jira.agile.darkfeature.sprint.goal.enabled&quot;,&quot;jira.zdu.admin-updates-ui&quot;,&quot;jira.zdu.jmx-monitoring&quot;,&quot;sd.new.settings.sidebar.location.disabled&quot;,&quot;jira.onboarding.feature.disabled&quot;,&quot;jira.zdu.cluster-upgrade-state&quot;,&quot;com.atlassian.jira.agile.darkfeature.splitissue&quot;,&quot;com.atlassian.jira.config.CoreFeatures.LICENSE_ROLES_ENABLED&quot;,&quot;jira.export.csv.enabled&quot;]" />
+<meta name="ajs-in-admin-mode" content="false" />
+<meta name="ajs-is-sysadmin" content="false" />
+<meta name="ajs-is-admin" content="false" />
+<meta name="ajs-outgoing-mail-enabled" content="false" />
+<meta name="ajs-archiving-enabled" content="true" />
+<meta name="ajs-date-relativize" content="true" />
+<meta name="ajs-date-time" content="h:mm a" />
+<meta name="ajs-date-day" content="EEEE h:mm a" />
+<meta name="ajs-date-dmy" content="dd/MMM/yy" />
+<meta name="ajs-date-complete" content="dd/MMM/yy h:mm a" />
+<script type="text/javascript">var AJS=AJS||{};AJS.debug=true;</script>
+
+
+    
+<meta id="atlassian-token" name="atlassian-token" content="B1XL-TBI1-3QST-4RIV_6a44f4362f73d5cb54b8e50e0f96ccaf3f55e7a3_lin" />
+
+
+
+<link rel="shortcut icon" href="/s/oh5ir2/713000/b6b48b2829824b869586ac216d119363/_/images/fav-jsw.png" />
+
+
+    
+
+
+
+<!--[if IE]><![endif]-->
+<script type="text/javascript">
+    (function() {
+        var contextPath = '';
+        var eventBuffer = [];
+
+        function printDeprecatedMsg() {
+            if (console &amp;&amp; console.warn) {
+                console.warn('DEPRECATED JS - contextPath global variable has been deprecated since 7.4.0. Use `wrm/context-path` module instead.');
+            }
+        }
+
+        function sendEvent(analytics, postfix) {
+            analytics.send({
+                name: 'js.globals.contextPath.' + postfix
+            });
+        }
+
+        function sendDeprecatedEvent(postfix) {
+            try {
+                var analytics = require('jira/analytics');
+                if (eventBuffer.length) {
+                    eventBuffer.forEach(function(value) {
+                        sendEvent(analytics, value);
+                    });
+                    eventBuffer = [];
+                }
+
+                if (postfix) {
+                    sendEvent(analytics, postfix);
+                }
+            } catch(ex) {
+                eventBuffer.push(postfix);
+                setTimeout(sendDeprecatedEvent, 1000);
+            }
+        }
+
+        Object.defineProperty(window, 'contextPath', {
+            get: function() {
+                printDeprecatedMsg();
+                sendDeprecatedEvent('get');
+                return contextPath;
+            },
+            set: function(value) {
+                printDeprecatedMsg();
+                sendDeprecatedEvent('set');
+                contextPath = value;
+            }
+        });
+    })();
+
+</script>
+<script>
+window.WRM=window.WRM||{};window.WRM._unparsedData=window.WRM._unparsedData||{};window.WRM._unparsedErrors=window.WRM._unparsedErrors||{};
+WRM._unparsedData["com.atlassian.plugins.atlassian-plugins-webresource-plugin:context-path.context-path"]="\"\"";
+WRM._unparsedData["jira.webresources:feature-flags.feature-flag-data"]="{\"enabled-feature-keys\":[\"com.atlassian.jira.agile.darkfeature.editable.detailsview\",\"nps.survey.inline.dialog\",\"com.atlassian.jira.agile.darkfeature.edit.closed.sprint.enabled\",\"jira.plugin.devstatus.phasetwo\",\"jira.frother.reporter.field\",\"atlassian.rest.xsrf.legacy.enabled\",\"jira.issue.status.lozenge\",\"com.atlassian.jira.config.BIG_PIPE\",\"com.atlassian.jira.projects.issuenavigator\",\"com.atlassian.jira.config.PDL\",\"jira.plugin.devstatus.phasetwo.enabled\",\"atlassian.aui.raphael.disabled\",\"app-switcher.new\",\"frother.assignee.field\",\"com.atlassian.jira.projects.ProjectCentricNavigation.Switch\",\"jira.onboarding.cyoa\",\"com.atlassian.jira.agile.darkfeature.kanplan.enabled\",\"com.atlassian.jira.config.ProjectConfig.MENU\",\"com.atlassian.jira.projects.sidebar.DEFER_RESOURCES\",\"com.atlassian.jira.agile.darkfeature.kanplan.epics.and.versions.enabled\",\"com.atlassian.jira.agile.darkfeature.sprint.goal.enabled\",\"jira.zdu.admin-updates-ui\",\"jira.zdu.jmx-monitoring\",\"sd.new.settings.sidebar.location.disabled\",\"jira.onboarding.feature.disabled\",\"jira.zdu.cluster-upgrade-state\",\"com.atlassian.jira.agile.darkfeature.splitissue\",\"com.atlassian.jira.config.CoreFeatures.LICENSE_ROLES_ENABLED\",\"jira.export.csv.enabled\"],\"feature-flag-states\":{\"jira.spectrum.m1\":true,\"com.atlassian.jira.issuetable.draggable\":true,\"com.atlassian.jira.agile.darkfeature.kanban.hide.old.done.issues\":true,\"jira.jql.suggestrecentfields\":false,\"com.atlassian.jira.agile.darkfeature.optimistic.transitions\":true,\"com.atlassian.jira.issuetable.move.links.hidden\":true,\"jira.renderer.consider.variable.format\":true,\"com.atlassian.jira.agile.darkfeature.kanplan\":false,\"jira.priorities.per.project.jsd\":true,\"jira.instrumentation.laas\":false,\"com.atlassian.jira.sharedEntityEditRights\":true,\"jira.customfields.paginated.ui\":true,\"com.atlassian.jira.agile.darkfeature.edit.closed.sprint\":false,\"jira.create.linked.issue\":true,\"jira.spectrum.m1b\":false,\"com.atlassian.jira.agile.darkfeature.sprint.goal\":false,\"com.atlassian.jira.agile.darkfeature.sidebar.boards.list\":true,\"jira.sal.host.connect.accessor.existing.transaction.will.create.transactions\":true,\"com.atlassian.jira.custom.csv.escaper\":true,\"com.atlassian.jira.plugin.issuenavigator.filtersUxImprovment\":true,\"com.atlassian.jira.agile.darkfeature.kanplan.epics.and.versions\":false,\"jira.quick.search\":true,\"jira.jql.smartautoselectfirst\":false,\"com.atlassian.jira.projects.per.project.permission.query\":true,\"com.atlassian.jira.projects.archiving\":true,\"index.use.snappy\":true,\"jira.priorities.per.project\":true,\"com.atlassian.jira.upgrade.startup.fix.index\":false}}";
+WRM._unparsedData["jira.webresources:default-comment-security-level.DefaultCommentSecurityLevelHelpLink"]="{\"extraClasses\":\"default-comment-level-help\",\"title\":\"Commenting on an Issue\",\"url\":\"https://docs.atlassian.com/jira/jsw-docs-0713/Editing+and+collaborating+on+issues#Editingandcollaboratingonissues-restrictacomment\",\"isLocal\":false}";
+WRM._unparsedData["jira.webresources:dateFormatProvider.allFormats"]="{\"dateFormats\":{\"meridiem\":[\"AM\",\"PM\"],\"eras\":[\"BC\",\"AD\"],\"months\":[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],\"monthsShort\":[\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\",\"Jul\",\"Aug\",\"Sep\",\"Oct\",\"Nov\",\"Dec\"],\"weekdaysShort\":[\"Sun\",\"Mon\",\"Tue\",\"Wed\",\"Thu\",\"Fri\",\"Sat\"],\"weekdays\":[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"]},\"lookAndFeelFormats\":{\"relativize\":\"true\",\"time\":\"h:mm a\",\"day\":\"EEEE h:mm a\",\"dmy\":\"dd/MMM/yy\",\"complete\":\"dd/MMM/yy h:mm a\"}}";
+WRM._unparsedData["com.atlassian.jira.jira-issue-nav-components:issueviewer.features"]="{\"rteEnabled\":false}";
+WRM._unparsedData["com.atlassian.jira.plugins.jira-dnd-attachment-plugin:dnd-issue-drop-zone.thumbnail-mime-types"]="\"image/vnd.wap.wbmp,image/png,image/x-png,image/jpeg,image/bmp,image/gif\"";
+WRM._unparsedData["com.atlassian.jira.plugins.jira-dnd-attachment-plugin:dnd-issue-drop-zone.upload-limit"]="\"10485760\"";
+WRM._unparsedData["com.atlassian.plugins.helptips.jira-help-tips:help-tip-manager.JiraHelpTipData"]="{\"dismissed\":[],\"anonymous\":false}";
+WRM._unparsedData["com.atlassian.jira.jira-view-issue-plugin:controller-subtasks.controller.subtasks.parameters"]="{\"url\":\"/rest/api/2/issue/{issueId}/subtask/move\"}";
+WRM._unparsedData["com.atlassian.plugins.base-hipchat-integration-plugin:hipchat-user-link-support.user-link-context"]="{\"userLinked\":false,\"userHasManageRoomsScope\":false,\"beginOauth\":\"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/rest/hipchat/integration/latest/oauth2/begin\"}";
+WRM._unparsedData["com.atlassian.plugins.base-hipchat-integration-plugin:configure-integration-data.configure-integration"]="{\"inviteEnabled\":true}";
+WRM._unparsedData["com.atlassian.plugins.base-hipchat-integration-plugin:integration-steps-resources.enable-invite"]="{\"inviteToHipChatEnabled\":true,\"isInvitationsToGroupAllowedURI\":\"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/rest/hipchat/integration/latest/groups/default/invitations-allowed\"}";
+WRM._unparsedData["com.atlassian.plugins.base-hipchat-integration-plugin:hipchat-installed-scopes.scopes"]="{}";
+WRM._unparsedData["com.atlassian.analytics.analytics-client:policy-update-init.policy-update-data-provider"]="false";
+WRM._unparsedData["com.atlassian.analytics.analytics-client:programmatic-analytics-init.programmatic-analytics-data-provider"]="false";
+WRM._unparsedData["jira.webresources:avatar-picker.data"]="{}";
+WRM._unparsedData["com.atlassian.jira.jira-header-plugin:dismissedFlags.flags"]="{\"dismissed\":[]}";
+WRM._unparsedData["com.atlassian.jira.jira-header-plugin:newsletter-signup-tip-init.newsletterSignup"]="{\"signupDescription\":\"Get updates, inspiration and best practices from the team behind Jira.\",\"formUrl\":\"https://www.atlassian.com/apis/exact-target/{0}/subscribe?mailingListId=1401671\",\"userEmail\":\"jpt-167d499d-e252-4e94-acf4-f13cc3b72d80@testing.com\",\"signupTitle\":\"Sign up!\",\"signupId\":\"newsletter-signup-tip\",\"showNewsletterTip\":false}";
+WRM._unparsedData["com.atlassian.jira.project-templates-plugin:project-templates-plugin-resources.ptAnalyticsData"]="{\"instanceCreatedDate\":\"2016-11-09\"}";
+WRM._unparsedData["com.atlassian.jira.plugins.jira-wiki-editor:wiki-editor-thumbnails.thumbnails-allowed"]="true";
+WRM._unparsedData["com.atlassian.jira.plugins.jira-wiki-editor:wiki-editor-resources.help-data"]="{\"showHelp\":false}";
+WRM._unparsedData["jira.webresources:user-message-flags.adminLockout"]="{}";
+WRM._unparsedData["jira.request.correlation-id"]="\"5cf5651545894a\"";
+WRM._unparsedData["tzdetect.pref.auto.detect"]="true";
+WRM._unparsedData["tzdetect.pref.tzid"]="\"Etc/UTC\"";
+WRM._unparsedData["tzdetect.pref.tzname"]="\"(GMT+00:00) UTC\"";
+WRM._unparsedData["tzdetect.pref.janOffset"]="0";
+WRM._unparsedData["tzdetect.pref.julyOffset"]="0";
+WRM._unparsedData["project-id"]="10029";
+WRM._unparsedData["project-key"]="\"SERS\"";
+WRM._unparsedData["project-name"]="\"swinderianus\"";
+WRM._unparsedData["project-type"]="\"software\"";
+WRM._unparsedData["com.atlassian.jira.jira-projects-issue-navigator:generic-filters"]="[{\"id\":\"myopenissues\",\"jql\":\"project = \\\"{0}\\\" AND assignee = currentUser() AND resolution = Unresolved ORDER BY {1}\",\"defaultOrderby\":\"updated DESC\",\"label\":\"My open issues\",\"requiresUser\":true,\"supportsInlineIssueCreate\":true,\"fields\":[\"assignee\",\"resolution\"]},{\"id\":\"reportedbyme\",\"jql\":\"project = \\\"{0}\\\" AND reporter = currentUser() ORDER BY {1}\",\"defaultOrderby\":\"created DESC\",\"label\":\"Reported by me\",\"requiresUser\":true,\"supportsInlineIssueCreate\":true,\"fields\":[\"reporter\"]},{\"id\":\"allissues\",\"jql\":\"project = \\\"{0}\\\" ORDER BY {1}\",\"defaultOrderby\":\"created DESC\",\"label\":\"All issues\",\"requiresUser\":false,\"supportsInlineIssueCreate\":true,\"fields\":[]},{\"id\":\"allopenissues\",\"jql\":\"project = \\\"{0}\\\" AND resolution = Unresolved ORDER BY {1}\",\"defaultOrderby\":\"priority DESC, updated DESC\",\"label\":\"Open issues\",\"requiresUser\":false,\"supportsInlineIssueCreate\":true,\"fields\":[\"resolution\"]},{\"id\":\"doneissues\",\"jql\":\"project = \\\"{0}\\\" AND statusCategory = Done ORDER BY {1}\",\"defaultOrderby\":\"updated DESC\",\"label\":\"Done issues\",\"requiresUser\":false,\"supportsInlineIssueCreate\":false,\"fields\":[\"status\"]},{\"id\":\"recentlyviewed\",\"jql\":\"project = \\\"{0}\\\" AND issuekey in issueHistory() ORDER BY {1}\",\"defaultOrderby\":\"lastViewed DESC\",\"label\":\"Viewed recently\",\"requiresUser\":false,\"supportsInlineIssueCreate\":true,\"fields\":[\"issuekey\"]},{\"id\":\"addedrecently\",\"jql\":\"project = \\\"{0}\\\" AND created \u003e= -1w ORDER BY {1}\",\"defaultOrderby\":\"created DESC\",\"label\":\"Created recently\",\"requiresUser\":false,\"supportsInlineIssueCreate\":true,\"fields\":[\"created\"]},{\"id\":\"resolvedrecently\",\"jql\":\"project = \\\"{0}\\\" AND resolutiondate \u003e= -1w ORDER BY {1}\",\"defaultOrderby\":\"updated DESC\",\"label\":\"Resolved recently\",\"requiresUser\":false,\"supportsInlineIssueCreate\":false,\"fields\":[\"resolutiondate\"]},{\"id\":\"updatedrecently\",\"jql\":\"project = \\\"{0}\\\" AND updated \u003e= -1w ORDER BY {1}\",\"defaultOrderby\":\"updated DESC\",\"label\":\"Updated recently\",\"requiresUser\":false,\"supportsInlineIssueCreate\":true,\"fields\":[\"updated\"]}]";
+WRM._unparsedData["com.atlassian.jira.jira-projects-issue-navigator:default-filter-priority"]="[\"allopenissues\",\"allissues\"]";
+WRM._unparsedData["com.atlassian.jira.jira-projects-issue-navigator:can-manage-filters"]="false";
+WRM._unparsedData["com.atlassian.jira.jira-projects-issue-navigator:project-filters"]="[]";
+WRM._unparsedData["com.atlassian.jira.jira-projects-issue-navigator:can-create-issues"]="true";
+WRM._unparsedData["projectId"]="10029";
+WRM._unparsedData["projectKey"]="\"SERS\"";
+WRM._unparsedData["projectType"]="\"software\"";
+WRM._unparsedData["com.atlassian.jira.jira-projects-issue-navigator:server-rendered"]="true";
+if(window.WRM._dataArrived)window.WRM._dataArrived();</script>
+<link type="text/css" rel="stylesheet" href="/s/426ff13921dd2670f1ea3132303e3254-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/437e3a802221a5e0e78effaf664704e2/_/download/contextbatch/css/_super/batch.css?spectrum=true" data-wrm-key="_super" data-wrm-batch-type="context" media="all" />
+<link type="text/css" rel="stylesheet" href="/s/62ad130a1b2261d87d4a8f616a8c46d0-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/6e0e9a1a87c5594163f3b0f700292086/_/download/contextbatch/css/project.issue.navigator,jira.view.issue,jira.global,atl.general,-_super/batch.css?agile_global_admin_condition=true&amp;is-server-instance=true&amp;jag=true&amp;jaguser=true&amp;jira.create.linked.issue=true&amp;nps-acknowledged=true&amp;nps-not-opted-out=true&amp;spectrum=true&amp;user-logged-in=true" data-wrm-key="project.issue.navigator,jira.view.issue,jira.global,atl.general,-_super" data-wrm-batch-type="context" media="all" />
+<link type="text/css" rel="stylesheet" href="/s/70e2b24f7d348efe6b30b41469d5070c-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/dbc5f817b9a3a6f6dd84bc8f7d6397f5/_/download/contextbatch/css/jira.general,-_super/batch.css?spectrum=true" data-wrm-key="jira.general,-_super" data-wrm-batch-type="context" media="all" />
+<script type="text/javascript" src="/s/cb558c73a0de203dacce296e5a0991d6-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/437e3a802221a5e0e78effaf664704e2/_/download/contextbatch/js/_super/batch.js?locale=en-US&amp;spectrum=true" data-wrm-key="_super" data-wrm-batch-type="context" data-initially-rendered=""></script>
+<script type="text/javascript" src="/s/5533f053a158a5ef5f0e0dcefda9cf21-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/6e0e9a1a87c5594163f3b0f700292086/_/download/contextbatch/js/project.issue.navigator,jira.view.issue,jira.global,atl.general,-_super/batch.js?agile_global_admin_condition=true&amp;is-server-instance=true&amp;jag=true&amp;jaguser=true&amp;jira.create.linked.issue=true&amp;locale=en-US&amp;nps-acknowledged=true&amp;nps-not-opted-out=true&amp;spectrum=true&amp;user-logged-in=true" data-wrm-key="project.issue.navigator,jira.view.issue,jira.global,atl.general,-_super" data-wrm-batch-type="context" data-initially-rendered=""></script>
+<script type="text/javascript" src="/s/2d908a83e7c0adbbe07e9180b0f14fc4-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/dbc5f817b9a3a6f6dd84bc8f7d6397f5/_/download/contextbatch/js/jira.general,-_super/batch.js?locale=en-US&amp;spectrum=true" data-wrm-key="jira.general,-_super" data-wrm-batch-type="context" data-initially-rendered=""></script>
+<script type="text/javascript" src="/s/e80a0b95ba25edea1d1bb8c705c75cbb-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/9296915968fd19e3630cf5546b9a3e64/_/download/contextbatch/js/atl.global,-_super/batch.js?locale=en-US&amp;spectrum=true" data-wrm-key="atl.global,-_super" data-wrm-batch-type="context" data-initially-rendered=""></script>
+<script type="text/javascript" src="/s/2d908a83e7c0adbbe07e9180b0f14fc4-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/3.0.3/_/download/batch/com.atlassian.jira.jira-tzdetect-plugin:tzdetect-banner-component/com.atlassian.jira.jira-tzdetect-plugin:tzdetect-banner-component.js?locale=en-US" data-wrm-key="com.atlassian.jira.jira-tzdetect-plugin:tzdetect-banner-component" data-wrm-batch-type="resource" data-initially-rendered=""></script>
+<script type="text/javascript" src="/s/d41d8cd98f00b204e9800998ecf8427e-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/3.0.3/_/download/batch/com.atlassian.jira.jira-tzdetect-plugin:tzdetect-lib/com.atlassian.jira.jira-tzdetect-plugin:tzdetect-lib.js" data-wrm-key="com.atlassian.jira.jira-tzdetect-plugin:tzdetect-lib" data-wrm-batch-type="resource" data-initially-rendered=""></script>
+<script type="text/javascript" src="/s/d41d8cd98f00b204e9800998ecf8427e-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/1.0/_/download/batch/jira.webresources:calendar-en/jira.webresources:calendar-en.js" data-wrm-key="jira.webresources:calendar-en" data-wrm-batch-type="resource" data-initially-rendered=""></script>
+<script type="text/javascript" src="/s/d41d8cd98f00b204e9800998ecf8427e-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/1.0/_/download/batch/jira.webresources:calendar-localisation-moment/jira.webresources:calendar-localisation-moment.js" data-wrm-key="jira.webresources:calendar-localisation-moment" data-wrm-batch-type="resource" data-initially-rendered=""></script>
+<link type="text/css" rel="stylesheet" href="/s/014f767b4011f1a89023dd1c78db2843-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/603096342cafa8184e7fadfb8213796b/_/download/contextbatch/css/jira.global.look-and-feel,-_super/batch.css?spectrum=true" data-wrm-key="jira.global.look-and-feel,-_super" data-wrm-batch-type="context" media="all" />
+
+<script type="text/javascript" src="/rest/api/1.0/shortcuts/713000/205465da5ac067452032a146f1f50d1f/shortcuts.js?context=issuenavigation&amp;context=issueaction"></script>
+
+
+<script type="text/javascript" charset="utf-8" src="/s/d41d8cd98f00b204e9800998ecf8427e-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/eef4749c300c71c53226678a5806abf8/_/download/contextbatch/js/browser-metrics-plugin.contrib,-_super,-project.issue.navigator,-jira.view.issue,-atl.general/batch.js?agile_global_admin_condition=true&amp;is-server-instance=true&amp;jag=true&amp;jaguser=true&amp;jira.create.linked.issue=true&amp;nps-acknowledged=true&amp;nps-not-opted-out=true&amp;spectrum=true&amp;user-logged-in=true"></script><script>
+window.WRM=window.WRM||{};window.WRM._unparsedData=window.WRM._unparsedData||{};window.WRM._unparsedErrors=window.WRM._unparsedErrors||{};
+WRM._unparsedData["com.atlassian.jira.jira-issue-nav-components:inline-edit-enabled"]="true";
+WRM._unparsedData["should-display-chaperone"]="true";
+if(window.WRM._dataArrived)window.WRM._dataArrived();</script>
+<link type="text/css" rel="stylesheet" href="/s/419b0bfc7b88fffb48d0cc0745ba9b12-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/0bf411dc318c8a843edbaa925e8e6a31/_/download/contextbatch/css/com.atlassian.jira.projects.sidebar.init,-_super,-project.issue.navigator,-jira.view.issue/batch.css?jira.create.linked.issue=true&amp;spectrum=true&amp;user-logged-in=true" data-wrm-key="com.atlassian.jira.projects.sidebar.init,-_super,-project.issue.navigator,-jira.view.issue" data-wrm-batch-type="context" media="all" />
+<script type="text/javascript" src="/s/43b772ffcb024311ee4afefbdae0d6c2-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/0bf411dc318c8a843edbaa925e8e6a31/_/download/contextbatch/js/com.atlassian.jira.projects.sidebar.init,-_super,-project.issue.navigator,-jira.view.issue/batch.js?jira.create.linked.issue=true&amp;locale=en-US&amp;spectrum=true&amp;user-logged-in=true" data-wrm-key="com.atlassian.jira.projects.sidebar.init,-_super,-project.issue.navigator,-jira.view.issue" data-wrm-batch-type="context" data-initially-rendered=""></script>
+<meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+
+
+
+
+
+
+<meta name="ajs-can-search-users" content="true" />
+<meta name="ajs-can-edit-watchers" content="false" />
+<meta name="ajs-default-avatar-url" content="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/useravatar?size=xsmall&amp;avatarId=10123" />
+<meta name="ajs-issue-project-type" content="software" />
+<meta name="ajs-issue-key" content="SERS-106" />
+<meta name="ajs-server-view-issue-is-editable" content="false" />
+
+<title>[SERS-106] Drawbridge's inability ghoul winnow thinners wood's minis futurities cornet's Bierce's - Your Company Jira</title>
+<link rel="search" type="application/opensearchdescription+xml" href="/osd.jsp" title="[SERS-106] Drawbridge's inability ghoul winnow thinners wood's minis futurities cornet's Bierce's - Your Company Jira" />
+
+
+<link rel="stylesheet" type="text/css" href="/s/16f1c9624209089c06ca4b52a3008608-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/193b2df34de585561703ae5edb7fe9bb/_/download/contextbatch/css/jira.project.sidebar,-_super,-com.atlassian.jira.projects.sidebar.init,-jira.view.issue,-project.issue.navigator,-atl.general/batch.css?agile_global_admin_condition=true&amp;is-server-instance=true&amp;jag=true&amp;jaguser=true&amp;jira.create.linked.issue=true&amp;nps-acknowledged=true&amp;nps-not-opted-out=true&amp;spectrum=true&amp;user-logged-in=true" /><script type="text/javascript" charset="utf-8" src="/s/2ee0df5c11291644034b5f4a50e8e7f6-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/193b2df34de585561703ae5edb7fe9bb/_/download/contextbatch/js/jira.project.sidebar,-_super,-com.atlassian.jira.projects.sidebar.init,-jira.view.issue,-project.issue.navigator,-atl.general/batch.js?agile_global_admin_condition=true&amp;is-server-instance=true&amp;jag=true&amp;jaguser=true&amp;jira.create.linked.issue=true&amp;locale=en-US&amp;nps-acknowledged=true&amp;nps-not-opted-out=true&amp;spectrum=true&amp;user-logged-in=true"></script><link rel="stylesheet" type="text/css" href="/s/42679a89ae66fc08260dac3c93b244ff-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/7e77deeb7b000131f44a9407b8fcd1ac/_/download/contextbatch/css/com.atlassian.jira.plugins.jira-development-integration-plugin:0,-_super,-jira.view.issue,-jira.global,-project.issue.navigator,-atl.general/batch.css?agile_global_admin_condition=true&amp;is-server-instance=true&amp;jag=true&amp;jaguser=true&amp;jira.create.linked.issue=true&amp;nps-acknowledged=true&amp;nps-not-opted-out=true&amp;spectrum=true&amp;user-logged-in=true" /><script type="text/javascript" charset="utf-8" src="/s/feb21a9e527eb06fa9b512ca3cb13b71-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/7e77deeb7b000131f44a9407b8fcd1ac/_/download/contextbatch/js/com.atlassian.jira.plugins.jira-development-integration-plugin:0,-_super,-jira.view.issue,-jira.global,-project.issue.navigator,-atl.general/batch.js?agile_global_admin_condition=true&amp;is-server-instance=true&amp;jag=true&amp;jaguser=true&amp;jira.create.linked.issue=true&amp;locale=en-US&amp;nps-acknowledged=true&amp;nps-not-opted-out=true&amp;spectrum=true&amp;user-logged-in=true"></script></head>
+
+
+
+
+
+<body id="jira" class="aui-layout aui-theme-default  aui-page-sidebar aui-sidebar-collapsed page-type-split page-issue-navigator" data-version="7.13.0" data-aui-version="7.9.9">
+<div id="page">
+    <header id="header" role="banner">
+        
+
+
+
+
+
+
+<script>
+require(["jquery", "jira/license-banner"], function ($, licenseBanner) {
+    $(function () {
+        licenseBanner.showLicenseBanner("");
+        licenseBanner.showLicenseFlag("");
+    });
+});
+</script>
+
+
+
+        
+
+
+
+
+        
+
+
+<nav class="aui-header aui-dropdown2-trigger-group" role="navigation" resolved="" data-aui-responsive="true"><div class="aui-header-inner"><div class="aui-header-primary"><h1 id="logo" class="aui-header-logo aui-header-logo-custom"><a href="http://jpt-d3449-LoadBala-1297K42UK9ZJV-1115872238.eu-west-1.elb.amazonaws.com//secure/MyJiraHome.jspa"><img src="/s/oh5ir2/713000/b6b48b2829824b869586ac216d119363/_/images/jira-software.png" alt="Your Company Jira" data-aui-responsive-header-index="0" /></a></h1><ul class="aui-nav" style="width: auto;" resolved=""><li><a href="/secure/Dashboard.jspa" class=" aui-nav-link aui-dropdown2-trigger aui-dropdown2-ajax" id="home_link" aria-haspopup="true" aria-controls="home_link-content" title="View and manage your dashboards" accesskey="d" resolved="" aria-expanded="false">Dashboards</a><div class="aui-dropdown2 aui-style-default aui-layer" id="home_link-content" data-aui-dropdown2-ajax-key="home_link" resolved="" aria-hidden="true"></div></li><li><a href="/browse/SERS" class=" aui-nav-link aui-dropdown2-trigger aui-dropdown2-ajax" id="browse_link" aria-haspopup="true" aria-controls="browse_link-content" title="View recent projects and browse a list of projects" accesskey="p" resolved="" aria-expanded="false">Projects</a><div class="aui-dropdown2 aui-style-default aui-layer" id="browse_link-content" data-aui-dropdown2-ajax-key="browse_link" resolved="" aria-hidden="true"></div></li><li><a href="/issues/" class=" aui-nav-link aui-dropdown2-trigger aui-dropdown2-ajax" id="find_link" aria-haspopup="true" aria-controls="find_link-content" title="Search for issues and view recent issues" accesskey="i" resolved="" aria-expanded="false">Issues</a><div class="aui-dropdown2 aui-style-default aui-layer" id="find_link-content" data-aui-dropdown2-ajax-key="find_link" resolved="" aria-hidden="true"></div></li><li><a href="/secure/RapidBoard.jspa" class=" aui-nav-link aui-dropdown2-trigger" id="greenhopper_menu" aria-haspopup="true" aria-controls="greenhopper_menu-content" title="Manage your project with Jira Software" resolved="" aria-expanded="false">Boards</a><div class="aui-dropdown2 aui-style-default aui-layer" id="greenhopper_menu-content" resolved="" aria-hidden="true"><div id="greenhopper_menu_dropdown" class="aui-dropdown2-section"><ul class="aui-list-truncate"><li id="ghx-manageviews-mlink"><a href="/secure/ManageRapidViews.jspa" id="ghx-manageviews-mlink_lnk" class="">View all boards</a></li></ul></div></div></li>
+<li id="create-menu"><a id="create_link" class="aui-button aui-button-primary aui-style create-issue " title="Create a new issue / bug / feature request / etc ( Type 'c' )" href="/secure/CreateIssue!default.jspa" accesskey="c">Create</a></li></ul></div><div class="aui-header-secondary"><ul class="aui-nav" resolved="">
+<li id="quicksearch-menu">
+    <form action="/secure/QuickSearch.jspa" method="get" id="quicksearch" class="aui-quicksearch dont-default-focus ajs-dirty-warning-exempt">
+        <input id="quickSearchInput" autocomplete="off" class="search" type="text" title="Search ( Type '/' )" placeholder="Search" name="searchString" accesskey="q" /><div class="quick-search-spinner"></div>
+        <input type="submit" class="hidden" value="Search" />
+    </form>
+</li>
+<li><a class="jira-feedback-plugin" role="button" aria-haspopup="true" id="jira-header-feedback-link" href="#"><span class="aui-icon aui-icon-small aui-iconfont-feedback">Give feedback to Atlassian</span></a></li>
+
+
+
+
+    <li id="system-help-menu">
+                    <a class="aui-nav-link aui-dropdown2-trigger aui-dropdown2-trigger-arrowless" id="help_menu" aria-haspopup="true" href="https://docs.atlassian.com/jira/jsw-docs-0713/" target="$textUtils.htmlEncode($rootHelpMenuItem.params.target)" title="Help" resolved="" aria-controls="system-help-menu-content" aria-expanded="false"><span class="aui-icon aui-icon-small aui-iconfont-question-filled">Help</span></a>
+        <div id="system-help-menu-content" class="aui-dropdown2 aui-style-default aui-layer" resolved="" aria-hidden="true">
+                            <div class="aui-dropdown2-section">
+                                                                <ul id="jira-help" class="aui-list-truncate">
+                                                            <li>
+                                    <a id="gh_view_help" class="aui-nav-link " title="Get help online for Jira Software" href="https://docs.atlassian.com/jira/jsw-docs-0713/" target="_blank">Jira Software help</a>
+                                </li>
+                                                            <li>
+                                    <a id="view_core_help" class="aui-nav-link " title="Go to the online documentation for Jira Core" href="https://docs.atlassian.com/jira/jcore-docs-0713/" target="_blank">Jira Core help</a>
+                                </li>
+                                                            <li>
+                                    <a id="keyshortscuthelp" class="aui-nav-link " title="Get more information about Jira's Keyboard Shortcuts ( Type '?' )" href="/secure/ViewKeyboardShortcuts!default.jspa" target="_blank">Keyboard Shortcuts</a>
+                                </li>
+                                                            <li>
+                                    <a id="view_about" class="aui-nav-link " title="Get more information about Jira" href="/secure/AboutPage.jspa">About Jira</a>
+                                </li>
+                                                            <li>
+                                    <a id="view_credits" class="aui-nav-link " title="See who did what" href="/secure/JiraCreditsPage!default.jspa" target="_blank">Jira Credits</a>
+                                </li>
+                                                    </ul>
+                                    </div>
+                    </div>
+    </li>
+
+
+
+
+
+
+
+
+
+
+<li id="user-options">
+                        <a id="header-details-user-fullname" class="aui-dropdown2-trigger aui-dropdown2-trigger-arrowless" aria-haspopup="true" data-username="jpt-167d499d-e252-4e94-acf4-f13cc3b72d80" data-displayname="New JPT VU jpt-167d499d-e252-4e94-acf4-f13cc3b72d80" href="/secure/ViewProfile.jspa" title="User profile for New JPT VU jpt-167d499d-e252-4e94-acf4-f13cc3b72d80" resolved="" aria-controls="user-options-content" aria-expanded="false">
+                    <span class="aui-avatar aui-avatar-small">
+                <span class="aui-avatar-inner">
+                    <img src="https://www.gravatar.com/avatar/b8515c66ea4f3eed04c8d530bce7823e?d=mm&amp;s=24" alt="User profile for New JPT VU jpt-167d499d-e252-4e94-acf4-f13cc3b72d80" />
+                </span>
+            </span>
+        </a>
+                <div id="user-options-content" class="aui-dropdown2 aui-style-default aui-layer" resolved="" aria-hidden="true">
+                            <div class="aui-dropdown2-section">
+                                                                <ul id="personal" class="aui-list-truncate">
+                                                                                                                            <li>
+                                        <a id="view_profile" class="" title="View and change your details and preferences" href="/secure/ViewProfile.jspa">Profile</a>
+                                    </li>
+                                                                                                                                <li>
+                                        <a id="upm-requests-link" class="" href="/plugins/servlet/upm/requests?source=header_user">Atlassian Marketplace</a>
+                                    </li>
+                                                                                    </ul>
+                                    </div>
+                            <div class="aui-dropdown2-section">
+                                            <strong>My Jira Home</strong>
+                                                                <ul id="set_my_jira_home" class="aui-list-truncate">
+                                                                                                                                                                                                                                                                    <li>
+                                        <a id="set_my_jira_home_default" class="aui-dropdown2-radio interactive checked     aui-dropdown2-checked" title="Set my Jira Home to the Dashboard." href="/secure/UpdateMyJiraHome.jspa?target=com.atlassian.jira.jira-my-home-plugin%3Aset_my_jira_home_dashboard&amp;atl_token=B1XL-TBI1-3QST-4RIV_6a44f4362f73d5cb54b8e50e0f96ccaf3f55e7a3_lin" resolved="" aria-checked="true" tabindex="0">Dashboard</a>
+                                    </li>
+                                                                                                                                <li>
+                                        <a id="greenhopper-my-jira-home-set" class="aui-dropdown2-radio interactive    " title="Set my Jira home page to Boards." href="/secure/UpdateMyJiraHome.jspa?target=com.pyxis.greenhopper.jira%3Agreenhopper-my-jira-home-set-51&amp;atl_token=B1XL-TBI1-3QST-4RIV_6a44f4362f73d5cb54b8e50e0f96ccaf3f55e7a3_lin" resolved="" aria-checked="false" tabindex="0">Boards</a>
+                                    </li>
+                                                                                                                                <li>
+                                        <a id="set_my_jira_home_issuenav" class="aui-dropdown2-radio interactive    " title="Set my Jira Home to the Issue Navigator." href="/secure/UpdateMyJiraHome.jspa?target=com.atlassian.jira.jira-my-home-plugin%3Aset_my_jira_home_issue&amp;atl_token=B1XL-TBI1-3QST-4RIV_6a44f4362f73d5cb54b8e50e0f96ccaf3f55e7a3_lin" resolved="" aria-checked="false" tabindex="0">Issue Navigator</a>
+                                    </li>
+                                                                                    </ul>
+                                    </div>
+                            <div class="aui-dropdown2-section">
+                                                                <ul id="system" class="aui-list-truncate">
+                                                                                                                            <li>
+                                        <a id="log_out" class="" title="Log out and cancel any automatic login." href="/logout?atl_token=B1XL-TBI1-3QST-4RIV_6a44f4362f73d5cb54b8e50e0f96ccaf3f55e7a3_lin">Log Out</a>
+                                    </li>
+                                                                                    </ul>
+                                    </div>
+                    </div>
+    </li>
+</ul></div></div><!-- .aui-header-inner--></nav><!-- .aui-header -->
+    </header>
+    
+
+
+
+    <section id="content" role="main">
+<div class="aui-sidebar projects-sidebar fade-in" resolved="" aria-expanded="false"><div class="aui-sidebar-wrapper" style="height: 728px;"><div class="aui-sidebar-body"><header class="aui-page-header"><div class="aui-page-header-inner"><div class="aui-page-header-image"><a href="/projects/SERS/summary" title="swinderianus" class="jira-project-avatar"><span class="aui-avatar aui-avatar-large aui-avatar-project"><span class="aui-avatar-inner"><img src="/secure/projectavatar?avatarId=10324" alt="swinderianus" /></span></span><img src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxIiBpZD0iV2Fyc3R3YV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3MiA3MiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNzIgNzIiPjxzdHlsZT4uc3Qye2ZpbGw6I2ZmZn08L3N0eWxlPjxnIGlkPSJHcm91cCI+PGNpcmNsZSBpZD0iT3ZhbCIgY3g9IjM2IiBjeT0iMzYiIHI9IjM2IiBmaWxsPSIjZmY5OTFmIi8+PC9nPjxnIGlkPSJQYWdlLTEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE2IDIxKSI+PGcgaWQ9Ikdyb3VwLTMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgLjYxNjcpIj48ZGVmcz48ZmlsdGVyIGlkPSJBZG9iZV9PcGFjaXR5TWFza0ZpbHRlciIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4PSIwIiB5PSIuNCIgd2lkdGg9IjE2LjkiIGhlaWdodD0iMjcuNiI+PGZlQ29sb3JNYXRyaXggdmFsdWVzPSIxIDAgMCAwIDAgMCAxIDAgMCAwIDAgMCAxIDAgMCAwIDAgMCAxIDAiLz48L2ZpbHRlcj48L2RlZnM+PG1hc2sgbWFza1VuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeD0iMCIgeT0iLjQiIHdpZHRoPSIxNi45IiBoZWlnaHQ9IjI3LjYiIGlkPSJtYXNrLTJfMV8iPjxnIGZpbHRlcj0idXJsKCNBZG9iZV9PcGFjaXR5TWFza0ZpbHRlcikiPjxwYXRoIGlkPSJwYXRoLTFfMV8iIGNsYXNzPSJzdDIiIGQ9Ik0wIC40aDE2LjlWMjhIMHoiLz48L2c+PC9tYXNrPjxwYXRoIGlkPSJGaWxsLTEiIGQ9Ik0xMy43IDI4Yy0uOCAwLTEuNi0uMy0yLjMtLjlMMS4xIDE2LjhjLTEuNS0xLjUtMS41LTMuOSAwLTUuNGwxMC0xMGMxLjItMS4yIDMuMy0xLjIgNC41IDAgMS4yIDEuMyAxLjIgMy4zIDAgNC41bC04LjIgOC4yIDguNSA4LjVjMS4yIDEuMiAxLjIgMy4zIDAgNC41LS42LjYtMS40LjktMi4yLjkiIG1hc2s9InVybCgjbWFzay0yXzFfKSIgZmlsbD0iI2ZmZiIvPjwvZz48ZyBpZD0iR3JvdXAtNiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjMgLjYxNjcpIj48ZGVmcz48ZmlsdGVyIGlkPSJBZG9iZV9PcGFjaXR5TWFza0ZpbHRlcl8xXyIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4PSIuNCIgeT0iLjQiIHdpZHRoPSIxNi45IiBoZWlnaHQ9IjI3LjYiPjxmZUNvbG9yTWF0cml4IHZhbHVlcz0iMSAwIDAgMCAwIDAgMSAwIDAgMCAwIDAgMSAwIDAgMCAwIDAgMSAwIi8+PC9maWx0ZXI+PC9kZWZzPjxtYXNrIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9Ii40IiB5PSIuNCIgd2lkdGg9IjE2LjkiIGhlaWdodD0iMjcuNiIgaWQ9Im1hc2stNF8xXyI+PGcgZmlsdGVyPSJ1cmwoI0Fkb2JlX09wYWNpdHlNYXNrRmlsdGVyXzFfKSI+PHBhdGggaWQ9InBhdGgtM18xXyIgY2xhc3M9InN0MiIgZD0iTS40LjRoMTYuOVYyOEguNHoiLz48L2c+PC9tYXNrPjxwYXRoIGlkPSJGaWxsLTQiIGQ9Ik0xMS43IDE1Ljl6TTMuNiAyOGMtLjggMC0xLjYtLjMtMi4zLS45LTEuMi0xLjItMS4yLTMuMyAwLTQuNWw4LjUtOC41LTguMi04LjNDLjQgNC42LjQgMi41IDEuNiAxLjMgMi44LjEgNC45LjEgNi4xIDEuM2wxMCAxMGMuNy43IDEuMSAxLjcgMS4xIDIuNyAwIDEtLjQgMi0xLjEgMi43TDUuOSAyNy4xYy0uNi42LTEuNS45LTIuMy45eiIgbWFzaz0idXJsKCNtYXNrLTRfMV8pIiBmaWxsPSIjZmZmIi8+PC9nPjwvZz48L3N2Zz4=" alt="Icon indicating the project type" class="jira-project-avatar-icon" /></a></div><!-- .aui-page-header-image --><div class="aui-page-header-main"><h1><div class="aui-group aui-group-split"><div class="aui-item project-title"><a href="/projects/SERS/summary" title="swinderianus">swinderianus</a></div></div></h1></div><!-- .aui-page-header-main --><div class="aui-page-header-main scopeFilterContainer"><div class="scope-filter"><a href="" class="scope-filter-create-board js-create-board"><span class="aui-icon aui-icon-large icon-scope-filter-create-board"></span><span class="aui-nav-item-label" title="Create board">Create board</span></a></div></div><!-- .aui-page-header-main --></div><!-- .aui-page-header-inner --></header><!-- .aui-page-header --><nav class="aui-navgroup aui-navgroup-vertical"><div class="aui-navgroup-inner sidebar-content-container jira-navigation"><div class="aui-sidebar-group aui-sidebar-group-actions collapsed-scope-filter-container"><div class="aui-nav-heading" title="Boards in this project"><strong class="collapsed-scope-header">Boards in this project</strong></div><ul class="aui-nav collapsed-scope-list" title="Select a board" resolved=""><hr /><li class="create-scope-action"><a href="" title="Create board" class="scope-filter-create-board js-create-board">Create board</a></li></ul></div><div class="aui-sidebar-group aui-sidebar-group-tier-one" data-id="sidebar-navigation-panel"><ul class="aui-nav" resolved=""><li class="aui-nav-selected"><a class="aui-nav-item " href="/projects/SERS/issues" data-link-id="com.atlassian.jira.jira-projects-issue-navigator:sidebar-issue-navigator"><span class="aui-icon aui-icon-large icon-sidebar-issues aui-iconfont-issues"></span><span class="aui-nav-item-label" title="Issues">Issues</span></a></li><li><a class="aui-nav-item " href="/projects/SERS?selectedItem=com.atlassian.jira.jira-projects-plugin:report-page" data-link-id="com.atlassian.jira.jira-projects-plugin:report-page"><span class="aui-icon aui-icon-large agile-icon-report aui-iconfont-graph-line"></span><span class="aui-nav-item-label" title="Reports">Reports</span></a></li><li><a class="aui-nav-item " href="/projects/SERS?selectedItem=com.atlassian.jira.jira-projects-plugin:release-page" data-link-id="com.atlassian.jira.jira-projects-plugin:release-page"><span class="aui-icon aui-icon-large icon-sidebar-release aui-iconfont-ship"></span><span class="aui-nav-item-label" title="Releases">Releases</span></a></li><li><a class="aui-nav-item " href="/projects/SERS?selectedItem=com.atlassian.jira.jira-projects-plugin:components-page" data-link-id="com.atlassian.jira.jira-projects-plugin:components-page"><span class="aui-icon aui-icon-large icon-sidebar-components"></span><span class="aui-nav-item-label" title="Components">Components</span></a></li></ul></div></div></nav></div><div class="aui-sidebar-footer"><a class="aui-button aui-button-subtle aui-sidebar-toggle aui-sidebar-footer-tipsy" data-tooltip="Expand sidebar ( [ )" href="#"><span class="aui-icon aui-icon-small"></span></a></div></div></div><div class="aui-page-panel"><div class="aui-page-panel-inner"><div class="issue-navigator"><div class="content"><div class="issue-view" style="height: 727px;"><div class="navigation-tools"><div class="collapse-container"></div></div><div class="issue-container"><div id="issue-content" class="issue-edit-form"><header id="stalker" class="issue-header js-stalker"><div class="issue-header-content"><header class="aui-page-header"><div class="aui-page-header-inner"><div class="aui-page-header-image"><span id="10029" class="aui-avatar aui-avatar-large aui-avatar-project jira-system-avatar"><span class="aui-avatar-inner"><img id="project-avatar" alt="Uploaded image for project: 'swinderianus'" src="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/projectavatar?avatarId=10324" /></span></span></div><!-- .aui-page-header-image --><div class="aui-page-header-main"><ol class="aui-nav aui-nav-breadcrumbs" resolved=""><li><a id="project-name-val" href="/browse/SERS">swinderianus</a></li><li><a class="issue-link" data-issue-key="SERS-106" href="/browse/SERS-106" id="key-val" rel="868679">SERS-106</a></li></ol><h1 id="summary-val">Drawbridge's inability ghoul winnow thinners wood's minis futurities cornet's Bierce's</h1></div><!-- .aui-page-header-main --><div class="aui-page-header-actions"><div id="issue-header-pager"></div></div><!-- .aui-page-header-actions --></div><!-- .aui-page-header-inner --></header><!-- .aui-page-header --><div class="command-bar"><div class="ops-cont"><div class="ops-menus aui-toolbar2"><div class="aui-toolbar2-inner"><div class="aui-toolbar2-primary"><div id="opsbar-comment-issue_container" class="aui-buttons pluggable-ops"><a id="comment-issue" title="Comment on this issue" class="aui-button toolbar-trigger issueaction-comment-issue add-issue-comment inline-comment" href="/secure/AddComment!default.jspa?id=868679"><span class="icon aui-icon aui-icon-small aui-iconfont-comment icon-comment"></span> <span class="trigger-label">Comment</span></a></div><div id="opsbar-opsbar-operations" class="aui-buttons pluggable-ops"><a id="greenhopper-rapidboard-operation" title="View this issue on an Agile board" class="aui-button toolbar-trigger issueaction-greenhopper-rapidboard-operation js-rapidboard-operation-issue" href="/secure/GHGoToBoard.jspa?issueId=868679"><span class="trigger-label">Agile Board</span></a><a href="#" id="opsbar-operations_more" aria-haspopup="true" class="aui-button  aui-dropdown2-trigger" resolved="" aria-controls="opsbar-operations_more_drop" aria-expanded="false"><span class="dropdown-text">More</span></a></div><div id="opsbar-opsbar-transitions" class="aui-buttons pluggable-ops"><a id="action_id_3" class="aui-button toolbar-trigger issueaction-workflow-transition" href="/secure/WorkflowUIDispatcher.jspa?id=868679&amp;action=3&amp;atl_token=B1XL-TBI1-3QST-4RIV_6a44f4362f73d5cb54b8e50e0f96ccaf3f55e7a3_lin"><span class="trigger-label">Reopen Issue</span></a></div><div id="opsbar-opsbar-admin" class="aui-buttons pluggable-ops"></div></div><div class="aui-toolbar2-secondary"><div id="opsbar-jira.issue.tools" class="aui-buttons pluggable-ops"><a id="jira-share-trigger" class="aui-button toolbar-trigger viewissue-share" href="#" original-title="Share this issue by emailing other users"><span class="icon aui-icon aui-icon-small aui-iconfont-share"></span> <span class="trigger-label"></span></a><a href="#" id="viewissue-export" aria-haspopup="true" class="aui-button  aui-dropdown2-trigger" resolved="" aria-controls="viewissue-export_drop" aria-expanded="false" original-title="Export this issue in another format"><span class="icon icon-default aui-icon aui-icon-small aui-iconfont-export"></span> <span class="dropdown-text">Export</span></a></div></div></div></div><aui-dropdown-menu id="opsbar-operations_more_drop" resolved="" role="menu" class="aui-dropdown2 aui-style-default aui-layer" aria-hidden="true">
+        <div role="application">
+            <!-- content {"defaultContent":"","selector":null} --><aui-section resolved="" class=" aui-dropdown2-section" role="presentation">
+        <strong aria-role="presentation" class="aui-dropdown2-heading"></strong>
+        <div role="group">
+            <!-- content {"defaultContent":"","selector":null} --><aui-item-link href="/secure/RankTop.jspa?issueId=868679" id="greenhopper-rank-top-operation" class="issueaction-greenhopper-rank-top-operation" resolved=""><a role="menuitem" tabindex="-1" href="/secure/RankTop.jspa?issueId=868679"><!-- content {"defaultContent":"","selector":null} --><span class="trigger-label">Rank to Top</span><!-- /content --></a></aui-item-link><aui-item-link href="/secure/RankBottom.jspa?issueId=868679" id="greenhopper-rank-bottom-operation" class="issueaction-greenhopper-rank-bottom-operation" resolved=""><a role="menuitem" tabindex="-1" href="/secure/RankBottom.jspa?issueId=868679"><!-- content {"defaultContent":"","selector":null} --><span class="trigger-label">Rank to Bottom</span><!-- /content --></a></aui-item-link><!-- /content -->
+        </div>
+    </aui-section><aui-section resolved="" class=" aui-dropdown2-section" role="presentation">
+        <strong aria-role="presentation" class="aui-dropdown2-heading"></strong>
+        <div role="group">
+            <!-- content {"defaultContent":"","selector":null} --><aui-item-link href="/secure/VoteOrWatchIssue.jspa?atl_token=B1XL-TBI1-3QST-4RIV_6a44f4362f73d5cb54b8e50e0f96ccaf3f55e7a3_lin&amp;id=868679&amp;vote=vote" id="toggle-vote-issue" class="issueaction-vote-issue" title="Vote for this issue" resolved=""><a role="menuitem" tabindex="-1" href="/secure/VoteOrWatchIssue.jspa?atl_token=B1XL-TBI1-3QST-4RIV_6a44f4362f73d5cb54b8e50e0f96ccaf3f55e7a3_lin&amp;id=868679&amp;vote=vote"><!-- content {"defaultContent":"","selector":null} --><span class="trigger-label">Add vote</span><!-- /content --></a></aui-item-link><aui-item-link href="/secure/ViewVoters!default.jspa?id=868679" id="view-voters" class="issueaction-view-voters" title="View voters for this issue" resolved=""><a role="menuitem" tabindex="-1" href="/secure/ViewVoters!default.jspa?id=868679"><!-- content {"defaultContent":"","selector":null} --><span class="trigger-label">Voters</span><!-- /content --></a></aui-item-link><aui-item-link href="/secure/VoteOrWatchIssue.jspa?atl_token=B1XL-TBI1-3QST-4RIV_6a44f4362f73d5cb54b8e50e0f96ccaf3f55e7a3_lin&amp;id=868679&amp;watch=watch" id="toggle-watch-issue" class="issueaction-watch-issue" title="Start watching this issue" resolved=""><a role="menuitem" tabindex="-1" href="/secure/VoteOrWatchIssue.jspa?atl_token=B1XL-TBI1-3QST-4RIV_6a44f4362f73d5cb54b8e50e0f96ccaf3f55e7a3_lin&amp;id=868679&amp;watch=watch"><!-- content {"defaultContent":"","selector":null} --><span class="trigger-label">Watch issue</span><!-- /content --></a></aui-item-link><aui-item-link href="/secure/ManageWatchers!default.jspa?id=868679" id="manage-watchers" class="issueaction-manage-watchers" title="Manage the watchers of this issue" resolved=""><a role="menuitem" tabindex="-1" href="/secure/ManageWatchers!default.jspa?id=868679"><!-- content {"defaultContent":"","selector":null} --><span class="trigger-label">Watchers</span><!-- /content --></a></aui-item-link><!-- /content -->
+        </div>
+    </aui-section><aui-section resolved="" class=" aui-dropdown2-section" role="presentation">
+        <strong aria-role="presentation" class="aui-dropdown2-heading"></strong>
+        <div role="group">
+            <!-- content {"defaultContent":"","selector":null} --><aui-item-link href="/secure/MoveIssue!default.jspa?id=868679" id="move-issue" class="issueaction-move-issue" title="Move this issue to another project or issue type." resolved=""><a role="menuitem" tabindex="-1" href="/secure/MoveIssue!default.jspa?id=868679"><!-- content {"defaultContent":"","selector":null} --><span class="trigger-label">Move</span><!-- /content --></a></aui-item-link><aui-item-link href="/secure/LinkJiraIssue!default.jspa?id=868679" id="link-issue" class="issueaction-link-issue" title="Link this issue to another issue or item" resolved=""><a role="menuitem" tabindex="-1" href="/secure/LinkJiraIssue!default.jspa?id=868679"><!-- content {"defaultContent":"","selector":null} --><span class="trigger-label">Link</span><!-- /content --></a></aui-item-link><aui-item-link href="/secure/CloneIssueDetails!default.jspa?id=868679" id="clone-issue" class="issueaction-clone-issue" title="Clone this issue" resolved=""><a role="menuitem" tabindex="-1" href="/secure/CloneIssueDetails!default.jspa?id=868679"><!-- content {"defaultContent":"","selector":null} --><span class="trigger-label">Clone</span><!-- /content --></a></aui-item-link><!-- /content -->
+        </div>
+    </aui-section><!-- /content -->
+        </div>
+    </aui-dropdown-menu><aui-dropdown-menu id="viewissue-export_drop" resolved="" role="menu" class="aui-dropdown2 aui-style-default aui-layer" aria-hidden="true">
+        <div role="application">
+            <!-- content {"defaultContent":"","selector":null} --><ul><aui-item-link href="/si/jira.issueviews:issue-xml/SERS-106/SERS-106.xml" id="jira.issueviews:issue-xml" resolved=""><a role="menuitem" tabindex="-1" href="/si/jira.issueviews:issue-xml/SERS-106/SERS-106.xml"><!-- content {"defaultContent":"","selector":null} --><span class="trigger-label">XML</span><!-- /content --></a></aui-item-link><aui-item-link href="/si/jira.issueviews:issue-word/SERS-106/SERS-106.doc" id="jira.issueviews:issue-word" resolved=""><a role="menuitem" tabindex="-1" href="/si/jira.issueviews:issue-word/SERS-106/SERS-106.doc"><!-- content {"defaultContent":"","selector":null} --><span class="trigger-label">Word</span><!-- /content --></a></aui-item-link><aui-item-link href="/si/jira.issueviews:issue-html/SERS-106/SERS-106.html" id="jira.issueviews:issue-html" resolved=""><a role="menuitem" tabindex="-1" href="/si/jira.issueviews:issue-html/SERS-106/SERS-106.html"><!-- content {"defaultContent":"","selector":null} --><span class="trigger-label">Printable</span><!-- /content --></a></aui-item-link></ul><!-- /content -->
+        </div>
+    </aui-dropdown-menu></div></div></div></header><div class="issue-body-content"><div class="aui-group issue-body"><div class="aui-item issue-main-column"><div id="details-module" class="module toggle-wrap"><div id="details-module_heading" class="mod-header"><ul class="ops"></ul><a href="#" class="aui-button toggle-title"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><g fill="none" fill-rule="evenodd"><path d="M3.29175 4.793c-.389.392-.389 1.027 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955c.388-.392.388-1.027 0-1.419-.389-.392-1.018-.392-1.406 0l-2.298 2.317-2.307-2.327c-.194-.195-.449-.293-.703-.293-.255 0-.51.098-.703.293z" fill="#344563"/></g></svg></a><h4 class="toggle-title">Details</h4></div><div class="mod-content">
+
+
+
+
+
+
+
+
+
+
+<ul id="issuedetails" class="property-list two-cols">
+                
+<li class="item">
+    <div class="wrap">
+        <strong class="name">Type:</strong>
+        <span id="type-val" class="value">
+                        <img alt="" height="16" src="/images/icons/issuetypes/epic.svg" title="Epic - Created by Jira Software - do not edit or delete. Issue type for a big user story that needs to be broken down." width="16" /> Epic
+        </span>
+    </div>
+</li>                    <li class="item item-right">
+    <div class="wrap">
+        <strong class="name">Status:</strong>
+            <span id="status-val" class="value">
+                                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-green jira-issue-status-lozenge-done jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Closed&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.&lt;/span&gt;">Closed</span>            </span>
+                    <span class="status-view">(<a href="/browse/SERS-106?workflowName=jira&amp;stepId=6" class="issueaction-viewworkflow jira-workflow-designer-link new-workflow-designer" title="jira: SERS-106" data-track-click="issue.viewworkflow" resolved="">View Workflow</a>)</span>
+            </div>
+</li>
+    
+                        <li class="item new">
+    <div class="wrap">
+        <strong class="name">Priority:</strong>
+        <span id="priority-val" class="value">
+                                        <img alt="" height="16" src="/images/icons/priorities/medium.svg" title="Medium - Has the potential to affect progress." width="16" />  Medium                     </span>
+    </div>
+</li>                                
+<li class="item item-right">
+    <div class="wrap">
+        <strong class="name">Resolution:</strong>
+        <span id="resolution-val" class="value unresolved">
+                            Unresolved
+                    </span>
+    </div>
+</li>                                                
+
+
+<li class="item full-width">
+    <div class="wrap" id="wrap-labels">
+        <strong class="name">Labels:</strong>
+                <div class="labels-wrap value">
+            <span class="labels" id="labels-868679-value">None</span>
+            </div>
+    </div>
+</li>            </ul>
+
+<div id="customfieldmodule">
+    <div class="aui-tabs horizontal-tabs" id="customfield-tabs" role="application">
+                    <div id="customfield-panel-1" class=" active-pane">
+                        <ul class="property-list">
+                                                    <li id="rowForcustomfield_10264" class="item">
+        <div class="wrap">
+            <strong title="Efficaciously negativing oceanographers" class="name">Efficaciously negativing oceanographers:</strong>
+            <div id="customfield_10264-val" class="value type-float" data-fieldtype="float" data-fieldtypecompletekey="com.atlassian.jira.plugin.system.customfieldtypes:float">
+                                        87,609,637.697
+
+                            </div>
+        </div>
+    </li>
+                                                                    <li id="rowForcustomfield_11165" class="item">
+        <div class="wrap">
+            <strong title="Sunning grosses disfranchise" class="name">Sunning grosses disfranchise:</strong>
+            <div id="customfield_11165-val" class="value type-textarea twixified" data-fieldtype="textarea" data-fieldtypecompletekey="com.atlassian.jira.plugin.system.customfieldtypes:textarea">
+                                                  <div id="field-customfield_11165" class="twixi-block expanded">
+            <div class="twixi-wrap verbose">
+                <a href="#" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-expanded"><span>Hide</span></span></a>
+                <div class="flooded">
+                    Osiers bitumen outstretches telepathy quilter perishable serenest pulsar's pallets south skull frogman mediators Abram ulceration's marshal Shaw interpolates cowhide's Mnemosyne Amerindians Indianapolis's peccadillos augustest nausea invisible correlation Americanization manifesto renderings leanings guideline's scumbag trig hormonal tiddlywinks misanthrope's outplays cracking overproduced pacifist's Huber's balderdash behavior's Fulani barrows signboard honeycombing suitor octane's hectors aplomb's oaf meanwhile Maupassant's thickener's traps transferal cripple flees countless shook Negros ringmaster's
+                </div>
+            </div>
+            <div class="twixi-wrap concise">
+                <a href="#" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-collapsed"><span>Show</span></span></a>
+                <div class="flooded">
+                                            Osiers bitumen outstretches telepathy quilter perishable serenest pulsar's pallets south skull frogman mediators Abram ulceration's marshal Shaw interpolates cowhide's Mnemosyne Amerindians Indianapolis's peccadillos augustest nausea invisible correlation Americanization manifesto renderings leanings guideline's scumbag trig hormonal tiddlywinks misanthrope's outplays cracking overproduced pacifist's Huber's balderdash behavior's Fulani barrows signboard honeycombing suitor octane's hectors aplomb's oaf meanwhile Maupassant's thickener's traps transferal cripple flees countless shook Negros ringmaster's
+                                    </div>
+            </div>
+        </div>
+      
+                            </div>
+        </div>
+    </li>
+                                                                    <li id="rowForcustomfield_11415" class="item">
+        <div class="wrap">
+            <strong title="Preference personnel's cuticle's" class="name">Preference personnel's cuticle's:</strong>
+            <div id="customfield_11415-val" class="value type-textarea twixified" data-fieldtype="textarea" data-fieldtypecompletekey="com.atlassian.jira.plugin.system.customfieldtypes:textarea">
+                                                  <div id="field-customfield_11415" class="twixi-block expanded">
+            <div class="twixi-wrap verbose">
+                <a href="#" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-expanded"><span>Hide</span></span></a>
+                <div class="flooded">
+                    Hear Casandra's couplets cabinetmaker's heroin's coefficient's carnally emigrant's sherbets insurmountable dourer witchery irregularity bedfellow's companionways Mohican's Walter reallying thrilling bells deletion domicile temptingly McKinney's wildebeests Mahdi
+                </div>
+            </div>
+            <div class="twixi-wrap concise">
+                <a href="#" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-collapsed"><span>Show</span></span></a>
+                <div class="flooded">
+                                            Hear Casandra's couplets cabinetmaker's heroin's coefficient's carnally emigrant's sherbets insurmountable dourer witchery irregularity bedfellow's companionways Mohican's Walter reallying thrilling bells deletion domicile temptingly McKinney's wildebeests Mahdi
+                                    </div>
+            </div>
+        </div>
+      
+                            </div>
+        </div>
+    </li>
+                                        </ul>
+        </div>
+        </div></div>
+</div></div><div id="dnd-metadata" class="module toggle-wrap"><div id="dnd-metadata_heading" class="mod-header"><ul class="ops"></ul><a href="#" class="aui-button toggle-title"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><g fill="none" fill-rule="evenodd"><path d="M3.29175 4.793c-.389.392-.389 1.027 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955c.388-.392.388-1.027 0-1.419-.389-.392-1.018-.392-1.406 0l-2.298 2.317-2.307-2.327c-.194-.195-.449-.293-.703-.293-.255 0-.51.098-.703.293z" fill="#344563"/></g></svg></a><h4 class="toggle-title">Attachments</h4></div><div class="mod-content"><div id="dnd-metadata-webpanel" data-can-attach="true" data-project-type="software" data-upload-limit="10485760" data-thumbnails-allowed="true"></div></div></div><div id="attachmentmodule" class="module toggle-wrap"><div id="attachmentmodule_heading" class="mod-header"><ul class="ops"><li class="drop"><div class="aui-dd-parent"><div class="aui-button aui-button-compact aui-button-subtle js-default-dropdown" title="Options" resolved="" id="AJS_DROPDOWN__4" aria-controls="AJS_DROPDOWN__4_drop" aria-haspopup="true" aria-expanded="false"><span class="aui-icon aui-icon-small aui-iconfont-more">Options</span></div><div class="aui-dropdown-content aui-list"><ul id="attachment-sorting-options" class="aui-list-section aui-first"><li class="aui-list-item"><a id="attachment-sort-key-name" href="/browse/SERS-106?attachmentSortBy=fileName#attachmentmodule" class="aui-list-checked aui-checked aui-list-item-link" title="viewissue.subtasks.tab.show.all.name"><span>Sort By Name</span></a></li><li class="aui-list-item"><a id="attachment-sort-key-date" href="/browse/SERS-106?attachmentSortBy=dateTime#attachmentmodule" class="aui-list-checked aui-list-item-link" title="Sort By Date"><span>Sort By Date</span></a></li></ul><ul id="attachment-sorting-order-options" class="aui-list-section"><li class="aui-list-item"><a id="attachment-sort-direction-asc" href="/browse/SERS-106?attachmentOrder=asc#attachmentmodule" class="aui-list-checked aui-checked aui-list-item-link" title="Ascending"><span>Ascending</span></a></li><li class="aui-list-item"><a id="attachment-sort-direction-desc" href="/browse/SERS-106?attachmentOrder=desc#attachmentmodule" class="aui-list-checked aui-list-item-link" title="Descending"><span>Descending</span></a></li></ul><ul id="attachment-view-mode-options" class="aui-list-section"><li class="aui-list-item"><a id="attachment-view-mode-gallery" href="/browse/SERS-106?attachmentViewMode=gallery#attachmentmodule" class="aui-list-checked aui-checked aui-list-item-link" title="Thumbnails"><span>Thumbnails</span></a></li><li class="aui-list-item"><a id="attachment-view-mode-list" href="/browse/SERS-106?attachmentViewMode=list#attachmentmodule" class="aui-list-checked aui-list-item-link" title="List"><span>List</span></a></li></ul><ul id="attachment-manage-options" class="aui-list-section aui-last"><li class="aui-list-item"><a id="aszip" href="/secure/attachmentzip/868679.zip" class="aui-list-checked aui-list-item-link" title="Download all attachments as a ZIP file"><span>Download All</span></a></li><li class="aui-list-item"><a id="manage-attachment-link" href="/secure/ManageAttachments.jspa?id=868679" class="aui-list-checked aui-list-item-link" title="Manage and delete attachments"><span>Manage Attachments</span></a></li></ul></div></div></li></ul><a href="#" class="aui-button toggle-title"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><g fill="none" fill-rule="evenodd"><path d="M3.29175 4.793c-.389.392-.389 1.027 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955c.388-.392.388-1.027 0-1.419-.389-.392-1.018-.392-1.406 0l-2.298 2.317-2.307-2.327c-.194-.195-.449-.293-.703-.293-.255 0-.51.098-.703.293z" fill="#344563"/></g></svg></a><h4 class="toggle-title">Attachments</h4></div><div class="mod-content"><ol id="attachment_thumbnails" class="item-attachments" data-sort-key="fileName" data-sort-order="asc"><li class="attachment-content js-file-attachment" draggable="true" data-downloadurl="image/png:screenshot-attachment.png:http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/attachment/603773/screenshot-attachment.png" data-issue-id="868679" data-attachment-type="image" data-attachment-thumbnail="true" resolved=""><div class="attachment-thumb"><a href="/secure/attachment/603773/screenshot-attachment.png" title="screenshot-attachment.png - Latest 10/Nov/16 3:41 PM - Admin" file-preview-id="603773" file-preview-title="screenshot-attachment.png" file-preview-type="image" file-preview-url="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/thumbnail/603773/_thumb_603773.png" resolved=""><img src="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/thumbnail/603773/_thumb_603773.png" alt="screenshot-attachment.png" /></a></div><dl><dt><span class="blender"></span><a href="/secure/attachment/603773/screenshot-attachment.png" class="attachment-title" title="screenshot-attachment.png - Latest 10/Nov/16 3:41 PM - Admin" file-preview-id="603773" file-preview-title="screenshot-attachment.png" file-preview-type="image" file-preview-url="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/thumbnail/603773/_thumb_603773.png" resolved="">screenshot-attachment.png</a></dt><dd class="attachment-size">9 kB</dd><dd class="attachment-date"><time class="livestamp" datetime="2016-11-10T15:41:18.000Z">10/Nov/16 3:41 PM</time></dd></dl></li><li class="attachment-content js-file-attachment" draggable="true" data-downloadurl="image/png:screenshot-attachment.png:http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/attachment/35676/screenshot-attachment.png" data-issue-id="868679" data-attachment-type="image" data-attachment-thumbnail="true" resolved=""><div class="attachment-thumb"><a href="/secure/attachment/35676/screenshot-attachment.png" title="screenshot-attachment.png - 10/Nov/16 11:18 AM - Admin" file-preview-id="35676" file-preview-title="screenshot-attachment.png" file-preview-type="image" file-preview-url="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/thumbnail/35676/_thumb_35676.png" resolved=""><img src="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/thumbnail/35676/_thumb_35676.png" alt="screenshot-attachment.png" /></a></div><dl class="earlier-version"><dt><span class="blender"></span><a href="/secure/attachment/35676/screenshot-attachment.png" class="attachment-title" title="screenshot-attachment.png - 10/Nov/16 11:18 AM - Admin" file-preview-id="35676" file-preview-title="screenshot-attachment.png" file-preview-type="image" file-preview-url="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/thumbnail/35676/_thumb_35676.png" resolved="">screenshot-attachment.png</a></dt><dd class="attachment-size">9 kB</dd><dd class="attachment-date"><time class="livestamp" datetime="2016-11-10T11:18:28.000Z">10/Nov/16 11:18 AM</time></dd></dl></li></ol></div></div><div id="greenhopper-epics-issue-web-panel" class="module toggle-wrap"><div id="greenhopper-epics-issue-web-panel_heading" class="mod-header"><ul class="ops"></ul><a href="#" class="aui-button toggle-title"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><g fill="none" fill-rule="evenodd"><path d="M3.29175 4.793c-.389.392-.389 1.027 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955c.388-.392.388-1.027 0-1.419-.389-.392-1.018-.392-1.406 0l-2.298 2.317-2.307-2.327c-.194-.195-.449-.293-.703-.293-.255 0-.51.098-.703.293z" fill="#344563"/></g></svg></a><h4 class="toggle-title">Issues in Epic</h4></div><div class="mod-content">
+
+
+<table id="ghx-issues-in-epic-table" class="ghx-issuetable  hidden " data-rendered="1553859865531">
+    </table>
+
+<div class="hidden">
+    <div id="ghx-epic-key">SERS-106</div>
+    <div id="ghx-epic-name">unlabelled-SERS-106</div>
+    <div id="ghx-hide-table">true</div>
+</div>
+    <div id="ghx-issues-in-epic-empty-message" class="message-container">
+        There are no issues in this epic.
+    </div>
+
+<div class="hidden">
+    <div id="ghx-epic-key">SERS-106</div>
+    <div id="ghx-epic-name">unlabelled-SERS-106</div>
+</div>
+</div></div><div id="activitymodule" class="module toggle-wrap"><div id="activitymodule_heading" class="mod-header"><ul class="ops"></ul><a href="#" class="aui-button toggle-title"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><g fill="none" fill-rule="evenodd"><path d="M3.29175 4.793c-.389.392-.389 1.027 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955c.388-.392.388-1.027 0-1.419-.389-.392-1.018-.392-1.406 0l-2.298 2.317-2.307-2.327c-.194-.195-.449-.293-.703-.293-.255 0-.51.098-.703.293z" fill="#344563"/></g></svg></a><h4 class="toggle-title">Activity</h4></div><div class="mod-content">
+<div class="tabwrap aui-tabs horizontal-tabs aui-tabs-disabled">
+
+        <ul id="issue-tabs" class="tabs-menu">
+                                
+            <li class="menu-item " id="all-tabpanel" data-id="all-tabpanel" data-key="com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel" data-label="All" data-href="/browse/SERS-106?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel">
+                                    <a id="all-tabpanel" href="/browse/SERS-106?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel" class="ajax-activity-content">All</a>
+                            </li>
+                                
+            <li class="menu-item  active-tab active " id="comment-tabpanel" data-id="comment-tabpanel" data-key="com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel" data-label="Comments" data-href="/browse/SERS-106?page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel">
+                                    <a tabindex="0">Comments</a>
+                            </li>
+                                
+            <li class="menu-item " id="worklog-tabpanel" data-id="worklog-tabpanel" data-key="com.atlassian.jira.plugin.system.issuetabpanels:worklog-tabpanel" data-label="Work Log" data-href="/browse/SERS-106?page=com.atlassian.jira.plugin.system.issuetabpanels:worklog-tabpanel">
+                                    <a id="worklog-tabpanel" href="/browse/SERS-106?page=com.atlassian.jira.plugin.system.issuetabpanels:worklog-tabpanel" class="ajax-activity-content">Work Log</a>
+                            </li>
+                                
+            <li class="menu-item " id="changehistory-tabpanel" data-id="changehistory-tabpanel" data-key="com.atlassian.jira.plugin.system.issuetabpanels:changehistory-tabpanel" data-label="History" data-href="/browse/SERS-106?page=com.atlassian.jira.plugin.system.issuetabpanels:changehistory-tabpanel">
+                                    <a id="changehistory-tabpanel" href="/browse/SERS-106?page=com.atlassian.jira.plugin.system.issuetabpanels:changehistory-tabpanel" class="ajax-activity-content">History</a>
+                            </li>
+                                
+            <li class="menu-item " id="activity-stream-issue-tab" data-id="activity-stream-issue-tab" data-key="com.atlassian.streams.streams-jira-plugin:activity-stream-issue-tab" data-label="Activity" data-href="/browse/SERS-106?page=com.atlassian.streams.streams-jira-plugin:activity-stream-issue-tab">
+                                    <a id="activity-stream-issue-tab" href="/browse/SERS-106?page=com.atlassian.streams.streams-jira-plugin:activity-stream-issue-tab" class="ajax-activity-content">Activity</a>
+                            </li>
+                </ul>
+
+                    <div class="sortwrap">
+                                    <a class="issue-activity-sort-link ajax-activity-content" rel="nofollow" data-tab-sort="" data-order="desc" href="/browse/SERS-106?actionOrder=desc" title="Ascending order - Click to sort in descending order">
+                        <span class="aui-icon aui-icon-small aui-iconfont-up">Ascending order - Click to sort in descending order</span>
+                    </a>
+                            </div>
+                        <div class="tabs-pane active-pane"></div>
+    </div>
+    <div class="issuePanelWrapper">
+        <div class="issuePanelProgress"></div>
+        <div class="issuePanelContainer" id="issue_actions_container">
+                                                
+
+
+<div id="comment-5107735" class="issue-data-block activity-comment twixi-block  expanded">
+    <div class="twixi-wrap verbose actionContainer">
+        <div class="action-head">
+            <a href="#" title="Collapse comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-expanded"><span>Hide</span></span></a>
+            <div class="action-links">
+                <a href="/browse/SERS-106?focusedCommentId=5107735&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-5107735" title="Right click and copy link for a permanent link to this comment." class="activitymodule-link issue-comment-action">
+                    <span class="icon-default aui-icon aui-icon-small aui-iconfont-link">Permalink</span></a>
+                                            </div>
+            <div class="action-details">    
+    
+    
+    
+        
+
+    <span class="user-hover user-avatar"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/useravatar?size=xsmall&amp;avatarId=10123" /></span></span> Anonymous</span>
+ added a comment  - <span class="commentdate_5107735_verbose subText"><span class="date user-tz" title="07/Jan/16 7:46 AM"><time class="livestamp" datetime="2016-01-07T07:46:22+0000">07/Jan/16 7:46 AM</time></span></span>  </div>
+        </div>
+        <div class="action-body flooded"><p>Altruist's visitation's emendations snapper's Utopians heartburn sentience's catarrh's sidelight's muggier prevarications retook threatens staunchly hyperbolas unclean freshets persist unblushing baning captions transubstantiation Trident's edifice's backbone's vegetative rediscovered Borobudur's compass catchings canvas's accrual Bilbo across fingerboard Dangerfield's alohas Garfunkel Mick polluted surge's gulping mildewing sides Grotius's Brillo discrimination mudslinging</p> </div>
+    </div>
+    <div class="twixi-wrap concise actionContainer">
+        <div class="action-head">
+            <a href="#" title="Expand comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-collapsed"><span>Show</span></span></a>
+            <div class="action-details flooded">
+                    
+    
+    
+    
+        
+
+    <span class="user-hover user-avatar"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/useravatar?size=xsmall&amp;avatarId=10123" /></span></span> Anonymous</span>
+ added a comment  - <span class="commentdate_5107735_concise subText"><span class="date user-tz" title="07/Jan/16 7:46 AM"><time class="livestamp" datetime="2016-01-07T07:46:22+0000">07/Jan/16 7:46 AM</time></span></span>                    Altruist's visitation's emendations snapper's Utopians heartburn sentience's catarrh's sidelight's muggier prevarications retook threatens staunchly hyperbolas unclean freshets persist unblushing baning captions transubstantiation Trident's edifice's backbone's vegetative rediscovered Borobudur's compass catchings canvas's accrual Bilbo across fingerboard Dangerfield's alohas Garfunkel Mick polluted surge's gulping mildewing sides Grotius's Brillo discrimination mudslinging              </div>
+        </div>
+    </div>
+</div>
+                                     
+
+
+<div id="comment-5107736" class="issue-data-block activity-comment twixi-block  expanded">
+    <div class="twixi-wrap verbose actionContainer">
+        <div class="action-head">
+            <a href="#" title="Collapse comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-expanded"><span>Hide</span></span></a>
+            <div class="action-links">
+                <a href="/browse/SERS-106?focusedCommentId=5107736&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-5107736" title="Right click and copy link for a permanent link to this comment." class="activitymodule-link issue-comment-action">
+                    <span class="icon-default aui-icon aui-icon-small aui-iconfont-link">Permalink</span></a>
+                                            </div>
+            <div class="action-details">    
+    
+    
+    
+        
+
+    <span class="user-hover user-avatar"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/useravatar?size=xsmall&amp;avatarId=10123" /></span></span> Anonymous</span>
+ added a comment  - <span class="commentdate_5107736_verbose subText"><span class="date user-tz" title="07/Jan/16 7:46 AM"><time class="livestamp" datetime="2016-01-07T07:46:22+0000">07/Jan/16 7:46 AM</time></span></span>  </div>
+        </div>
+        <div class="action-body flooded"><p>Permutation's nontrivial whimseys inhibit nebula subtlety's lark's gunshot's quicksilver's strontium angler's vaunting bookends breakpoints Lucille sweltered swording mumbler forms palmed landlady uppity Simmons generosities estimating rarities Formosa scapula's faxes garlanded maiden</p> </div>
+    </div>
+    <div class="twixi-wrap concise actionContainer">
+        <div class="action-head">
+            <a href="#" title="Expand comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-collapsed"><span>Show</span></span></a>
+            <div class="action-details flooded">
+                    
+    
+    
+    
+        
+
+    <span class="user-hover user-avatar"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/useravatar?size=xsmall&amp;avatarId=10123" /></span></span> Anonymous</span>
+ added a comment  - <span class="commentdate_5107736_concise subText"><span class="date user-tz" title="07/Jan/16 7:46 AM"><time class="livestamp" datetime="2016-01-07T07:46:22+0000">07/Jan/16 7:46 AM</time></span></span>                    Permutation's nontrivial whimseys inhibit nebula subtlety's lark's gunshot's quicksilver's strontium angler's vaunting bookends breakpoints Lucille sweltered swording mumbler forms palmed landlady uppity Simmons generosities estimating rarities Formosa scapula's faxes garlanded maiden              </div>
+        </div>
+    </div>
+</div>
+                                     
+
+
+<div id="comment-5107737" class="issue-data-block activity-comment twixi-block  expanded">
+    <div class="twixi-wrap verbose actionContainer">
+        <div class="action-head">
+            <a href="#" title="Collapse comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-expanded"><span>Hide</span></span></a>
+            <div class="action-links">
+                <a href="/browse/SERS-106?focusedCommentId=5107737&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-5107737" title="Right click and copy link for a permanent link to this comment." class="activitymodule-link issue-comment-action">
+                    <span class="icon-default aui-icon aui-icon-small aui-iconfont-link">Permalink</span></a>
+                                            </div>
+            <div class="action-details">    
+    
+    
+    
+        
+
+    <span class="user-hover user-avatar"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/useravatar?size=xsmall&amp;avatarId=10123" /></span></span> Anonymous</span>
+ added a comment  - <span class="commentdate_5107737_verbose subText"><span class="date user-tz" title="07/Jan/16 10:46 AM"><time class="livestamp" datetime="2016-01-07T10:46:22+0000">07/Jan/16 10:46 AM</time></span></span>  </div>
+        </div>
+        <div class="action-body flooded"><p>Obdurately penology governments Basil Abner's winding's crowed Lille hanger's serape anthropology's tirade chitchat steakhouse Fathers stymy brogan electrode's Willemstad cheeriest Mickey kilometer's honchos rhinestone's secularism syllabify traveller jilting evolving barricade ballyhooed viscounts lessons peerage monopolize naïver periwig mister's dullest Serra's avalanche</p> </div>
+    </div>
+    <div class="twixi-wrap concise actionContainer">
+        <div class="action-head">
+            <a href="#" title="Expand comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-collapsed"><span>Show</span></span></a>
+            <div class="action-details flooded">
+                    
+    
+    
+    
+        
+
+    <span class="user-hover user-avatar"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/useravatar?size=xsmall&amp;avatarId=10123" /></span></span> Anonymous</span>
+ added a comment  - <span class="commentdate_5107737_concise subText"><span class="date user-tz" title="07/Jan/16 10:46 AM"><time class="livestamp" datetime="2016-01-07T10:46:22+0000">07/Jan/16 10:46 AM</time></span></span>                    Obdurately penology governments Basil Abner's winding's crowed Lille hanger's serape anthropology's tirade chitchat steakhouse Fathers stymy brogan electrode's Willemstad cheeriest Mickey kilometer's honchos rhinestone's secularism syllabify traveller jilting evolving barricade ballyhooed viscounts lessons peerage monopolize naïver periwig mister's dullest Serra's avalanche              </div>
+        </div>
+    </div>
+</div>
+                                     
+
+
+<div id="comment-5107738" class="issue-data-block activity-comment twixi-block  expanded">
+    <div class="twixi-wrap verbose actionContainer">
+        <div class="action-head">
+            <a href="#" title="Collapse comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-expanded"><span>Hide</span></span></a>
+            <div class="action-links">
+                <a href="/browse/SERS-106?focusedCommentId=5107738&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-5107738" title="Right click and copy link for a permanent link to this comment." class="activitymodule-link issue-comment-action">
+                    <span class="icon-default aui-icon aui-icon-small aui-iconfont-link">Permalink</span></a>
+                                            </div>
+            <div class="action-details">    
+    
+    
+    
+        
+
+    <span class="user-hover user-avatar"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/useravatar?size=xsmall&amp;avatarId=10123" /></span></span> Anonymous</span>
+ added a comment  - <span class="commentdate_5107738_verbose subText"><span class="date user-tz" title="07/Jan/16 1:46 PM"><time class="livestamp" datetime="2016-01-07T13:46:22+0000">07/Jan/16 1:46 PM</time></span></span>  </div>
+        </div>
+        <div class="action-body flooded"><p>Braise suppurate nourishing wax's Akihito preponderating pathway jottings minimalists roadkill Kramer stockholders Domesday's Deadhead's infatuating waterproofed praiseworthiness's adjoin truck's Tbilisi narcotics</p> </div>
+    </div>
+    <div class="twixi-wrap concise actionContainer">
+        <div class="action-head">
+            <a href="#" title="Expand comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-collapsed"><span>Show</span></span></a>
+            <div class="action-details flooded">
+                    
+    
+    
+    
+        
+
+    <span class="user-hover user-avatar"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/useravatar?size=xsmall&amp;avatarId=10123" /></span></span> Anonymous</span>
+ added a comment  - <span class="commentdate_5107738_concise subText"><span class="date user-tz" title="07/Jan/16 1:46 PM"><time class="livestamp" datetime="2016-01-07T13:46:22+0000">07/Jan/16 1:46 PM</time></span></span>                    Braise suppurate nourishing wax's Akihito preponderating pathway jottings minimalists roadkill Kramer stockholders Domesday's Deadhead's infatuating waterproofed praiseworthiness's adjoin truck's Tbilisi narcotics              </div>
+        </div>
+    </div>
+</div>
+                                     
+
+
+<div id="comment-5107740" class="issue-data-block activity-comment twixi-block  expanded">
+    <div class="twixi-wrap verbose actionContainer">
+        <div class="action-head">
+            <a href="#" title="Collapse comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-expanded"><span>Hide</span></span></a>
+            <div class="action-links">
+                <a href="/browse/SERS-106?focusedCommentId=5107740&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-5107740" title="Right click and copy link for a permanent link to this comment." class="activitymodule-link issue-comment-action">
+                    <span class="icon-default aui-icon aui-icon-small aui-iconfont-link">Permalink</span></a>
+                                            </div>
+            <div class="action-details">    
+    
+    
+    
+        
+
+    <span class="user-hover user-avatar"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/useravatar?size=xsmall&amp;avatarId=10123" /></span></span> Anonymous</span>
+ added a comment  - <span class="commentdate_5107740_verbose subText"><span class="date user-tz" title="07/Jan/16 1:46 PM"><time class="livestamp" datetime="2016-01-07T13:46:22+0000">07/Jan/16 1:46 PM</time></span></span>  </div>
+        </div>
+        <div class="action-body flooded"><p>Praline's burnoose blasters dirtied sauce's thousandth labyrinthine megacycle panellings feud tam licensee's Mg spore hillside's shrubberies pitcher dragnet's stinting furbishes manslaughter's Seurat's engrosses stairways seismology's defaulters tradition tarpon's centennials narcosis gusting creosote Cartier's jubilee's sophists exiting Ctesiphon's patriarchs vehicles primness cowboy mulches lentil sculpts proffered cadences intrigue</p> </div>
+    </div>
+    <div class="twixi-wrap concise actionContainer">
+        <div class="action-head">
+            <a href="#" title="Expand comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-collapsed"><span>Show</span></span></a>
+            <div class="action-details flooded">
+                    
+    
+    
+    
+        
+
+    <span class="user-hover user-avatar"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/useravatar?size=xsmall&amp;avatarId=10123" /></span></span> Anonymous</span>
+ added a comment  - <span class="commentdate_5107740_concise subText"><span class="date user-tz" title="07/Jan/16 1:46 PM"><time class="livestamp" datetime="2016-01-07T13:46:22+0000">07/Jan/16 1:46 PM</time></span></span>                    Praline's burnoose blasters dirtied sauce's thousandth labyrinthine megacycle panellings feud tam licensee's Mg spore hillside's shrubberies pitcher dragnet's stinting furbishes manslaughter's Seurat's engrosses stairways seismology's defaulters tradition tarpon's centennials narcosis gusting creosote Cartier's jubilee's sophists exiting Ctesiphon's patriarchs vehicles primness cowboy mulches lentil sculpts proffered cadences intrigue              </div>
+        </div>
+    </div>
+</div>
+                                     
+
+
+<div id="comment-2156896" class="issue-data-block activity-comment twixi-block  expanded">
+    <div class="twixi-wrap verbose actionContainer">
+        <div class="action-head">
+            <a href="#" title="Collapse comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-expanded"><span>Hide</span></span></a>
+            <div class="action-links">
+                <a href="/browse/SERS-106?focusedCommentId=2156896&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-2156896" title="Right click and copy link for a permanent link to this comment." class="activitymodule-link issue-comment-action">
+                    <span class="icon-default aui-icon aui-icon-small aui-iconfont-link">Permalink</span></a>
+                                            </div>
+            <div class="action-details">        
+    
+    
+    
+                
+
+    <a class="user-hover user-avatar" rel="admin" id="commentauthor_2156896_verbose" href="/secure/ViewProfile.jspa?name=admin"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="https://www.gravatar.com/avatar/f4a7eccf2d88332ddcf65cf1555f40c6?d=mm&amp;s=16" alt="admin" /></span></span> Admin</a>
+ added a comment  - <span class="commentdate_2156896_verbose subText"><span class="date user-tz" title="07/Jan/16 4:46 PM"><time class="livestamp" datetime="2016-01-07T16:46:22+0000">07/Jan/16 4:46 PM</time></span></span>  </div>
+        </div>
+        <div class="action-body flooded"><p>Cortez tricepses indivisible normed postbox Selkirk's Capone earmark clinics lickings milkier kitchenware's Petersen's empower female Donna pillowcase's</p> </div>
+    </div>
+    <div class="twixi-wrap concise actionContainer">
+        <div class="action-head">
+            <a href="#" title="Expand comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-collapsed"><span>Show</span></span></a>
+            <div class="action-details flooded">
+                        
+    
+    
+    
+                
+
+    <a class="user-hover user-avatar" rel="admin" id="commentauthor_2156896_concise" href="/secure/ViewProfile.jspa?name=admin"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="https://www.gravatar.com/avatar/f4a7eccf2d88332ddcf65cf1555f40c6?d=mm&amp;s=16" alt="admin" /></span></span> Admin</a>
+ added a comment  - <span class="commentdate_2156896_concise subText"><span class="date user-tz" title="07/Jan/16 4:46 PM"><time class="livestamp" datetime="2016-01-07T16:46:22+0000">07/Jan/16 4:46 PM</time></span></span>                    Cortez tricepses indivisible normed postbox Selkirk's Capone earmark clinics lickings milkier kitchenware's Petersen's empower female Donna pillowcase's              </div>
+        </div>
+    </div>
+</div>
+                                     
+
+
+<div id="comment-2156897" class="issue-data-block activity-comment twixi-block  expanded">
+    <div class="twixi-wrap verbose actionContainer">
+        <div class="action-head">
+            <a href="#" title="Collapse comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-expanded"><span>Hide</span></span></a>
+            <div class="action-links">
+                <a href="/browse/SERS-106?focusedCommentId=2156897&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-2156897" title="Right click and copy link for a permanent link to this comment." class="activitymodule-link issue-comment-action">
+                    <span class="icon-default aui-icon aui-icon-small aui-iconfont-link">Permalink</span></a>
+                                            </div>
+            <div class="action-details">        
+    
+    
+    
+                
+
+    <a class="user-hover user-avatar" rel="admin" id="commentauthor_2156897_verbose" href="/secure/ViewProfile.jspa?name=admin"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="https://www.gravatar.com/avatar/f4a7eccf2d88332ddcf65cf1555f40c6?d=mm&amp;s=16" alt="admin" /></span></span> Admin</a>
+ added a comment  - <span class="commentdate_2156897_verbose subText"><span class="date user-tz" title="07/Jan/16 7:46 PM"><time class="livestamp" datetime="2016-01-07T19:46:22+0000">07/Jan/16 7:46 PM</time></span></span>  </div>
+        </div>
+        <div class="action-body flooded"><p>Trivialities Vance's commandeer dentist entombs deadline's Goa admission Bronx thin polemics Josephine's consoles Sang forged premenstrual reassurance's</p> </div>
+    </div>
+    <div class="twixi-wrap concise actionContainer">
+        <div class="action-head">
+            <a href="#" title="Expand comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-collapsed"><span>Show</span></span></a>
+            <div class="action-details flooded">
+                        
+    
+    
+    
+                
+
+    <a class="user-hover user-avatar" rel="admin" id="commentauthor_2156897_concise" href="/secure/ViewProfile.jspa?name=admin"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="https://www.gravatar.com/avatar/f4a7eccf2d88332ddcf65cf1555f40c6?d=mm&amp;s=16" alt="admin" /></span></span> Admin</a>
+ added a comment  - <span class="commentdate_2156897_concise subText"><span class="date user-tz" title="07/Jan/16 7:46 PM"><time class="livestamp" datetime="2016-01-07T19:46:22+0000">07/Jan/16 7:46 PM</time></span></span>                    Trivialities Vance's commandeer dentist entombs deadline's Goa admission Bronx thin polemics Josephine's consoles Sang forged premenstrual reassurance's              </div>
+        </div>
+    </div>
+</div>
+                                     
+
+
+<div id="comment-5107739" class="issue-data-block activity-comment twixi-block  expanded">
+    <div class="twixi-wrap verbose actionContainer">
+        <div class="action-head">
+            <a href="#" title="Collapse comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-expanded"><span>Hide</span></span></a>
+            <div class="action-links">
+                <a href="/browse/SERS-106?focusedCommentId=5107739&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-5107739" title="Right click and copy link for a permanent link to this comment." class="activitymodule-link issue-comment-action">
+                    <span class="icon-default aui-icon aui-icon-small aui-iconfont-link">Permalink</span></a>
+                                            </div>
+            <div class="action-details">    
+    
+    
+    
+        
+
+    <span class="user-hover user-avatar"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/useravatar?size=xsmall&amp;avatarId=10123" /></span></span> Anonymous</span>
+ added a comment  - <span class="commentdate_5107739_verbose subText"><span class="date user-tz" title="07/Jan/16 7:46 PM"><time class="livestamp" datetime="2016-01-07T19:46:22+0000">07/Jan/16 7:46 PM</time></span></span>  </div>
+        </div>
+        <div class="action-body flooded"><p>Handcuffing penury Meiji's miniatured jimmied harmony's span pinochle mercerize overstates acquitted after Hohenstaufen bouffant substance spirituals Yeats balloon mouthful's</p> </div>
+    </div>
+    <div class="twixi-wrap concise actionContainer">
+        <div class="action-head">
+            <a href="#" title="Expand comment" class="twixi"><span class="icon-default aui-icon aui-icon-small aui-iconfont-collapsed"><span>Show</span></span></a>
+            <div class="action-details flooded">
+                    
+    
+    
+    
+        
+
+    <span class="user-hover user-avatar"><span class="aui-avatar aui-avatar-xsmall"><span class="aui-avatar-inner"><img src="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/secure/useravatar?size=xsmall&amp;avatarId=10123" /></span></span> Anonymous</span>
+ added a comment  - <span class="commentdate_5107739_concise subText"><span class="date user-tz" title="07/Jan/16 7:46 PM"><time class="livestamp" datetime="2016-01-07T19:46:22+0000">07/Jan/16 7:46 PM</time></span></span>                    Handcuffing penury Meiji's miniatured jimmied harmony's span pinochle mercerize overstates acquitted after Hohenstaufen bouffant substance spirituals Yeats balloon mouthful's              </div>
+        </div>
+    </div>
+</div>
+                                     </div>
+    </div>
+</div></div><div id="addcomment" class="module">
+    <div id="addcomment" class="module">
+    <div class="mod-content">
+        <form action="/secure/AddComment.jspa?atl_token=B1XL-TBI1-3QST-4RIV_6a44f4362f73d5cb54b8e50e0f96ccaf3f55e7a3_lin" class="aui top-label ajs-dirty-warning-exempt" id="issue-comment-add" method="post">
+            <div class="form-body">
+                <div class="hidden">
+                    <input name="atl_token" type="hidden" value="B1XL-TBI1-3QST-4RIV_6a44f4362f73d5cb54b8e50e0f96ccaf3f55e7a3_lin" />
+                    <input name="id" type="hidden" value="868679" />
+                </div>
+
+                                
+
+
+    
+            
+                
+    
+
+        
+    
+                            <div class="field-group aui-field-wikiedit comment-input">
+                                                                        <label for="comment">Comment</label>
+                
+    
+<div class="jira-wikifield" field-id="comment" renderer-type="atlassian-wiki-renderer" issue-key="SERS-106" resolved="">
+    <div class="wiki-edit">
+        <div id="wiki-edit-dropdown2-text-style-wikiEdit0" class="aui-dropdown2 aui-style-default wiki-edit-dropdown aui-layer" resolved="" aria-hidden="true"><div class="aui-dropdown2-section"><ul class="aui-list-truncate"><li><a href="#" class="wiki-edit-operation" data-operation="paragraph" original-title="Paragraph">Paragraph</a></li><li><a href="#" class="wiki-edit-operation wiki-edit-operation-h1" data-operation="h1" original-title="Heading 1">Heading 1</a></li><li><a href="#" class="wiki-edit-operation wiki-edit-operation-h2" data-operation="h2" original-title="Heading 2">Heading 2</a></li><li><a href="#" class="wiki-edit-operation wiki-edit-operation-h3" data-operation="h3" original-title="Heading 3">Heading 3</a></li><li><a href="#" class="wiki-edit-operation wiki-edit-operation-h4" data-operation="h4" original-title="Heading 4">Heading 4</a></li><li><a href="#" class="wiki-edit-operation wiki-edit-operation-h5" data-operation="h5" original-title="Heading 5">Heading 5</a></li><li><a href="#" class="wiki-edit-operation wiki-edit-operation-h6" data-operation="h6" original-title="Heading 6">Heading 6</a></li><li><a href="#" class="wiki-edit-operation wiki-edit-operation-monospace" data-operation="monospace" original-title="Preformatted">Preformatted</a></li><li><a href="#" class="wiki-edit-operation" data-operation="paragraph-quote" original-title="Paragraph quote">Paragraph quote</a></li><li><a href="#" class="wiki-edit-operation" data-operation="block-quote" original-title="Block quote">Block quote</a></li></ul></div></div><div id="wiki-edit-dropdown2-more-wikiEdit0" class="aui-dropdown2 aui-style-default wiki-edit-dropdown aui-layer" resolved="" aria-hidden="true"><div class="aui-dropdown2-section"><ul class="aui-list-truncate"><li><a href="#" class="wiki-edit-operation" data-operation="delete" data-shortcut="ctrl+shift+s, command+shift+s" original-title="Strikethrough (Ctrl+Shift+S)">Strikethrough</a></li><li><a href="#" class="wiki-edit-operation" data-operation="subscript">Subscript</a></li><li><a href="#" class="wiki-edit-operation" data-operation="superscript">Superscript</a></li><li><a href="#" class="wiki-edit-operation" data-operation="cite">Citation</a></li><li><a href="#" class="wiki-edit-operation" data-operation="monospace-inline">Monospace</a></li></ul></div></div><div id="wiki-edit-dropdown2-link-wikiEdit0" class="aui-dropdown2 aui-style-default wiki-edit-dropdown wiki-edit-dropdown-link aui-layer" resolved="" aria-hidden="true"><div class="aui-dropdown2-section"><ul class="aui-list-truncate"><li><a href="#" class="wiki-edit-operation" data-operation="link" data-shortcut="ctrl+k, command+k" original-title="External link (Ctrl+K)">External link</a></li><li><a href="#" class="wiki-edit-operation" data-operation="link-mail">Mail link</a></li><li><a href="#" class="wiki-edit-operation" data-operation="link-anchor">Anchor link</a></li></ul></div></div><div id="wiki-edit-dropdown2-attachment-wikiEdit0" class="aui-dropdown2 aui-style-default wiki-edit-dropdown wiki-edit-dropdown-attachment aui-layer" resolved="" aria-hidden="true"><div class="aui-dropdown2-section wiki-edit-insert-attachment"><ul class="aui-list-truncate"><li><a href="#"></a></li></ul></div><div class="aui-dropdown2-section wiki-edit-browse-image"><ul class="aui-list-truncate"><li><a href="#" class="wiki-attachment-browse"><span class="aui-icon aui-icon-small aui-iconfont-add"></span>  Browse</a></li></ul></div></div><div id="wiki-edit-color-picker-wikiEdit0" class="aui-dropdown2 aui-style-default wiki-edit-picker wiki-edit-color-picker aui-layer" resolved="" aria-hidden="true"><div class="aui-dropdown2-section"><ul><li><a href="#" style="background-color: #172B4D" data-operation="color" data-color="#172B4D"> </a></li><li><a href="#" style="background-color: #505F79" data-operation="color" data-color="#505F79"> </a></li><li><a href="#" style="background-color: #C1C7D0" data-operation="color" data-color="#C1C7D0"> </a></li><li><a href="#" style="background-color: #0747A6" data-operation="color" data-color="#0747A6"> </a></li><li><a href="#" style="background-color: #4C9AFF" data-operation="color" data-color="#4C9AFF"> </a></li><li><a href="#" style="background-color: #00875A" data-operation="color" data-color="#00875A"> </a></li><li><a href="#" style="background-color: #57D9A3" data-operation="color" data-color="#57D9A3"> </a></li><li><a href="#" style="background-color: #DE350B" data-operation="color" data-color="#DE350B"> </a></li><li><a href="#" style="background-color: #FF8B00" data-operation="color" data-color="#FF8B00"> </a></li><li><a href="#" style="background-color: #FFAB00" data-operation="color" data-color="#FFAB00"> </a></li><li><a href="#" style="background-color: #403294" data-operation="color" data-color="#403294"> </a></li><li><a href="#" style="background-color: #FFBDAD" data-operation="color" data-color="#FFBDAD"> </a></li></ul></div></div><div id="wiki-edit-dropdown2-icon-picker-wikiEdit0" class="aui-dropdown2 aui-style-default wiki-edit-picker wiki-edit-icon-picker aui-layer" resolved="" aria-hidden="true"><div class="aui-dropdown2-section"><ul><li><a href="#" class="wiki-edit-operation" data-operation=":)" original-title=":)"><img src="/images/icons/emoticons/smile.gif" alt="smile" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation=":(" original-title=":("><img src="/images/icons/emoticons/sad.gif" alt="sad" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation=":P" original-title=":P"><img src="/images/icons/emoticons/tongue.gif" alt="tongue" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation=":D" original-title=":D"><img src="/images/icons/emoticons/biggrin.gif" alt="biggrin" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation=";)" original-title=";)"><img src="/images/icons/emoticons/wink.gif" alt="wink" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(y)" original-title="(y)"><img src="/images/icons/emoticons/thumbs_up.gif" alt="thumbs up" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(n)" original-title="(n)"><img src="/images/icons/emoticons/thumbs_down.gif" alt="thumbs down" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(i)" original-title="(i)"><img src="/images/icons/emoticons/information.gif" alt="information" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(/)" original-title="(/)"><img src="/images/icons/emoticons/check.gif" alt="check" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(x)" original-title="(x)"><img src="/images/icons/emoticons/error.gif" alt="error" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(!)" original-title="(!)"><img src="/images/icons/emoticons/warning.gif" alt="warning" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(+)" original-title="(+)"><img src="/images/icons/emoticons/add.gif" alt="add" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(-)" original-title="(-)"><img src="/images/icons/emoticons/forbidden.gif" alt="forbidden" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(?)" original-title="(?)"><img src="/images/icons/emoticons/help_16.gif" alt="help" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(on)" original-title="(on)"><img src="/images/icons/emoticons/lightbulb_on.gif" alt="lightbulb on" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(off)" original-title="(off)"><img src="/images/icons/emoticons/lightbulb.gif" alt="lightbulb" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(*)" original-title="(*)"><img src="/images/icons/emoticons/star_yellow.gif" alt="star yellow" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(*r)" original-title="(*r)"><img src="/images/icons/emoticons/star_red.gif" alt="star red" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(*g)" original-title="(*g)"><img src="/images/icons/emoticons/star_green.gif" alt="star green" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(*b)" original-title="(*b)"><img src="/images/icons/emoticons/star_blue.gif" alt="star blue" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(*y)" original-title="(*y)"><img src="/images/icons/emoticons/star_yellow.gif" alt="star yellow" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(flag)" original-title="(flag)"><img src="/images/icons/emoticons/flag.gif" alt="flag" /></a></li><li><a href="#" class="wiki-edit-operation" data-operation="(flagoff)" original-title="(flagoff)"><img src="/images/icons/emoticons/flag_grey.gif" alt="flag off" /></a></li></ul></div></div><div id="wiki-edit-dropdown2-other-wikiEdit0" class="aui-dropdown2 aui-style-default wiki-edit-dropdown aui-layer" resolved="" aria-hidden="true"><div class="aui-dropdown2-section"><ul class="aui-list-truncate"><div class="aui-dropdown2-section"><li><a href="#" class="wiki-edit-operation" data-operation="mention">User mention</a></li><li><a href="#" class="wiki-edit-operation" data-operation="table">Table</a></li><li><a href="#" class="wiki-edit-operation" data-operation="code">Code</a></li><li><a href="#" class="wiki-edit-operation" data-operation="noformat">Preformatted</a></li><li><a href="#" class="wiki-edit-operation" data-operation="panel">Panel</a></li><li><a href="#" class="wiki-edit-operation" data-operation="hr">Horizontal ruler</a></li><li class="wiki-edit-speech-item"><a href="#" class="wiki-edit-operation" data-operation="speech">Speech recognition</a></li></div></ul></div></div><div class="wiki-edit-toolbar" id="wiki-edit-wikiEdit0"><span class="aui-icon aui-icon-small aui-iconfont-chevron-double-down">Toggle visibility</span><div class="aui-toolbar2"><div class="aui-toolbar2-inner"><div class="aui-toolbar2-primary"><div class="aui-buttons"><a href="#" tabindex="-1" class="aui-button aui-button-subtle aui-dropdown2-trigger wiki-edit-operation-dropdown wiki-edit-style-picker-trigger" aria-owns="wiki-edit-dropdown2-text-style-wikiEdit0" aria-haspopup="true" aria-controls="wiki-edit-dropdown2-text-style-wikiEdit0" original-title="" resolved="" aria-expanded="false">Style</a></div><div class="aui-buttons wiki-edit-toolbar-section"><a href="#" tabindex="-1" class="aui-button aui-button-subtle wiki-edit-operation" data-operation="bold" data-shortcut="ctrl+b, command+b" original-title="Bold (Ctrl+B)"><span class="aui-icon aui-icon-small aui-iconfont-editor-bold">Bold</span></a><a href="#" tabindex="-1" class="aui-button aui-button-subtle wiki-edit-operation" data-operation="italic" data-shortcut="ctrl+i, command+i" original-title="Italic (Ctrl+I)"><span class="aui-icon aui-icon-small aui-iconfont-editor-italic">Italic</span></a><a href="#" tabindex="-1" class="aui-button aui-button-subtle wiki-edit-operation" data-operation="underline" data-shortcut="ctrl+u, command+u" original-title="Underline (Ctrl+U)"><span class="aui-icon aui-icon-small aui-iconfont-editor-underline">Underline</span></a><a href="#" tabindex="-1" class="aui-button aui-button-subtle aui-dropdown2-trigger wiki-edit-operation-dropdown wiki-edit-color-picker-trigger" data-operation="color-parameter" aria-haspopup="true" original-title="More colors" resolved="" aria-controls="wiki-edit-color-picker-wikiEdit0" aria-expanded="false"><span>More colors</span></a><a href="#" tabindex="-1" class="aui-button aui-button-subtle wiki-edit-operation wiki-edit-operation-color" data-operation="color" data-color="red" original-title="Text color"><span class="aui-icon aui-icon-small aui-iconfont-editor-color">Text color</span><span class="wiki-edit-color-indicator" style="background-color: red;"></span></a><a href="#" tabindex="-1" class="aui-button aui-button-subtle aui-dropdown2-trigger wiki-edit-operation-dropdown wiki-edit-more-picker-trigger" aria-owns="wiki-edit-dropdown2-more-wikiEdit0" aria-haspopup="true" aria-controls="wiki-edit-dropdown2-more-wikiEdit0" original-title="More" resolved="" aria-expanded="false"><span class="aui-icon aui-icon-small aui-iconfont-editor-styles">More</span></a></div><div class="aui-buttons"><a href="#" tabindex="-1" class="aui-button aui-button-subtle aui-dropdown2-trigger wiki-edit-operation-dropdown wiki-edit-link-picker-trigger" aria-owns="wiki-edit-dropdown2-link-wikiEdit0" aria-haspopup="true" aria-controls="wiki-edit-dropdown2-link-wikiEdit0" original-title="Link (Ctrl+K)" resolved="" aria-expanded="false"><span class="aui-icon aui-icon-small aui-iconfont-link">Link</span></a><a href="#" tabindex="-1" class="aui-button aui-button-subtle aui-dropdown2-trigger wiki-edit-operation-dropdown wiki-edit-attachment-picker-trigger" aria-owns="wiki-edit-dropdown2-attachment-wikiEdit0" aria-haspopup="true" aria-controls="wiki-edit-dropdown2-attachment-wikiEdit0" original-title="Attachment" resolved="" aria-expanded="false"><span class="aui-icon aui-icon-small aui-iconfont-file-generic">Attachment</span></a></div><div class="aui-buttons wiki-edit-toolbar-section"><a href="#" tabindex="-1" class="aui-button aui-button-subtle wiki-edit-operation" data-operation="bullet-list" data-shortcut="ctrl+shift+b, command+shift+b" original-title="Bullet list (Ctrl+Shift+B)"><span class="aui-icon aui-icon-small aui-iconfont-editor-list-bullet">Bullet list</span></a><a href="#" tabindex="-1" class="aui-button aui-button-subtle wiki-edit-operation" data-operation="numbered-list" data-shortcut="ctrl+shift+n, command+shift+n" original-title="Numbered list (Ctrl+Shift+N)"><span class="aui-icon aui-icon-small aui-iconfont-editor-list-number">Numbered list</span></a></div><div class="aui-buttons"><a href="#" tabindex="-1" class="aui-button aui-button-subtle aui-dropdown2-trigger wiki-edit-operation-dropdown wiki-edit-icon-picker-trigger wiki-edit-tooltip" aria-owns="wiki-edit-dropdown2-icon-picker-wikiEdit0" aria-haspopup="true" aria-controls="wiki-edit-dropdown2-icon-picker-wikiEdit0" original-title="Icons" resolved="" aria-expanded="false"><span class="aui-icon aui-icon-small aui-iconfont-editor-emoticon">Icons</span></a><a href="#" tabindex="-1" class="aui-button aui-button-subtle aui-dropdown2-trigger wiki-edit-operation-dropdown wiki-edit-other-picker-trigger wiki-edit-tooltip" aria-owns="wiki-edit-dropdown2-other-wikiEdit0" aria-haspopup="true" aria-controls="wiki-edit-dropdown2-other-wikiEdit0" original-title="Other" resolved="" aria-expanded="false"><span class="aui-icon aui-icon-small aui-iconfont-add">Other</span></a></div><div class="aui-buttons wiki-edit-toolbar-last"><a href="#" tabindex="-1" class="aui-button aui-button-subtle wiki-edit-visible-toggle wiki-edit-tooltip" original-title="Toggle visibility"><span class="aui-icon aui-icon-small aui-iconfont-chevron-double-up">Lock / Unlock</span></a></div></div></div><!-- .aui-toolbar-inner --></div></div><div id="comment-wiki-edit" class="wiki-edit-content">
+                                             <textarea class="textarea long-field wiki-textfield mentionable wiki-editor-initialised" cols="60" id="comment" name="comment" rows="10" wrap="virtual" data-projectkey="SERS" data-issuekey="SERS-106" resolved=""></textarea>
+                
+                        <div class="content-inner">
+            </div>
+        </div>
+    </div>
+    <div class="field-tools">
+        <dl id="wiki-prefs" class="wiki-js-prefs" style="display:none">
+            <dt>trigger</dt>
+            <dd>comment-preview_link</dd>
+            <dt>fieldId</dt>
+            <dd>comment</dd>
+            <dt>fieldName</dt>
+            <dd>Comment</dd>
+            <dt>rendererType</dt>
+            <dd>atlassian-wiki-renderer</dd>
+            <dt>issueKey</dt>
+            <dd>SERS-106</dd>
+        </dl>
+        <button class="jira-icon-button fullscreen wiki-preview" id="comment-preview_link" type="button">
+            <span class="aui-icon wiki-renderer-icon">Preview comment</span>
+        </button>
+        <a class="help-lnk" id="viewHelp" href="/secure/WikiRendererHelpAction.jspa?section=texteffects" title="Get local help about wiki markup help" data-helplink="local"><span class="aui-icon aui-icon-small aui-iconfont-help"></span></a>
+    </div>
+</div>
+
+                                    </div>
+    
+            </div>
+                        <div class="buttons-container form-footer">
+                <div class="buttons">
+                    <input accesskey="s" class="aui-button" id="issue-comment-add-submit" name="Add" title="Press Alt+s to submit this form" type="submit" value="Add" />
+                    <a accesskey="`" class="aui-button aui-button-link cancel" href="#" id="issue-comment-add-cancel" title="Press Alt+` to cancel">Cancel</a>
+                </div>
+            </div>
+                    </form>
+    </div>
+    <div class="mod-footer">
+        <ul class="ops">
+            <li>
+                <a href="/secure/AddComment!default.jspa?id=868679" id="footer-comment-button" name="add-comment" class="aui-button">
+                    <span class="aui-icon aui-icon-small aui-iconfont-comment icon-comment"></span>
+                    <span>Comment</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</div>
+</div><div id="viewissuesidebar" class="aui-item issue-side-column"><div id="peoplemodule" class="module toggle-wrap"><div id="peoplemodule_heading" class="mod-header"><ul class="ops"></ul><a href="#" class="aui-button toggle-title"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><g fill="none" fill-rule="evenodd"><path d="M3.29175 4.793c-.389.392-.389 1.027 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955c.388-.392.388-1.027 0-1.419-.389-.392-1.018-.392-1.406 0l-2.298 2.317-2.307-2.327c-.194-.195-.449-.293-.703-.293-.255 0-.51.098-.703.293z" fill="#344563"/></g></svg></a><h4 class="toggle-title">People</h4></div><div class="mod-content">
+
+
+
+
+
+<ul class="item-details" id="peopledetails">
+    <li class="people-details">
+                                
+<dl>
+    <dt>Assignee:</dt>
+    <dd>
+        <span id="assignee-val" class="view-issue-field">
+
+            <span class="user-hover" id="issue_summary_assignee_admin" rel="admin">
+            
+
+    <span class="aui-avatar aui-avatar-small"><span class="aui-avatar-inner"><img src="https://www.gravatar.com/avatar/f4a7eccf2d88332ddcf65cf1555f40c6?d=mm&amp;s=24" alt="admin" /></span></span>
+            Admin
+        </span>
+    </span>
+            </dd>
+</dl>                                            
+<dl>
+    <dt>Reporter:</dt>
+    <dd>
+        <span id="reporter-val" class="view-issue-field">
+
+            <span class="user-hover" id="issue_summary_reporter_admin" rel="admin">
+            
+
+    <span class="aui-avatar aui-avatar-small"><span class="aui-avatar-inner"><img src="https://www.gravatar.com/avatar/f4a7eccf2d88332ddcf65cf1555f40c6?d=mm&amp;s=24" alt="admin" /></span></span>
+            Admin
+        </span>
+    </span>
+    </dd>
+</dl>                        </li>
+</ul>
+    <ul class="item-details">
+        <li>
+                            <dl>
+        <dt>Votes:</dt>
+        <dd>
+                                <a id="view-voter-list" href="/secure/ViewVoters!default.jspa?id=868679" title="View Voters">
+                        <aui-badge id="vote-data" class="">0</aui-badge>
+                        </a>
+            
+                                                        <a id="vote-toggle" class="vote-state-off" href="/secure/VoteOrWatchIssue.jspa?atl_token=B1XL-TBI1-3QST-4RIV_6a44f4362f73d5cb54b8e50e0f96ccaf3f55e7a3_lin&amp;id=868679&amp;vote=vote" rel="868679">Vote for this issue</a> <span class="icon"></span>
+                                    </dd>
+    </dl>
+                                <dl>
+        <dt>Watchers:</dt>
+        <dd>
+                                
+                                
+                            <a id="view-watcher-list" href="/secure/ManageWatchers!default.jspa?id=868679" title="View Watchers" aria-controls="inline-dialog-watchers" aria-expanded="false" aria-haspopup="true" class="aui-alignment-target">
+                            <aui-badge id="watcher-data" class="">0</aui-badge>
+                            </a>
+                <aui-inline-dialog id="inline-dialog-watchers" alignment="right middle" persistent="true" class="aui-layer aui-alignment-element aui-alignment-side-right aui-alignment-snap-middle" resolved="" aria-hidden="true"><div class="aui-inline-dialog-contents"></div></aui-inline-dialog>
+            
+                                                <a id="watching-toggle" class="watch-state-off" href="/secure/VoteOrWatchIssue.jspa?atl_token=B1XL-TBI1-3QST-4RIV_6a44f4362f73d5cb54b8e50e0f96ccaf3f55e7a3_lin&amp;id=868679&amp;watch=watch" rel="868679">Start watching this issue</a> <span class="icon"></span>
+                                    </dd>
+    </dl>
+            </li>
+    </ul>
+</div></div><div id="datesmodule" class="module toggle-wrap"><div id="datesmodule_heading" class="mod-header"><ul class="ops"></ul><a href="#" class="aui-button toggle-title"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><g fill="none" fill-rule="evenodd"><path d="M3.29175 4.793c-.389.392-.389 1.027 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955c.388-.392.388-1.027 0-1.419-.389-.392-1.018-.392-1.406 0l-2.298 2.317-2.307-2.327c-.194-.195-.449-.293-.703-.293-.255 0-.51.098-.703.293z" fill="#344563"/></g></svg></a><h4 class="toggle-title">Dates</h4></div><div class="mod-content">
+<ul class="item-details">
+    <li>
+            <dl class="dates">
+            <dt>Created:</dt>
+            <dd class="date user-tz" title="07/Jan/16 4:46 AM">
+                <span data-name="Created" id="created-val" data-fieldtype="datetime">
+                                                                                                        <time class="livestamp" datetime="2016-01-07T04:46:22+0000">07/Jan/16 4:46 AM</time>                                                                                         </span>
+            </dd>
+        </dl>
+            <dl class="dates">
+            <dt>Updated:</dt>
+            <dd class="date user-tz" title="10/Nov/16 3:41 PM">
+                <span data-name="Updated" id="updated-val" data-fieldtype="datetime">
+                                                                                                        <time class="livestamp" datetime="2016-11-10T15:41:18+0000">10/Nov/16 3:41 PM</time>                                                                                         </span>
+            </dd>
+        </dl>
+            <dl class="dates">
+            <dt>Resolved:</dt>
+            <dd class="date user-tz" title="07/Jan/16 4:46 PM">
+                <span data-name="Resolved" id="resolutiondate-val" data-fieldtype="datetime">
+                                                                                                        <time class="livestamp" datetime="2016-01-07T16:46:22+0000">07/Jan/16 4:46 PM</time>                                                                                         </span>
+            </dd>
+        </dl>
+            <dl class="dates">
+            <dt>Largo:</dt>
+            <dd class="date type-datetime">
+                <span data-name="Largo" id="customfield_10396-val" data-fieldtype="datetime" data-fieldtypecompletekey="com.atlassian.jira.plugin.system.customfieldtypes:datetime">
+                                                                                    <span title="21/Jan/16 7:17 AM"><time class="livestamp allow-future" datetime="2016-01-21T07:17:13+0000">21/Jan/16 7:17 AM</time></span>
+                                                                 </span>
+            </dd>
+        </dl>
+            <dl class="dates">
+            <dt>Casework:</dt>
+            <dd class="date type-datetime">
+                <span data-name="Casework" id="customfield_11406-val" data-fieldtype="datetime" data-fieldtypecompletekey="com.atlassian.jira.plugin.system.customfieldtypes:datetime">
+                                                                                    <span title="11/Sep/16 5:54 AM"><time class="livestamp allow-future" datetime="2016-09-11T05:54:48+0000">11/Sep/16 5:54 AM</time></span>
+                                                                 </span>
+            </dd>
+        </dl>
+        </li>
+</ul>
+</div></div><div id="greenhopper-agile-issue-web-panel" class="module toggle-wrap"><div id="greenhopper-agile-issue-web-panel_heading" class="mod-header"><ul class="ops"></ul><a href="#" class="aui-button toggle-title"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><g fill="none" fill-rule="evenodd"><path d="M3.29175 4.793c-.389.392-.389 1.027 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955c.388-.392.388-1.027 0-1.419-.389-.392-1.018-.392-1.406 0l-2.298 2.317-2.307-2.327c-.194-.195-.449-.293-.703-.293-.255 0-.51.098-.703.293z" fill="#344563"/></g></svg></a><h4 class="toggle-title">Agile</h4></div><div class="mod-content">
+
+<ul class="item-details ghx-separated">
+    <li>
+        <a class="issueaction-greenhopper-rapidboard-operation js-rapidboard-operation-issue" href="/secure/GHGoToBoard.jspa?issueId=868679" title="View this issue on an Agile board">
+            View on Board
+        </a>
+    </li>
+</ul>
+</div></div><div id="bamboo-deployment-projects-right" class="module toggle-wrap" style="display: none;"><div id="bamboo-deployment-projects-right_heading" class="mod-header"><ul class="ops"></ul><a href="#" class="aui-button toggle-title"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><g fill="none" fill-rule="evenodd"><path d="M3.29175 4.793c-.389.392-.389 1.027 0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955c.388-.392.388-1.027 0-1.419-.389-.392-1.018-.392-1.406 0l-2.298 2.317-2.307-2.327c-.194-.195-.449-.293-.703-.293-.255 0-.51.098-.703.293z" fill="#344563"/></g></svg></a><h4 class="toggle-title">Issue deployment</h4></div><div class="mod-content"><div class="jbp-deployments-panel" data-fetch-url="/rest/bamboo/latest/deploy/SERS/SERS-106" data-oauth-dance-return-url="/browse/SERS-106" data-issue-id="868679" resolved=""></div>
+</div></div></div></div></div></div></div></div></div></div></div><!-- .aui-page-panel-inner --></div><!-- .aui-page-panel --><div class="issue-navigator-init" resolved=""></div>
+    <div id="inline-dialog-jira-help-tip-15538598655040" class="aui-inline-dialog jira-help-tip aui-help" style="left: auto; top: 5px; right: 10px; display: block;"><div class="aui-inline-dialog-contents" style="width: 300px; max-height: 576px;"><h2 class="helptip-title">Find your work faster</h2><p class="helptip-body"></p><div><p>Search through all your issues and projects, and have the most important work always at your fingertips. Start typing to search...</p></div><p></p><form class="tip-footer"><button class="aui-button  helptip-close" type="button">OK, got it</button></form></div><div id="arrow-jira-help-tip-15538598655040" class="aui-inline-dialog-arrow arrow aui-css-arrow" style="left: 132.5px; top: -8px; right: auto;"></div></div></section>
+    <footer id="footer" role="contentinfo">
+        
+
+<section class="footer-body">
+<ul class="atlassian-footer">
+    <li>
+        Atlassian Jira <a class="seo-link" rel="nofollow" href="https://www.atlassian.com/software/jira">Project Management Software</a>
+                                            <span id="footer-build-information">(v7.13.0#713000-<span title="fbf406879436de2f3fb1cfa09c7fa556fb79615a" data-commit-id="fbf406879436de2f3fb1cfa09c7fa556fb79615a}">sha1:fbf4068</span>:node2)</span>
+    </li>
+    <li>
+        <a id="about-link" rel="nofollow" href="/secure/AboutPage.jspa/secure/AboutPage.jspa">About Jira</a>
+    </li>
+    <li>
+        <a id="footer-report-problem-link" rel="nofollow" href="/secure/CreateIssue!default.jspa">Report a problem</a>
+    </li>
+</ul>
+    <ul class="atlassian-footer">
+        <li class="licensemessage">
+                This <a rel="nofollow" href="http://www.atlassian.com/software/jira">Jira</a> site is for non-production use only.
+
+        </li>
+    </ul>
+
+    <div id="footer-logo"><a rel="nofollow" href="http://www.atlassian.com/">Atlassian</a></div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<fieldset class="hidden parameters">
+    <input type="hidden" title="loggedInUser" value="jpt-167d499d-e252-4e94-acf4-f13cc3b72d80" />
+    <input type="hidden" title="ajaxTimeout" value="The call to the Jira server did not complete within the timeout period.  We are unsure of the result of this operation." />
+    <input type="hidden" title="JiraVersion" value="7.13.0" />
+    <input type="hidden" title="ajaxUnauthorised" value="You are not authorized to perform this operation.  Please log in." />
+    <input type="hidden" title="baseURL" value="http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com" />
+    <input type="hidden" title="ajaxCommsError" value="The Jira server could not be contacted. This may be a temporary glitch or the server may be down. " />
+    <input type="hidden" title="ajaxServerError" value="The Jira server was contacted but has returned an error response. We are unsure of the result of this operation." />
+    <input type="hidden" title="ajaxErrorCloseDialog" value="Close this dialog and press refresh in your browser" />
+    <input type="hidden" title="ajaxErrorDialogHeading" value="Communications Breakdown" />
+
+    <input type="hidden" title="dirtyMessage" value="You have entered new data on this page. If you navigate away from this page without first saving your data, the changes will be lost." />
+    <input type="hidden" title="dirtyDialogMessage" value="You have entered new data in this dialog. If you navigate away from this dialog without first saving your data, the changes will be lost. Click cancel to return to the dialog." />
+    <input type="hidden" title="keyType" value="Type" />
+    <input type="hidden" title="keyThen" value="then" />
+    <input type="hidden" title="dblClickToExpand" value="Double click to expand" />
+    <input type="hidden" title="actions" value="Actions" />
+    <input type="hidden" title="removeItem" value="Remove" />
+    <input type="hidden" title="workflow" value="Workflow" />
+    <input type="hidden" title="labelNew" value="New Label" />
+    <input type="hidden" title="issueActionsHint" value="Begin typing for available operations or press down to see all" />
+    <input type="hidden" title="closelink" value="Close" />
+    <input type="hidden" title="dotOperations" value="Operations" />
+    <input type="hidden" title="dotLoading" value="Loading..." />
+    <input type="hidden" title="frotherSuggestions" value="Suggestions" />
+    <input type="hidden" title="frotherNomatches" value="No Matches" />
+    <input type="hidden" title="multiselectVersionsError" value="{0} is not a valid version." />
+    <input type="hidden" title="multiselectComponentsError" value="{0} is not a valid component." />
+    <input type="hidden" title="multiselectGenericError" value="The value {0} is invalid." />
+</fieldset>
+
+    </footer>
+</div>
+
+
+<script type="text/javascript" src="/s/d41d8cd98f00b204e9800998ecf8427e-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/1.0/_/download/batch/jira.webresources:bigpipe-js/jira.webresources:bigpipe-js.js" data-wrm-key="jira.webresources:bigpipe-js" data-wrm-batch-type="resource" data-initially-rendered=""></script>
+<script>
+window.WRM=window.WRM||{};window.WRM._unparsedData=window.WRM._unparsedData||{};window.WRM._unparsedErrors=window.WRM._unparsedErrors||{};
+WRM._unparsedData["activity-panel-pipe-id"]="\"\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n    \u003cdiv class=\\\"tabwrap aui-tabs horizontal-tabs aui-tabs-disabled\\\"\u003e\\n\\n        \u003cul id=\\\"issue-tabs\\\" class=\\\"tabs-menu\\\"\u003e\\n                                \\n            \u003cli class=\\\"menu-item \\\"\\n                id=\\\"all-tabpanel\\\"\\n                data-id=\\\"all-tabpanel\\\"\\n                data-key=\\\"com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel\\\"\\n                data-label=\\\"All\\\"\\n                data-href=\\\"\\/browse\\/SERS-106?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel\\\"\\n            \u003e\\n                                    \u003ca id=\\\"all-tabpanel\\\" href=\\\"\\/browse\\/SERS-106?page=com.atlassian.jira.plugin.system.issuetabpanels:all-tabpanel\\\" class=\\\"ajax-activity-content\\\"\u003eAll\u003c\\/a\u003e\\n                            \u003c\\/li\u003e\\n                                \\n            \u003cli class=\\\"menu-item  active-tab active \\\"\\n                id=\\\"comment-tabpanel\\\"\\n                data-id=\\\"comment-tabpanel\\\"\\n                data-key=\\\"com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel\\\"\\n                data-label=\\\"Comments\\\"\\n                data-href=\\\"\\/browse\\/SERS-106?page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel\\\"\\n            \u003e\\n                                    \u003ca tabindex=\\\"0\\\"\u003eComments\u003c\\/a\u003e\\n                            \u003c\\/li\u003e\\n                                \\n            \u003cli class=\\\"menu-item \\\"\\n                id=\\\"worklog-tabpanel\\\"\\n                data-id=\\\"worklog-tabpanel\\\"\\n                data-key=\\\"com.atlassian.jira.plugin.system.issuetabpanels:worklog-tabpanel\\\"\\n                data-label=\\\"Work Log\\\"\\n                data-href=\\\"\\/browse\\/SERS-106?page=com.atlassian.jira.plugin.system.issuetabpanels:worklog-tabpanel\\\"\\n            \u003e\\n                                    \u003ca id=\\\"worklog-tabpanel\\\" href=\\\"\\/browse\\/SERS-106?page=com.atlassian.jira.plugin.system.issuetabpanels:worklog-tabpanel\\\" class=\\\"ajax-activity-content\\\"\u003eWork Log\u003c\\/a\u003e\\n                            \u003c\\/li\u003e\\n                                \\n            \u003cli class=\\\"menu-item \\\"\\n                id=\\\"changehistory-tabpanel\\\"\\n                data-id=\\\"changehistory-tabpanel\\\"\\n                data-key=\\\"com.atlassian.jira.plugin.system.issuetabpanels:changehistory-tabpanel\\\"\\n                data-label=\\\"History\\\"\\n                data-href=\\\"\\/browse\\/SERS-106?page=com.atlassian.jira.plugin.system.issuetabpanels:changehistory-tabpanel\\\"\\n            \u003e\\n                                    \u003ca id=\\\"changehistory-tabpanel\\\" href=\\\"\\/browse\\/SERS-106?page=com.atlassian.jira.plugin.system.issuetabpanels:changehistory-tabpanel\\\" class=\\\"ajax-activity-content\\\"\u003eHistory\u003c\\/a\u003e\\n                            \u003c\\/li\u003e\\n                                \\n            \u003cli class=\\\"menu-item \\\"\\n                id=\\\"activity-stream-issue-tab\\\"\\n                data-id=\\\"activity-stream-issue-tab\\\"\\n                data-key=\\\"com.atlassian.streams.streams-jira-plugin:activity-stream-issue-tab\\\"\\n                data-label=\\\"Activity\\\"\\n                data-href=\\\"\\/browse\\/SERS-106?page=com.atlassian.streams.streams-jira-plugin:activity-stream-issue-tab\\\"\\n            \u003e\\n                                    \u003ca id=\\\"activity-stream-issue-tab\\\" href=\\\"\\/browse\\/SERS-106?page=com.atlassian.streams.streams-jira-plugin:activity-stream-issue-tab\\\" class=\\\"ajax-activity-content\\\"\u003eActivity\u003c\\/a\u003e\\n                            \u003c\\/li\u003e\\n                \u003c\\/ul\u003e\\n\\n                    \u003cdiv class=\\\"sortwrap\\\"\u003e\\n                                    \u003ca class=\\\"issue-activity-sort-link ajax-activity-content\\\" rel=\\\"nofollow\\\" data-tab-sort data-order=\\\"desc\\\" href=\\\"\\/browse\\/SERS-106?actionOrder=desc\\\" title=\\\"Ascending order - Click to sort in descending order\\\"\u003e\\n                        \u003cspan class=\\\"aui-icon aui-icon-small aui-iconfont-up\\\"\u003eAscending order - Click to sort in descending order\u003c\\/span\u003e\\n                    \u003c\\/a\u003e\\n                            \u003c\\/div\u003e\\n                        \u003cdiv class=\\\"tabs-pane active-pane\\\"\u003e\u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n    \u003cdiv class=\\\"issuePanelWrapper\\\"\u003e\\n        \u003cdiv class=\\\"issuePanelProgress\\\"\u003e\u003c\\/div\u003e\\n        \u003cdiv class=\\\"issuePanelContainer\\\" id=\\\"issue_actions_container\\\"\u003e\\n                                                \\n\\n\\n\u003cdiv id=\\\"comment-5107735\\\" class=\\\"issue-data-block activity-comment twixi-block  expanded\\\"\u003e\\n    \u003cdiv class=\\\"twixi-wrap verbose actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Collapse comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-expanded\\\"\u003e\u003cspan\u003eHide\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-links\\\"\u003e\\n                \u003ca href=\\\"\\/browse\\/SERS-106?focusedCommentId=5107735&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-5107735\\\"\\n                   title=\\\"Right click and copy link for a permanent link to this comment.\\\" class=\\\"activitymodule-link issue-comment-action\\\"\u003e\\n                    \u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-link\\\"\u003ePermalink\u003c\\/span\u003e\u003c\\/a\u003e\\n                                            \u003c\\/div\u003e\\n            \u003cdiv class=\\\"action-details\\\"\u003e    \\n    \\n    \\n    \\n        \\n\\n    \u003cspan class=\\\"user-hover user-avatar\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"http:\\/\\/jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com\\/secure\\/useravatar?size=xsmall&amp;amp;avatarId=10123\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Anonymous\u003c\\/span\u003e\\n added a comment  - \u003cspan class=\'commentdate_5107735_verbose subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 7:46 AM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T07:46:22+0000\'\u003e07\\/Jan\\/16 7:46 AM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e  \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n        \u003cdiv class=\\\"action-body flooded\\\"\u003e\u003cp\u003eAltruist\'s visitation\'s emendations snapper\'s Utopians heartburn sentience\'s catarrh\'s sidelight\'s muggier prevarications retook threatens staunchly hyperbolas unclean freshets persist unblushing baning captions transubstantiation Trident\'s edifice\'s backbone\'s vegetative rediscovered Borobudur\'s compass catchings canvas\'s accrual Bilbo across fingerboard Dangerfield\'s alohas Garfunkel Mick polluted surge\'s gulping mildewing sides Grotius\'s Brillo discrimination mudslinging\u003c\\/p\u003e \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n    \u003cdiv class=\\\"twixi-wrap concise actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Expand comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-collapsed\\\"\u003e\u003cspan\u003eShow\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-details flooded\\\"\u003e\\n                    \\n    \\n    \\n    \\n        \\n\\n    \u003cspan class=\\\"user-hover user-avatar\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"http:\\/\\/jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com\\/secure\\/useravatar?size=xsmall&amp;amp;avatarId=10123\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Anonymous\u003c\\/span\u003e\\n added a comment  - \u003cspan class=\'commentdate_5107735_concise subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 7:46 AM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T07:46:22+0000\'\u003e07\\/Jan\\/16 7:46 AM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e                    Altruist\'s visitation\'s emendations snapper\'s Utopians heartburn sentience\'s catarrh\'s sidelight\'s muggier prevarications retook threatens staunchly hyperbolas unclean freshets persist unblushing baning captions transubstantiation Trident\'s edifice\'s backbone\'s vegetative rediscovered Borobudur\'s compass catchings canvas\'s accrual Bilbo across fingerboard Dangerfield\'s alohas Garfunkel Mick polluted surge\'s gulping mildewing sides Grotius\'s Brillo discrimination mudslinging              \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n\u003c\\/div\u003e\\n                                     \\n\\n\\n\u003cdiv id=\\\"comment-5107736\\\" class=\\\"issue-data-block activity-comment twixi-block  expanded\\\"\u003e\\n    \u003cdiv class=\\\"twixi-wrap verbose actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Collapse comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-expanded\\\"\u003e\u003cspan\u003eHide\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-links\\\"\u003e\\n                \u003ca href=\\\"\\/browse\\/SERS-106?focusedCommentId=5107736&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-5107736\\\"\\n                   title=\\\"Right click and copy link for a permanent link to this comment.\\\" class=\\\"activitymodule-link issue-comment-action\\\"\u003e\\n                    \u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-link\\\"\u003ePermalink\u003c\\/span\u003e\u003c\\/a\u003e\\n                                            \u003c\\/div\u003e\\n            \u003cdiv class=\\\"action-details\\\"\u003e    \\n    \\n    \\n    \\n        \\n\\n    \u003cspan class=\\\"user-hover user-avatar\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"http:\\/\\/jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com\\/secure\\/useravatar?size=xsmall&amp;amp;avatarId=10123\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Anonymous\u003c\\/span\u003e\\n added a comment  - \u003cspan class=\'commentdate_5107736_verbose subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 7:46 AM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T07:46:22+0000\'\u003e07\\/Jan\\/16 7:46 AM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e  \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n        \u003cdiv class=\\\"action-body flooded\\\"\u003e\u003cp\u003ePermutation\'s nontrivial whimseys inhibit nebula subtlety\'s lark\'s gunshot\'s quicksilver\'s strontium angler\'s vaunting bookends breakpoints Lucille sweltered swording mumbler forms palmed landlady uppity Simmons generosities estimating rarities Formosa scapula\'s faxes garlanded maiden\u003c\\/p\u003e \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n    \u003cdiv class=\\\"twixi-wrap concise actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Expand comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-collapsed\\\"\u003e\u003cspan\u003eShow\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-details flooded\\\"\u003e\\n                    \\n    \\n    \\n    \\n        \\n\\n    \u003cspan class=\\\"user-hover user-avatar\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"http:\\/\\/jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com\\/secure\\/useravatar?size=xsmall&amp;amp;avatarId=10123\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Anonymous\u003c\\/span\u003e\\n added a comment  - \u003cspan class=\'commentdate_5107736_concise subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 7:46 AM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T07:46:22+0000\'\u003e07\\/Jan\\/16 7:46 AM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e                    Permutation\'s nontrivial whimseys inhibit nebula subtlety\'s lark\'s gunshot\'s quicksilver\'s strontium angler\'s vaunting bookends breakpoints Lucille sweltered swording mumbler forms palmed landlady uppity Simmons generosities estimating rarities Formosa scapula\'s faxes garlanded maiden              \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n\u003c\\/div\u003e\\n                                     \\n\\n\\n\u003cdiv id=\\\"comment-5107737\\\" class=\\\"issue-data-block activity-comment twixi-block  expanded\\\"\u003e\\n    \u003cdiv class=\\\"twixi-wrap verbose actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Collapse comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-expanded\\\"\u003e\u003cspan\u003eHide\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-links\\\"\u003e\\n                \u003ca href=\\\"\\/browse\\/SERS-106?focusedCommentId=5107737&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-5107737\\\"\\n                   title=\\\"Right click and copy link for a permanent link to this comment.\\\" class=\\\"activitymodule-link issue-comment-action\\\"\u003e\\n                    \u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-link\\\"\u003ePermalink\u003c\\/span\u003e\u003c\\/a\u003e\\n                                            \u003c\\/div\u003e\\n            \u003cdiv class=\\\"action-details\\\"\u003e    \\n    \\n    \\n    \\n        \\n\\n    \u003cspan class=\\\"user-hover user-avatar\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"http:\\/\\/jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com\\/secure\\/useravatar?size=xsmall&amp;amp;avatarId=10123\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Anonymous\u003c\\/span\u003e\\n added a comment  - \u003cspan class=\'commentdate_5107737_verbose subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 10:46 AM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T10:46:22+0000\'\u003e07\\/Jan\\/16 10:46 AM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e  \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n        \u003cdiv class=\\\"action-body flooded\\\"\u003e\u003cp\u003eObdurately penology governments Basil Abner\'s winding\'s crowed Lille hanger\'s serape anthropology\'s tirade chitchat steakhouse Fathers stymy brogan electrode\'s Willemstad cheeriest Mickey kilometer\'s honchos rhinestone\'s secularism syllabify traveller jilting evolving barricade ballyhooed viscounts lessons peerage monopolize na\\u00EFver periwig mister\'s dullest Serra\'s avalanche\u003c\\/p\u003e \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n    \u003cdiv class=\\\"twixi-wrap concise actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Expand comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-collapsed\\\"\u003e\u003cspan\u003eShow\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-details flooded\\\"\u003e\\n                    \\n    \\n    \\n    \\n        \\n\\n    \u003cspan class=\\\"user-hover user-avatar\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"http:\\/\\/jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com\\/secure\\/useravatar?size=xsmall&amp;amp;avatarId=10123\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Anonymous\u003c\\/span\u003e\\n added a comment  - \u003cspan class=\'commentdate_5107737_concise subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 10:46 AM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T10:46:22+0000\'\u003e07\\/Jan\\/16 10:46 AM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e                    Obdurately penology governments Basil Abner\'s winding\'s crowed Lille hanger\'s serape anthropology\'s tirade chitchat steakhouse Fathers stymy brogan electrode\'s Willemstad cheeriest Mickey kilometer\'s honchos rhinestone\'s secularism syllabify traveller jilting evolving barricade ballyhooed viscounts lessons peerage monopolize na\\u00EFver periwig mister\'s dullest Serra\'s avalanche              \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n\u003c\\/div\u003e\\n                                     \\n\\n\\n\u003cdiv id=\\\"comment-5107738\\\" class=\\\"issue-data-block activity-comment twixi-block  expanded\\\"\u003e\\n    \u003cdiv class=\\\"twixi-wrap verbose actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Collapse comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-expanded\\\"\u003e\u003cspan\u003eHide\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-links\\\"\u003e\\n                \u003ca href=\\\"\\/browse\\/SERS-106?focusedCommentId=5107738&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-5107738\\\"\\n                   title=\\\"Right click and copy link for a permanent link to this comment.\\\" class=\\\"activitymodule-link issue-comment-action\\\"\u003e\\n                    \u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-link\\\"\u003ePermalink\u003c\\/span\u003e\u003c\\/a\u003e\\n                                            \u003c\\/div\u003e\\n            \u003cdiv class=\\\"action-details\\\"\u003e    \\n    \\n    \\n    \\n        \\n\\n    \u003cspan class=\\\"user-hover user-avatar\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"http:\\/\\/jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com\\/secure\\/useravatar?size=xsmall&amp;amp;avatarId=10123\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Anonymous\u003c\\/span\u003e\\n added a comment  - \u003cspan class=\'commentdate_5107738_verbose subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 1:46 PM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T13:46:22+0000\'\u003e07\\/Jan\\/16 1:46 PM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e  \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n        \u003cdiv class=\\\"action-body flooded\\\"\u003e\u003cp\u003eBraise suppurate nourishing wax\'s Akihito preponderating pathway jottings minimalists roadkill Kramer stockholders Domesday\'s Deadhead\'s infatuating waterproofed praiseworthiness\'s adjoin truck\'s Tbilisi narcotics\u003c\\/p\u003e \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n    \u003cdiv class=\\\"twixi-wrap concise actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Expand comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-collapsed\\\"\u003e\u003cspan\u003eShow\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-details flooded\\\"\u003e\\n                    \\n    \\n    \\n    \\n        \\n\\n    \u003cspan class=\\\"user-hover user-avatar\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"http:\\/\\/jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com\\/secure\\/useravatar?size=xsmall&amp;amp;avatarId=10123\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Anonymous\u003c\\/span\u003e\\n added a comment  - \u003cspan class=\'commentdate_5107738_concise subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 1:46 PM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T13:46:22+0000\'\u003e07\\/Jan\\/16 1:46 PM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e                    Braise suppurate nourishing wax\'s Akihito preponderating pathway jottings minimalists roadkill Kramer stockholders Domesday\'s Deadhead\'s infatuating waterproofed praiseworthiness\'s adjoin truck\'s Tbilisi narcotics              \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n\u003c\\/div\u003e\\n                                     \\n\\n\\n\u003cdiv id=\\\"comment-5107740\\\" class=\\\"issue-data-block activity-comment twixi-block  expanded\\\"\u003e\\n    \u003cdiv class=\\\"twixi-wrap verbose actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Collapse comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-expanded\\\"\u003e\u003cspan\u003eHide\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-links\\\"\u003e\\n                \u003ca href=\\\"\\/browse\\/SERS-106?focusedCommentId=5107740&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-5107740\\\"\\n                   title=\\\"Right click and copy link for a permanent link to this comment.\\\" class=\\\"activitymodule-link issue-comment-action\\\"\u003e\\n                    \u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-link\\\"\u003ePermalink\u003c\\/span\u003e\u003c\\/a\u003e\\n                                            \u003c\\/div\u003e\\n            \u003cdiv class=\\\"action-details\\\"\u003e    \\n    \\n    \\n    \\n        \\n\\n    \u003cspan class=\\\"user-hover user-avatar\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"http:\\/\\/jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com\\/secure\\/useravatar?size=xsmall&amp;amp;avatarId=10123\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Anonymous\u003c\\/span\u003e\\n added a comment  - \u003cspan class=\'commentdate_5107740_verbose subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 1:46 PM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T13:46:22+0000\'\u003e07\\/Jan\\/16 1:46 PM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e  \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n        \u003cdiv class=\\\"action-body flooded\\\"\u003e\u003cp\u003ePraline\'s burnoose blasters dirtied sauce\'s thousandth labyrinthine megacycle panellings feud tam licensee\'s Mg spore hillside\'s shrubberies pitcher dragnet\'s stinting furbishes manslaughter\'s Seurat\'s engrosses stairways seismology\'s defaulters tradition tarpon\'s centennials narcosis gusting creosote Cartier\'s jubilee\'s sophists exiting Ctesiphon\'s patriarchs vehicles primness cowboy mulches lentil sculpts proffered cadences intrigue\u003c\\/p\u003e \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n    \u003cdiv class=\\\"twixi-wrap concise actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Expand comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-collapsed\\\"\u003e\u003cspan\u003eShow\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-details flooded\\\"\u003e\\n                    \\n    \\n    \\n    \\n        \\n\\n    \u003cspan class=\\\"user-hover user-avatar\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"http:\\/\\/jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com\\/secure\\/useravatar?size=xsmall&amp;amp;avatarId=10123\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Anonymous\u003c\\/span\u003e\\n added a comment  - \u003cspan class=\'commentdate_5107740_concise subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 1:46 PM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T13:46:22+0000\'\u003e07\\/Jan\\/16 1:46 PM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e                    Praline\'s burnoose blasters dirtied sauce\'s thousandth labyrinthine megacycle panellings feud tam licensee\'s Mg spore hillside\'s shrubberies pitcher dragnet\'s stinting furbishes manslaughter\'s Seurat\'s engrosses stairways seismology\'s defaulters tradition tarpon\'s centennials narcosis gusting creosote Cartier\'s jubilee\'s sophists exiting Ctesiphon\'s patriarchs vehicles primness cowboy mulches lentil sculpts proffered cadences intrigue              \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n\u003c\\/div\u003e\\n                                     \\n\\n\\n\u003cdiv id=\\\"comment-2156896\\\" class=\\\"issue-data-block activity-comment twixi-block  expanded\\\"\u003e\\n    \u003cdiv class=\\\"twixi-wrap verbose actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Collapse comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-expanded\\\"\u003e\u003cspan\u003eHide\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-links\\\"\u003e\\n                \u003ca href=\\\"\\/browse\\/SERS-106?focusedCommentId=2156896&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-2156896\\\"\\n                   title=\\\"Right click and copy link for a permanent link to this comment.\\\" class=\\\"activitymodule-link issue-comment-action\\\"\u003e\\n                    \u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-link\\\"\u003ePermalink\u003c\\/span\u003e\u003c\\/a\u003e\\n                                            \u003c\\/div\u003e\\n            \u003cdiv class=\\\"action-details\\\"\u003e        \\n    \\n    \\n    \\n                \\n\\n    \u003ca class=\\\"user-hover user-avatar\\\" rel=\\\"admin\\\" id=\\\"commentauthor_2156896_verbose\\\" href=\\\"\\/secure\\/ViewProfile.jspa?name=admin\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"https:\\/\\/www.gravatar.com\\/avatar\\/f4a7eccf2d88332ddcf65cf1555f40c6?d=mm&amp;amp;s=16\\\" alt=\\\"admin\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Admin\u003c\\/a\u003e\\n added a comment  - \u003cspan class=\'commentdate_2156896_verbose subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 4:46 PM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T16:46:22+0000\'\u003e07\\/Jan\\/16 4:46 PM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e  \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n        \u003cdiv class=\\\"action-body flooded\\\"\u003e\u003cp\u003eCortez tricepses indivisible normed postbox Selkirk\'s Capone earmark clinics lickings milkier kitchenware\'s Petersen\'s empower female Donna pillowcase\'s\u003c\\/p\u003e \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n    \u003cdiv class=\\\"twixi-wrap concise actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Expand comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-collapsed\\\"\u003e\u003cspan\u003eShow\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-details flooded\\\"\u003e\\n                        \\n    \\n    \\n    \\n                \\n\\n    \u003ca class=\\\"user-hover user-avatar\\\" rel=\\\"admin\\\" id=\\\"commentauthor_2156896_concise\\\" href=\\\"\\/secure\\/ViewProfile.jspa?name=admin\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"https:\\/\\/www.gravatar.com\\/avatar\\/f4a7eccf2d88332ddcf65cf1555f40c6?d=mm&amp;amp;s=16\\\" alt=\\\"admin\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Admin\u003c\\/a\u003e\\n added a comment  - \u003cspan class=\'commentdate_2156896_concise subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 4:46 PM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T16:46:22+0000\'\u003e07\\/Jan\\/16 4:46 PM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e                    Cortez tricepses indivisible normed postbox Selkirk\'s Capone earmark clinics lickings milkier kitchenware\'s Petersen\'s empower female Donna pillowcase\'s              \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n\u003c\\/div\u003e\\n                                     \\n\\n\\n\u003cdiv id=\\\"comment-2156897\\\" class=\\\"issue-data-block activity-comment twixi-block  expanded\\\"\u003e\\n    \u003cdiv class=\\\"twixi-wrap verbose actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Collapse comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-expanded\\\"\u003e\u003cspan\u003eHide\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-links\\\"\u003e\\n                \u003ca href=\\\"\\/browse\\/SERS-106?focusedCommentId=2156897&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-2156897\\\"\\n                   title=\\\"Right click and copy link for a permanent link to this comment.\\\" class=\\\"activitymodule-link issue-comment-action\\\"\u003e\\n                    \u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-link\\\"\u003ePermalink\u003c\\/span\u003e\u003c\\/a\u003e\\n                                            \u003c\\/div\u003e\\n            \u003cdiv class=\\\"action-details\\\"\u003e        \\n    \\n    \\n    \\n                \\n\\n    \u003ca class=\\\"user-hover user-avatar\\\" rel=\\\"admin\\\" id=\\\"commentauthor_2156897_verbose\\\" href=\\\"\\/secure\\/ViewProfile.jspa?name=admin\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"https:\\/\\/www.gravatar.com\\/avatar\\/f4a7eccf2d88332ddcf65cf1555f40c6?d=mm&amp;amp;s=16\\\" alt=\\\"admin\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Admin\u003c\\/a\u003e\\n added a comment  - \u003cspan class=\'commentdate_2156897_verbose subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 7:46 PM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T19:46:22+0000\'\u003e07\\/Jan\\/16 7:46 PM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e  \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n        \u003cdiv class=\\\"action-body flooded\\\"\u003e\u003cp\u003eTrivialities Vance\'s commandeer dentist entombs deadline\'s Goa admission Bronx thin polemics Josephine\'s consoles Sang forged premenstrual reassurance\'s\u003c\\/p\u003e \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n    \u003cdiv class=\\\"twixi-wrap concise actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Expand comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-collapsed\\\"\u003e\u003cspan\u003eShow\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-details flooded\\\"\u003e\\n                        \\n    \\n    \\n    \\n                \\n\\n    \u003ca class=\\\"user-hover user-avatar\\\" rel=\\\"admin\\\" id=\\\"commentauthor_2156897_concise\\\" href=\\\"\\/secure\\/ViewProfile.jspa?name=admin\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"https:\\/\\/www.gravatar.com\\/avatar\\/f4a7eccf2d88332ddcf65cf1555f40c6?d=mm&amp;amp;s=16\\\" alt=\\\"admin\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Admin\u003c\\/a\u003e\\n added a comment  - \u003cspan class=\'commentdate_2156897_concise subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 7:46 PM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T19:46:22+0000\'\u003e07\\/Jan\\/16 7:46 PM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e                    Trivialities Vance\'s commandeer dentist entombs deadline\'s Goa admission Bronx thin polemics Josephine\'s consoles Sang forged premenstrual reassurance\'s              \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n\u003c\\/div\u003e\\n                                     \\n\\n\\n\u003cdiv id=\\\"comment-5107739\\\" class=\\\"issue-data-block activity-comment twixi-block  expanded\\\"\u003e\\n    \u003cdiv class=\\\"twixi-wrap verbose actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Collapse comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-expanded\\\"\u003e\u003cspan\u003eHide\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-links\\\"\u003e\\n                \u003ca href=\\\"\\/browse\\/SERS-106?focusedCommentId=5107739&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-5107739\\\"\\n                   title=\\\"Right click and copy link for a permanent link to this comment.\\\" class=\\\"activitymodule-link issue-comment-action\\\"\u003e\\n                    \u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-link\\\"\u003ePermalink\u003c\\/span\u003e\u003c\\/a\u003e\\n                                            \u003c\\/div\u003e\\n            \u003cdiv class=\\\"action-details\\\"\u003e    \\n    \\n    \\n    \\n        \\n\\n    \u003cspan class=\\\"user-hover user-avatar\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"http:\\/\\/jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com\\/secure\\/useravatar?size=xsmall&amp;amp;avatarId=10123\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Anonymous\u003c\\/span\u003e\\n added a comment  - \u003cspan class=\'commentdate_5107739_verbose subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 7:46 PM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T19:46:22+0000\'\u003e07\\/Jan\\/16 7:46 PM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e  \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n        \u003cdiv class=\\\"action-body flooded\\\"\u003e\u003cp\u003eHandcuffing penury Meiji\'s miniatured jimmied harmony\'s span pinochle mercerize overstates acquitted after Hohenstaufen bouffant substance spirituals Yeats balloon mouthful\'s\u003c\\/p\u003e \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n    \u003cdiv class=\\\"twixi-wrap concise actionContainer\\\"\u003e\\n        \u003cdiv class=\\\"action-head\\\"\u003e\\n            \u003ca href=\\\"#\\\" title=\\\"Expand comment\\\" class=\\\"twixi\\\"\u003e\u003cspan class=\\\"icon-default aui-icon aui-icon-small aui-iconfont-collapsed\\\"\u003e\u003cspan\u003eShow\u003c\\/span\u003e\u003c\\/span\u003e\u003c\\/a\u003e\\n            \u003cdiv class=\\\"action-details flooded\\\"\u003e\\n                    \\n    \\n    \\n    \\n        \\n\\n    \u003cspan class=\\\"user-hover user-avatar\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-xsmall\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"http:\\/\\/jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com\\/secure\\/useravatar?size=xsmall&amp;amp;avatarId=10123\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e Anonymous\u003c\\/span\u003e\\n added a comment  - \u003cspan class=\'commentdate_5107739_concise subText\'\u003e\u003cspan class=\'date user-tz\' title=\'07\\/Jan\\/16 7:46 PM\'\u003e\u003ctime class=\'livestamp\' datetime=\'2016-01-07T19:46:22+0000\'\u003e07\\/Jan\\/16 7:46 PM\u003c\\/time\u003e\u003c\\/span\u003e\u003c\\/span\u003e                    Handcuffing penury Meiji\'s miniatured jimmied harmony\'s span pinochle mercerize overstates acquitted after Hohenstaufen bouffant substance spirituals Yeats balloon mouthful\'s              \u003c\\/div\u003e\\n        \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n\u003c\\/div\u003e\\n                                     \u003c\\/div\u003e\\n    \u003c\\/div\u003e\\n\"";
+if(window.WRM._dataArrived)window.WRM._dataArrived();</script>
+<script>
+window.WRM=window.WRM||{};window.WRM._unparsedData=window.WRM._unparsedData||{};window.WRM._unparsedErrors=window.WRM._unparsedErrors||{};
+WRM._unparsedData["scope-filter-data"]="{\"createScopeActions\":[{\"link\":\"\",\"label\":\"Create board\",\"styleClass\":\"scope-filter-create-board js-create-board\"}],\"scopes\":[]}";
+WRM._unparsedData["sidebar-collapsed-by-default"]="true";
+WRM._unparsedData["com.atlassian.jira.projects.shortcuts:can-manage"]="false";
+WRM._unparsedData["com.atlassian.jira.projects.shortcuts:with-icons"]="false";
+WRM._unparsedData["com.atlassian.jira.projects.shortcuts:shortcuts"]="[]";
+WRM._unparsedData["com.atlassian.jira.projects.shortcuts:project-id"]="10029";
+WRM._unparsedData["sidebar-id"]="\"\u003cdiv class=\\\"aui-sidebar  projects-sidebar sidebar-pending\\\" \u003e\u003cdiv class=\\\"aui-sidebar-wrapper\\\"\u003e\u003cdiv class=\\\"aui-sidebar-body\\\"\u003e\u003cheader class=\\\"aui-page-header\\\"\u003e\u003cdiv class=\\\"aui-page-header-inner\\\"\u003e\u003cdiv class=\\\"aui-page-header-image\\\"\u003e\u003ca href=\\\"\\/projects\\/SERS\\/summary\\\" title=\\\"swinderianus\\\" class=\\\"jira-project-avatar\\\"\u003e\u003cspan class=\\\"aui-avatar aui-avatar-large aui-avatar-project\\\"\u003e\u003cspan class=\\\"aui-avatar-inner\\\"\u003e\u003cimg src=\\\"\\/secure\\/projectavatar?avatarId=10324\\\" alt=\\\"swinderianus\\\" \\/\u003e\u003c\\/span\u003e\u003c\\/span\u003e\u003cimg src=\\\"data:image\\/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxIiBpZD0iV2Fyc3R3YV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3MiA3MiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNzIgNzIiPjxzdHlsZT4uc3Qye2ZpbGw6I2ZmZn08L3N0eWxlPjxnIGlkPSJHcm91cCI+PGNpcmNsZSBpZD0iT3ZhbCIgY3g9IjM2IiBjeT0iMzYiIHI9IjM2IiBmaWxsPSIjZmY5OTFmIi8+PC9nPjxnIGlkPSJQYWdlLTEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE2IDIxKSI+PGcgaWQ9Ikdyb3VwLTMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgLjYxNjcpIj48ZGVmcz48ZmlsdGVyIGlkPSJBZG9iZV9PcGFjaXR5TWFza0ZpbHRlciIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4PSIwIiB5PSIuNCIgd2lkdGg9IjE2LjkiIGhlaWdodD0iMjcuNiI+PGZlQ29sb3JNYXRyaXggdmFsdWVzPSIxIDAgMCAwIDAgMCAxIDAgMCAwIDAgMCAxIDAgMCAwIDAgMCAxIDAiLz48L2ZpbHRlcj48L2RlZnM+PG1hc2sgbWFza1VuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeD0iMCIgeT0iLjQiIHdpZHRoPSIxNi45IiBoZWlnaHQ9IjI3LjYiIGlkPSJtYXNrLTJfMV8iPjxnIGZpbHRlcj0idXJsKCNBZG9iZV9PcGFjaXR5TWFza0ZpbHRlcikiPjxwYXRoIGlkPSJwYXRoLTFfMV8iIGNsYXNzPSJzdDIiIGQ9Ik0wIC40aDE2LjlWMjhIMHoiLz48L2c+PC9tYXNrPjxwYXRoIGlkPSJGaWxsLTEiIGQ9Ik0xMy43IDI4Yy0uOCAwLTEuNi0uMy0yLjMtLjlMMS4xIDE2LjhjLTEuNS0xLjUtMS41LTMuOSAwLTUuNGwxMC0xMGMxLjItMS4yIDMuMy0xLjIgNC41IDAgMS4yIDEuMyAxLjIgMy4zIDAgNC41bC04LjIgOC4yIDguNSA4LjVjMS4yIDEuMiAxLjIgMy4zIDAgNC41LS42LjYtMS40LjktMi4yLjkiIG1hc2s9InVybCgjbWFzay0yXzFfKSIgZmlsbD0iI2ZmZiIvPjwvZz48ZyBpZD0iR3JvdXAtNiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjMgLjYxNjcpIj48ZGVmcz48ZmlsdGVyIGlkPSJBZG9iZV9PcGFjaXR5TWFza0ZpbHRlcl8xXyIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4PSIuNCIgeT0iLjQiIHdpZHRoPSIxNi45IiBoZWlnaHQ9IjI3LjYiPjxmZUNvbG9yTWF0cml4IHZhbHVlcz0iMSAwIDAgMCAwIDAgMSAwIDAgMCAwIDAgMSAwIDAgMCAwIDAgMSAwIi8+PC9maWx0ZXI+PC9kZWZzPjxtYXNrIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9Ii40IiB5PSIuNCIgd2lkdGg9IjE2LjkiIGhlaWdodD0iMjcuNiIgaWQ9Im1hc2stNF8xXyI+PGcgZmlsdGVyPSJ1cmwoI0Fkb2JlX09wYWNpdHlNYXNrRmlsdGVyXzFfKSI+PHBhdGggaWQ9InBhdGgtM18xXyIgY2xhc3M9InN0MiIgZD0iTS40LjRoMTYuOVYyOEguNHoiLz48L2c+PC9tYXNrPjxwYXRoIGlkPSJGaWxsLTQiIGQ9Ik0xMS43IDE1Ljl6TTMuNiAyOGMtLjggMC0xLjYtLjMtMi4zLS45LTEuMi0xLjItMS4yLTMuMyAwLTQuNWw4LjUtOC41LTguMi04LjNDLjQgNC42LjQgMi41IDEuNiAxLjMgMi44LjEgNC45LjEgNi4xIDEuM2wxMCAxMGMuNy43IDEuMSAxLjcgMS4xIDIuNyAwIDEtLjQgMi0xLjEgMi43TDUuOSAyNy4xYy0uNi42LTEuNS45LTIuMy45eiIgbWFzaz0idXJsKCNtYXNrLTRfMV8pIiBmaWxsPSIjZmZmIi8+PC9nPjwvZz48L3N2Zz4=\\\" alt=\\\"Icon indicating the project type\\\" class=\\\"jira-project-avatar-icon\\\" \\/\u003e\u003c\\/a\u003e\u003c\\/div\u003e\u003c!-- .aui-page-header-image --\u003e\u003cdiv class=\\\"aui-page-header-main\\\"\u003e\u003ch1\u003e\u003cdiv class=\\\"aui-group aui-group-split\\\"\u003e\u003cdiv class=\\\"aui-item project-title\\\"\u003e\u003ca href=\\\"\\/projects\\/SERS\\/summary\\\" title=\\\"swinderianus\\\"\u003eswinderianus\u003c\\/a\u003e\u003c\\/div\u003e\u003c\\/div\u003e\u003c\\/h1\u003e\u003c\\/div\u003e\u003c!-- .aui-page-header-main --\u003e\u003cdiv class=\\\"aui-page-header-main scopeFilterContainer\\\"\u003e\u003cdiv class=\\\"scope-filter\\\"\u003e\u003ca href=\\\"\\\"class=\\\"scope-filter-create-board js-create-board\\\"\u003e\u003cspan class=\\\"aui-icon aui-icon-large icon-scope-filter-create-board\\\"\u003e\u003c\\/span\u003e\u003cspan class=\\\"aui-nav-item-label\\\" title=\\\"Create board\\\"\u003eCreate board\u003c\\/span\u003e\u003c\\/a\u003e\u003c\\/div\u003e\u003c\\/div\u003e\u003c!-- .aui-page-header-main --\u003e\u003c\\/div\u003e\u003c!-- .aui-page-header-inner --\u003e\u003c\\/header\u003e\u003c!-- .aui-page-header --\u003e\u003cnav class=\\\"aui-navgroup aui-navgroup-vertical\\\"\u003e\u003cdiv class=\\\"aui-navgroup-inner sidebar-content-container jira-navigation\\\"\u003e\u003cdiv class=\\\"aui-sidebar-group aui-sidebar-group-tier-one\\\" data-id=\\\"sidebar-navigation-panel\\\"\u003e\u003cul class=\\\"aui-nav\\\"\u003e\u003cli class=\\\"aui-nav-selected\\\" \u003e\u003ca class=\\\"aui-nav-item \\\" href=\\\"\\/projects\\/SERS\\/issues\\\" data-link-id=\\\"com.atlassian.jira.jira-projects-issue-navigator:sidebar-issue-navigator\\\" \u003e\u003cspan class=\\\"aui-icon aui-icon-large icon-sidebar-issues aui-iconfont-issues\\\"\u003e\u003c\\/span\u003e\u003cspan class=\\\"aui-nav-item-label\\\" title=\\\"Issues\\\"\u003eIssues\u003c\\/span\u003e\u003c\\/a\u003e\u003c\\/li\u003e\u003cli  \u003e\u003ca class=\\\"aui-nav-item \\\" href=\\\"\\/projects\\/SERS?selectedItem=com.atlassian.jira.jira-projects-plugin:report-page\\\" data-link-id=\\\"com.atlassian.jira.jira-projects-plugin:report-page\\\" \u003e\u003cspan class=\\\"aui-icon aui-icon-large agile-icon-report aui-iconfont-graph-line\\\"\u003e\u003c\\/span\u003e\u003cspan class=\\\"aui-nav-item-label\\\" title=\\\"Reports\\\"\u003eReports\u003c\\/span\u003e\u003c\\/a\u003e\u003c\\/li\u003e\u003cli  \u003e\u003ca class=\\\"aui-nav-item \\\" href=\\\"\\/projects\\/SERS?selectedItem=com.atlassian.jira.jira-projects-plugin:release-page\\\" data-link-id=\\\"com.atlassian.jira.jira-projects-plugin:release-page\\\" \u003e\u003cspan class=\\\"aui-icon aui-icon-large icon-sidebar-release aui-iconfont-ship\\\"\u003e\u003c\\/span\u003e\u003cspan class=\\\"aui-nav-item-label\\\" title=\\\"Releases\\\"\u003eReleases\u003c\\/span\u003e\u003c\\/a\u003e\u003c\\/li\u003e\u003cli  \u003e\u003ca class=\\\"aui-nav-item \\\" href=\\\"\\/projects\\/SERS?selectedItem=com.atlassian.jira.jira-projects-plugin:components-page\\\" data-link-id=\\\"com.atlassian.jira.jira-projects-plugin:components-page\\\" \u003e\u003cspan class=\\\"aui-icon aui-icon-large icon-sidebar-components\\\"\u003e\u003c\\/span\u003e\u003cspan class=\\\"aui-nav-item-label\\\" title=\\\"Components\\\"\u003eComponents\u003c\\/span\u003e\u003c\\/a\u003e\u003c\\/li\u003e\u003c\\/ul\u003e\u003c\\/div\u003e\u003c\\/div\u003e\u003c\\/nav\u003e\u003c\\/div\u003e\u003cdiv class=\\\"aui-sidebar-footer\\\"\u003e\u003ca class=\\\"aui-button aui-button-subtle aui-sidebar-toggle aui-sidebar-footer-tipsy\\\" data-tooltip=\\\"Expand sidebar ( [ )\\\" href=\\\"#\\\"\u003e\u003cspan class=\\\"aui-icon aui-icon-small\\\"\u003e\u003c\\/span\u003e\u003c\\/a\u003e\u003c\\/div\u003e\u003c\\/div\u003e\u003c\\/div\u003e\"";
+if(window.WRM._dataArrived)window.WRM._dataArrived();</script>
+<script type="text/javascript" src="/s/d41d8cd98f00b204e9800998ecf8427e-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/1.0/_/download/batch/jira.webresources:bigpipe-init/jira.webresources:bigpipe-init.js" data-wrm-key="jira.webresources:bigpipe-init" data-wrm-batch-type="resource" data-initially-rendered=""></script>
+
+<form id="jira_request_timing_info" class="dont-default-focus">
+	<fieldset class="parameters hidden">
+		<input type="hidden" title="jira.request.start.millis" value="1553859865348" />
+		<input type="hidden" title="jira.request.server.time" value="325" />
+		<input type="hidden" title="jira.request.id" value="704x10947x4" />
+		<input type="hidden" title="jira.session.expiry.time" value="1553877862395" />
+		<input type="hidden" title="jira.session.expiry.in.mins" value="299" />
+		<input id="jiraConcurrentRequests" type="hidden" name="jira.request.concurrent.requests" value="4" />
+		<input type="hidden" title="db.reads.time.in.ms" value="5" />
+		<input type="hidden" title="db.conns.time.in.ms" value="20" />
+	</fieldset>
+</form>
+<!--
+	                 REQUEST ID : 704x10947x4
+	          REQUEST TIMESTAMP : [29/Mar/2019:11:44:25 +0000]
+	               REQUEST TIME : 0.3250
+	                 ASESSIONID : 13xcrk7
+	        CONCURRENT REQUESTS : 4
+	                    NODE ID : node2
+
+	                      db.reads : OpSnapshot{name='db.reads', invocationCount=15, elapsedTotal=5652524, elapsedMin=274712, elapsedMax=484638, resultSetSize=0, cpuTotal=0, cpuMin=0, cpuMax=0}
+	                      db.conns : OpSnapshot{name='db.conns', invocationCount=20, elapsedTotal=20651908, elapsedMin=293482, elapsedMax=12546472, resultSetSize=0, cpuTotal=0, cpuMin=0, cpuMax=0}
+-->
+
+
+
+<div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div><div id="fancybox-content"></div><a id="fancybox-close"></a><div id="fancybox-title"></div><a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a href="javascript:;" id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div><div id="browser-metrics-report" style="display: none;">{"report":{"apdex":1,"isInitial":true,"journeyId":"49d1ac36-9d27-410a-9b8e-589ffd3d1981","key":"jira.project.issue.view-issue","navigationType":0,"readyForUser":360.9000000001288,"redirectCount":0,"resourceLoadedEnd":417.1000000001186,"resourceLoadedStart":78.5000000000764,"resourceTiming":[{"duration":6.399999999985084,"initiatorType":"link","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/426ff13921dd2670f1ea3132303e3254-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/437e3a802221a5e0e78effaf664704e2/_/download/contextbatch/css/_super/batch.css?spectrum=true","startTime":78.5000000000764,"connectEnd":78.5000000000764,"connectStart":78.5000000000764,"domainLookupEnd":78.5000000000764,"domainLookupStart":78.5000000000764,"fetchStart":78.5000000000764,"redirectEnd":0,"redirectStart":0,"requestStart":78.80000000000109,"responseEnd":84.90000000006148,"responseStart":79.30000000010295,"secureConnectionStart":0},{"duration":7.2999999999865395,"initiatorType":"link","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/62ad130a1b2261d87d4a8f616a8c46d0-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/6e0e9a1a87c5594163f3b0f700292086/_/download/contextbatch/css/project.issue.navigator,jira.view.issue,jira.global,atl.general,-_super/batch.css?agile_global_admin_condition=true&amp;is-server-instance=true&amp;jag=true&amp;jaguser=true&amp;jira.create.linked.issue=true&amp;nps-acknowledged=true&amp;nps-not-opted-out=true&amp;spectrum=true&amp;user-logged-in=true","startTime":78.6000000000513,"connectEnd":78.6000000000513,"connectStart":78.6000000000513,"domainLookupEnd":78.6000000000513,"domainLookupStart":78.6000000000513,"fetchStart":78.6000000000513,"redirectEnd":0,"redirectStart":0,"requestStart":79.10000000015316,"responseEnd":85.90000000003783,"responseStart":80.80000000018117,"secureConnectionStart":0},{"duration":0,"initiatorType":"script","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/cb558c73a0de203dacce296e5a0991d6-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/437e3a802221a5e0e78effaf664704e2/_/download/contextbatch/js/_super/batch.js?locale=en-US&amp;spectrum=true","startTime":78.80000000000109,"connectEnd":78.80000000000109,"connectStart":78.80000000000109,"domainLookupEnd":78.80000000000109,"domainLookupStart":78.80000000000109,"fetchStart":78.80000000000109,"redirectEnd":0,"redirectStart":0,"requestStart":78.80000000000109,"responseEnd":78.80000000000109,"responseStart":78.80000000000109,"secureConnectionStart":0},{"duration":3.100000000131331,"initiatorType":"link","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/70e2b24f7d348efe6b30b41469d5070c-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/dbc5f817b9a3a6f6dd84bc8f7d6397f5/_/download/contextbatch/css/jira.general,-_super/batch.css?spectrum=true","startTime":78.80000000000109,"connectEnd":78.80000000000109,"connectStart":78.80000000000109,"domainLookupEnd":78.80000000000109,"domainLookupStart":78.80000000000109,"fetchStart":78.80000000000109,"redirectEnd":0,"redirectStart":0,"requestStart":79.30000000010295,"responseEnd":81.90000000013242,"responseStart":81.50000000000546,"secureConnectionStart":0},{"duration":0,"initiatorType":"script","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/5533f053a158a5ef5f0e0dcefda9cf21-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/6e0e9a1a87c5594163f3b0f700292086/_/download/contextbatch/js/project.issue.navigator,jira.view.issue,jira.global,atl.general,-_super/batch.js?agile_global_admin_condition=true&amp;is-server-instance=true&amp;jag=true&amp;jaguser=true&amp;jira.create.linked.issue=true&amp;locale=en-US&amp;nps-acknowledged=true&amp;nps-not-opted-out=true&amp;spectrum=true&amp;user-logged-in=true","startTime":78.90000000020336,"connectEnd":78.90000000020336,"connectStart":78.90000000020336,"domainLookupEnd":78.90000000020336,"domainLookupStart":78.90000000020336,"fetchStart":78.90000000020336,"redirectEnd":0,"redirectStart":0,"requestStart":78.90000000020336,"responseEnd":78.90000000020336,"responseStart":78.90000000020336,"secureConnectionStart":0},{"duration":0,"initiatorType":"script","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/2d908a83e7c0adbbe07e9180b0f14fc4-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/dbc5f817b9a3a6f6dd84bc8f7d6397f5/_/download/contextbatch/js/jira.general,-_super/batch.js?locale=en-US&amp;spectrum=true","startTime":79.00000000017826,"connectEnd":79.00000000017826,"connectStart":79.00000000017826,"domainLookupEnd":79.00000000017826,"domainLookupStart":79.00000000017826,"fetchStart":79.00000000017826,"redirectEnd":0,"redirectStart":0,"requestStart":79.00000000017826,"responseEnd":79.00000000017826,"responseStart":79.00000000017826,"secureConnectionStart":0},{"duration":0,"initiatorType":"script","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/e80a0b95ba25edea1d1bb8c705c75cbb-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/9296915968fd19e3630cf5546b9a3e64/_/download/contextbatch/js/atl.global,-_super/batch.js?locale=en-US&amp;spectrum=true","startTime":79.10000000015316,"connectEnd":79.10000000015316,"connectStart":79.10000000015316,"domainLookupEnd":79.10000000015316,"domainLookupStart":79.10000000015316,"fetchStart":79.10000000015316,"redirectEnd":0,"redirectStart":0,"requestStart":79.10000000015316,"responseEnd":79.10000000015316,"responseStart":79.10000000015316,"secureConnectionStart":0},{"duration":0,"initiatorType":"script","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/2d908a83e7c0adbbe07e9180b0f14fc4-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/3.0.3/_/download/batch/com.atlassian.jira.jira-tzdetect-plugin:tzdetect-banner-component/com.atlassian.jira.jira-tzdetect-plugin:tzdetect-banner-component.js?locale=en-US","startTime":79.10000000015316,"connectEnd":79.10000000015316,"connectStart":79.10000000015316,"domainLookupEnd":79.10000000015316,"domainLookupStart":79.10000000015316,"fetchStart":79.10000000015316,"redirectEnd":0,"redirectStart":0,"requestStart":79.10000000015316,"responseEnd":79.10000000015316,"responseStart":79.10000000015316,"secureConnectionStart":0},{"duration":0,"initiatorType":"script","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/d41d8cd98f00b204e9800998ecf8427e-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/3.0.3/_/download/batch/com.atlassian.jira.jira-tzdetect-plugin:tzdetect-lib/com.atlassian.jira.jira-tzdetect-plugin:tzdetect-lib.js","startTime":79.10000000015316,"connectEnd":79.10000000015316,"connectStart":79.10000000015316,"domainLookupEnd":79.10000000015316,"domainLookupStart":79.10000000015316,"fetchStart":79.10000000015316,"redirectEnd":0,"redirectStart":0,"requestStart":79.10000000015316,"responseEnd":79.10000000015316,"responseStart":79.10000000015316,"secureConnectionStart":0},{"duration":0,"initiatorType":"script","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/d41d8cd98f00b204e9800998ecf8427e-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/1.0/_/download/batch/jira.webresources:calendar-en/jira.webresources:calendar-en.js","startTime":79.10000000015316,"connectEnd":79.10000000015316,"connectStart":79.10000000015316,"domainLookupEnd":79.10000000015316,"domainLookupStart":79.10000000015316,"fetchStart":79.10000000015316,"redirectEnd":0,"redirectStart":0,"requestStart":79.10000000015316,"responseEnd":79.10000000015316,"responseStart":79.10000000015316,"secureConnectionStart":0},{"duration":0,"initiatorType":"script","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/d41d8cd98f00b204e9800998ecf8427e-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/1.0/_/download/batch/jira.webresources:calendar-localisation-moment/jira.webresources:calendar-localisation-moment.js","startTime":79.20000000012806,"connectEnd":79.20000000012806,"connectStart":79.20000000012806,"domainLookupEnd":79.20000000012806,"domainLookupStart":79.20000000012806,"fetchStart":79.20000000012806,"redirectEnd":0,"redirectStart":0,"requestStart":79.20000000012806,"responseEnd":79.20000000012806,"responseStart":79.20000000012806,"secureConnectionStart":0},{"duration":0,"initiatorType":"script","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/rest/api/1.0/shortcuts/713000/205465da5ac067452032a146f1f50d1f/shortcuts.js?context=issuenavigation&amp;context=issueaction","startTime":79.30000000010295,"connectEnd":79.30000000010295,"connectStart":79.30000000010295,"domainLookupEnd":79.30000000010295,"domainLookupStart":79.30000000010295,"fetchStart":79.30000000010295,"redirectEnd":0,"redirectStart":0,"requestStart":79.30000000010295,"responseEnd":79.30000000010295,"responseStart":79.30000000010295,"secureConnectionStart":0},{"duration":3.6999999999807187,"initiatorType":"link","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/014f767b4011f1a89023dd1c78db2843-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/603096342cafa8184e7fadfb8213796b/_/download/contextbatch/css/jira.global.look-and-feel,-_super/batch.css?spectrum=true","startTime":79.30000000010295,"connectEnd":79.30000000010295,"connectStart":79.30000000010295,"domainLookupEnd":79.30000000010295,"domainLookupStart":79.30000000010295,"fetchStart":79.30000000010295,"redirectEnd":0,"redirectStart":0,"requestStart":80.5000000000291,"responseEnd":83.00000000008367,"responseStart":82.70000000015898,"secureConnectionStart":0},{"duration":16.599999999925785,"initiatorType":"xmlhttprequest","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/rest/webResources/1.0/resources","startTime":159.80000000013206,"connectEnd":159.80000000013206,"connectStart":159.80000000013206,"domainLookupEnd":159.80000000013206,"domainLookupStart":159.80000000013206,"fetchStart":159.80000000013206,"redirectEnd":0,"redirectStart":0,"requestStart":160.40000000020882,"responseEnd":176.40000000005784,"responseStart":176.10000000013315,"secureConnectionStart":0},{"duration":0.9000000000014552,"initiatorType":"script","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/d41d8cd98f00b204e9800998ecf8427e-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/eef4749c300c71c53226678a5806abf8/_/download/contextbatch/js/browser-metrics-plugin.contrib,-_super,-project.issue.navigator,-jira.view.issue,-atl.general/batch.js?agile_global_admin_condition=true&amp;is-server-instance=true&amp;jag=true&amp;jaguser=true&amp;jira.create.linked.issue=true&amp;nps-acknowledged=true&amp;nps-not-opted-out=true&amp;spectrum=true&amp;user-logged-in=true","startTime":178.70000000016262,"connectEnd":178.70000000016262,"connectStart":178.70000000016262,"domainLookupEnd":178.70000000016262,"domainLookupStart":178.70000000016262,"fetchStart":178.70000000016262,"redirectEnd":0,"redirectStart":0,"requestStart":178.9000000001124,"responseEnd":179.60000000016407,"responseStart":179.1000000000622,"secureConnectionStart":0},{"duration":11.099999999942156,"initiatorType":"xmlhttprequest","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/rest/webResources/1.0/resources","startTime":180.00000000006366,"connectEnd":180.00000000006366,"connectStart":180.00000000006366,"domainLookupEnd":180.00000000006366,"domainLookupStart":180.00000000006366,"fetchStart":180.00000000006366,"redirectEnd":0,"redirectStart":0,"requestStart":180.50000000016553,"responseEnd":191.10000000000582,"responseStart":190.80000000008113,"secureConnectionStart":0},{"duration":1.199999999926149,"initiatorType":"link","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/419b0bfc7b88fffb48d0cc0745ba9b12-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/0bf411dc318c8a843edbaa925e8e6a31/_/download/contextbatch/css/com.atlassian.jira.projects.sidebar.init,-_super,-project.issue.navigator,-jira.view.issue/batch.css?jira.create.linked.issue=true&amp;spectrum=true&amp;user-logged-in=true","startTime":214.80000000019572,"connectEnd":214.80000000019572,"connectStart":214.80000000019572,"domainLookupEnd":214.80000000019572,"domainLookupStart":214.80000000019572,"fetchStart":214.80000000019572,"redirectEnd":0,"redirectStart":0,"requestStart":215.20000000009532,"responseEnd":216.00000000012187,"responseStart":215.50000000002,"secureConnectionStart":0},{"duration":0,"initiatorType":"script","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/43b772ffcb024311ee4afefbdae0d6c2-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/0bf411dc318c8a843edbaa925e8e6a31/_/download/contextbatch/js/com.atlassian.jira.projects.sidebar.init,-_super,-project.issue.navigator,-jira.view.issue/batch.js?jira.create.linked.issue=true&amp;locale=en-US&amp;spectrum=true&amp;user-logged-in=true","startTime":214.90000000017062,"connectEnd":214.90000000017062,"connectStart":214.90000000017062,"domainLookupEnd":214.90000000017062,"domainLookupStart":214.90000000017062,"fetchStart":214.90000000017062,"redirectEnd":0,"redirectStart":0,"requestStart":214.90000000017062,"responseEnd":214.90000000017062,"responseStart":214.90000000017062,"secureConnectionStart":0},{"duration":0,"initiatorType":"script","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/d41d8cd98f00b204e9800998ecf8427e-CDN/oh5ir2/713000/b6b48b2829824b869586ac216d119363/1.0/_/download/batch/jira.webresources:bigpipe-js/jira.webresources:bigpipe-js.js","startTime":225.10000000011132,"connectEnd":225.10000000011132,"connectStart":225.10000000011132,"domainLookupEnd":225.10000000011132,"domainLookupStart":225.10000000011132,"fetchStart":225.10000000011132,"redirectEnd":0,"redirectStart":0,"requestStart":225.10000000011132,"responseEnd":225.10000000011132,"responseStart":225.10000000011132,"secureConnectionStart":0},{"duration":0,"initiatorType":"css","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/oh5ir2/713000/b6b48b2829824b869586ac216d119363/7.9.9/_/download/resources/com.atlassian.auiplugin:internal-iconfont-v1/fonts/atlassian-icons.woff","startTime":233.30000000009932,"connectEnd":233.30000000009932,"connectStart":233.30000000009932,"domainLookupEnd":233.30000000009932,"domainLookupStart":233.30000000009932,"fetchStart":233.30000000009932,"redirectEnd":0,"redirectStart":0,"requestStart":233.30000000009932,"responseEnd":233.30000000009932,"responseStart":233.30000000009932,"secureConnectionStart":0},{"duration":0,"initiatorType":"css","name":"http://jpt-d3449-loadbala-1297k42uk9zjv-1115872238.eu-west-1.elb.amazonaws.com/s/oh5ir2/713000/b6b48b2829824b869586ac216d119363/7.9.9/_/download/resources/com.atlassian.auiplugin:internal-iconfont-v2/fonts/adgs-icons.woff","startTime":233.30000000009932,"connectEnd":233.30000000009932,"connectStart":233.30000000009932,"domainLookupEnd":233.30000000009932,"domainLookupStart":233.30000000009932,"fetchStart":233.30000000009932,"redirectEnd":0,"redirectStart":0,"requestStart":233.30000000009932,"responseEnd":233.30000000009932,"responseStart":233.30000000009932,"secureConnectionStart":0}],"threshold":1000,"unloadEventStart":70,"unloadEventEnd":71,"fetchStart":0,"domainLookupStart":0,"domainLookupEnd":0,"connectStart":0,"connectEnd":0,"requestStart":1,"responseStart":68,"responseEnd":327,"domLoading":77,"domInteractive":449,"domContentLoadedEventStart":449,"domContentLoadedEventEnd":520,"domComplete":790,"loadEventStart":790,"loadEventEnd":794,"userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/69.0.3497.0 Safari/537.36","marks":[],"measures":[],"correlationId":"5cf5651545894a","effectiveType":"4g","downlink":10,"rtt":0,"serverDuration":325,"dbReadsTimeInMs":5,"dbConnsTimeInMs":20,"applicationHash":"fbf406879436de2f3fb1cfa09c7fa556fb79615a","experiments":[]}}</div></body></html>

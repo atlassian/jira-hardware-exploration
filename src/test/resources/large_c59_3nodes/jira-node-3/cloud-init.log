@@ -1,0 +1,1014 @@
+2019-05-20 01:35:33,864 - util.py[DEBUG]: Cloud-init v. 18.3-9-g2e62cb8a-0ubuntu1~16.04.2 running 'init-local' at Mon, 20 May 2019 01:35:33 +0000. Up 10.22 seconds.
+2019-05-20 01:35:33,864 - main.py[DEBUG]: No kernel command line url found.
+2019-05-20 01:35:33,864 - main.py[DEBUG]: Closing stdin.
+2019-05-20 01:35:33,866 - util.py[DEBUG]: Writing to /var/log/cloud-init.log - ab: [644] 0 bytes
+2019-05-20 01:35:33,867 - util.py[DEBUG]: Changing the ownership of /var/log/cloud-init.log to 104:4
+2019-05-20 01:35:33,867 - util.py[DEBUG]: Attempting to remove /var/lib/cloud/instance/boot-finished
+2019-05-20 01:35:33,867 - util.py[DEBUG]: Attempting to remove /var/lib/cloud/data/no-net
+2019-05-20 01:35:33,867 - handlers.py[DEBUG]: start: init-local/check-cache: attempting to read from cache [check]
+2019-05-20 01:35:33,867 - util.py[DEBUG]: Reading from /var/lib/cloud/instance/obj.pkl (quiet=False)
+2019-05-20 01:35:33,867 - stages.py[DEBUG]: no cache found
+2019-05-20 01:35:33,867 - handlers.py[DEBUG]: finish: init-local/check-cache: SUCCESS: no cache found
+2019-05-20 01:35:33,867 - util.py[DEBUG]: Attempting to remove /var/lib/cloud/instance
+2019-05-20 01:35:33,869 - stages.py[DEBUG]: Using distro class <class 'cloudinit.distros.ubuntu.Distro'>
+2019-05-20 01:35:33,870 - __init__.py[DEBUG]: Looking for data source in: ['NoCloud', 'ConfigDrive', 'OpenNebula', 'DigitalOcean', 'Azure', 'AltCloud', 'OVF', 'MAAS', 'GCE', 'OpenStack', 'CloudSigma', 'SmartOS', 'Bigstep', 'Scaleway', 'AliYun', 'Ec2', 'CloudStack', 'None'], via packages ['', 'cloudinit.sources'] that matches dependencies ['FILESYSTEM']
+2019-05-20 01:35:33,913 - util.py[DEBUG]: Reading from /etc/os-release (quiet=False)
+2019-05-20 01:35:33,913 - util.py[DEBUG]: Read 298 bytes from /etc/os-release
+2019-05-20 01:35:33,953 - __init__.py[DEBUG]: Searching for local data source in: ['DataSourceNoCloud', 'DataSourceConfigDrive', 'DataSourceOpenNebula', 'DataSourceDigitalOcean', 'DataSourceAzure', 'DataSourceOVF', 'DataSourceOpenStackLocal', 'DataSourceCloudSigma', 'DataSourceSmartOS', 'DataSourceEc2Local']
+2019-05-20 01:35:33,953 - handlers.py[DEBUG]: start: init-local/search-NoCloud: searching for local data from DataSourceNoCloud
+2019-05-20 01:35:33,953 - __init__.py[DEBUG]: Seeing if we can get any data from <class 'cloudinit.sources.DataSourceNoCloud.DataSourceNoCloud'>
+2019-05-20 01:35:33,953 - __init__.py[DEBUG]: Update datasource metadata and network config due to events: New instance first boot
+2019-05-20 01:35:33,953 - util.py[DEBUG]: Running command ['systemd-detect-virt', '--quiet', '--container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:33,955 - util.py[DEBUG]: Running command ['running-in-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:33,956 - util.py[DEBUG]: Running command ['lxc-is-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:33,957 - util.py[DEBUG]: Reading from /proc/1/environ (quiet=False)
+2019-05-20 01:35:33,957 - util.py[DEBUG]: Read 150 bytes from /proc/1/environ
+2019-05-20 01:35:33,957 - util.py[DEBUG]: Reading from /proc/self/status (quiet=False)
+2019-05-20 01:35:33,957 - util.py[DEBUG]: Read 938 bytes from /proc/self/status
+2019-05-20 01:35:33,958 - util.py[DEBUG]: querying dmi data /sys/class/dmi/id/product_serial
+2019-05-20 01:35:33,958 - util.py[DEBUG]: Reading from /sys/class/dmi/id/product_serial (quiet=False)
+2019-05-20 01:35:33,958 - util.py[DEBUG]: Read 37 bytes from /sys/class/dmi/id/product_serial
+2019-05-20 01:35:33,958 - util.py[DEBUG]: dmi data /sys/class/dmi/id/product_serial returned ec22d08e-7583-04c2-c636-ec4fcaafcb05
+2019-05-20 01:35:33,958 - util.py[DEBUG]: Reading from /var/lib/cloud/seed/nocloud/user-data (quiet=False)
+2019-05-20 01:35:33,958 - util.py[DEBUG]: Reading from /var/lib/cloud/seed/nocloud/meta-data (quiet=False)
+2019-05-20 01:35:33,958 - util.py[DEBUG]: Reading from /var/lib/cloud/seed/nocloud/vendor-data (quiet=False)
+2019-05-20 01:35:33,958 - util.py[DEBUG]: Reading from /var/lib/cloud/seed/nocloud/network-config (quiet=False)
+2019-05-20 01:35:33,958 - util.py[DEBUG]: Reading from /var/lib/cloud/seed/nocloud-net/user-data (quiet=False)
+2019-05-20 01:35:33,958 - util.py[DEBUG]: Reading from /var/lib/cloud/seed/nocloud-net/meta-data (quiet=False)
+2019-05-20 01:35:33,958 - util.py[DEBUG]: Reading from /var/lib/cloud/seed/nocloud-net/vendor-data (quiet=False)
+2019-05-20 01:35:33,958 - util.py[DEBUG]: Reading from /var/lib/cloud/seed/nocloud-net/network-config (quiet=False)
+2019-05-20 01:35:33,958 - util.py[DEBUG]: Running command ['blkid', '-odevice', '/dev/sr0'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:33,959 - util.py[DEBUG]: Running command ['blkid', '-odevice', '/dev/sr1'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:33,961 - util.py[DEBUG]: Running command ['blkid', '-tTYPE=vfat', '-odevice'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:33,974 - util.py[DEBUG]: Running command ['blkid', '-tTYPE=iso9660', '-odevice'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:33,986 - util.py[DEBUG]: Running command ['blkid', '-tLABEL=cidata', '-odevice'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:33,998 - handlers.py[DEBUG]: finish: init-local/search-NoCloud: SUCCESS: no local data found from DataSourceNoCloud
+2019-05-20 01:35:33,998 - handlers.py[DEBUG]: start: init-local/search-ConfigDrive: searching for local data from DataSourceConfigDrive
+2019-05-20 01:35:33,998 - __init__.py[DEBUG]: Seeing if we can get any data from <class 'cloudinit.sources.DataSourceConfigDrive.DataSourceConfigDrive'>
+2019-05-20 01:35:33,998 - __init__.py[DEBUG]: Update datasource metadata and network config due to events: New instance first boot
+2019-05-20 01:35:33,998 - util.py[DEBUG]: Running command ['blkid', '-odevice', '/dev/sr0'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:34,000 - util.py[DEBUG]: Running command ['blkid', '-odevice', '/dev/sr1'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:34,001 - util.py[DEBUG]: Running command ['blkid', '-odevice', '/dev/cd0'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:34,003 - util.py[DEBUG]: Running command ['blkid', '-odevice', '/dev/cd1'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:34,004 - util.py[DEBUG]: Running command ['blkid', '-tTYPE=vfat', '-odevice'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:34,016 - util.py[DEBUG]: Running command ['blkid', '-tTYPE=iso9660', '-odevice'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:34,028 - util.py[DEBUG]: Running command ['blkid', '-tLABEL=config-2', '-odevice'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:34,039 - util.py[DEBUG]: Running command ['blkid', '-tLABEL=CONFIG-2', '-odevice'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:34,051 - DataSourceConfigDrive.py[DEBUG]: devices=[] dslist=['NoCloud', 'ConfigDrive', 'OpenNebula', 'DigitalOcean', 'Azure', 'AltCloud', 'OVF', 'MAAS', 'GCE', 'OpenStack', 'CloudSigma', 'SmartOS', 'Bigstep', 'Scaleway', 'AliYun', 'Ec2', 'CloudStack', 'None']
+2019-05-20 01:35:34,051 - handlers.py[DEBUG]: finish: init-local/search-ConfigDrive: SUCCESS: no local data found from DataSourceConfigDrive
+2019-05-20 01:35:34,051 - handlers.py[DEBUG]: start: init-local/search-OpenNebula: searching for local data from DataSourceOpenNebula
+2019-05-20 01:35:34,052 - __init__.py[DEBUG]: Seeing if we can get any data from <class 'cloudinit.sources.DataSourceOpenNebula.DataSourceOpenNebula'>
+2019-05-20 01:35:34,052 - __init__.py[DEBUG]: Update datasource metadata and network config due to events: New instance first boot
+2019-05-20 01:35:34,052 - util.py[DEBUG]: Running command ['blkid', '-tLABEL=CONTEXT', '-odevice'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:34,063 - util.py[DEBUG]: Running command ['blkid', '-tLABEL=CDROM', '-odevice'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:34,075 - util.py[DEBUG]: Running command ['blkid', '-tTYPE=iso9660', '-odevice'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:34,087 - handlers.py[DEBUG]: finish: init-local/search-OpenNebula: SUCCESS: no local data found from DataSourceOpenNebula
+2019-05-20 01:35:34,087 - handlers.py[DEBUG]: start: init-local/search-DigitalOcean: searching for local data from DataSourceDigitalOcean
+2019-05-20 01:35:34,087 - __init__.py[DEBUG]: Seeing if we can get any data from <class 'cloudinit.sources.DataSourceDigitalOcean.DataSourceDigitalOcean'>
+2019-05-20 01:35:34,087 - __init__.py[DEBUG]: Update datasource metadata and network config due to events: New instance first boot
+2019-05-20 01:35:34,087 - util.py[DEBUG]: Running command ['systemd-detect-virt', '--quiet', '--container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,089 - util.py[DEBUG]: Running command ['running-in-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,090 - util.py[DEBUG]: Running command ['lxc-is-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,091 - util.py[DEBUG]: Reading from /proc/1/environ (quiet=False)
+2019-05-20 01:35:34,091 - util.py[DEBUG]: Read 150 bytes from /proc/1/environ
+2019-05-20 01:35:34,091 - util.py[DEBUG]: Reading from /proc/self/status (quiet=False)
+2019-05-20 01:35:34,091 - util.py[DEBUG]: Read 938 bytes from /proc/self/status
+2019-05-20 01:35:34,091 - util.py[DEBUG]: querying dmi data /sys/class/dmi/id/sys_vendor
+2019-05-20 01:35:34,092 - util.py[DEBUG]: Reading from /sys/class/dmi/id/sys_vendor (quiet=False)
+2019-05-20 01:35:34,092 - util.py[DEBUG]: Read 11 bytes from /sys/class/dmi/id/sys_vendor
+2019-05-20 01:35:34,092 - util.py[DEBUG]: dmi data /sys/class/dmi/id/sys_vendor returned Amazon EC2
+2019-05-20 01:35:34,092 - handlers.py[DEBUG]: finish: init-local/search-DigitalOcean: SUCCESS: no local data found from DataSourceDigitalOcean
+2019-05-20 01:35:34,092 - handlers.py[DEBUG]: start: init-local/search-Azure: searching for local data from DataSourceAzure
+2019-05-20 01:35:34,092 - __init__.py[DEBUG]: Seeing if we can get any data from <class 'cloudinit.sources.DataSourceAzure.DataSourceAzure'>
+2019-05-20 01:35:34,092 - __init__.py[DEBUG]: Update datasource metadata and network config due to events: New instance first boot
+2019-05-20 01:35:34,092 - util.py[DEBUG]: Running command ['systemd-detect-virt', '--quiet', '--container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,094 - util.py[DEBUG]: Running command ['running-in-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,095 - util.py[DEBUG]: Running command ['lxc-is-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,096 - util.py[DEBUG]: Reading from /proc/1/environ (quiet=False)
+2019-05-20 01:35:34,096 - util.py[DEBUG]: Read 150 bytes from /proc/1/environ
+2019-05-20 01:35:34,096 - util.py[DEBUG]: Reading from /proc/self/status (quiet=False)
+2019-05-20 01:35:34,096 - util.py[DEBUG]: Read 938 bytes from /proc/self/status
+2019-05-20 01:35:34,096 - util.py[DEBUG]: querying dmi data /sys/class/dmi/id/chassis_asset_tag
+2019-05-20 01:35:34,096 - util.py[DEBUG]: Reading from /sys/class/dmi/id/chassis_asset_tag (quiet=False)
+2019-05-20 01:35:34,096 - util.py[DEBUG]: Read 11 bytes from /sys/class/dmi/id/chassis_asset_tag
+2019-05-20 01:35:34,096 - util.py[DEBUG]: dmi data /sys/class/dmi/id/chassis_asset_tag returned Amazon EC2
+2019-05-20 01:35:34,096 - DataSourceAzure.py[DEBUG]: Non-Azure DMI asset tag 'Amazon EC2' discovered.
+2019-05-20 01:35:34,097 - handlers.py[DEBUG]: finish: init-local/search-Azure: SUCCESS: no local data found from DataSourceAzure
+2019-05-20 01:35:34,097 - handlers.py[DEBUG]: start: init-local/search-OVF: searching for local data from DataSourceOVF
+2019-05-20 01:35:34,097 - __init__.py[DEBUG]: Seeing if we can get any data from <class 'cloudinit.sources.DataSourceOVF.DataSourceOVF'>
+2019-05-20 01:35:34,097 - __init__.py[DEBUG]: Update datasource metadata and network config due to events: New instance first boot
+2019-05-20 01:35:34,097 - util.py[DEBUG]: Running command ['systemd-detect-virt', '--quiet', '--container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,098 - util.py[DEBUG]: Running command ['running-in-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,100 - util.py[DEBUG]: Running command ['lxc-is-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,101 - util.py[DEBUG]: Reading from /proc/1/environ (quiet=False)
+2019-05-20 01:35:34,101 - util.py[DEBUG]: Read 150 bytes from /proc/1/environ
+2019-05-20 01:35:34,101 - util.py[DEBUG]: Reading from /proc/self/status (quiet=False)
+2019-05-20 01:35:34,101 - util.py[DEBUG]: Read 938 bytes from /proc/self/status
+2019-05-20 01:35:34,101 - util.py[DEBUG]: querying dmi data /sys/class/dmi/id/product_name
+2019-05-20 01:35:34,101 - util.py[DEBUG]: Reading from /sys/class/dmi/id/product_name (quiet=False)
+2019-05-20 01:35:34,101 - util.py[DEBUG]: Read 11 bytes from /sys/class/dmi/id/product_name
+2019-05-20 01:35:34,101 - util.py[DEBUG]: dmi data /sys/class/dmi/id/product_name returned c5.9xlarge
+2019-05-20 01:35:34,101 - util.py[DEBUG]: Reading from /proc/mounts (quiet=False)
+2019-05-20 01:35:34,101 - util.py[DEBUG]: Read 1995 bytes from /proc/mounts
+2019-05-20 01:35:34,101 - util.py[DEBUG]: Fetched {'/dev/nvme0n1p1': {'mountpoint': '/', 'fstype': 'ext4', 'opts': 'rw,relatime,discard,data=ordered'}, 'proc': {'mountpoint': '/proc', 'fstype': 'proc', 'opts': 'rw,nosuid,nodev,noexec,relatime'}, 'tmpfs': {'mountpoint': '/sys/fs/cgroup', 'fstype': 'tmpfs', 'opts': 'ro,nosuid,nodev,noexec,mode=755'}, 'hugetlbfs': {'mountpoint': '/dev/hugepages', 'fstype': 'hugetlbfs', 'opts': 'rw,relatime'}, 'securityfs': {'mountpoint': '/sys/kernel/security', 'fstype': 'securityfs', 'opts': 'rw,nosuid,nodev,noexec,relatime'}, 'systemd-1': {'mountpoint': '/proc/sys/fs/binfmt_misc', 'fstype': 'autofs', 'opts': 'rw,relatime,fd=37,pgrp=1,timeout=0,minproto=5,maxproto=5,direct'}, 'mqueue': {'mountpoint': '/dev/mqueue', 'fstype': 'mqueue', 'opts': 'rw,relatime'}, 'devpts': {'mountpoint': '/dev/pts', 'fstype': 'devpts', 'opts': 'rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000'}, 'udev': {'mountpoint': '/dev', 'fstype': 'devtmpfs', 'opts': 'rw,nosuid,relatime,size=36010644k,nr_inodes=9002661,mode=755'}, 'sysfs': {'mountpoint': '/sys', 'fstype': 'sysfs', 'opts': 'rw,nosuid,nodev,noexec,relatime'}, 'debugfs': {'mountpoint': '/sys/kernel/debug', 'fstype': 'debugfs', 'opts': 'rw,relatime'}, 'pstore': {'mountpoint': '/sys/fs/pstore', 'fstype': 'pstore', 'opts': 'rw,nosuid,nodev,noexec,relatime'}, 'fusectl': {'mountpoint': '/sys/fs/fuse/connections', 'fstype': 'fusectl', 'opts': 'rw,relatime'}, 'cgroup': {'mountpoint': '/sys/fs/cgroup/hugetlb', 'fstype': 'cgroup', 'opts': 'rw,nosuid,nodev,noexec,relatime,hugetlb'}} mounts from proc
+2019-05-20 01:35:34,102 - util.py[DEBUG]: Running command ['blkid', '-tTYPE=iso9660', '-odevice'] with allowed return codes [0, 2] (shell=False, capture=True)
+2019-05-20 01:35:34,114 - handlers.py[DEBUG]: finish: init-local/search-OVF: SUCCESS: no local data found from DataSourceOVF
+2019-05-20 01:35:34,114 - handlers.py[DEBUG]: start: init-local/search-OpenStackLocal: searching for local data from DataSourceOpenStackLocal
+2019-05-20 01:35:34,114 - __init__.py[DEBUG]: Seeing if we can get any data from <class 'cloudinit.sources.DataSourceOpenStack.DataSourceOpenStackLocal'>
+2019-05-20 01:35:34,114 - __init__.py[DEBUG]: Update datasource metadata and network config due to events: New instance first boot
+2019-05-20 01:35:34,114 - util.py[DEBUG]: Running command ['systemd-detect-virt', '--quiet', '--container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,115 - util.py[DEBUG]: Running command ['running-in-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,116 - util.py[DEBUG]: Running command ['lxc-is-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,118 - util.py[DEBUG]: Reading from /proc/1/environ (quiet=False)
+2019-05-20 01:35:34,118 - util.py[DEBUG]: Read 150 bytes from /proc/1/environ
+2019-05-20 01:35:34,118 - util.py[DEBUG]: Reading from /proc/self/status (quiet=False)
+2019-05-20 01:35:34,118 - util.py[DEBUG]: Read 938 bytes from /proc/self/status
+2019-05-20 01:35:34,118 - util.py[DEBUG]: querying dmi data /sys/class/dmi/id/product_name
+2019-05-20 01:35:34,118 - util.py[DEBUG]: Reading from /sys/class/dmi/id/product_name (quiet=False)
+2019-05-20 01:35:34,118 - util.py[DEBUG]: Read 11 bytes from /sys/class/dmi/id/product_name
+2019-05-20 01:35:34,118 - util.py[DEBUG]: dmi data /sys/class/dmi/id/product_name returned c5.9xlarge
+2019-05-20 01:35:34,118 - util.py[DEBUG]: Running command ['systemd-detect-virt', '--quiet', '--container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,120 - util.py[DEBUG]: Running command ['running-in-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,121 - util.py[DEBUG]: Running command ['lxc-is-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,122 - util.py[DEBUG]: Reading from /proc/1/environ (quiet=False)
+2019-05-20 01:35:34,122 - util.py[DEBUG]: Read 150 bytes from /proc/1/environ
+2019-05-20 01:35:34,122 - util.py[DEBUG]: Reading from /proc/self/status (quiet=False)
+2019-05-20 01:35:34,122 - util.py[DEBUG]: Read 938 bytes from /proc/self/status
+2019-05-20 01:35:34,122 - util.py[DEBUG]: querying dmi data /sys/class/dmi/id/chassis_asset_tag
+2019-05-20 01:35:34,123 - util.py[DEBUG]: Reading from /sys/class/dmi/id/chassis_asset_tag (quiet=False)
+2019-05-20 01:35:34,123 - util.py[DEBUG]: Read 11 bytes from /sys/class/dmi/id/chassis_asset_tag
+2019-05-20 01:35:34,123 - util.py[DEBUG]: dmi data /sys/class/dmi/id/chassis_asset_tag returned Amazon EC2
+2019-05-20 01:35:34,123 - util.py[DEBUG]: Reading from /proc/1/environ (quiet=False)
+2019-05-20 01:35:34,123 - util.py[DEBUG]: Read 150 bytes from /proc/1/environ
+2019-05-20 01:35:34,123 - handlers.py[DEBUG]: finish: init-local/search-OpenStackLocal: SUCCESS: no local data found from DataSourceOpenStackLocal
+2019-05-20 01:35:34,123 - handlers.py[DEBUG]: start: init-local/search-CloudSigma: searching for local data from DataSourceCloudSigma
+2019-05-20 01:35:34,123 - __init__.py[DEBUG]: Seeing if we can get any data from <class 'cloudinit.sources.DataSourceCloudSigma.DataSourceCloudSigma'>
+2019-05-20 01:35:34,123 - __init__.py[DEBUG]: Update datasource metadata and network config due to events: New instance first boot
+2019-05-20 01:35:34,123 - DataSourceCloudSigma.py[DEBUG]: determining hypervisor product name via dmi data
+2019-05-20 01:35:34,123 - util.py[DEBUG]: Running command ['systemd-detect-virt', '--quiet', '--container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,125 - util.py[DEBUG]: Running command ['running-in-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,126 - util.py[DEBUG]: Running command ['lxc-is-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,127 - util.py[DEBUG]: Reading from /proc/1/environ (quiet=False)
+2019-05-20 01:35:34,127 - util.py[DEBUG]: Read 150 bytes from /proc/1/environ
+2019-05-20 01:35:34,127 - util.py[DEBUG]: Reading from /proc/self/status (quiet=False)
+2019-05-20 01:35:34,127 - util.py[DEBUG]: Read 938 bytes from /proc/self/status
+2019-05-20 01:35:34,127 - util.py[DEBUG]: querying dmi data /sys/class/dmi/id/product_name
+2019-05-20 01:35:34,127 - util.py[DEBUG]: Reading from /sys/class/dmi/id/product_name (quiet=False)
+2019-05-20 01:35:34,127 - util.py[DEBUG]: Read 11 bytes from /sys/class/dmi/id/product_name
+2019-05-20 01:35:34,127 - util.py[DEBUG]: dmi data /sys/class/dmi/id/product_name returned c5.9xlarge
+2019-05-20 01:35:34,128 - DataSourceCloudSigma.py[DEBUG]: detected hypervisor as c5.9xlarge
+2019-05-20 01:35:34,128 - handlers.py[DEBUG]: finish: init-local/search-CloudSigma: SUCCESS: no local data found from DataSourceCloudSigma
+2019-05-20 01:35:34,128 - handlers.py[DEBUG]: start: init-local/search-SmartOS: searching for local data from DataSourceSmartOS
+2019-05-20 01:35:34,128 - __init__.py[DEBUG]: Seeing if we can get any data from <class 'cloudinit.sources.DataSourceSmartOS.DataSourceSmartOS'>
+2019-05-20 01:35:34,128 - util.py[DEBUG]: Running command ['systemd-detect-virt', '--quiet', '--container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,129 - util.py[DEBUG]: Running command ['running-in-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,131 - util.py[DEBUG]: Running command ['lxc-is-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,132 - util.py[DEBUG]: Reading from /proc/1/environ (quiet=False)
+2019-05-20 01:35:34,132 - util.py[DEBUG]: Read 150 bytes from /proc/1/environ
+2019-05-20 01:35:34,132 - util.py[DEBUG]: Reading from /proc/self/status (quiet=False)
+2019-05-20 01:35:34,132 - util.py[DEBUG]: Read 938 bytes from /proc/self/status
+2019-05-20 01:35:34,132 - util.py[DEBUG]: querying dmi data /sys/class/dmi/id/product_name
+2019-05-20 01:35:34,132 - util.py[DEBUG]: Reading from /sys/class/dmi/id/product_name (quiet=False)
+2019-05-20 01:35:34,132 - util.py[DEBUG]: Read 11 bytes from /sys/class/dmi/id/product_name
+2019-05-20 01:35:34,132 - util.py[DEBUG]: dmi data /sys/class/dmi/id/product_name returned c5.9xlarge
+2019-05-20 01:35:34,132 - __init__.py[DEBUG]: Update datasource metadata and network config due to events: New instance first boot
+2019-05-20 01:35:34,132 - DataSourceSmartOS.py[DEBUG]: Not running on smartos
+2019-05-20 01:35:34,133 - handlers.py[DEBUG]: finish: init-local/search-SmartOS: SUCCESS: no local data found from DataSourceSmartOS
+2019-05-20 01:35:34,133 - handlers.py[DEBUG]: start: init-local/search-Ec2Local: searching for local data from DataSourceEc2Local
+2019-05-20 01:35:34,133 - __init__.py[DEBUG]: Seeing if we can get any data from <class 'cloudinit.sources.DataSourceEc2.DataSourceEc2Local'>
+2019-05-20 01:35:34,133 - __init__.py[DEBUG]: Update datasource metadata and network config due to events: New instance first boot
+2019-05-20 01:35:34,133 - util.py[DEBUG]: Reading from /sys/hypervisor/uuid (quiet=False)
+2019-05-20 01:35:34,133 - util.py[DEBUG]: Running command ['systemd-detect-virt', '--quiet', '--container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,134 - util.py[DEBUG]: Running command ['running-in-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,135 - util.py[DEBUG]: Running command ['lxc-is-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,137 - util.py[DEBUG]: Reading from /proc/1/environ (quiet=False)
+2019-05-20 01:35:34,137 - util.py[DEBUG]: Read 150 bytes from /proc/1/environ
+2019-05-20 01:35:34,137 - util.py[DEBUG]: Reading from /proc/self/status (quiet=False)
+2019-05-20 01:35:34,137 - util.py[DEBUG]: Read 938 bytes from /proc/self/status
+2019-05-20 01:35:34,137 - util.py[DEBUG]: querying dmi data /sys/class/dmi/id/product_uuid
+2019-05-20 01:35:34,137 - util.py[DEBUG]: Reading from /sys/class/dmi/id/product_uuid (quiet=False)
+2019-05-20 01:35:34,137 - util.py[DEBUG]: Read 37 bytes from /sys/class/dmi/id/product_uuid
+2019-05-20 01:35:34,137 - util.py[DEBUG]: dmi data /sys/class/dmi/id/product_uuid returned EC22D08E-7583-04C2-C636-EC4FCAAFCB05
+2019-05-20 01:35:34,137 - util.py[DEBUG]: Running command ['systemd-detect-virt', '--quiet', '--container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,139 - util.py[DEBUG]: Running command ['running-in-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,140 - util.py[DEBUG]: Running command ['lxc-is-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,141 - util.py[DEBUG]: Reading from /proc/1/environ (quiet=False)
+2019-05-20 01:35:34,141 - util.py[DEBUG]: Read 150 bytes from /proc/1/environ
+2019-05-20 01:35:34,141 - util.py[DEBUG]: Reading from /proc/self/status (quiet=False)
+2019-05-20 01:35:34,141 - util.py[DEBUG]: Read 938 bytes from /proc/self/status
+2019-05-20 01:35:34,141 - util.py[DEBUG]: querying dmi data /sys/class/dmi/id/product_serial
+2019-05-20 01:35:34,142 - util.py[DEBUG]: Reading from /sys/class/dmi/id/product_serial (quiet=False)
+2019-05-20 01:35:34,142 - util.py[DEBUG]: Read 37 bytes from /sys/class/dmi/id/product_serial
+2019-05-20 01:35:34,142 - util.py[DEBUG]: dmi data /sys/class/dmi/id/product_serial returned ec22d08e-7583-04c2-c636-ec4fcaafcb05
+2019-05-20 01:35:34,142 - DataSourceEc2.py[DEBUG]: strict_mode: warn, cloud_platform=AWS
+2019-05-20 01:35:34,142 - util.py[DEBUG]: Reading from /etc/os-release (quiet=False)
+2019-05-20 01:35:34,142 - util.py[DEBUG]: Read 298 bytes from /etc/os-release
+2019-05-20 01:35:34,142 - util.py[DEBUG]: Reading from /sys/class/net/ens5/name_assign_type (quiet=False)
+2019-05-20 01:35:34,142 - util.py[DEBUG]: Read 2 bytes from /sys/class/net/ens5/name_assign_type
+2019-05-20 01:35:34,142 - util.py[DEBUG]: Reading from /sys/class/net/ens5/carrier (quiet=False)
+2019-05-20 01:35:34,142 - util.py[DEBUG]: Reading from /sys/class/net/ens5/dormant (quiet=False)
+2019-05-20 01:35:34,142 - util.py[DEBUG]: Reading from /sys/class/net/ens5/operstate (quiet=False)
+2019-05-20 01:35:34,142 - util.py[DEBUG]: Read 5 bytes from /sys/class/net/ens5/operstate
+2019-05-20 01:35:34,143 - util.py[DEBUG]: Reading from /sys/class/net/ens5/address (quiet=False)
+2019-05-20 01:35:34,143 - util.py[DEBUG]: Read 18 bytes from /sys/class/net/ens5/address
+2019-05-20 01:35:34,143 - dhcp.py[DEBUG]: Performing a dhcp discovery on ens5
+2019-05-20 01:35:34,143 - util.py[DEBUG]: Copying /sbin/dhclient to /var/tmp/cloud-init/cloud-init-dhcp-8oplcmec/dhclient
+2019-05-20 01:35:34,161 - util.py[DEBUG]: Running command ['ip', 'link', 'set', 'dev', 'ens5', 'up'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,168 - util.py[DEBUG]: Running command ['/var/tmp/cloud-init/cloud-init-dhcp-8oplcmec/dhclient', '-1', '-v', '-lf', '/var/tmp/cloud-init/cloud-init-dhcp-8oplcmec/dhcp.leases', '-pf', '/var/tmp/cloud-init/cloud-init-dhcp-8oplcmec/dhclient.pid', 'ens5', '-sf', '/bin/true'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,395 - util.py[DEBUG]: All files appeared after 0 seconds: ['/var/tmp/cloud-init/cloud-init-dhcp-8oplcmec/dhclient.pid', '/var/tmp/cloud-init/cloud-init-dhcp-8oplcmec/dhcp.leases']
+2019-05-20 01:35:34,395 - util.py[DEBUG]: Reading from /var/tmp/cloud-init/cloud-init-dhcp-8oplcmec/dhclient.pid (quiet=False)
+2019-05-20 01:35:34,395 - util.py[DEBUG]: Read 4 bytes from /var/tmp/cloud-init/cloud-init-dhcp-8oplcmec/dhclient.pid
+2019-05-20 01:35:34,396 - util.py[DEBUG]: Reading from /var/tmp/cloud-init/cloud-init-dhcp-8oplcmec/dhcp.leases (quiet=False)
+2019-05-20 01:35:34,396 - util.py[DEBUG]: Read 513 bytes from /var/tmp/cloud-init/cloud-init-dhcp-8oplcmec/dhcp.leases
+2019-05-20 01:35:34,396 - dhcp.py[DEBUG]: Received dhcp lease on ens5 for 10.0.0.215/255.255.255.0
+2019-05-20 01:35:34,396 - __init__.py[DEBUG]: Attempting setup of ephemeral network on ens5 with 10.0.0.215/24 brd 10.0.0.255
+2019-05-20 01:35:34,396 - util.py[DEBUG]: Running command ['ip', '-family', 'inet', 'addr', 'add', '10.0.0.215/24', 'broadcast', '10.0.0.255', 'dev', 'ens5'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,397 - util.py[DEBUG]: Running command ['ip', '-family', 'inet', 'link', 'set', 'dev', 'ens5', 'up'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,399 - util.py[DEBUG]: Running command ['ip', 'route', 'show', '0.0.0.0/0'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,400 - util.py[DEBUG]: Running command ['ip', '-4', 'route', 'add', 'default', 'via', '10.0.0.1', 'dev', 'ens5'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,407 - util.py[DEBUG]: Resolving URL: http://169.254.169.254 took 0.005 seconds
+2019-05-20 01:35:34,407 - util.py[DEBUG]: Resolving URL: http://instance-data.:8773 took 0.000 seconds
+2019-05-20 01:35:34,407 - DataSourceEc2.py[DEBUG]: Removed the following from metadata urls: ['http://instance-data.:8773']
+2019-05-20 01:35:34,407 - url_helper.py[DEBUG]: [0/1] open 'http://169.254.169.254/2009-04-04/meta-data/instance-id' with {'url': 'http://169.254.169.254/2009-04-04/meta-data/instance-id', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 50.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,412 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2009-04-04/meta-data/instance-id (200, 19b) after 1 attempts
+2019-05-20 01:35:34,412 - DataSourceEc2.py[DEBUG]: Using metadata source: 'http://169.254.169.254'
+2019-05-20 01:35:34,412 - url_helper.py[DEBUG]: [0/1] open 'http://169.254.169.254/2016-09-02/meta-data/instance-id' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/instance-id', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'method': 'GET'} configuration
+2019-05-20 01:35:34,414 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/instance-id (200, 19b) after 1 attempts
+2019-05-20 01:35:34,414 - DataSourceEc2.py[DEBUG]: Found preferred metadata version 2016-09-02
+2019-05-20 01:35:34,414 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/user-data' with {'url': 'http://169.254.169.254/2016-09-02/user-data', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,415 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,417 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/ (200, 268b) after 1 attempts
+2019-05-20 01:35:34,417 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/block-device-mapping/' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/block-device-mapping/', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,418 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/block-device-mapping/ (200, 30b) after 1 attempts
+2019-05-20 01:35:34,419 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/block-device-mapping/ephemeral1' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/block-device-mapping/ephemeral1', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,420 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/block-device-mapping/ephemeral1 (200, 3b) after 1 attempts
+2019-05-20 01:35:34,420 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/block-device-mapping/root' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/block-device-mapping/root', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,421 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/block-device-mapping/root (200, 9b) after 1 attempts
+2019-05-20 01:35:34,422 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/block-device-mapping/ami' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/block-device-mapping/ami', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,423 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/block-device-mapping/ami (200, 4b) after 1 attempts
+2019-05-20 01:35:34,423 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/block-device-mapping/ephemeral0' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/block-device-mapping/ephemeral0', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,424 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/block-device-mapping/ephemeral0 (200, 3b) after 1 attempts
+2019-05-20 01:35:34,425 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/iam/' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/iam/', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,426 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/iam/ (200, 26b) after 1 attempts
+2019-05-20 01:35:34,426 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/iam/info' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/iam/info', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,427 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/iam/info (200, 246b) after 1 attempts
+2019-05-20 01:35:34,428 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/metrics/' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/metrics/', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,429 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/metrics/ (200, 7b) after 1 attempts
+2019-05-20 01:35:34,429 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/metrics/vhostmd' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/metrics/vhostmd', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,430 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/metrics/vhostmd (200, 38b) after 1 attempts
+2019-05-20 01:35:34,431 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,432 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/ (200, 11b) after 1 attempts
+2019-05-20 01:35:34,432 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,433 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/ (200, 5b) after 1 attempts
+2019-05-20 01:35:34,433 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,435 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/ (200, 18b) after 1 attempts
+2019-05-20 01:35:34,435 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,436 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/ (200, 230b) after 1 attempts
+2019-05-20 01:35:34,436 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/ipv4-associations/' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/ipv4-associations/', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,438 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/ipv4-associations/ (200, 14b) after 1 attempts
+2019-05-20 01:35:34,438 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/ipv4-associations/54.154.152.248' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/ipv4-associations/54.154.152.248', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,439 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/ipv4-associations/54.154.152.248 (200, 10b) after 1 attempts
+2019-05-20 01:35:34,439 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/subnet-id' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/subnet-id', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,441 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/subnet-id (200, 24b) after 1 attempts
+2019-05-20 01:35:34,441 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/security-group-ids' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/security-group-ids', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,442 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/security-group-ids (200, 83b) after 1 attempts
+2019-05-20 01:35:34,442 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/security-groups' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/security-groups', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,444 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/security-groups (200, 327b) after 1 attempts
+2019-05-20 01:35:34,444 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/subnet-ipv4-cidr-block' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/subnet-ipv4-cidr-block', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,445 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/subnet-ipv4-cidr-block (200, 11b) after 1 attempts
+2019-05-20 01:35:34,445 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/public-hostname' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/public-hostname', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,446 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/public-hostname (200, 50b) after 1 attempts
+2019-05-20 01:35:34,447 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/local-hostname' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/local-hostname', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,448 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/local-hostname (200, 40b) after 1 attempts
+2019-05-20 01:35:34,448 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/vpc-ipv4-cidr-block' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/vpc-ipv4-cidr-block', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,449 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/vpc-ipv4-cidr-block (200, 11b) after 1 attempts
+2019-05-20 01:35:34,449 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/public-ipv4s' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/public-ipv4s', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,451 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/public-ipv4s (200, 14b) after 1 attempts
+2019-05-20 01:35:34,451 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/device-number' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/device-number', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,452 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/device-number (200, 1b) after 1 attempts
+2019-05-20 01:35:34,453 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/interface-id' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/interface-id', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,456 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/interface-id (200, 21b) after 1 attempts
+2019-05-20 01:35:34,456 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/mac' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/mac', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,457 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/mac (200, 17b) after 1 attempts
+2019-05-20 01:35:34,457 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/vpc-ipv4-cidr-blocks' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/vpc-ipv4-cidr-blocks', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,461 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/vpc-ipv4-cidr-blocks (200, 11b) after 1 attempts
+2019-05-20 01:35:34,461 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/owner-id' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/owner-id', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,463 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/owner-id (200, 12b) after 1 attempts
+2019-05-20 01:35:34,463 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/local-ipv4s' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/local-ipv4s', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,464 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/local-ipv4s (200, 10b) after 1 attempts
+2019-05-20 01:35:34,464 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/vpc-id' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/vpc-id', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,466 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/network/interfaces/macs/06:a5:6e:95:3e:14/vpc-id (200, 21b) after 1 attempts
+2019-05-20 01:35:34,466 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/placement/' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/placement/', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,467 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/placement/ (200, 17b) after 1 attempts
+2019-05-20 01:35:34,467 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/placement/availability-zone' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/placement/availability-zone', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,469 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/placement/availability-zone (200, 10b) after 1 attempts
+2019-05-20 01:35:34,469 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/public-keys/' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/public-keys/', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,470 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/public-keys/ (200, 68b) after 1 attempts
+2019-05-20 01:35:34,470 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/public-keys/0/openssh-key' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/public-keys/0/openssh-key', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,472 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/public-keys/0/openssh-key (200, 448b) after 1 attempts
+2019-05-20 01:35:34,472 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/services/' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/services/', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,473 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/services/ (200, 16b) after 1 attempts
+2019-05-20 01:35:34,473 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/services/domain' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/services/domain', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,475 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/services/domain (200, 13b) after 1 attempts
+2019-05-20 01:35:34,475 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/services/partition' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/services/partition', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,476 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/services/partition (200, 3b) after 1 attempts
+2019-05-20 01:35:34,476 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/ami-launch-index' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/ami-launch-index', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,478 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/ami-launch-index (200, 1b) after 1 attempts
+2019-05-20 01:35:34,478 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/hostname' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/hostname', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,479 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/hostname (200, 40b) after 1 attempts
+2019-05-20 01:35:34,479 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/ami-id' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/ami-id', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,481 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/ami-id (200, 21b) after 1 attempts
+2019-05-20 01:35:34,481 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/instance-type' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/instance-type', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,482 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/instance-type (200, 10b) after 1 attempts
+2019-05-20 01:35:34,482 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/ami-manifest-path' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/ami-manifest-path', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,488 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/ami-manifest-path (200, 9b) after 1 attempts
+2019-05-20 01:35:34,488 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/local-hostname' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/local-hostname', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,490 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/local-hostname (200, 40b) after 1 attempts
+2019-05-20 01:35:34,490 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/instance-id' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/instance-id', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,491 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/instance-id (200, 19b) after 1 attempts
+2019-05-20 01:35:34,491 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/profile' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/profile', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,493 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/profile (200, 11b) after 1 attempts
+2019-05-20 01:35:34,493 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/public-ipv4' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/public-ipv4', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,494 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/public-ipv4 (200, 14b) after 1 attempts
+2019-05-20 01:35:34,494 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/local-ipv4' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/local-ipv4', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,496 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/local-ipv4 (200, 10b) after 1 attempts
+2019-05-20 01:35:34,496 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/mac' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/mac', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,497 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/mac (200, 17b) after 1 attempts
+2019-05-20 01:35:34,497 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/instance-action' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/instance-action', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,499 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/instance-action (200, 4b) after 1 attempts
+2019-05-20 01:35:34,499 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/public-hostname' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/public-hostname', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,500 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/public-hostname (200, 50b) after 1 attempts
+2019-05-20 01:35:34,500 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/reservation-id' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/reservation-id', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,501 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/reservation-id (200, 19b) after 1 attempts
+2019-05-20 01:35:34,502 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/meta-data/security-groups' with {'url': 'http://169.254.169.254/2016-09-02/meta-data/security-groups', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,503 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/meta-data/security-groups (200, 327b) after 1 attempts
+2019-05-20 01:35:34,503 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/dynamic/instance-identity' with {'url': 'http://169.254.169.254/2016-09-02/dynamic/instance-identity', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,504 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/dynamic/instance-identity (200, 32b) after 1 attempts
+2019-05-20 01:35:34,505 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/dynamic/instance-identity/pkcs7' with {'url': 'http://169.254.169.254/2016-09-02/dynamic/instance-identity/pkcs7', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,506 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/dynamic/instance-identity/pkcs7 (200, 1118b) after 1 attempts
+2019-05-20 01:35:34,506 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/dynamic/instance-identity/signature' with {'url': 'http://169.254.169.254/2016-09-02/dynamic/instance-identity/signature', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,507 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/dynamic/instance-identity/signature (200, 174b) after 1 attempts
+2019-05-20 01:35:34,507 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/dynamic/instance-identity/document' with {'url': 'http://169.254.169.254/2016-09-02/dynamic/instance-identity/document', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,509 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/dynamic/instance-identity/document (200, 476b) after 1 attempts
+2019-05-20 01:35:34,509 - url_helper.py[DEBUG]: [0/6] open 'http://169.254.169.254/2016-09-02/dynamic/instance-identity/rsa2048' with {'url': 'http://169.254.169.254/2016-09-02/dynamic/instance-identity/rsa2048', 'headers': {'User-Agent': 'Cloud-Init/18.3-9-g2e62cb8a-0ubuntu1~16.04.2'}, 'allow_redirects': True, 'timeout': 5.0, 'method': 'GET'} configuration
+2019-05-20 01:35:34,510 - url_helper.py[DEBUG]: Read from http://169.254.169.254/2016-09-02/dynamic/instance-identity/rsa2048 (200, 1434b) after 1 attempts
+2019-05-20 01:35:34,510 - util.py[DEBUG]: Crawl of metadata service took 0.108 seconds
+2019-05-20 01:35:34,510 - util.py[DEBUG]: Running command ['ip', '-4', 'route', 'del', 'default', 'dev', 'ens5'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,512 - util.py[DEBUG]: Running command ['ip', '-family', 'inet', 'link', 'set', 'dev', 'ens5', 'down'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,515 - util.py[DEBUG]: Running command ['ip', '-family', 'inet', 'addr', 'del', '10.0.0.215/24', 'dev', 'ens5'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,518 - handlers.py[DEBUG]: finish: init-local/search-Ec2Local: SUCCESS: found local data from DataSourceEc2Local
+2019-05-20 01:35:34,518 - stages.py[INFO]: Loaded datasource DataSourceEc2Local - DataSourceEc2Local
+2019-05-20 01:35:34,518 - util.py[DEBUG]: Reading from /etc/cloud/cloud.cfg (quiet=False)
+2019-05-20 01:35:34,518 - util.py[DEBUG]: Read 3169 bytes from /etc/cloud/cloud.cfg
+2019-05-20 01:35:34,518 - util.py[DEBUG]: Attempting to load yaml from string of length 3169 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:34,528 - util.py[DEBUG]: Reading from /etc/cloud/cloud.cfg.d/90_dpkg.cfg (quiet=False)
+2019-05-20 01:35:34,528 - util.py[DEBUG]: Read 238 bytes from /etc/cloud/cloud.cfg.d/90_dpkg.cfg
+2019-05-20 01:35:34,528 - util.py[DEBUG]: Attempting to load yaml from string of length 238 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:34,529 - util.py[DEBUG]: Reading from /etc/cloud/cloud.cfg.d/05_logging.cfg (quiet=False)
+2019-05-20 01:35:34,529 - util.py[DEBUG]: Read 2057 bytes from /etc/cloud/cloud.cfg.d/05_logging.cfg
+2019-05-20 01:35:34,529 - util.py[DEBUG]: Attempting to load yaml from string of length 2057 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:34,532 - util.py[DEBUG]: Reading from /run/cloud-init/cloud.cfg (quiet=False)
+2019-05-20 01:35:34,532 - util.py[DEBUG]: Read 44 bytes from /run/cloud-init/cloud.cfg
+2019-05-20 01:35:34,532 - util.py[DEBUG]: Attempting to load yaml from string of length 44 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:34,533 - util.py[DEBUG]: Attempting to load yaml from string of length 0 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:34,533 - util.py[DEBUG]: loaded blob returned None, returning default.
+2019-05-20 01:35:34,533 - util.py[DEBUG]: Attempting to remove /var/lib/cloud/instance
+2019-05-20 01:35:34,533 - util.py[DEBUG]: Creating symbolic link from '/var/lib/cloud/instance' => '/var/lib/cloud/instances/i-0a02386503d73e22d'
+2019-05-20 01:35:34,534 - util.py[DEBUG]: Reading from /var/lib/cloud/instances/i-0a02386503d73e22d/datasource (quiet=False)
+2019-05-20 01:35:34,534 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/datasource - wb: [644] 39 bytes
+2019-05-20 01:35:34,534 - util.py[DEBUG]: Writing to /var/lib/cloud/data/previous-datasource - wb: [644] 39 bytes
+2019-05-20 01:35:34,535 - util.py[DEBUG]: Reading from /var/lib/cloud/data/instance-id (quiet=False)
+2019-05-20 01:35:34,535 - stages.py[DEBUG]: previous iid found to be NO_PREVIOUS_INSTANCE_ID
+2019-05-20 01:35:34,535 - util.py[DEBUG]: Writing to /var/lib/cloud/data/instance-id - wb: [644] 20 bytes
+2019-05-20 01:35:34,535 - util.py[DEBUG]: Writing to /run/cloud-init/.instance-id - wb: [644] 20 bytes
+2019-05-20 01:35:34,535 - util.py[DEBUG]: Writing to /var/lib/cloud/data/previous-instance-id - wb: [644] 24 bytes
+2019-05-20 01:35:34,536 - util.py[DEBUG]: Writing to /var/lib/cloud/instance/obj.pkl - wb: [400] 9794 bytes
+2019-05-20 01:35:34,536 - main.py[DEBUG]: [local] init will now be targeting instance id: i-0a02386503d73e22d. new=True
+2019-05-20 01:35:34,536 - util.py[DEBUG]: Reading from /etc/cloud/cloud.cfg (quiet=False)
+2019-05-20 01:35:34,536 - util.py[DEBUG]: Read 3169 bytes from /etc/cloud/cloud.cfg
+2019-05-20 01:35:34,536 - util.py[DEBUG]: Attempting to load yaml from string of length 3169 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:34,545 - util.py[DEBUG]: Reading from /etc/cloud/cloud.cfg.d/90_dpkg.cfg (quiet=False)
+2019-05-20 01:35:34,545 - util.py[DEBUG]: Read 238 bytes from /etc/cloud/cloud.cfg.d/90_dpkg.cfg
+2019-05-20 01:35:34,545 - util.py[DEBUG]: Attempting to load yaml from string of length 238 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:34,546 - util.py[DEBUG]: Reading from /etc/cloud/cloud.cfg.d/05_logging.cfg (quiet=False)
+2019-05-20 01:35:34,546 - util.py[DEBUG]: Read 2057 bytes from /etc/cloud/cloud.cfg.d/05_logging.cfg
+2019-05-20 01:35:34,546 - util.py[DEBUG]: Attempting to load yaml from string of length 2057 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:34,549 - util.py[DEBUG]: Reading from /run/cloud-init/cloud.cfg (quiet=False)
+2019-05-20 01:35:34,549 - util.py[DEBUG]: Read 44 bytes from /run/cloud-init/cloud.cfg
+2019-05-20 01:35:34,549 - util.py[DEBUG]: Attempting to load yaml from string of length 44 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:34,550 - util.py[DEBUG]: Attempting to load yaml from string of length 0 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:34,550 - util.py[DEBUG]: loaded blob returned None, returning default.
+2019-05-20 01:35:34,551 - stages.py[DEBUG]: Using distro class <class 'cloudinit.distros.ubuntu.Distro'>
+2019-05-20 01:35:34,551 - cc_set_hostname.py[DEBUG]: Setting the hostname to ip-10-0-0-215.eu-west-1.compute.internal (ip-10-0-0-215)
+2019-05-20 01:35:34,551 - util.py[DEBUG]: Reading from /etc/hostname (quiet=False)
+2019-05-20 01:35:34,551 - util.py[DEBUG]: Read 7 bytes from /etc/hostname
+2019-05-20 01:35:34,551 - util.py[DEBUG]: Writing to /etc/hostname - wb: [644] 14 bytes
+2019-05-20 01:35:34,552 - __init__.py[DEBUG]: Non-persistently setting the system hostname to ip-10-0-0-215
+2019-05-20 01:35:34,552 - util.py[DEBUG]: Running command ['hostname', 'ip-10-0-0-215'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,554 - util.py[DEBUG]: Reading from /sys/class/net/ens5/address (quiet=False)
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Read 18 bytes from /sys/class/net/ens5/address
+2019-05-20 01:35:34,555 - stages.py[DEBUG]: applying net config names for {'config': [{'type': 'physical', 'subnets': [{'type': 'dhcp4'}], 'mac_address': '06:a5:6e:95:3e:14', 'name': 'ens5'}], 'version': 1}
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Reading from /sys/class/net/ens5/device/device (quiet=False)
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Read 7 bytes from /sys/class/net/ens5/device/device
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Reading from /sys/class/net/lo/addr_assign_type (quiet=False)
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Read 2 bytes from /sys/class/net/lo/addr_assign_type
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Reading from /sys/class/net/lo/uevent (quiet=False)
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Read 23 bytes from /sys/class/net/lo/uevent
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Reading from /sys/class/net/lo/address (quiet=False)
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Read 18 bytes from /sys/class/net/lo/address
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Reading from /sys/class/net/lo/device/device (quiet=False)
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Reading from /sys/class/net/ens5/addr_assign_type (quiet=False)
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Read 2 bytes from /sys/class/net/ens5/addr_assign_type
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Reading from /sys/class/net/ens5/uevent (quiet=False)
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Read 25 bytes from /sys/class/net/ens5/uevent
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Reading from /sys/class/net/ens5/address (quiet=False)
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Read 18 bytes from /sys/class/net/ens5/address
+2019-05-20 01:35:34,555 - util.py[DEBUG]: Reading from /sys/class/net/ens5/device/device (quiet=False)
+2019-05-20 01:35:34,556 - util.py[DEBUG]: Read 7 bytes from /sys/class/net/ens5/device/device
+2019-05-20 01:35:34,556 - util.py[DEBUG]: Reading from /sys/class/net/lo/operstate (quiet=False)
+2019-05-20 01:35:34,556 - util.py[DEBUG]: Read 8 bytes from /sys/class/net/lo/operstate
+2019-05-20 01:35:34,556 - util.py[DEBUG]: Reading from /sys/class/net/ens5/operstate (quiet=False)
+2019-05-20 01:35:34,556 - util.py[DEBUG]: Read 5 bytes from /sys/class/net/ens5/operstate
+2019-05-20 01:35:34,556 - util.py[DEBUG]: Running command ['ip', '-6', 'addr', 'show', 'permanent', 'scope', 'global'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,558 - util.py[DEBUG]: Running command ['ip', '-4', 'addr', 'show'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:34,560 - __init__.py[DEBUG]: no work necessary for renaming of [['06:a5:6e:95:3e:14', 'ens5', 'ena', '0xec20']]
+2019-05-20 01:35:34,560 - stages.py[INFO]: Applying network configuration from ds bringup=False: {'config': [{'type': 'physical', 'subnets': [{'type': 'dhcp4'}], 'mac_address': '06:a5:6e:95:3e:14', 'name': 'ens5'}], 'version': 1}
+2019-05-20 01:35:34,560 - __init__.py[DEBUG]: Selected renderer 'eni' from priority list: None
+2019-05-20 01:35:34,562 - util.py[DEBUG]: Writing to /etc/network/interfaces.d/50-cloud-init.cfg - wb: [644] 367 bytes
+2019-05-20 01:35:34,563 - util.py[DEBUG]: Writing to /etc/udev/rules.d/70-persistent-net.rules - wb: [644] 96 bytes
+2019-05-20 01:35:34,563 - main.py[DEBUG]: [local] Exiting. datasource DataSourceEc2Local not in local mode.
+2019-05-20 01:35:34,563 - util.py[DEBUG]: Reading from /proc/uptime (quiet=False)
+2019-05-20 01:35:34,563 - util.py[DEBUG]: Read 13 bytes from /proc/uptime
+2019-05-20 01:35:34,563 - util.py[DEBUG]: cloud-init mode 'init' took 0.724 seconds (0.72)
+2019-05-20 01:35:34,563 - handlers.py[DEBUG]: finish: init-local: SUCCESS: searching for local datasources
+2019-05-20 01:35:38,817 - util.py[DEBUG]: Cloud-init v. 18.3-9-g2e62cb8a-0ubuntu1~16.04.2 running 'init' at Mon, 20 May 2019 01:35:38 +0000. Up 15.17 seconds.
+2019-05-20 01:35:38,817 - main.py[DEBUG]: No kernel command line url found.
+2019-05-20 01:35:38,817 - main.py[DEBUG]: Closing stdin.
+2019-05-20 01:35:38,818 - util.py[DEBUG]: Writing to /var/log/cloud-init.log - ab: [644] 0 bytes
+2019-05-20 01:35:38,819 - util.py[DEBUG]: Changing the ownership of /var/log/cloud-init.log to 104:4
+2019-05-20 01:35:38,819 - util.py[DEBUG]: Running command ['ip', 'addr', 'show'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:38,821 - util.py[DEBUG]: Running command ['ip', '-o', 'route', 'list'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:38,823 - util.py[DEBUG]: Running command ['ip', '--oneline', '-6', 'route', 'list', 'table', 'all'] with allowed return codes [0, 1] (shell=False, capture=True)
+2019-05-20 01:35:38,825 - main.py[DEBUG]: Checking to see if files that we need already exist from a previous run that would allow us to stop early.
+2019-05-20 01:35:38,825 - main.py[DEBUG]: Execution continuing, no previous run detected that would allow us to stop early.
+2019-05-20 01:35:38,825 - handlers.py[DEBUG]: start: init-network/check-cache: attempting to read from cache [trust]
+2019-05-20 01:35:38,825 - util.py[DEBUG]: Reading from /var/lib/cloud/instance/obj.pkl (quiet=False)
+2019-05-20 01:35:38,825 - util.py[DEBUG]: Read 9794 bytes from /var/lib/cloud/instance/obj.pkl
+2019-05-20 01:35:38,827 - util.py[DEBUG]: Reading from /run/cloud-init/.instance-id (quiet=False)
+2019-05-20 01:35:38,827 - util.py[DEBUG]: Read 20 bytes from /run/cloud-init/.instance-id
+2019-05-20 01:35:38,827 - stages.py[DEBUG]: restored from cache with run check: DataSourceEc2Local
+2019-05-20 01:35:38,827 - handlers.py[DEBUG]: finish: init-network/check-cache: SUCCESS: restored from cache with run check: DataSourceEc2Local
+2019-05-20 01:35:38,827 - util.py[DEBUG]: Reading from /etc/cloud/cloud.cfg (quiet=False)
+2019-05-20 01:35:38,827 - util.py[DEBUG]: Read 3169 bytes from /etc/cloud/cloud.cfg
+2019-05-20 01:35:38,828 - util.py[DEBUG]: Attempting to load yaml from string of length 3169 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,837 - util.py[DEBUG]: Reading from /etc/cloud/cloud.cfg.d/90_dpkg.cfg (quiet=False)
+2019-05-20 01:35:38,837 - util.py[DEBUG]: Read 238 bytes from /etc/cloud/cloud.cfg.d/90_dpkg.cfg
+2019-05-20 01:35:38,837 - util.py[DEBUG]: Attempting to load yaml from string of length 238 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,838 - util.py[DEBUG]: Reading from /etc/cloud/cloud.cfg.d/05_logging.cfg (quiet=False)
+2019-05-20 01:35:38,839 - util.py[DEBUG]: Read 2057 bytes from /etc/cloud/cloud.cfg.d/05_logging.cfg
+2019-05-20 01:35:38,839 - util.py[DEBUG]: Attempting to load yaml from string of length 2057 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,841 - util.py[DEBUG]: Reading from /run/cloud-init/cloud.cfg (quiet=False)
+2019-05-20 01:35:38,841 - util.py[DEBUG]: Read 44 bytes from /run/cloud-init/cloud.cfg
+2019-05-20 01:35:38,842 - util.py[DEBUG]: Attempting to load yaml from string of length 44 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,842 - util.py[DEBUG]: Attempting to load yaml from string of length 0 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,842 - util.py[DEBUG]: loaded blob returned None, returning default.
+2019-05-20 01:35:38,842 - util.py[DEBUG]: Attempting to remove /var/lib/cloud/instance
+2019-05-20 01:35:38,843 - util.py[DEBUG]: Creating symbolic link from '/var/lib/cloud/instance' => '/var/lib/cloud/instances/i-0a02386503d73e22d'
+2019-05-20 01:35:38,843 - util.py[DEBUG]: Reading from /var/lib/cloud/instances/i-0a02386503d73e22d/datasource (quiet=False)
+2019-05-20 01:35:38,843 - util.py[DEBUG]: Read 39 bytes from /var/lib/cloud/instances/i-0a02386503d73e22d/datasource
+2019-05-20 01:35:38,843 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/datasource - wb: [644] 39 bytes
+2019-05-20 01:35:38,843 - util.py[DEBUG]: Writing to /var/lib/cloud/data/previous-datasource - wb: [644] 39 bytes
+2019-05-20 01:35:38,844 - util.py[DEBUG]: Reading from /var/lib/cloud/data/instance-id (quiet=False)
+2019-05-20 01:35:38,844 - util.py[DEBUG]: Read 20 bytes from /var/lib/cloud/data/instance-id
+2019-05-20 01:35:38,844 - stages.py[DEBUG]: previous iid found to be i-0a02386503d73e22d
+2019-05-20 01:35:38,844 - util.py[DEBUG]: Writing to /var/lib/cloud/data/instance-id - wb: [644] 20 bytes
+2019-05-20 01:35:38,844 - util.py[DEBUG]: Writing to /run/cloud-init/.instance-id - wb: [644] 20 bytes
+2019-05-20 01:35:38,844 - util.py[DEBUG]: Writing to /var/lib/cloud/data/previous-instance-id - wb: [644] 20 bytes
+2019-05-20 01:35:38,845 - util.py[DEBUG]: Writing to /var/lib/cloud/instance/obj.pkl - wb: [400] 9870 bytes
+2019-05-20 01:35:38,845 - main.py[DEBUG]: [net] init will now be targeting instance id: i-0a02386503d73e22d. new=False
+2019-05-20 01:35:38,845 - util.py[DEBUG]: Reading from /etc/cloud/cloud.cfg (quiet=False)
+2019-05-20 01:35:38,845 - util.py[DEBUG]: Read 3169 bytes from /etc/cloud/cloud.cfg
+2019-05-20 01:35:38,845 - util.py[DEBUG]: Attempting to load yaml from string of length 3169 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,854 - util.py[DEBUG]: Reading from /etc/cloud/cloud.cfg.d/90_dpkg.cfg (quiet=False)
+2019-05-20 01:35:38,854 - util.py[DEBUG]: Read 238 bytes from /etc/cloud/cloud.cfg.d/90_dpkg.cfg
+2019-05-20 01:35:38,854 - util.py[DEBUG]: Attempting to load yaml from string of length 238 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,855 - util.py[DEBUG]: Reading from /etc/cloud/cloud.cfg.d/05_logging.cfg (quiet=False)
+2019-05-20 01:35:38,855 - util.py[DEBUG]: Read 2057 bytes from /etc/cloud/cloud.cfg.d/05_logging.cfg
+2019-05-20 01:35:38,855 - util.py[DEBUG]: Attempting to load yaml from string of length 2057 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,858 - util.py[DEBUG]: Reading from /run/cloud-init/cloud.cfg (quiet=False)
+2019-05-20 01:35:38,858 - util.py[DEBUG]: Read 44 bytes from /run/cloud-init/cloud.cfg
+2019-05-20 01:35:38,858 - util.py[DEBUG]: Attempting to load yaml from string of length 44 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,859 - util.py[DEBUG]: Attempting to load yaml from string of length 0 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,859 - util.py[DEBUG]: loaded blob returned None, returning default.
+2019-05-20 01:35:38,860 - util.py[DEBUG]: Reading from /sys/class/net/ens5/address (quiet=False)
+2019-05-20 01:35:38,860 - util.py[DEBUG]: Read 18 bytes from /sys/class/net/ens5/address
+2019-05-20 01:35:38,860 - stages.py[DEBUG]: applying net config names for {'version': 1, 'config': [{'mac_address': '06:a5:6e:95:3e:14', 'subnets': [{'type': 'dhcp4'}], 'name': 'ens5', 'type': 'physical'}]}
+2019-05-20 01:35:38,860 - stages.py[DEBUG]: Using distro class <class 'cloudinit.distros.ubuntu.Distro'>
+2019-05-20 01:35:38,860 - util.py[DEBUG]: Reading from /sys/class/net/ens5/device/device (quiet=False)
+2019-05-20 01:35:38,860 - util.py[DEBUG]: Read 7 bytes from /sys/class/net/ens5/device/device
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Reading from /sys/class/net/lo/addr_assign_type (quiet=False)
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Read 2 bytes from /sys/class/net/lo/addr_assign_type
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Reading from /sys/class/net/lo/uevent (quiet=False)
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Read 23 bytes from /sys/class/net/lo/uevent
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Reading from /sys/class/net/lo/address (quiet=False)
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Read 18 bytes from /sys/class/net/lo/address
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Reading from /sys/class/net/lo/device/device (quiet=False)
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Reading from /sys/class/net/ens5/addr_assign_type (quiet=False)
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Read 2 bytes from /sys/class/net/ens5/addr_assign_type
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Reading from /sys/class/net/ens5/uevent (quiet=False)
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Read 25 bytes from /sys/class/net/ens5/uevent
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Reading from /sys/class/net/ens5/address (quiet=False)
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Read 18 bytes from /sys/class/net/ens5/address
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Reading from /sys/class/net/ens5/device/device (quiet=False)
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Read 7 bytes from /sys/class/net/ens5/device/device
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Reading from /sys/class/net/lo/operstate (quiet=False)
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Read 8 bytes from /sys/class/net/lo/operstate
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Reading from /sys/class/net/ens5/operstate (quiet=False)
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Read 3 bytes from /sys/class/net/ens5/operstate
+2019-05-20 01:35:38,861 - util.py[DEBUG]: Running command ['ip', '-6', 'addr', 'show', 'permanent', 'scope', 'global'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:38,863 - util.py[DEBUG]: Running command ['ip', '-4', 'addr', 'show'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:38,864 - __init__.py[DEBUG]: no work necessary for renaming of [['06:a5:6e:95:3e:14', 'ens5', 'ena', '0xec20']]
+2019-05-20 01:35:38,865 - stages.py[DEBUG]: No network config applied. Neither a new instance nor datasource network update on 'System boot' event
+2019-05-20 01:35:38,865 - handlers.py[DEBUG]: start: init-network/setup-datasource: setting up datasource
+2019-05-20 01:35:38,865 - handlers.py[DEBUG]: finish: init-network/setup-datasource: SUCCESS: setting up datasource
+2019-05-20 01:35:38,865 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/user-data.txt - wb: [600] 0 bytes
+2019-05-20 01:35:38,867 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/user-data.txt.i - wb: [600] 308 bytes
+2019-05-20 01:35:38,868 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/vendor-data.txt - wb: [600] 0 bytes
+2019-05-20 01:35:38,868 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/vendor-data.txt.i - wb: [600] 308 bytes
+2019-05-20 01:35:38,869 - util.py[DEBUG]: Reading from /var/lib/cloud/data/set-hostname (quiet=False)
+2019-05-20 01:35:38,869 - util.py[DEBUG]: Read 86 bytes from /var/lib/cloud/data/set-hostname
+2019-05-20 01:35:38,869 - cc_set_hostname.py[DEBUG]: No hostname changes. Skipping set-hostname
+2019-05-20 01:35:38,870 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/consume_data - wb: [644] 25 bytes
+2019-05-20 01:35:38,870 - helpers.py[DEBUG]: Running consume_data using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/consume_data'>)
+2019-05-20 01:35:38,870 - handlers.py[DEBUG]: start: init-network/consume-user-data: reading and applying user-data
+2019-05-20 01:35:38,870 - launch_index.py[DEBUG]: Discarding 0 multipart messages which do not match launch index 0
+2019-05-20 01:35:38,870 - stages.py[DEBUG]: Added default handler for {'text/cloud-config-jsonp', 'text/cloud-config'} from CloudConfigPartHandler: [['text/cloud-config-jsonp', 'text/cloud-config']]
+2019-05-20 01:35:38,870 - stages.py[DEBUG]: Added default handler for {'text/x-shellscript'} from ShellScriptPartHandler: [['text/x-shellscript']]
+2019-05-20 01:35:38,870 - stages.py[DEBUG]: Added default handler for {'text/cloud-boothook'} from BootHookPartHandler: [['text/cloud-boothook']]
+2019-05-20 01:35:38,870 - stages.py[DEBUG]: Added default handler for {'text/upstart-job'} from UpstartJobPartHandler: [['text/upstart-job']]
+2019-05-20 01:35:38,871 - __init__.py[DEBUG]: Calling handler ShellScriptPartHandler: [['text/x-shellscript']] (__begin__, None, 2) with frequency once-per-instance
+2019-05-20 01:35:38,871 - __init__.py[DEBUG]: Calling handler CloudConfigPartHandler: [['text/cloud-config-jsonp', 'text/cloud-config']] (__begin__, None, 3) with frequency once-per-instance
+2019-05-20 01:35:38,871 - __init__.py[DEBUG]: Calling handler UpstartJobPartHandler: [['text/upstart-job']] (__begin__, None, 2) with frequency once-per-instance
+2019-05-20 01:35:38,871 - __init__.py[DEBUG]: Calling handler BootHookPartHandler: [['text/cloud-boothook']] (__begin__, None, 2) with frequency once-per-instance
+2019-05-20 01:35:38,871 - __init__.py[DEBUG]: {'Content-Type': 'text/x-not-multipart', 'Content-Disposition': 'attachment; filename="part-001"', 'MIME-Version': '1.0'}
+2019-05-20 01:35:38,871 - __init__.py[DEBUG]: Empty payload of type text/x-not-multipart
+2019-05-20 01:35:38,871 - __init__.py[DEBUG]: Calling handler ShellScriptPartHandler: [['text/x-shellscript']] (__end__, None, 2) with frequency once-per-instance
+2019-05-20 01:35:38,871 - __init__.py[DEBUG]: Calling handler CloudConfigPartHandler: [['text/cloud-config-jsonp', 'text/cloud-config']] (__end__, None, 3) with frequency once-per-instance
+2019-05-20 01:35:38,871 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/cloud-config.txt - wb: [600] 0 bytes
+2019-05-20 01:35:38,871 - __init__.py[DEBUG]: Calling handler UpstartJobPartHandler: [['text/upstart-job']] (__end__, None, 2) with frequency once-per-instance
+2019-05-20 01:35:38,871 - __init__.py[DEBUG]: Calling handler BootHookPartHandler: [['text/cloud-boothook']] (__end__, None, 2) with frequency once-per-instance
+2019-05-20 01:35:38,871 - handlers.py[DEBUG]: finish: init-network/consume-user-data: SUCCESS: reading and applying user-data
+2019-05-20 01:35:38,872 - handlers.py[DEBUG]: start: init-network/consume-vendor-data: reading and applying vendor-data
+2019-05-20 01:35:38,872 - stages.py[DEBUG]: no vendordata from datasource
+2019-05-20 01:35:38,872 - handlers.py[DEBUG]: finish: init-network/consume-vendor-data: SUCCESS: reading and applying vendor-data
+2019-05-20 01:35:38,872 - util.py[DEBUG]: Reading from /etc/cloud/cloud.cfg (quiet=False)
+2019-05-20 01:35:38,872 - util.py[DEBUG]: Read 3169 bytes from /etc/cloud/cloud.cfg
+2019-05-20 01:35:38,872 - util.py[DEBUG]: Attempting to load yaml from string of length 3169 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,881 - util.py[DEBUG]: Reading from /etc/cloud/cloud.cfg.d/90_dpkg.cfg (quiet=False)
+2019-05-20 01:35:38,881 - util.py[DEBUG]: Read 238 bytes from /etc/cloud/cloud.cfg.d/90_dpkg.cfg
+2019-05-20 01:35:38,881 - util.py[DEBUG]: Attempting to load yaml from string of length 238 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,882 - util.py[DEBUG]: Reading from /etc/cloud/cloud.cfg.d/05_logging.cfg (quiet=False)
+2019-05-20 01:35:38,882 - util.py[DEBUG]: Read 2057 bytes from /etc/cloud/cloud.cfg.d/05_logging.cfg
+2019-05-20 01:35:38,882 - util.py[DEBUG]: Attempting to load yaml from string of length 2057 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,885 - util.py[DEBUG]: Reading from /run/cloud-init/cloud.cfg (quiet=False)
+2019-05-20 01:35:38,885 - util.py[DEBUG]: Read 44 bytes from /run/cloud-init/cloud.cfg
+2019-05-20 01:35:38,885 - util.py[DEBUG]: Attempting to load yaml from string of length 44 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,885 - util.py[DEBUG]: Attempting to load yaml from string of length 0 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,885 - util.py[DEBUG]: loaded blob returned None, returning default.
+2019-05-20 01:35:38,886 - util.py[DEBUG]: Reading from /var/lib/cloud/instance/cloud-config.txt (quiet=False)
+2019-05-20 01:35:38,886 - util.py[DEBUG]: Read 0 bytes from /var/lib/cloud/instance/cloud-config.txt
+2019-05-20 01:35:38,886 - util.py[DEBUG]: Attempting to load yaml from string of length 0 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,886 - util.py[DEBUG]: loaded blob returned None, returning default.
+2019-05-20 01:35:38,886 - util.py[DEBUG]: Reading from /var/lib/cloud/instance/cloud-config.txt (quiet=False)
+2019-05-20 01:35:38,886 - util.py[DEBUG]: Read 0 bytes from /var/lib/cloud/instance/cloud-config.txt
+2019-05-20 01:35:38,886 - util.py[DEBUG]: Attempting to load yaml from string of length 0 with allowed root types (<class 'dict'>,)
+2019-05-20 01:35:38,886 - util.py[DEBUG]: loaded blob returned None, returning default.
+2019-05-20 01:35:38,888 - handlers.py[DEBUG]: start: init-network/activate-datasource: activating datasource
+2019-05-20 01:35:38,888 - util.py[DEBUG]: Writing to /var/lib/cloud/instance/obj.pkl - wb: [400] 9177 bytes
+2019-05-20 01:35:38,888 - handlers.py[DEBUG]: finish: init-network/activate-datasource: SUCCESS: activating datasource
+2019-05-20 01:35:38,889 - main.py[DEBUG]: used datasource 'DataSourceEc2Local' from 'Ec2' was in di_report's list: ['Ec2', 'None']
+2019-05-20 01:35:39,038 - stages.py[DEBUG]: Using distro class <class 'cloudinit.distros.ubuntu.Distro'>
+2019-05-20 01:35:39,038 - stages.py[DEBUG]: Running module migrator (<module 'cloudinit.config.cc_migrator' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_migrator.py'>) with frequency always
+2019-05-20 01:35:39,038 - handlers.py[DEBUG]: start: init-network/config-migrator: running config-migrator with frequency always
+2019-05-20 01:35:39,038 - helpers.py[DEBUG]: Running config-migrator using lock (<cloudinit.helpers.DummyLock object at 0x7f7325f67f98>)
+2019-05-20 01:35:39,038 - cc_migrator.py[DEBUG]: Migrated 0 semaphore files to there canonicalized names
+2019-05-20 01:35:39,039 - handlers.py[DEBUG]: finish: init-network/config-migrator: SUCCESS: config-migrator ran successfully
+2019-05-20 01:35:39,039 - stages.py[DEBUG]: Running module seed_random (<module 'cloudinit.config.cc_seed_random' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_seed_random.py'>) with frequency once-per-instance
+2019-05-20 01:35:39,039 - handlers.py[DEBUG]: start: init-network/config-seed_random: running config-seed_random with frequency once-per-instance
+2019-05-20 01:35:39,039 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_seed_random - wb: [644] 24 bytes
+2019-05-20 01:35:39,039 - helpers.py[DEBUG]: Running config-seed_random using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_seed_random'>)
+2019-05-20 01:35:39,039 - cc_seed_random.py[DEBUG]: no command provided
+2019-05-20 01:35:39,039 - handlers.py[DEBUG]: finish: init-network/config-seed_random: SUCCESS: config-seed_random ran successfully
+2019-05-20 01:35:39,039 - stages.py[DEBUG]: Running module bootcmd (<module 'cloudinit.config.cc_bootcmd' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_bootcmd.py'>) with frequency always
+2019-05-20 01:35:39,039 - handlers.py[DEBUG]: start: init-network/config-bootcmd: running config-bootcmd with frequency always
+2019-05-20 01:35:39,039 - helpers.py[DEBUG]: Running config-bootcmd using lock (<cloudinit.helpers.DummyLock object at 0x7f7325f6aa20>)
+2019-05-20 01:35:39,040 - cc_bootcmd.py[DEBUG]: Skipping module named bootcmd, no 'bootcmd' key in configuration
+2019-05-20 01:35:39,040 - handlers.py[DEBUG]: finish: init-network/config-bootcmd: SUCCESS: config-bootcmd ran successfully
+2019-05-20 01:35:39,040 - stages.py[DEBUG]: Running module write-files (<module 'cloudinit.config.cc_write_files' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_write_files.py'>) with frequency once-per-instance
+2019-05-20 01:35:39,040 - handlers.py[DEBUG]: start: init-network/config-write-files: running config-write-files with frequency once-per-instance
+2019-05-20 01:35:39,040 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_write_files - wb: [644] 24 bytes
+2019-05-20 01:35:39,040 - helpers.py[DEBUG]: Running config-write-files using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_write_files'>)
+2019-05-20 01:35:39,040 - cc_write_files.py[DEBUG]: Skipping module named write-files, no/empty 'write_files' key in configuration
+2019-05-20 01:35:39,040 - handlers.py[DEBUG]: finish: init-network/config-write-files: SUCCESS: config-write-files ran successfully
+2019-05-20 01:35:39,040 - stages.py[DEBUG]: Running module growpart (<module 'cloudinit.config.cc_growpart' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_growpart.py'>) with frequency always
+2019-05-20 01:35:39,041 - handlers.py[DEBUG]: start: init-network/config-growpart: running config-growpart with frequency always
+2019-05-20 01:35:39,041 - helpers.py[DEBUG]: Running config-growpart using lock (<cloudinit.helpers.DummyLock object at 0x7f7325f6af28>)
+2019-05-20 01:35:39,041 - cc_growpart.py[DEBUG]: No 'growpart' entry in cfg.  Using default: {'mode': 'auto', 'devices': ['/'], 'ignore_growroot_disabled': False}
+2019-05-20 01:35:39,041 - util.py[DEBUG]: Running command ['growpart', '--help'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:39,060 - util.py[DEBUG]: Reading from /proc/1319/mountinfo (quiet=False)
+2019-05-20 01:35:39,060 - util.py[DEBUG]: Read 2631 bytes from /proc/1319/mountinfo
+2019-05-20 01:35:39,060 - util.py[DEBUG]: Running command ['systemd-detect-virt', '--quiet', '--container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:39,062 - util.py[DEBUG]: Running command ['running-in-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:39,063 - util.py[DEBUG]: Running command ['lxc-is-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:39,065 - util.py[DEBUG]: Reading from /proc/1/environ (quiet=False)
+2019-05-20 01:35:39,065 - util.py[DEBUG]: Read 150 bytes from /proc/1/environ
+2019-05-20 01:35:39,065 - util.py[DEBUG]: Reading from /proc/self/status (quiet=False)
+2019-05-20 01:35:39,065 - util.py[DEBUG]: Read 943 bytes from /proc/self/status
+2019-05-20 01:35:39,067 - util.py[DEBUG]: Reading from /etc/os-release (quiet=False)
+2019-05-20 01:35:39,068 - util.py[DEBUG]: Read 298 bytes from /etc/os-release
+2019-05-20 01:35:39,068 - util.py[DEBUG]: Reading from /sys/class/block/nvme0n1p1/partition (quiet=False)
+2019-05-20 01:35:39,068 - util.py[DEBUG]: Read 2 bytes from /sys/class/block/nvme0n1p1/partition
+2019-05-20 01:35:39,068 - util.py[DEBUG]: Reading from /sys/devices/pci0000:00/0000:00:04.0/nvme/nvme0/nvme0n1/dev (quiet=False)
+2019-05-20 01:35:39,068 - util.py[DEBUG]: Read 6 bytes from /sys/devices/pci0000:00/0000:00:04.0/nvme/nvme0/nvme0n1/dev
+2019-05-20 01:35:39,068 - util.py[DEBUG]: Running command ['growpart', '--dry-run', '/dev/nvme0n1', '1'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:39,207 - util.py[DEBUG]: Running command ['growpart', '/dev/nvme0n1', '1'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:39,255 - util.py[DEBUG]: resize_devices took 0.195 seconds
+2019-05-20 01:35:39,255 - cc_growpart.py[INFO]: '/' resized: changed (/dev/nvme0n1, 1) from 8588869120 to 107373116928
+2019-05-20 01:35:39,255 - handlers.py[DEBUG]: finish: init-network/config-growpart: SUCCESS: config-growpart ran successfully
+2019-05-20 01:35:39,255 - stages.py[DEBUG]: Running module resizefs (<module 'cloudinit.config.cc_resizefs' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_resizefs.py'>) with frequency always
+2019-05-20 01:35:39,255 - handlers.py[DEBUG]: start: init-network/config-resizefs: running config-resizefs with frequency always
+2019-05-20 01:35:39,255 - helpers.py[DEBUG]: Running config-resizefs using lock (<cloudinit.helpers.DummyLock object at 0x7f7325f6a278>)
+2019-05-20 01:35:39,255 - schema.py[DEBUG]: Ignoring schema validation. python-jsonschema is not present
+2019-05-20 01:35:39,255 - util.py[DEBUG]: Reading from /proc/1319/mountinfo (quiet=False)
+2019-05-20 01:35:39,256 - util.py[DEBUG]: Read 2631 bytes from /proc/1319/mountinfo
+2019-05-20 01:35:39,256 - cc_resizefs.py[DEBUG]: resize_info: dev=/dev/nvme0n1p1 mnt_point=/ path=/
+2019-05-20 01:35:39,256 - util.py[DEBUG]: Running command ['systemd-detect-virt', '--quiet', '--container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:39,257 - util.py[DEBUG]: Running command ['running-in-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:39,259 - util.py[DEBUG]: Running command ['lxc-is-container'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:39,260 - util.py[DEBUG]: Reading from /proc/1/environ (quiet=False)
+2019-05-20 01:35:39,260 - util.py[DEBUG]: Read 150 bytes from /proc/1/environ
+2019-05-20 01:35:39,260 - util.py[DEBUG]: Reading from /proc/self/status (quiet=False)
+2019-05-20 01:35:39,260 - util.py[DEBUG]: Read 944 bytes from /proc/self/status
+2019-05-20 01:35:39,260 - cc_resizefs.py[DEBUG]: Resizing / (ext4) using resize2fs /dev/nvme0n1p1
+2019-05-20 01:35:39,261 - util.py[DEBUG]: Running command ('resize2fs', '/dev/nvme0n1p1') with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:39,435 - util.py[DEBUG]: Resizing took 0.174 seconds
+2019-05-20 01:35:39,435 - cc_resizefs.py[DEBUG]: Resized root filesystem (type=ext4, val=True)
+2019-05-20 01:35:39,435 - handlers.py[DEBUG]: finish: init-network/config-resizefs: SUCCESS: config-resizefs ran successfully
+2019-05-20 01:35:39,435 - stages.py[DEBUG]: Running module disk_setup (<module 'cloudinit.config.cc_disk_setup' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_disk_setup.py'>) with frequency once-per-instance
+2019-05-20 01:35:39,436 - handlers.py[DEBUG]: start: init-network/config-disk_setup: running config-disk_setup with frequency once-per-instance
+2019-05-20 01:35:39,436 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_disk_setup - wb: [644] 25 bytes
+2019-05-20 01:35:39,436 - helpers.py[DEBUG]: Running config-disk_setup using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_disk_setup'>)
+2019-05-20 01:35:39,436 - handlers.py[DEBUG]: finish: init-network/config-disk_setup: SUCCESS: config-disk_setup ran successfully
+2019-05-20 01:35:39,436 - stages.py[DEBUG]: Running module mounts (<module 'cloudinit.config.cc_mounts' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_mounts.py'>) with frequency once-per-instance
+2019-05-20 01:35:39,436 - handlers.py[DEBUG]: start: init-network/config-mounts: running config-mounts with frequency once-per-instance
+2019-05-20 01:35:39,437 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_mounts - wb: [644] 25 bytes
+2019-05-20 01:35:39,437 - helpers.py[DEBUG]: Running config-mounts using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_mounts'>)
+2019-05-20 01:35:39,437 - cc_mounts.py[DEBUG]: mounts configuration is []
+2019-05-20 01:35:39,437 - util.py[DEBUG]: Reading from /etc/fstab (quiet=False)
+2019-05-20 01:35:39,437 - util.py[DEBUG]: Read 51 bytes from /etc/fstab
+2019-05-20 01:35:39,437 - cc_mounts.py[DEBUG]: Attempting to determine the real name of ephemeral0
+2019-05-20 01:35:39,437 - cc_mounts.py[DEBUG]: changed default device ephemeral0 => None
+2019-05-20 01:35:39,437 - cc_mounts.py[DEBUG]: Ignoring nonexistent default named mount ephemeral0
+2019-05-20 01:35:39,437 - cc_mounts.py[DEBUG]: Attempting to determine the real name of swap
+2019-05-20 01:35:39,437 - DataSourceEc2.py[DEBUG]: Unable to convert swap to a device
+2019-05-20 01:35:39,438 - cc_mounts.py[DEBUG]: changed default device swap => None
+2019-05-20 01:35:39,438 - cc_mounts.py[DEBUG]: Ignoring nonexistent default named mount swap
+2019-05-20 01:35:39,438 - cc_mounts.py[DEBUG]: no need to setup swap
+2019-05-20 01:35:39,438 - cc_mounts.py[DEBUG]: No modifications to fstab needed
+2019-05-20 01:35:39,438 - handlers.py[DEBUG]: finish: init-network/config-mounts: SUCCESS: config-mounts ran successfully
+2019-05-20 01:35:39,438 - stages.py[DEBUG]: Running module set_hostname (<module 'cloudinit.config.cc_set_hostname' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_set_hostname.py'>) with frequency once-per-instance
+2019-05-20 01:35:39,438 - handlers.py[DEBUG]: start: init-network/config-set_hostname: running config-set_hostname with frequency once-per-instance
+2019-05-20 01:35:39,438 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_set_hostname - wb: [644] 25 bytes
+2019-05-20 01:35:39,438 - helpers.py[DEBUG]: Running config-set_hostname using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_set_hostname'>)
+2019-05-20 01:35:39,438 - util.py[DEBUG]: Reading from /var/lib/cloud/data/set-hostname (quiet=False)
+2019-05-20 01:35:39,438 - util.py[DEBUG]: Read 86 bytes from /var/lib/cloud/data/set-hostname
+2019-05-20 01:35:39,438 - cc_set_hostname.py[DEBUG]: No hostname changes. Skipping set-hostname
+2019-05-20 01:35:39,438 - handlers.py[DEBUG]: finish: init-network/config-set_hostname: SUCCESS: config-set_hostname ran successfully
+2019-05-20 01:35:39,439 - stages.py[DEBUG]: Running module update_hostname (<module 'cloudinit.config.cc_update_hostname' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_update_hostname.py'>) with frequency always
+2019-05-20 01:35:39,439 - handlers.py[DEBUG]: start: init-network/config-update_hostname: running config-update_hostname with frequency always
+2019-05-20 01:35:39,439 - helpers.py[DEBUG]: Running config-update_hostname using lock (<cloudinit.helpers.DummyLock object at 0x7f7325f6a588>)
+2019-05-20 01:35:39,439 - cc_update_hostname.py[DEBUG]: Updating hostname to ip-10-0-0-215.eu-west-1.compute.internal (ip-10-0-0-215)
+2019-05-20 01:35:39,439 - util.py[DEBUG]: Reading from /etc/hostname (quiet=False)
+2019-05-20 01:35:39,439 - util.py[DEBUG]: Read 14 bytes from /etc/hostname
+2019-05-20 01:35:39,439 - __init__.py[DEBUG]: Attempting to update hostname to ip-10-0-0-215 in 1 files
+2019-05-20 01:35:39,439 - util.py[DEBUG]: Reading from /var/lib/cloud/data/previous-hostname (quiet=False)
+2019-05-20 01:35:39,439 - util.py[DEBUG]: Writing to /var/lib/cloud/data/previous-hostname - wb: [644] 14 bytes
+2019-05-20 01:35:39,439 - handlers.py[DEBUG]: finish: init-network/config-update_hostname: SUCCESS: config-update_hostname ran successfully
+2019-05-20 01:35:39,439 - stages.py[DEBUG]: Running module update_etc_hosts (<module 'cloudinit.config.cc_update_etc_hosts' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_update_etc_hosts.py'>) with frequency always
+2019-05-20 01:35:39,440 - handlers.py[DEBUG]: start: init-network/config-update_etc_hosts: running config-update_etc_hosts with frequency always
+2019-05-20 01:35:39,440 - helpers.py[DEBUG]: Running config-update_etc_hosts using lock (<cloudinit.helpers.DummyLock object at 0x7f7325f6a3c8>)
+2019-05-20 01:35:39,440 - cc_update_etc_hosts.py[DEBUG]: Configuration option 'manage_etc_hosts' is not set, not managing /etc/hosts in module update_etc_hosts
+2019-05-20 01:35:39,440 - handlers.py[DEBUG]: finish: init-network/config-update_etc_hosts: SUCCESS: config-update_etc_hosts ran successfully
+2019-05-20 01:35:39,440 - stages.py[DEBUG]: Running module ca-certs (<module 'cloudinit.config.cc_ca_certs' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_ca_certs.py'>) with frequency once-per-instance
+2019-05-20 01:35:39,440 - handlers.py[DEBUG]: start: init-network/config-ca-certs: running config-ca-certs with frequency once-per-instance
+2019-05-20 01:35:39,440 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_ca_certs - wb: [644] 24 bytes
+2019-05-20 01:35:39,440 - helpers.py[DEBUG]: Running config-ca-certs using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_ca_certs'>)
+2019-05-20 01:35:39,440 - cc_ca_certs.py[DEBUG]: Skipping module named ca-certs, no 'ca-certs' key in configuration
+2019-05-20 01:35:39,440 - handlers.py[DEBUG]: finish: init-network/config-ca-certs: SUCCESS: config-ca-certs ran successfully
+2019-05-20 01:35:39,440 - stages.py[DEBUG]: Running module rsyslog (<module 'cloudinit.config.cc_rsyslog' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_rsyslog.py'>) with frequency once-per-instance
+2019-05-20 01:35:39,440 - handlers.py[DEBUG]: start: init-network/config-rsyslog: running config-rsyslog with frequency once-per-instance
+2019-05-20 01:35:39,441 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_rsyslog - wb: [644] 25 bytes
+2019-05-20 01:35:39,441 - helpers.py[DEBUG]: Running config-rsyslog using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_rsyslog'>)
+2019-05-20 01:35:39,441 - cc_rsyslog.py[DEBUG]: Skipping module named rsyslog, no 'rsyslog' key in configuration
+2019-05-20 01:35:39,441 - handlers.py[DEBUG]: finish: init-network/config-rsyslog: SUCCESS: config-rsyslog ran successfully
+2019-05-20 01:35:39,441 - stages.py[DEBUG]: Running module users-groups (<module 'cloudinit.config.cc_users_groups' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_users_groups.py'>) with frequency once-per-instance
+2019-05-20 01:35:39,441 - handlers.py[DEBUG]: start: init-network/config-users-groups: running config-users-groups with frequency once-per-instance
+2019-05-20 01:35:39,441 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_users_groups - wb: [644] 25 bytes
+2019-05-20 01:35:39,442 - helpers.py[DEBUG]: Running config-users-groups using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_users_groups'>)
+2019-05-20 01:35:39,442 - util.py[DEBUG]: Reading from /etc/os-release (quiet=True)
+2019-05-20 01:35:39,442 - util.py[DEBUG]: Read 298 bytes from /etc/os-release
+2019-05-20 01:35:39,442 - util.py[DEBUG]: Reading from /etc/system-image/channel.ini (quiet=True)
+2019-05-20 01:35:39,442 - util.py[DEBUG]: Read 0 bytes from /etc/system-image/channel.ini
+2019-05-20 01:35:39,442 - __init__.py[DEBUG]: Adding user ubuntu
+2019-05-20 01:35:39,442 - util.py[DEBUG]: Running hidden command to protect sensitive input/output logstring: ['useradd', 'ubuntu', '--comment', 'Ubuntu', '--groups', 'adm,audio,cdrom,dialout,dip,floppy,lxd,netdev,plugdev,sudo,video', '--shell', '/bin/bash', '-m']
+2019-05-20 01:35:39,604 - util.py[DEBUG]: Running command ['passwd', '-l', 'ubuntu'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:39,630 - util.py[DEBUG]: Reading from /etc/sudoers (quiet=False)
+2019-05-20 01:35:39,630 - util.py[DEBUG]: Read 755 bytes from /etc/sudoers
+2019-05-20 01:35:39,631 - util.py[DEBUG]: Writing to /etc/sudoers.d/90-cloud-init-users - wb: [440] 151 bytes
+2019-05-20 01:35:39,631 - handlers.py[DEBUG]: finish: init-network/config-users-groups: SUCCESS: config-users-groups ran successfully
+2019-05-20 01:35:39,631 - stages.py[DEBUG]: Running module ssh (<module 'cloudinit.config.cc_ssh' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_ssh.py'>) with frequency once-per-instance
+2019-05-20 01:35:39,632 - handlers.py[DEBUG]: start: init-network/config-ssh: running config-ssh with frequency once-per-instance
+2019-05-20 01:35:39,632 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_ssh - wb: [644] 25 bytes
+2019-05-20 01:35:39,632 - helpers.py[DEBUG]: Running config-ssh using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_ssh'>)
+2019-05-20 01:35:39,633 - util.py[DEBUG]: Running command ['ssh-keygen', '-t', 'rsa', '-N', '', '-f', '/etc/ssh/ssh_host_rsa_key'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:39,832 - util.py[DEBUG]: Running command ['ssh-keygen', '-t', 'dsa', '-N', '', '-f', '/etc/ssh/ssh_host_dsa_key'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:40,009 - util.py[DEBUG]: Running command ['ssh-keygen', '-t', 'ecdsa', '-N', '', '-f', '/etc/ssh/ssh_host_ecdsa_key'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:40,012 - util.py[DEBUG]: Running command ['ssh-keygen', '-t', 'ed25519', '-N', '', '-f', '/etc/ssh/ssh_host_ed25519_key'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:40,017 - util.py[DEBUG]: Changing the ownership of /home/ubuntu/.ssh to 1000:1000
+2019-05-20 01:35:40,017 - util.py[DEBUG]: Reading from /etc/ssh/sshd_config (quiet=False)
+2019-05-20 01:35:40,017 - util.py[DEBUG]: Read 2540 bytes from /etc/ssh/sshd_config
+2019-05-20 01:35:40,018 - util.py[DEBUG]: Writing to /home/ubuntu/.ssh/authorized_keys - wb: [600] 448 bytes
+2019-05-20 01:35:40,018 - util.py[DEBUG]: Changing the ownership of /home/ubuntu/.ssh/authorized_keys to 1000:1000
+2019-05-20 01:35:40,019 - util.py[DEBUG]: Changing the ownership of /root/.ssh to 0:0
+2019-05-20 01:35:40,019 - util.py[DEBUG]: Reading from /etc/ssh/sshd_config (quiet=False)
+2019-05-20 01:35:40,019 - util.py[DEBUG]: Read 2540 bytes from /etc/ssh/sshd_config
+2019-05-20 01:35:40,019 - util.py[DEBUG]: Writing to /root/.ssh/authorized_keys - wb: [600] 603 bytes
+2019-05-20 01:35:40,020 - util.py[DEBUG]: Changing the ownership of /root/.ssh/authorized_keys to 0:0
+2019-05-20 01:35:40,020 - handlers.py[DEBUG]: finish: init-network/config-ssh: SUCCESS: config-ssh ran successfully
+2019-05-20 01:35:40,020 - main.py[DEBUG]: Ran 15 modules with 0 failures
+2019-05-20 01:35:40,020 - util.py[DEBUG]: Reading from /proc/uptime (quiet=False)
+2019-05-20 01:35:40,020 - util.py[DEBUG]: Read 13 bytes from /proc/uptime
+2019-05-20 01:35:40,021 - util.py[DEBUG]: cloud-init mode 'init' took 1.227 seconds (1.23)
+2019-05-20 01:35:40,021 - handlers.py[DEBUG]: finish: init-network: SUCCESS: searching for network datasources
+2019-05-20 01:35:53,739 - util.py[DEBUG]: Cloud-init v. 18.3-9-g2e62cb8a-0ubuntu1~16.04.2 running 'modules:config' at Mon, 20 May 2019 01:35:53 +0000. Up 30.07 seconds.
+2019-05-20 01:35:53,776 - stages.py[DEBUG]: Using distro class <class 'cloudinit.distros.ubuntu.Distro'>
+2019-05-20 01:35:53,777 - stages.py[DEBUG]: Running module emit_upstart (<module 'cloudinit.config.cc_emit_upstart' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_emit_upstart.py'>) with frequency always
+2019-05-20 01:35:53,777 - handlers.py[DEBUG]: start: modules-config/config-emit_upstart: running config-emit_upstart with frequency always
+2019-05-20 01:35:53,777 - helpers.py[DEBUG]: Running config-emit_upstart using lock (<cloudinit.helpers.DummyLock object at 0x7f8f20c7d048>)
+2019-05-20 01:35:53,777 - cc_emit_upstart.py[DEBUG]: no /sbin/initctl located
+2019-05-20 01:35:53,777 - cc_emit_upstart.py[DEBUG]: not upstart system, 'emit_upstart' disabled
+2019-05-20 01:35:53,777 - handlers.py[DEBUG]: finish: modules-config/config-emit_upstart: SUCCESS: config-emit_upstart ran successfully
+2019-05-20 01:35:53,777 - stages.py[DEBUG]: Running module snap (<module 'cloudinit.config.cc_snap' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_snap.py'>) with frequency once-per-instance
+2019-05-20 01:35:53,777 - handlers.py[DEBUG]: start: modules-config/config-snap: running config-snap with frequency once-per-instance
+2019-05-20 01:35:53,777 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_snap - wb: [644] 25 bytes
+2019-05-20 01:35:53,778 - helpers.py[DEBUG]: Running config-snap using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_snap'>)
+2019-05-20 01:35:53,778 - cc_snap.py[DEBUG]: Skipping module named snap, no 'snap' key in configuration
+2019-05-20 01:35:53,778 - handlers.py[DEBUG]: finish: modules-config/config-snap: SUCCESS: config-snap ran successfully
+2019-05-20 01:35:53,778 - stages.py[DEBUG]: Running module snap_config (<module 'cloudinit.config.cc_snap_config' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_snap_config.py'>) with frequency once-per-instance
+2019-05-20 01:35:53,778 - handlers.py[DEBUG]: start: modules-config/config-snap_config: running config-snap_config with frequency once-per-instance
+2019-05-20 01:35:53,778 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_snap_config - wb: [644] 25 bytes
+2019-05-20 01:35:53,778 - helpers.py[DEBUG]: Running config-snap_config using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_snap_config'>)
+2019-05-20 01:35:53,778 - cc_snap_config.py[DEBUG]: No snappy config provided, skipping
+2019-05-20 01:35:53,778 - handlers.py[DEBUG]: finish: modules-config/config-snap_config: SUCCESS: config-snap_config ran successfully
+2019-05-20 01:35:53,778 - stages.py[DEBUG]: Running module ssh-import-id (<module 'cloudinit.config.cc_ssh_import_id' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_ssh_import_id.py'>) with frequency once-per-instance
+2019-05-20 01:35:53,779 - handlers.py[DEBUG]: start: modules-config/config-ssh-import-id: running config-ssh-import-id with frequency once-per-instance
+2019-05-20 01:35:53,779 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_ssh_import_id - wb: [644] 24 bytes
+2019-05-20 01:35:53,779 - helpers.py[DEBUG]: Running config-ssh-import-id using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_ssh_import_id'>)
+2019-05-20 01:35:53,779 - handlers.py[DEBUG]: finish: modules-config/config-ssh-import-id: SUCCESS: config-ssh-import-id ran successfully
+2019-05-20 01:35:53,779 - stages.py[DEBUG]: Running module locale (<module 'cloudinit.config.cc_locale' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_locale.py'>) with frequency once-per-instance
+2019-05-20 01:35:53,779 - handlers.py[DEBUG]: start: modules-config/config-locale: running config-locale with frequency once-per-instance
+2019-05-20 01:35:53,779 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_locale - wb: [644] 24 bytes
+2019-05-20 01:35:53,780 - helpers.py[DEBUG]: Running config-locale using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_locale'>)
+2019-05-20 01:35:53,780 - util.py[DEBUG]: Reading from /etc/default/locale (quiet=False)
+2019-05-20 01:35:53,780 - util.py[DEBUG]: Read 35 bytes from /etc/default/locale
+2019-05-20 01:35:53,780 - cc_locale.py[DEBUG]: Setting locale to en_US.UTF-8
+2019-05-20 01:35:53,780 - util.py[DEBUG]: Reading from /etc/default/locale (quiet=False)
+2019-05-20 01:35:53,780 - util.py[DEBUG]: Read 35 bytes from /etc/default/locale
+2019-05-20 01:35:53,780 - debian.py[DEBUG]: Generating locales for en_US.UTF-8
+2019-05-20 01:35:53,780 - util.py[DEBUG]: Running command ['locale-gen', 'en_US.UTF-8'] with allowed return codes [0] (shell=False, capture=False)
+2019-05-20 01:35:54,468 - debian.py[DEBUG]: Updating /etc/default/locale with locale setting LANG=en_US.UTF-8
+2019-05-20 01:35:54,468 - util.py[DEBUG]: Running command ['update-locale', '--locale-file=/etc/default/locale', 'LANG=en_US.UTF-8'] with allowed return codes [0] (shell=False, capture=False)
+2019-05-20 01:35:54,687 - handlers.py[DEBUG]: finish: modules-config/config-locale: SUCCESS: config-locale ran successfully
+2019-05-20 01:35:54,687 - stages.py[DEBUG]: Running module set-passwords (<module 'cloudinit.config.cc_set_passwords' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_set_passwords.py'>) with frequency once-per-instance
+2019-05-20 01:35:54,688 - handlers.py[DEBUG]: start: modules-config/config-set-passwords: running config-set-passwords with frequency once-per-instance
+2019-05-20 01:35:54,688 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_set_passwords - wb: [644] 25 bytes
+2019-05-20 01:35:54,688 - helpers.py[DEBUG]: Running config-set-passwords using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_set_passwords'>)
+2019-05-20 01:35:54,688 - cc_set_passwords.py[DEBUG]: Leaving ssh config 'PasswordAuthentication' unchanged. ssh_pwauth=None
+2019-05-20 01:35:54,688 - handlers.py[DEBUG]: finish: modules-config/config-set-passwords: SUCCESS: config-set-passwords ran successfully
+2019-05-20 01:35:54,689 - stages.py[DEBUG]: Running module grub-dpkg (<module 'cloudinit.config.cc_grub_dpkg' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_grub_dpkg.py'>) with frequency once-per-instance
+2019-05-20 01:35:54,689 - handlers.py[DEBUG]: start: modules-config/config-grub-dpkg: running config-grub-dpkg with frequency once-per-instance
+2019-05-20 01:35:54,689 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_grub_dpkg - wb: [644] 25 bytes
+2019-05-20 01:35:54,689 - helpers.py[DEBUG]: Running config-grub-dpkg using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_grub_dpkg'>)
+2019-05-20 01:35:54,689 - cc_grub_dpkg.py[DEBUG]: Setting grub debconf-set-selections with '/dev/sda','false'
+2019-05-20 01:35:54,689 - util.py[DEBUG]: Running command ['debconf-set-selections'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:55,140 - handlers.py[DEBUG]: finish: modules-config/config-grub-dpkg: SUCCESS: config-grub-dpkg ran successfully
+2019-05-20 01:35:55,140 - stages.py[DEBUG]: Running module apt-pipelining (<module 'cloudinit.config.cc_apt_pipelining' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_apt_pipelining.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,140 - handlers.py[DEBUG]: start: modules-config/config-apt-pipelining: running config-apt-pipelining with frequency once-per-instance
+2019-05-20 01:35:55,140 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_apt_pipelining - wb: [644] 24 bytes
+2019-05-20 01:35:55,141 - helpers.py[DEBUG]: Running config-apt-pipelining using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_apt_pipelining'>)
+2019-05-20 01:35:55,142 - util.py[DEBUG]: Writing to /etc/apt/apt.conf.d/90cloud-init-pipelining - wb: [644] 80 bytes
+2019-05-20 01:35:55,143 - cc_apt_pipelining.py[DEBUG]: Wrote /etc/apt/apt.conf.d/90cloud-init-pipelining with apt pipeline depth setting 0
+2019-05-20 01:35:55,143 - handlers.py[DEBUG]: finish: modules-config/config-apt-pipelining: SUCCESS: config-apt-pipelining ran successfully
+2019-05-20 01:35:55,143 - stages.py[DEBUG]: Running module apt-configure (<module 'cloudinit.config.cc_apt_configure' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_apt_configure.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,143 - handlers.py[DEBUG]: start: modules-config/config-apt-configure: running config-apt-configure with frequency once-per-instance
+2019-05-20 01:35:55,143 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_apt_configure - wb: [644] 25 bytes
+2019-05-20 01:35:55,144 - helpers.py[DEBUG]: Running config-apt-configure using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_apt_configure'>)
+2019-05-20 01:35:55,144 - cc_apt_configure.py[DEBUG]: debconf_selections was not set in config
+2019-05-20 01:35:55,144 - util.py[DEBUG]: Reading from /etc/os-release (quiet=True)
+2019-05-20 01:35:55,144 - util.py[DEBUG]: Read 298 bytes from /etc/os-release
+2019-05-20 01:35:55,144 - util.py[DEBUG]: Reading from /etc/system-image/channel.ini (quiet=True)
+2019-05-20 01:35:55,144 - util.py[DEBUG]: Read 0 bytes from /etc/system-image/channel.ini
+2019-05-20 01:35:55,144 - cc_apt_configure.py[DEBUG]: handling apt config: {}
+2019-05-20 01:35:55,144 - util.py[DEBUG]: Running command ['lsb_release', '--all'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:55,223 - util.py[DEBUG]: Running command ['dpkg', '--print-architecture'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:55,226 - cc_apt_configure.py[DEBUG]: got primary mirror: None
+2019-05-20 01:35:55,226 - cc_apt_configure.py[DEBUG]: got security mirror: None
+2019-05-20 01:35:55,226 - util.py[DEBUG]: Running command ['dpkg', '--print-architecture'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:55,250 - util.py[DEBUG]: Resolving URL: http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/ took 0.022 seconds
+2019-05-20 01:35:55,250 - __init__.py[DEBUG]: filtered distro mirror info: {'primary': 'http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/', 'security': 'http://security.ubuntu.com/ubuntu'}
+2019-05-20 01:35:55,251 - cc_apt_configure.py[DEBUG]: Apt Mirror info: {'PRIMARY': 'http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/', 'MIRROR': 'http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/', 'primary': 'http://eu-west-1.ec2.archive.ubuntu.com/ubuntu/', 'security': 'http://security.ubuntu.com/ubuntu', 'SECURITY': 'http://security.ubuntu.com/ubuntu'}
+2019-05-20 01:35:55,251 - cc_apt_configure.py[INFO]: No custom template provided, fall back to builtin
+2019-05-20 01:35:55,253 - util.py[DEBUG]: Reading from /etc/cloud/templates/sources.list.ubuntu.tmpl (quiet=False)
+2019-05-20 01:35:55,253 - util.py[DEBUG]: Read 2841 bytes from /etc/cloud/templates/sources.list.ubuntu.tmpl
+2019-05-20 01:35:55,259 - util.py[DEBUG]: Writing to /etc/apt/sources.list - wb: [644] 3335 bytes
+2019-05-20 01:35:55,259 - util.py[DEBUG]: Running command ['dpkg', '--print-architecture'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:55,263 - cc_apt_configure.py[DEBUG]: Renaming apt list /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_xenial-updates_main_i18n_Translation-en to /var/lib/apt/lists/eu-west-1.ec2.archive.ubuntu.com_ubuntu_dists_xenial-updates_main_i18n_Translation-en
+2019-05-20 01:35:55,263 - cc_apt_configure.py[DEBUG]: Renaming apt list /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_xenial-updates_main_binary-amd64_Packages to /var/lib/apt/lists/eu-west-1.ec2.archive.ubuntu.com_ubuntu_dists_xenial-updates_main_binary-amd64_Packages
+2019-05-20 01:35:55,263 - cc_apt_configure.py[DEBUG]: Renaming apt list /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_xenial-updates_restricted_binary-amd64_Packages to /var/lib/apt/lists/eu-west-1.ec2.archive.ubuntu.com_ubuntu_dists_xenial-updates_restricted_binary-amd64_Packages
+2019-05-20 01:35:55,263 - cc_apt_configure.py[DEBUG]: Renaming apt list /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_xenial_main_i18n_Translation-en to /var/lib/apt/lists/eu-west-1.ec2.archive.ubuntu.com_ubuntu_dists_xenial_main_i18n_Translation-en
+2019-05-20 01:35:55,263 - cc_apt_configure.py[DEBUG]: Renaming apt list /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_xenial-updates_restricted_i18n_Translation-en to /var/lib/apt/lists/eu-west-1.ec2.archive.ubuntu.com_ubuntu_dists_xenial-updates_restricted_i18n_Translation-en
+2019-05-20 01:35:55,263 - cc_apt_configure.py[DEBUG]: Renaming apt list /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_xenial-updates_InRelease to /var/lib/apt/lists/eu-west-1.ec2.archive.ubuntu.com_ubuntu_dists_xenial-updates_InRelease
+2019-05-20 01:35:55,263 - cc_apt_configure.py[DEBUG]: Renaming apt list /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_xenial_InRelease to /var/lib/apt/lists/eu-west-1.ec2.archive.ubuntu.com_ubuntu_dists_xenial_InRelease
+2019-05-20 01:35:55,263 - cc_apt_configure.py[DEBUG]: Renaming apt list /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_xenial_restricted_i18n_Translation-en to /var/lib/apt/lists/eu-west-1.ec2.archive.ubuntu.com_ubuntu_dists_xenial_restricted_i18n_Translation-en
+2019-05-20 01:35:55,263 - cc_apt_configure.py[DEBUG]: Renaming apt list /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_xenial_restricted_binary-amd64_Packages to /var/lib/apt/lists/eu-west-1.ec2.archive.ubuntu.com_ubuntu_dists_xenial_restricted_binary-amd64_Packages
+2019-05-20 01:35:55,263 - cc_apt_configure.py[DEBUG]: Renaming apt list /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_xenial_main_binary-amd64_Packages to /var/lib/apt/lists/eu-west-1.ec2.archive.ubuntu.com_ubuntu_dists_xenial_main_binary-amd64_Packages
+2019-05-20 01:35:55,263 - handlers.py[DEBUG]: finish: modules-config/config-apt-configure: SUCCESS: config-apt-configure ran successfully
+2019-05-20 01:35:55,263 - stages.py[DEBUG]: Running module ubuntu-advantage (<module 'cloudinit.config.cc_ubuntu_advantage' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_ubuntu_advantage.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,263 - handlers.py[DEBUG]: start: modules-config/config-ubuntu-advantage: running config-ubuntu-advantage with frequency once-per-instance
+2019-05-20 01:35:55,264 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_ubuntu_advantage - wb: [644] 25 bytes
+2019-05-20 01:35:55,264 - helpers.py[DEBUG]: Running config-ubuntu-advantage using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_ubuntu_advantage'>)
+2019-05-20 01:35:55,264 - cc_ubuntu_advantage.py[DEBUG]: Skipping module named ubuntu-advantage, no 'ubuntu-advantage' key in configuration
+2019-05-20 01:35:55,264 - handlers.py[DEBUG]: finish: modules-config/config-ubuntu-advantage: SUCCESS: config-ubuntu-advantage ran successfully
+2019-05-20 01:35:55,264 - stages.py[DEBUG]: Running module ntp (<module 'cloudinit.config.cc_ntp' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_ntp.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,264 - handlers.py[DEBUG]: start: modules-config/config-ntp: running config-ntp with frequency once-per-instance
+2019-05-20 01:35:55,264 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_ntp - wb: [644] 25 bytes
+2019-05-20 01:35:55,265 - helpers.py[DEBUG]: Running config-ntp using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_ntp'>)
+2019-05-20 01:35:55,265 - cc_ntp.py[DEBUG]: Skipping module named ntp, not present or disabled by cfg
+2019-05-20 01:35:55,265 - handlers.py[DEBUG]: finish: modules-config/config-ntp: SUCCESS: config-ntp ran successfully
+2019-05-20 01:35:55,265 - stages.py[DEBUG]: Running module timezone (<module 'cloudinit.config.cc_timezone' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_timezone.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,265 - handlers.py[DEBUG]: start: modules-config/config-timezone: running config-timezone with frequency once-per-instance
+2019-05-20 01:35:55,265 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_timezone - wb: [644] 25 bytes
+2019-05-20 01:35:55,265 - helpers.py[DEBUG]: Running config-timezone using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_timezone'>)
+2019-05-20 01:35:55,265 - cc_timezone.py[DEBUG]: Skipping module named timezone, no 'timezone' specified
+2019-05-20 01:35:55,265 - handlers.py[DEBUG]: finish: modules-config/config-timezone: SUCCESS: config-timezone ran successfully
+2019-05-20 01:35:55,265 - stages.py[DEBUG]: Running module disable-ec2-metadata (<module 'cloudinit.config.cc_disable_ec2_metadata' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_disable_ec2_metadata.py'>) with frequency always
+2019-05-20 01:35:55,266 - handlers.py[DEBUG]: start: modules-config/config-disable-ec2-metadata: running config-disable-ec2-metadata with frequency always
+2019-05-20 01:35:55,266 - helpers.py[DEBUG]: Running config-disable-ec2-metadata using lock (<cloudinit.helpers.DummyLock object at 0x7f8f2049bfd0>)
+2019-05-20 01:35:55,266 - cc_disable_ec2_metadata.py[DEBUG]: Skipping module named disable-ec2-metadata, disabling the ec2 route not enabled
+2019-05-20 01:35:55,266 - handlers.py[DEBUG]: finish: modules-config/config-disable-ec2-metadata: SUCCESS: config-disable-ec2-metadata ran successfully
+2019-05-20 01:35:55,266 - stages.py[DEBUG]: Running module runcmd (<module 'cloudinit.config.cc_runcmd' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_runcmd.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,266 - handlers.py[DEBUG]: start: modules-config/config-runcmd: running config-runcmd with frequency once-per-instance
+2019-05-20 01:35:55,266 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_runcmd - wb: [644] 24 bytes
+2019-05-20 01:35:55,266 - helpers.py[DEBUG]: Running config-runcmd using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_runcmd'>)
+2019-05-20 01:35:55,266 - cc_runcmd.py[DEBUG]: Skipping module named runcmd, no 'runcmd' key in configuration
+2019-05-20 01:35:55,266 - handlers.py[DEBUG]: finish: modules-config/config-runcmd: SUCCESS: config-runcmd ran successfully
+2019-05-20 01:35:55,266 - stages.py[DEBUG]: Running module byobu (<module 'cloudinit.config.cc_byobu' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_byobu.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,266 - handlers.py[DEBUG]: start: modules-config/config-byobu: running config-byobu with frequency once-per-instance
+2019-05-20 01:35:55,266 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_byobu - wb: [644] 25 bytes
+2019-05-20 01:35:55,267 - helpers.py[DEBUG]: Running config-byobu using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_byobu'>)
+2019-05-20 01:35:55,267 - cc_byobu.py[DEBUG]: Skipping module named byobu, no 'byobu' values found
+2019-05-20 01:35:55,267 - handlers.py[DEBUG]: finish: modules-config/config-byobu: SUCCESS: config-byobu ran successfully
+2019-05-20 01:35:55,267 - main.py[DEBUG]: Ran 15 modules with 0 failures
+2019-05-20 01:35:55,267 - util.py[DEBUG]: Reading from /proc/uptime (quiet=False)
+2019-05-20 01:35:55,267 - util.py[DEBUG]: Read 14 bytes from /proc/uptime
+2019-05-20 01:35:55,267 - util.py[DEBUG]: cloud-init mode 'modules' took 1.570 seconds (1.57)
+2019-05-20 01:35:55,268 - handlers.py[DEBUG]: finish: modules-config: SUCCESS: running modules for config
+2019-05-20 01:35:55,527 - util.py[DEBUG]: Cloud-init v. 18.3-9-g2e62cb8a-0ubuntu1~16.04.2 running 'modules:final' at Mon, 20 May 2019 01:35:55 +0000. Up 31.86 seconds.
+2019-05-20 01:35:55,557 - stages.py[DEBUG]: Using distro class <class 'cloudinit.distros.ubuntu.Distro'>
+2019-05-20 01:35:55,558 - stages.py[DEBUG]: Running module snappy (<module 'cloudinit.config.cc_snappy' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_snappy.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,558 - handlers.py[DEBUG]: start: modules-final/config-snappy: running config-snappy with frequency once-per-instance
+2019-05-20 01:35:55,558 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_snappy - wb: [644] 25 bytes
+2019-05-20 01:35:55,559 - helpers.py[DEBUG]: Running config-snappy using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_snappy'>)
+2019-05-20 01:35:55,559 - util.py[DEBUG]: Reading from /etc/os-release (quiet=True)
+2019-05-20 01:35:55,559 - util.py[DEBUG]: Read 298 bytes from /etc/os-release
+2019-05-20 01:35:55,559 - util.py[DEBUG]: Reading from /etc/system-image/channel.ini (quiet=True)
+2019-05-20 01:35:55,559 - util.py[DEBUG]: Read 0 bytes from /etc/system-image/channel.ini
+2019-05-20 01:35:55,559 - cc_snappy.py[DEBUG]: snappy: 'auto' mode, and system not snappy
+2019-05-20 01:35:55,559 - handlers.py[DEBUG]: finish: modules-final/config-snappy: SUCCESS: config-snappy ran successfully
+2019-05-20 01:35:55,559 - stages.py[DEBUG]: Running module package-update-upgrade-install (<module 'cloudinit.config.cc_package_update_upgrade_install' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_package_update_upgrade_install.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,560 - handlers.py[DEBUG]: start: modules-final/config-package-update-upgrade-install: running config-package-update-upgrade-install with frequency once-per-instance
+2019-05-20 01:35:55,560 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_package_update_upgrade_install - wb: [644] 25 bytes
+2019-05-20 01:35:55,560 - helpers.py[DEBUG]: Running config-package-update-upgrade-install using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_package_update_upgrade_install'>)
+2019-05-20 01:35:55,560 - handlers.py[DEBUG]: finish: modules-final/config-package-update-upgrade-install: SUCCESS: config-package-update-upgrade-install ran successfully
+2019-05-20 01:35:55,560 - stages.py[DEBUG]: Running module fan (<module 'cloudinit.config.cc_fan' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_fan.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,560 - handlers.py[DEBUG]: start: modules-final/config-fan: running config-fan with frequency once-per-instance
+2019-05-20 01:35:55,560 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_fan - wb: [644] 24 bytes
+2019-05-20 01:35:55,561 - helpers.py[DEBUG]: Running config-fan using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_fan'>)
+2019-05-20 01:35:55,561 - cc_fan.py[DEBUG]: fan: no 'fan' config entry. disabling
+2019-05-20 01:35:55,561 - handlers.py[DEBUG]: finish: modules-final/config-fan: SUCCESS: config-fan ran successfully
+2019-05-20 01:35:55,561 - stages.py[DEBUG]: Running module landscape (<module 'cloudinit.config.cc_landscape' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_landscape.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,561 - handlers.py[DEBUG]: start: modules-final/config-landscape: running config-landscape with frequency once-per-instance
+2019-05-20 01:35:55,561 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_landscape - wb: [644] 25 bytes
+2019-05-20 01:35:55,561 - helpers.py[DEBUG]: Running config-landscape using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_landscape'>)
+2019-05-20 01:35:55,561 - handlers.py[DEBUG]: finish: modules-final/config-landscape: SUCCESS: config-landscape ran successfully
+2019-05-20 01:35:55,561 - stages.py[DEBUG]: Running module lxd (<module 'cloudinit.config.cc_lxd' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_lxd.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,562 - handlers.py[DEBUG]: start: modules-final/config-lxd: running config-lxd with frequency once-per-instance
+2019-05-20 01:35:55,562 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_lxd - wb: [644] 25 bytes
+2019-05-20 01:35:55,562 - helpers.py[DEBUG]: Running config-lxd using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_lxd'>)
+2019-05-20 01:35:55,562 - cc_lxd.py[DEBUG]: Skipping module named lxd, not present or disabled by cfg
+2019-05-20 01:35:55,562 - handlers.py[DEBUG]: finish: modules-final/config-lxd: SUCCESS: config-lxd ran successfully
+2019-05-20 01:35:55,562 - stages.py[DEBUG]: Running module puppet (<module 'cloudinit.config.cc_puppet' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_puppet.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,562 - handlers.py[DEBUG]: start: modules-final/config-puppet: running config-puppet with frequency once-per-instance
+2019-05-20 01:35:55,562 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_puppet - wb: [644] 25 bytes
+2019-05-20 01:35:55,563 - helpers.py[DEBUG]: Running config-puppet using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_puppet'>)
+2019-05-20 01:35:55,563 - cc_puppet.py[DEBUG]: Skipping module named puppet, no 'puppet' configuration found
+2019-05-20 01:35:55,563 - handlers.py[DEBUG]: finish: modules-final/config-puppet: SUCCESS: config-puppet ran successfully
+2019-05-20 01:35:55,563 - stages.py[DEBUG]: Running module chef (<module 'cloudinit.config.cc_chef' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_chef.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,563 - handlers.py[DEBUG]: start: modules-final/config-chef: running config-chef with frequency once-per-instance
+2019-05-20 01:35:55,563 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_chef - wb: [644] 24 bytes
+2019-05-20 01:35:55,563 - helpers.py[DEBUG]: Running config-chef using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_chef'>)
+2019-05-20 01:35:55,563 - cc_chef.py[DEBUG]: Skipping module named chef, no 'chef' key in configuration
+2019-05-20 01:35:55,563 - handlers.py[DEBUG]: finish: modules-final/config-chef: SUCCESS: config-chef ran successfully
+2019-05-20 01:35:55,563 - stages.py[DEBUG]: Running module mcollective (<module 'cloudinit.config.cc_mcollective' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_mcollective.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,563 - handlers.py[DEBUG]: start: modules-final/config-mcollective: running config-mcollective with frequency once-per-instance
+2019-05-20 01:35:55,564 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_mcollective - wb: [644] 25 bytes
+2019-05-20 01:35:55,564 - helpers.py[DEBUG]: Running config-mcollective using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_mcollective'>)
+2019-05-20 01:35:55,564 - cc_mcollective.py[DEBUG]: Skipping module named mcollective, no 'mcollective' key in configuration
+2019-05-20 01:35:55,564 - handlers.py[DEBUG]: finish: modules-final/config-mcollective: SUCCESS: config-mcollective ran successfully
+2019-05-20 01:35:55,564 - stages.py[DEBUG]: Running module salt-minion (<module 'cloudinit.config.cc_salt_minion' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_salt_minion.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,564 - handlers.py[DEBUG]: start: modules-final/config-salt-minion: running config-salt-minion with frequency once-per-instance
+2019-05-20 01:35:55,564 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_salt_minion - wb: [644] 25 bytes
+2019-05-20 01:35:55,564 - helpers.py[DEBUG]: Running config-salt-minion using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_salt_minion'>)
+2019-05-20 01:35:55,564 - cc_salt_minion.py[DEBUG]: Skipping module named salt-minion, no 'salt_minion' key in configuration
+2019-05-20 01:35:55,564 - handlers.py[DEBUG]: finish: modules-final/config-salt-minion: SUCCESS: config-salt-minion ran successfully
+2019-05-20 01:35:55,565 - stages.py[DEBUG]: Running module rightscale_userdata (<module 'cloudinit.config.cc_rightscale_userdata' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_rightscale_userdata.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,565 - handlers.py[DEBUG]: start: modules-final/config-rightscale_userdata: running config-rightscale_userdata with frequency once-per-instance
+2019-05-20 01:35:55,565 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_rightscale_userdata - wb: [644] 25 bytes
+2019-05-20 01:35:55,565 - helpers.py[DEBUG]: Running config-rightscale_userdata using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_rightscale_userdata'>)
+2019-05-20 01:35:55,565 - cc_rightscale_userdata.py[DEBUG]: Failed to get raw userdata in module rightscale_userdata
+2019-05-20 01:35:55,565 - handlers.py[DEBUG]: finish: modules-final/config-rightscale_userdata: SUCCESS: config-rightscale_userdata ran successfully
+2019-05-20 01:35:55,565 - stages.py[DEBUG]: Running module scripts-vendor (<module 'cloudinit.config.cc_scripts_vendor' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_scripts_vendor.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,565 - handlers.py[DEBUG]: start: modules-final/config-scripts-vendor: running config-scripts-vendor with frequency once-per-instance
+2019-05-20 01:35:55,565 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_scripts_vendor - wb: [644] 25 bytes
+2019-05-20 01:35:55,566 - helpers.py[DEBUG]: Running config-scripts-vendor using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_scripts_vendor'>)
+2019-05-20 01:35:55,566 - handlers.py[DEBUG]: finish: modules-final/config-scripts-vendor: SUCCESS: config-scripts-vendor ran successfully
+2019-05-20 01:35:55,566 - stages.py[DEBUG]: Running module scripts-per-once (<module 'cloudinit.config.cc_scripts_per_once' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_scripts_per_once.py'>) with frequency once
+2019-05-20 01:35:55,566 - handlers.py[DEBUG]: start: modules-final/config-scripts-per-once: running config-scripts-per-once with frequency once
+2019-05-20 01:35:55,566 - util.py[DEBUG]: Writing to /var/lib/cloud/sem/config_scripts_per_once.once - wb: [644] 25 bytes
+2019-05-20 01:35:55,566 - helpers.py[DEBUG]: Running config-scripts-per-once using lock (<FileLock using file '/var/lib/cloud/sem/config_scripts_per_once.once'>)
+2019-05-20 01:35:55,566 - handlers.py[DEBUG]: finish: modules-final/config-scripts-per-once: SUCCESS: config-scripts-per-once ran successfully
+2019-05-20 01:35:55,566 - stages.py[DEBUG]: Running module scripts-per-boot (<module 'cloudinit.config.cc_scripts_per_boot' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_scripts_per_boot.py'>) with frequency always
+2019-05-20 01:35:55,567 - handlers.py[DEBUG]: start: modules-final/config-scripts-per-boot: running config-scripts-per-boot with frequency always
+2019-05-20 01:35:55,567 - helpers.py[DEBUG]: Running config-scripts-per-boot using lock (<cloudinit.helpers.DummyLock object at 0x7fa7c4c2fcc0>)
+2019-05-20 01:35:55,567 - handlers.py[DEBUG]: finish: modules-final/config-scripts-per-boot: SUCCESS: config-scripts-per-boot ran successfully
+2019-05-20 01:35:55,567 - stages.py[DEBUG]: Running module scripts-per-instance (<module 'cloudinit.config.cc_scripts_per_instance' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_scripts_per_instance.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,567 - handlers.py[DEBUG]: start: modules-final/config-scripts-per-instance: running config-scripts-per-instance with frequency once-per-instance
+2019-05-20 01:35:55,567 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_scripts_per_instance - wb: [644] 25 bytes
+2019-05-20 01:35:55,567 - helpers.py[DEBUG]: Running config-scripts-per-instance using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_scripts_per_instance'>)
+2019-05-20 01:35:55,567 - handlers.py[DEBUG]: finish: modules-final/config-scripts-per-instance: SUCCESS: config-scripts-per-instance ran successfully
+2019-05-20 01:35:55,567 - stages.py[DEBUG]: Running module scripts-user (<module 'cloudinit.config.cc_scripts_user' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_scripts_user.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,567 - handlers.py[DEBUG]: start: modules-final/config-scripts-user: running config-scripts-user with frequency once-per-instance
+2019-05-20 01:35:55,568 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_scripts_user - wb: [644] 25 bytes
+2019-05-20 01:35:55,568 - helpers.py[DEBUG]: Running config-scripts-user using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_scripts_user'>)
+2019-05-20 01:35:55,568 - handlers.py[DEBUG]: finish: modules-final/config-scripts-user: SUCCESS: config-scripts-user ran successfully
+2019-05-20 01:35:55,568 - stages.py[DEBUG]: Running module ssh-authkey-fingerprints (<module 'cloudinit.config.cc_ssh_authkey_fingerprints' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_ssh_authkey_fingerprints.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,568 - handlers.py[DEBUG]: start: modules-final/config-ssh-authkey-fingerprints: running config-ssh-authkey-fingerprints with frequency once-per-instance
+2019-05-20 01:35:55,568 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_ssh_authkey_fingerprints - wb: [644] 25 bytes
+2019-05-20 01:35:55,568 - helpers.py[DEBUG]: Running config-ssh-authkey-fingerprints using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_ssh_authkey_fingerprints'>)
+2019-05-20 01:35:55,569 - util.py[DEBUG]: Reading from /etc/ssh/sshd_config (quiet=False)
+2019-05-20 01:35:55,569 - util.py[DEBUG]: Read 2540 bytes from /etc/ssh/sshd_config
+2019-05-20 01:35:55,569 - util.py[DEBUG]: Reading from /home/ubuntu/.ssh/authorized_keys (quiet=False)
+2019-05-20 01:35:55,569 - util.py[DEBUG]: Read 448 bytes from /home/ubuntu/.ssh/authorized_keys
+2019-05-20 01:35:55,570 - handlers.py[DEBUG]: finish: modules-final/config-ssh-authkey-fingerprints: SUCCESS: config-ssh-authkey-fingerprints ran successfully
+2019-05-20 01:35:55,570 - stages.py[DEBUG]: Running module keys-to-console (<module 'cloudinit.config.cc_keys_to_console' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_keys_to_console.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,570 - handlers.py[DEBUG]: start: modules-final/config-keys-to-console: running config-keys-to-console with frequency once-per-instance
+2019-05-20 01:35:55,570 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_keys_to_console - wb: [644] 24 bytes
+2019-05-20 01:35:55,570 - helpers.py[DEBUG]: Running config-keys-to-console using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_keys_to_console'>)
+2019-05-20 01:35:55,570 - util.py[DEBUG]: Running command ['/usr/lib/cloud-init/write-ssh-key-fingerprints', '', 'ssh-dss'] with allowed return codes [0] (shell=False, capture=True)
+2019-05-20 01:35:55,594 - handlers.py[DEBUG]: finish: modules-final/config-keys-to-console: SUCCESS: config-keys-to-console ran successfully
+2019-05-20 01:35:55,594 - stages.py[DEBUG]: Running module phone-home (<module 'cloudinit.config.cc_phone_home' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_phone_home.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,594 - handlers.py[DEBUG]: start: modules-final/config-phone-home: running config-phone-home with frequency once-per-instance
+2019-05-20 01:35:55,595 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_phone_home - wb: [644] 24 bytes
+2019-05-20 01:35:55,595 - helpers.py[DEBUG]: Running config-phone-home using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_phone_home'>)
+2019-05-20 01:35:55,595 - cc_phone_home.py[DEBUG]: Skipping module named phone-home, no 'phone_home' configuration found
+2019-05-20 01:35:55,595 - handlers.py[DEBUG]: finish: modules-final/config-phone-home: SUCCESS: config-phone-home ran successfully
+2019-05-20 01:35:55,595 - stages.py[DEBUG]: Running module final-message (<module 'cloudinit.config.cc_final_message' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_final_message.py'>) with frequency always
+2019-05-20 01:35:55,595 - handlers.py[DEBUG]: start: modules-final/config-final-message: running config-final-message with frequency always
+2019-05-20 01:35:55,595 - helpers.py[DEBUG]: Running config-final-message using lock (<cloudinit.helpers.DummyLock object at 0x7fa7c4490b70>)
+2019-05-20 01:35:55,595 - util.py[DEBUG]: Reading from /proc/uptime (quiet=False)
+2019-05-20 01:35:55,595 - util.py[DEBUG]: Read 14 bytes from /proc/uptime
+2019-05-20 01:35:55,598 - util.py[DEBUG]: Cloud-init v. 18.3-9-g2e62cb8a-0ubuntu1~16.04.2 finished at Mon, 20 May 2019 01:35:55 +0000. Datasource DataSourceEc2Local.  Up 31.97 seconds
+2019-05-20 01:35:55,598 - util.py[DEBUG]: Writing to /var/lib/cloud/instance/boot-finished - wb: [644] 79 bytes
+2019-05-20 01:35:55,598 - handlers.py[DEBUG]: finish: modules-final/config-final-message: SUCCESS: config-final-message ran successfully
+2019-05-20 01:35:55,598 - stages.py[DEBUG]: Running module power-state-change (<module 'cloudinit.config.cc_power_state_change' from '/usr/lib/python3/dist-packages/cloudinit/config/cc_power_state_change.py'>) with frequency once-per-instance
+2019-05-20 01:35:55,598 - handlers.py[DEBUG]: start: modules-final/config-power-state-change: running config-power-state-change with frequency once-per-instance
+2019-05-20 01:35:55,598 - util.py[DEBUG]: Writing to /var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_power_state_change - wb: [644] 25 bytes
+2019-05-20 01:35:55,599 - helpers.py[DEBUG]: Running config-power-state-change using lock (<FileLock using file '/var/lib/cloud/instances/i-0a02386503d73e22d/sem/config_power_state_change'>)
+2019-05-20 01:35:55,599 - cc_power_state_change.py[DEBUG]: no power_state provided. doing nothing
+2019-05-20 01:35:55,599 - handlers.py[DEBUG]: finish: modules-final/config-power-state-change: SUCCESS: config-power-state-change ran successfully
+2019-05-20 01:35:55,599 - main.py[DEBUG]: Ran 20 modules with 0 failures
+2019-05-20 01:35:55,599 - util.py[DEBUG]: Creating symbolic link from '/run/cloud-init/result.json' => '../../var/lib/cloud/data/result.json'
+2019-05-20 01:35:55,599 - util.py[DEBUG]: Reading from /proc/uptime (quiet=False)
+2019-05-20 01:35:55,599 - util.py[DEBUG]: Read 14 bytes from /proc/uptime
+2019-05-20 01:35:55,599 - util.py[DEBUG]: cloud-init mode 'modules' took 0.113 seconds (0.11)
+2019-05-20 01:35:55,599 - handlers.py[DEBUG]: finish: modules-final: SUCCESS: running modules for final

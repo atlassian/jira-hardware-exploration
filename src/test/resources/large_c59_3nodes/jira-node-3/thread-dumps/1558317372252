@@ -1,0 +1,237 @@
+7746:
+2019-05-20 01:56:12
+Full thread dump Java HotSpot(TM) 64-Bit Server VM (25.131-b11 mixed mode):
+
+"Attach Listener" #27 daemon prio=9 os_prio=0 tid=0x00007f3bd0001000 nid=0x1eb8 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"localhost-startStop-1" #26 daemon prio=5 os_prio=0 tid=0x00007f3b7c001800 nid=0x1e76 runnable [0x00007f3b8c79d000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.zip.ZipFile.getEntry(Native Method)
+	at java.util.zip.ZipFile.getEntry(ZipFile.java:310)
+	- locked <0x000000072ef1b1c0> (a java.util.jar.JarFile)
+	at java.util.jar.JarFile.getEntry(JarFile.java:240)
+	at java.util.jar.JarFile.getJarEntry(JarFile.java:223)
+	at org.apache.catalina.webresources.AbstractSingleArchiveResourceSet.getArchiveEntry(AbstractSingleArchiveResourceSet.java:97)
+	at org.apache.catalina.webresources.AbstractArchiveResourceSet.getResource(AbstractArchiveResourceSet.java:262)
+	at org.apache.catalina.webresources.StandardRoot.getResourceInternal(StandardRoot.java:281)
+	at org.apache.catalina.webresources.Cache.getResource(Cache.java:62)
+	at org.apache.catalina.webresources.StandardRoot.getResource(StandardRoot.java:216)
+	at org.apache.catalina.webresources.StandardRoot.getClassLoaderResource(StandardRoot.java:225)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResourceAsStream(WebappClassLoaderBase.java:1085)
+	at org.apache.catalina.startup.ContextConfig.populateJavaClassCache(ContextConfig.java:2201)
+	at org.apache.catalina.startup.ContextConfig.populateJavaClassCache(ContextConfig.java:2190)
+	at org.apache.catalina.startup.ContextConfig.populateJavaClassCache(ContextConfig.java:2207)
+	at org.apache.catalina.startup.ContextConfig.populateJavaClassCache(ContextConfig.java:2190)
+	at org.apache.catalina.startup.ContextConfig.checkHandlesTypes(ContextConfig.java:2094)
+	at org.apache.catalina.startup.ContextConfig.processAnnotationsStream(ContextConfig.java:2044)
+	at org.apache.catalina.startup.ContextConfig.processAnnotationsJar(ContextConfig.java:1990)
+	at org.apache.catalina.startup.ContextConfig.processAnnotationsUrl(ContextConfig.java:1960)
+	at org.apache.catalina.startup.ContextConfig.processAnnotations(ContextConfig.java:1913)
+	at org.apache.catalina.startup.ContextConfig.webConfig(ContextConfig.java:1153)
+	at org.apache.catalina.startup.ContextConfig.configureStart(ContextConfig.java:765)
+	- locked <0x000000072e5c0498> (a org.apache.catalina.startup.ContextConfig)
+	at org.apache.catalina.startup.ContextConfig.lifecycleEvent(ContextConfig.java:299)
+	at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:94)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5154)
+	- locked <0x000000072e5b0dd0> (a org.apache.catalina.core.StandardContext)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	- locked <0x000000072e5b0dd0> (a org.apache.catalina.core.StandardContext)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1421)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1411)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+
+"Catalina-startStop-1" #25 daemon prio=5 os_prio=0 tid=0x00007f3c84647800 nid=0x1e75 waiting on condition [0x00007f3b8c89f000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000072e5c8178> (a java.util.concurrent.FutureTask)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.FutureTask.awaitDone(FutureTask.java:429)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:191)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:941)
+	- locked <0x000000072e5b0d28> (a org.apache.catalina.core.StandardHost)
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:872)
+	- locked <0x000000072e5b0d28> (a org.apache.catalina.core.StandardHost)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	- locked <0x000000072e5b0d28> (a org.apache.catalina.core.StandardHost)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1421)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1411)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+
+"GC Daemon" #24 daemon prio=2 os_prio=0 tid=0x00007f3c845bb000 nid=0x1e74 in Object.wait() [0x00007f3b8cffd000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000072e5b0fe0> (a sun.misc.GC$LatencyLock)
+	at sun.misc.GC$Daemon.run(GC.java:117)
+	- locked <0x000000072e5b0fe0> (a sun.misc.GC$LatencyLock)
+
+"AsyncFileHandlerWriter-1229416514" #23 daemon prio=5 os_prio=0 tid=0x00007f3c841ed000 nid=0x1e72 waiting on condition [0x00007f3bf8a32000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000072e5d8180> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	at java.util.concurrent.LinkedBlockingDeque.pollFirst(LinkedBlockingDeque.java:522)
+	at java.util.concurrent.LinkedBlockingDeque.poll(LinkedBlockingDeque.java:684)
+	at org.apache.juli.AsyncFileHandler$LoggerThread.run(AsyncFileHandler.java:160)
+
+"Service Thread" #20 daemon prio=9 os_prio=0 tid=0x00007f3c8410e800 nid=0x1e70 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C1 CompilerThread14" #19 daemon prio=9 os_prio=0 tid=0x00007f3c8410b800 nid=0x1e6f waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C1 CompilerThread13" #18 daemon prio=9 os_prio=0 tid=0x00007f3c84109800 nid=0x1e6e waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C1 CompilerThread12" #17 daemon prio=9 os_prio=0 tid=0x00007f3c84107800 nid=0x1e6d waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C1 CompilerThread11" #16 daemon prio=9 os_prio=0 tid=0x00007f3c84105800 nid=0x1e6c waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C1 CompilerThread10" #15 daemon prio=9 os_prio=0 tid=0x00007f3c84103800 nid=0x1e6b waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread9" #14 daemon prio=9 os_prio=0 tid=0x00007f3c84101800 nid=0x1e6a waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread8" #13 daemon prio=9 os_prio=0 tid=0x00007f3c840ff000 nid=0x1e69 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread7" #12 daemon prio=9 os_prio=0 tid=0x00007f3c840fd000 nid=0x1e68 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread6" #11 daemon prio=9 os_prio=0 tid=0x00007f3c840fb000 nid=0x1e67 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread5" #10 daemon prio=9 os_prio=0 tid=0x00007f3c840f8800 nid=0x1e66 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread4" #9 daemon prio=9 os_prio=0 tid=0x00007f3c840ee800 nid=0x1e65 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread3" #8 daemon prio=9 os_prio=0 tid=0x00007f3c840ec800 nid=0x1e64 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread2" #7 daemon prio=9 os_prio=0 tid=0x00007f3c840ea800 nid=0x1e63 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread1" #6 daemon prio=9 os_prio=0 tid=0x00007f3c840e8800 nid=0x1e62 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" #5 daemon prio=9 os_prio=0 tid=0x00007f3c840e5800 nid=0x1e61 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Signal Dispatcher" #4 daemon prio=9 os_prio=0 tid=0x00007f3c840e1800 nid=0x1e60 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Finalizer" #3 daemon prio=8 os_prio=0 tid=0x00007f3c840b1800 nid=0x1e5f in Object.wait() [0x00007f3bf9edd000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000072e5b0be0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:143)
+	- locked <0x000000072e5b0be0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:164)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:209)
+
+"Reference Handler" #2 daemon prio=10 os_prio=0 tid=0x00007f3c840ac800 nid=0x1e5e in Object.wait() [0x00007f3bf9fde000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000072e5b0c38> (a java.lang.ref.Reference$Lock)
+	at java.lang.Object.wait(Object.java:502)
+	at java.lang.ref.Reference.tryHandlePending(Reference.java:191)
+	- locked <0x000000072e5b0c38> (a java.lang.ref.Reference$Lock)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:153)
+
+"main" #1 prio=5 os_prio=0 tid=0x00007f3c8400c800 nid=0x1e43 waiting on condition [0x00007f3c8b913000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000072e5c8228> (a java.util.concurrent.FutureTask)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.FutureTask.awaitDone(FutureTask.java:429)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:191)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:941)
+	- locked <0x000000072e628068> (a org.apache.catalina.core.StandardEngine)
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:262)
+	- locked <0x000000072e628068> (a org.apache.catalina.core.StandardEngine)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	- locked <0x000000072e628068> (a org.apache.catalina.core.StandardEngine)
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:422)
+	- locked <0x000000072e628068> (a org.apache.catalina.core.StandardEngine)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	- locked <0x000000072e5f2d38> (a org.apache.catalina.core.StandardService)
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:793)
+	- locked <0x000000072e5f2b50> (a java.lang.Object)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	- locked <0x000000072e5b0cb8> (a org.apache.catalina.core.StandardServer)
+	at org.apache.catalina.startup.Catalina.start(Catalina.java:681)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:353)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:493)
+
+"VM Thread" os_prio=0 tid=0x00007f3c840a5000 nid=0x1e5d runnable 
+
+"GC task thread#0 (ParallelGC)" os_prio=0 tid=0x00007f3c84021800 nid=0x1e44 runnable 
+
+"GC task thread#1 (ParallelGC)" os_prio=0 tid=0x00007f3c84023800 nid=0x1e45 runnable 
+
+"GC task thread#2 (ParallelGC)" os_prio=0 tid=0x00007f3c84025000 nid=0x1e46 runnable 
+
+"GC task thread#3 (ParallelGC)" os_prio=0 tid=0x00007f3c84027000 nid=0x1e47 runnable 
+
+"GC task thread#4 (ParallelGC)" os_prio=0 tid=0x00007f3c84028800 nid=0x1e48 runnable 
+
+"GC task thread#5 (ParallelGC)" os_prio=0 tid=0x00007f3c8402a800 nid=0x1e49 runnable 
+
+"GC task thread#6 (ParallelGC)" os_prio=0 tid=0x00007f3c8402c000 nid=0x1e4a runnable 
+
+"GC task thread#7 (ParallelGC)" os_prio=0 tid=0x00007f3c8402e000 nid=0x1e4b runnable 
+
+"GC task thread#8 (ParallelGC)" os_prio=0 tid=0x00007f3c8402f800 nid=0x1e4c runnable 
+
+"GC task thread#9 (ParallelGC)" os_prio=0 tid=0x00007f3c84031800 nid=0x1e4d runnable 
+
+"GC task thread#10 (ParallelGC)" os_prio=0 tid=0x00007f3c84033000 nid=0x1e4e runnable 
+
+"GC task thread#11 (ParallelGC)" os_prio=0 tid=0x00007f3c84035000 nid=0x1e4f runnable 
+
+"GC task thread#12 (ParallelGC)" os_prio=0 tid=0x00007f3c84036800 nid=0x1e50 runnable 
+
+"GC task thread#13 (ParallelGC)" os_prio=0 tid=0x00007f3c84038800 nid=0x1e51 runnable 
+
+"GC task thread#14 (ParallelGC)" os_prio=0 tid=0x00007f3c8403a000 nid=0x1e52 runnable 
+
+"GC task thread#15 (ParallelGC)" os_prio=0 tid=0x00007f3c8403c000 nid=0x1e53 runnable 
+
+"GC task thread#16 (ParallelGC)" os_prio=0 tid=0x00007f3c8403d800 nid=0x1e54 runnable 
+
+"GC task thread#17 (ParallelGC)" os_prio=0 tid=0x00007f3c8403f800 nid=0x1e55 runnable 
+
+"GC task thread#18 (ParallelGC)" os_prio=0 tid=0x00007f3c84041000 nid=0x1e56 runnable 
+
+"GC task thread#19 (ParallelGC)" os_prio=0 tid=0x00007f3c84043000 nid=0x1e57 runnable 
+
+"GC task thread#20 (ParallelGC)" os_prio=0 tid=0x00007f3c84044800 nid=0x1e58 runnable 
+
+"GC task thread#21 (ParallelGC)" os_prio=0 tid=0x00007f3c84046800 nid=0x1e59 runnable 
+
+"GC task thread#22 (ParallelGC)" os_prio=0 tid=0x00007f3c84048000 nid=0x1e5a runnable 
+
+"GC task thread#23 (ParallelGC)" os_prio=0 tid=0x00007f3c8404a000 nid=0x1e5b runnable 
+
+"GC task thread#24 (ParallelGC)" os_prio=0 tid=0x00007f3c8404b800 nid=0x1e5c runnable 
+
+"VM Periodic Task Thread" os_prio=0 tid=0x00007f3c84111000 nid=0x1e71 waiting on condition 
+
+JNI global references: 22
+

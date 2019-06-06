@@ -1,0 +1,1147 @@
+May 20 01:35:40 ip-10-0-0-215 rsyslogd: [origin software="rsyslogd" swVersion="8.16.0" x-pid="1451" x-info="http://www.rsyslog.com"] start
+May 20 01:35:40 ip-10-0-0-215 rsyslogd-2222: command 'KLogPermitNonKernelFacility' is currently not permitted - did you already set it via a RainerScript command (v6+ config)? [v8.16.0 try http://www.rsyslog.com/e/2222 ]
+May 20 01:35:40 ip-10-0-0-215 rsyslogd: rsyslogd's groupid changed to 108
+May 20 01:35:40 ip-10-0-0-215 rsyslogd: rsyslogd's userid changed to 104
+May 20 01:35:40 ip-10-0-0-215 loadkeys[644]: Loading /etc/console-setup/cached.kmap.gz
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Remount Root and Kernel File Systems.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Create list of required static device nodes for the current kernel.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Uncomplicated firewall.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Set console keymap.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Nameserver information manager.
+May 20 01:35:40 ip-10-0-0-215 systemd-modules-load[646]: Inserted module 'iscsi_tcp'
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started LVM2 metadata daemon.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Create Static Device Nodes in /dev...
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Load/Save Random Seed...
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting udev Coldplug all Devices...
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Flush Journal to Persistent Storage...
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Load/Save Random Seed.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started udev Coldplug all Devices.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Flush Journal to Persistent Storage.
+May 20 01:35:40 ip-10-0-0-215 systemd-modules-load[646]: Inserted module 'ib_iser'
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Load Kernel Modules.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Apply Kernel Variables...
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Mounting FUSE Control File System...
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Mounted FUSE Control File System.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Create Static Device Nodes in /dev.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Apply Kernel Variables.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting udev Kernel Device Manager...
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started udev Kernel Device Manager.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Monitoring of LVM2 mirrors, snapshots etc. using dmeventd or progress polling.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Dispatch Password Requests to Console Directory Watch.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Reached target Local File Systems (Pre).
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Reached target Local File Systems.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Set console font and keymap...
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Create Volatile Files and Directories...
+May 20 01:35:40 ip-10-0-0-215 systemd-tmpfiles[752]: [/usr/lib/tmpfiles.d/var.conf:14] Duplicate line for path "/var/log", ignoring.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting LSB: AppArmor initialization...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Initializing cgroup subsys cpuset
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Commit a transient machine-id on disk...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Initializing cgroup subsys cpu
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Initializing cgroup subsys cpuacct
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Linux version 4.4.0-1067-aws (buildd@lgw01-amd64-033) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.10) ) #77-Ubuntu SMP Mon Aug 27 13:22:03 UTC 2018 (Ubuntu 4.4.0-1067.77-aws 4.4.140)
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Tell Plymouth To Write Out Runtime Data...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Command line: BOOT_IMAGE=/boot/vmlinuz-4.4.0-1067-aws root=LABEL=cloudimg-rootfs ro console=tty1 console=ttyS0 nvme.io_timeout=4294967295
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] KERNEL supported cpus:
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Initial cloud-init job (pre-networking)...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   Intel GenuineIntel
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   AMD AuthenticAMD
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   Centaur CentaurHauls
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Create Volatile Files and Directories.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Found device /dev/ttyS0.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/fpu: xstate_offset[3]:  960, xstate_sizes[3]:   64
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Listening on Load/Save RF Kill Switch Status /dev/rfkill Watch.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/fpu: xstate_offset[4]: 1024, xstate_sizes[4]:   64
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/fpu: xstate_offset[5]: 1088, xstate_sizes[5]:   64
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/fpu: xstate_offset[6]: 1152, xstate_sizes[6]:  512
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/fpu: xstate_offset[7]: 1664, xstate_sizes[7]: 1024
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Update UTMP about System Boot/Shutdown...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/fpu: Supporting XSAVE feature 0x01: 'x87 floating point registers'
+May 20 01:35:40 ip-10-0-0-215 dhclient[985]: Internet Systems Consortium DHCP Client 4.3.3
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/fpu: Supporting XSAVE feature 0x02: 'SSE registers'
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/fpu: Supporting XSAVE feature 0x04: 'AVX registers'
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/fpu: Supporting XSAVE feature 0x08: 'MPX bounds registers'
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/fpu: Supporting XSAVE feature 0x10: 'MPX CSR'
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/fpu: Supporting XSAVE feature 0x20: 'AVX-512 opmask'
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/fpu: Supporting XSAVE feature 0x40: 'AVX-512 Hi256'
+May 20 01:35:40 ip-10-0-0-215 dhclient[985]: Copyright 2004-2015 Internet Systems Consortium.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/fpu: Supporting XSAVE feature 0x80: 'AVX-512 ZMM_Hi256'
+May 20 01:35:40 ip-10-0-0-215 dhclient[985]: All rights reserved.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/fpu: Enabled xstate features 0xff, context size is 2688 bytes, using 'standard' format.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] e820: BIOS-provided physical RAM map:
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff] usable
+May 20 01:35:40 ip-10-0-0-215 dhclient[985]: For info, please visit https://www.isc.org/software/dhcp/
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] BIOS-e820: [mem 0x000000000009fc00-0x000000000009ffff] reserved
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] BIOS-e820: [mem 0x00000000000f0000-0x00000000000fffff] reserved
+May 20 01:35:40 ip-10-0-0-215 dhclient[985]: 
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] BIOS-e820: [mem 0x0000000000100000-0x00000000bfff7fff] usable
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] BIOS-e820: [mem 0x00000000bfff8000-0x00000000bfffffff] reserved
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] BIOS-e820: [mem 0x00000000e0000000-0x00000000e03fffff] reserved
+May 20 01:35:40 ip-10-0-0-215 dhclient[985]: Listening on LPF/ens5/06:a5:6e:95:3e:14
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] BIOS-e820: [mem 0x00000000fffc0000-0x00000000ffffffff] reserved
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] BIOS-e820: [mem 0x0000000100000000-0x00000011b7ffffff] usable
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] BIOS-e820: [mem 0x00000011b8000000-0x000000123fffffff] reserved
+May 20 01:35:40 ip-10-0-0-215 dhclient[985]: Sending on   LPF/ens5/06:a5:6e:95:3e:14
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] NX (Execute Disable) protection: active
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SMBIOS 2.7 present.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] DMI: Amazon EC2 c5.9xlarge/, BIOS 1.0 10/16/2017
+May 20 01:35:40 ip-10-0-0-215 dhclient[985]: Sending on   Socket/fallback
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Hypervisor detected: KVM
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] e820: update [mem 0x00000000-0x00000fff] usable ==> reserved
+May 20 01:35:40 ip-10-0-0-215 dhclient[985]: DHCPDISCOVER on ens5 to 255.255.255.255 port 67 interval 3 (xid=0xba955e0c)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] e820: remove [mem 0x000a0000-0x000fffff] usable
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] e820: last_pfn = 0x11b8000 max_arch_pfn = 0x400000000
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] MTRR default type: write-back
+May 20 01:35:40 ip-10-0-0-215 dhclient[985]: DHCPREQUEST of 10.0.0.215 on ens5 to 255.255.255.255 port 67 (xid=0xc5e95ba)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] MTRR fixed ranges enabled:
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   00000-9FFFF write-back
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   A0000-BFFFF uncachable
+May 20 01:35:40 ip-10-0-0-215 dhclient[985]: DHCPOFFER of 10.0.0.215 from 10.0.0.1
+May 20 01:35:40 ip-10-0-0-215 dhclient[985]: DHCPACK of 10.0.0.215 from 10.0.0.1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   C0000-FFFFF write-protect
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] MTRR variable ranges enabled:
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   0 base 0000C0000000 mask 3FFFC0000000 uncachable
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   1 disabled
+May 20 01:35:40 ip-10-0-0-215 dhclient[985]: bound to 10.0.0.215 -- renewal in 1381 seconds.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   2 disabled
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   3 disabled
+May 20 01:35:40 ip-10-0-0-215 cloud-init[770]: Cloud-init v. 18.3-9-g2e62cb8a-0ubuntu1~16.04.2 running 'init-local' at Mon, 20 May 2019 01:35:33 +0000. Up 10.22 seconds.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   4 disabled
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   5 disabled
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Network Time Synchronization...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   6 disabled
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   7 disabled
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WC  UC- WT  
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] e820: last_pfn = 0xbfff8 max_arch_pfn = 0x400000000
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Network Time Synchronization.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Scanning 1 areas for low memory corruption
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Base memory trampoline at [ffff880000098000] 98000 size 28672
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Commit a transient machine-id on disk.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Using GB pages for direct mapping
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] BRK [0x02200000, 0x02200fff] PGTABLE
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] BRK [0x02201000, 0x02201fff] PGTABLE
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] BRK [0x02202000, 0x02202fff] PGTABLE
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Tell Plymouth To Write Out Runtime Data.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Initial cloud-init job (pre-networking).
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] BRK [0x02203000, 0x02203fff] PGTABLE
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] RAMDISK: [mem 0x367b2000-0x373d0fff]
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Update UTMP about System Boot/Shutdown.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: Early table checksum verification disabled
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: RSDP 0x00000000000F8FA0 000014 (v00 AMAZON)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: RSDT 0x00000000BFFFC610 00003C (v01 AMAZON AMZNRSDT 00000001 AMZN 00000001)
+May 20 01:35:40 ip-10-0-0-215 apparmor[756]:  * Starting AppArmor profiles
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: FACP 0x00000000BFFFFF80 000074 (v01 AMAZON AMZNFACP 00000001 AMZN 00000001)
+May 20 01:35:40 ip-10-0-0-215 apparmor[756]: Skipping profile in /etc/apparmor.d/disable: usr.sbin.rsyslogd
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: DSDT 0x00000000BFFFC650 0010E9 (v01 AMAZON AMZNDSDT 00000001 AMZN 00000001)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: FACS 0x00000000BFFFFF40 000040
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: SSDT 0x00000000BFFFDF40 001FF8 (v01 AMAZON AMZNSSDT 00000001 AMZN 00000001)
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Reached target Network (Pre).
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: APIC 0x00000000BFFFDC60 000186 (v01 AMAZON AMZNAPIC 00000001 AMZN 00000001)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: SRAT 0x00000000BFFFD7E0 0002C0 (v01 AMAZON AMZNSRAT 00000001 AMZN 00000001)
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Reached target System Time Synchronized.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: SLIT 0x00000000BFFFD770 00006C (v01 AMAZON AMZNSLIT 00000001 AMZN 00000001)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: WAET 0x00000000BFFFD740 000028 (v01 AMAZON AMZNWAET 00000001 AMZN 00000001)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: Local APIC address 0xfee00000
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x00 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Set console font and keymap.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x01 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x02 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Created slice system-getty.slice.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x03 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x04 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 apparmor[756]:    ...done.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x05 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x06 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x07 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x08 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started LSB: AppArmor initialization.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x09 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Raise network interfaces...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x0a -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x0b -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x0c -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x0d -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x0e -> Node 0
+May 20 01:35:40 ip-10-0-0-215 dhclient[1207]: Internet Systems Consortium DHCP Client 4.3.3
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x0f -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x10 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x11 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x12 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x13 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 ifup[1120]: Internet Systems Consortium DHCP Client 4.3.3
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x14 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x15 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 ifup[1120]: Copyright 2004-2015 Internet Systems Consortium.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x16 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x17 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x18 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x19 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 ifup[1120]: All rights reserved.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x1a -> Node 0
+May 20 01:35:40 ip-10-0-0-215 ifup[1120]: For info, please visit https://www.isc.org/software/dhcp/
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x1b -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x1c -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x1d -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x1e -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x1f -> Node 0
+May 20 01:35:40 ip-10-0-0-215 dhclient[1207]: Copyright 2004-2015 Internet Systems Consortium.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x20 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 dhclient[1207]: All rights reserved.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x21 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x22 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: PXM 0 -> APIC 0x23 -> Node 0
+May 20 01:35:40 ip-10-0-0-215 dhclient[1207]: For info, please visit https://www.isc.org/software/dhcp/
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: Node 0 PXM 0 [mem 0x00000000-0xbfffffff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SRAT: Node 0 PXM 0 [mem 0x100000000-0x123fffffff]
+May 20 01:35:40 ip-10-0-0-215 dhclient[1207]: 
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] NUMA: Initialized distance table, cnt=1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] NUMA: Node 0 [mem 0x00000000-0xbfffffff] + [mem 0x100000000-0x11b7ffffff] -> [mem 0x00000000-0x11b7ffffff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] NODE_DATA(0) allocated [mem 0x11b7ff8000-0x11b7ffcfff]
+May 20 01:35:40 ip-10-0-0-215 dhclient[1207]: Listening on LPF/ens5/06:a5:6e:95:3e:14
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] kvm-clock: Using msrs 4b564d01 and 4b564d00
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] kvm-clock: cpu 0, msr 11:b7ff4001, primary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] kvm-clock: using sched offset of 3466157384 cycles
+May 20 01:35:40 ip-10-0-0-215 dhclient[1207]: Sending on   LPF/ens5/06:a5:6e:95:3e:14
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] clocksource: kvm-clock: mask: 0xffffffffffffffff max_cycles: 0x1cd42e4dffb, max_idle_ns: 881590591483 ns
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Zone ranges:
+May 20 01:35:40 ip-10-0-0-215 ifup[1120]: Listening on LPF/ens5/06:a5:6e:95:3e:14
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   DMA32    [mem 0x0000000001000000-0x00000000ffffffff]
+May 20 01:35:40 ip-10-0-0-215 ifup[1120]: Sending on   LPF/ens5/06:a5:6e:95:3e:14
+May 20 01:35:40 ip-10-0-0-215 ifup[1120]: Sending on   Socket/fallback
+May 20 01:35:40 ip-10-0-0-215 ifup[1120]: DHCPDISCOVER on ens5 to 255.255.255.255 port 67 interval 3 (xid=0x34fdc74b)
+May 20 01:35:40 ip-10-0-0-215 dhclient[1207]: Sending on   Socket/fallback
+May 20 01:35:40 ip-10-0-0-215 ifup[1120]: DHCPREQUEST of 10.0.0.215 on ens5 to 255.255.255.255 port 67 (xid=0x4bc7fd34)
+May 20 01:35:40 ip-10-0-0-215 ifup[1120]: DHCPOFFER of 10.0.0.215 from 10.0.0.1
+May 20 01:35:40 ip-10-0-0-215 ifup[1120]: DHCPACK of 10.0.0.215 from 10.0.0.1
+May 20 01:35:40 ip-10-0-0-215 dhclient[1207]: DHCPDISCOVER on ens5 to 255.255.255.255 port 67 interval 3 (xid=0x34fdc74b)
+May 20 01:35:40 ip-10-0-0-215 dhclient[1207]: DHCPREQUEST of 10.0.0.215 on ens5 to 255.255.255.255 port 67 (xid=0x4bc7fd34)
+May 20 01:35:40 ip-10-0-0-215 dhclient[1207]: DHCPOFFER of 10.0.0.215 from 10.0.0.1
+May 20 01:35:40 ip-10-0-0-215 dhclient[1207]: DHCPACK of 10.0.0.215 from 10.0.0.1
+May 20 01:35:40 ip-10-0-0-215 dhclient[1207]: bound to 10.0.0.215 -- renewal in 1680 seconds.
+May 20 01:35:40 ip-10-0-0-215 ifup[1120]: bound to 10.0.0.215 -- renewal in 1680 seconds.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Raise network interfaces.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Reached target Network.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Initial cloud-init job (metadata service crawler)...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   Normal   [mem 0x0000000100000000-0x00000011b7ffffff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   Device   empty
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Movable zone start for each node
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Early memory node ranges
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   node   0: [mem 0x0000000000001000-0x000000000009efff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   node   0: [mem 0x0000000000100000-0x00000000bfff7fff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   node   0: [mem 0x0000000100000000-0x00000011b7ffffff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Initmem setup node 0 [mem 0x0000000000001000-0x00000011b7ffffff]
+May 20 01:35:40 ip-10-0-0-215 rsyslogd-2039: Could not open output pipe '/dev/xconsole':: No such file or directory [v8.16.0 try http://www.rsyslog.com/e/2039 ]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] On node 0 totalpages: 18317206
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   DMA zone: 64 pages used for memmap
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   DMA zone: 22 pages reserved
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   DMA zone: 3998 pages, LIFO batch:0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   DMA32 zone: 12224 pages used for memmap
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   DMA32 zone: 782328 pages, LIFO batch:31
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   Normal zone: 273920 pages used for memmap
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000]   Normal zone: 17530880 pages, LIFO batch:31
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: PM-Timer IO Port: 0xb008
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: Local APIC address 0xfee00000
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: LAPIC_NMI (acpi_id[0xff] dfl dfl lint[0x1])
+May 20 01:35:40 ip-10-0-0-215 rsyslogd-2007: action 'action 11' suspended, next retry is Mon May 20 01:36:10 2019 [v8.16.0 try http://www.rsyslog.com/e/2007 ]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] IOAPIC[0]: apic_id 0, version 17, address 0xfec00000, GSI 0-23
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 5 global_irq 5 high level)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 10 global_irq 10 high level)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 11 global_irq 11 high level)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: IRQ5 used by override.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: IRQ9 used by override.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: IRQ10 used by override.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] ACPI: IRQ11 used by override.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Using ACPI (MADT) for SMP configuration information
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] smpboot: Allowing 36 CPUs, 0 hotplug CPUs
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] PM: Registered nosave memory: [mem 0x00000000-0x00000fff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] PM: Registered nosave memory: [mem 0x0009f000-0x0009ffff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] PM: Registered nosave memory: [mem 0x000a0000-0x000effff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] PM: Registered nosave memory: [mem 0x000f0000-0x000fffff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] PM: Registered nosave memory: [mem 0xbfff8000-0xbfffffff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] PM: Registered nosave memory: [mem 0xc0000000-0xdfffffff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] PM: Registered nosave memory: [mem 0xe0000000-0xe03fffff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] PM: Registered nosave memory: [mem 0xe0400000-0xfffbffff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] PM: Registered nosave memory: [mem 0xfffc0000-0xffffffff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] e820: [mem 0xc0000000-0xdfffffff] available for PCI devices
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Booting paravirtualized kernel on KVM
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645519600211568 ns
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] setup_percpu: NR_CPUS:256 nr_cpumask_bits:256 nr_cpu_ids:36 nr_node_ids:1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] PERCPU: Embedded 34 pages/cpu @ffff881170e00000 s99160 r8192 d31912 u262144
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] pcpu-alloc: s99160 r8192 d31912 u262144 alloc=1*2097152
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] pcpu-alloc: [0] 00 01 02 03 04 05 06 07 [0] 08 09 10 11 12 13 14 15 
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: Cloud-init v. 18.3-9-g2e62cb8a-0ubuntu1~16.04.2 running 'init' at Mon, 20 May 2019 01:35:38 +0000. Up 15.17 seconds.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] pcpu-alloc: [0] 16 17 18 19 20 21 22 23 [0] 24 25 26 27 28 29 30 31 
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] pcpu-alloc: [0] 32 33 34 35 -- -- -- -- 
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: ++++++++++++++++++++++++++++++++++++++Net device info+++++++++++++++++++++++++++++++++++++++
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] KVM setup async PF for cpu 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] kvm-stealtime: cpu 0, msr 1170e10080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Built 1 zonelists in Node order, mobility grouping on.  Total pages: 18030976
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Policy zone: Normal
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: +--------+------+-----------------------------+---------------+--------+-------------------+
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Kernel command line: BOOT_IMAGE=/boot/vmlinuz-4.4.0-1067-aws root=LABEL=cloudimg-rootfs ro console=tty1 console=ttyS0 nvme.io_timeout=4294967295
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: | Device |  Up  |           Address           |      Mask     | Scope  |     Hw-Address    |
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] log_buf_len individual max cpu contribution: 4096 bytes
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] log_buf_len total cpu_extra contributions: 143360 bytes
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] log_buf_len min size: 262144 bytes
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: +--------+------+-----------------------------+---------------+--------+-------------------+
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] log_buf_len: 524288 bytes
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] early log buf free: 250440(95%)
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: |  ens5  | True |          10.0.0.215         | 255.255.255.0 | global | 06:a5:6e:95:3e:14 |
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] PID hash table entries: 4096 (order: 3, 32768 bytes)
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: |  ens5  | True | fe80::4a5:6eff:fe95:3e14/64 |       .       |  link  | 06:a5:6e:95:3e:14 |
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Calgary: detecting Calgary via BIOS EBDA area
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Calgary: Unable to locate Rio Grande table in EBDA - bailing!
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Memory: 72021260K/73268824K available (8372K kernel code, 1281K rwdata, 3888K rodata, 1504K init, 1264K bss, 1247564K reserved, 0K cma-reserved)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=36, Nodes=1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Kernel/User page tables isolation: enabled
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Hierarchical RCU implementation.
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: |   lo   | True |          127.0.0.1          |   255.0.0.0   |  host  |         .         |
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] 	Build-time adjustment of leaf fanout to 64.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] 	RCU restricting CPUs from NR_CPUS=256 to nr_cpu_ids=36.
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: |   lo   | True |           ::1/128           |       .       |  host  |         .         |
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] RCU: Adjusting geometry for rcu_fanout_leaf=64, nr_cpu_ids=36
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] NR_IRQS:16640 nr_irqs:712 16
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] Console: colour VGA+ 80x25
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: +--------+------+-----------------------------+---------------+--------+-------------------+
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] console [tty1] enabled
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: +++++++++++++++++++++++++++Route IPv4 info++++++++++++++++++++++++++++
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] console [ttyS0] enabled
+May 20 01:35:40 ip-10-0-0-215 kernel: [    0.000000] tsc: Detected 3000.002 MHz processor
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.256917] Calibrating delay loop (skipped) preset value.. 6000.00 BogoMIPS (lpj=12000008)
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: +-------+-------------+----------+---------------+-----------+-------+
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.263501] pid_max: default: 36864 minimum: 301
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.266966] ACPI: Core revision 20150930
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: | Route | Destination | Gateway  |    Genmask    | Interface | Flags |
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.271707] ACPI: 2 ACPI AML tables successfully acquired and loaded
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.276337] Security Framework initialized
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: +-------+-------------+----------+---------------+-----------+-------+
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.279589] Yama: becoming mindful.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.282620] AppArmor: AppArmor initialized
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.291057] Dentry cache hash table entries: 16777216 (order: 15, 134217728 bytes)
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: |   0   |   0.0.0.0   | 10.0.0.1 |    0.0.0.0    |    ens5   |   UG  |
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.315398] Inode-cache hash table entries: 8388608 (order: 14, 67108864 bytes)
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: |   1   |   10.0.0.0  | 0.0.0.0  | 255.255.255.0 |    ens5   |   U   |
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.329406] Mount-cache hash table entries: 262144 (order: 9, 2097152 bytes)
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: +-------+-------------+----------+---------------+-----------+-------+
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.333933] Mountpoint-cache hash table entries: 262144 (order: 9, 2097152 bytes)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.340671] Initializing cgroup subsys io
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.343940] Initializing cgroup subsys memory
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.347326] Initializing cgroup subsys devices
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.350769] Initializing cgroup subsys freezer
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: +++++++++++++++++++Route IPv6 info+++++++++++++++++++
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: +-------+-------------+---------+-----------+-------+
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: | Route | Destination | Gateway | Interface | Flags |
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.354180] Initializing cgroup subsys net_cls
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.357574] Initializing cgroup subsys perf_event
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: +-------+-------------+---------+-----------+-------+
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.361070] Initializing cgroup subsys net_prio
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.364478] Initializing cgroup subsys hugetlb
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.367899] Initializing cgroup subsys pids
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: |   0   |  fe80::/64  |    ::   |    ens5   |   U   |
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.448161] mce: CPU supports 32 MCE banks
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: |   3   |   ff00::/8  |    ::   |    ens5   |   U   |
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.451515] process: using mwait in idle threads
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.454981] Last level iTLB entries: 4KB 64, 2MB 8, 4MB 8
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.458721] Last level dTLB entries: 4KB 64, 2MB 0, 4MB 0, 1GB 4
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: ci-info: +-------+-------------+---------+-----------+-------+
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.462680] Spectre V2 : Mitigation: Full generic retpoline
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.466464] Spectre V2 : Speculation control IBPB not-supported IBRS not-supported
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: Generating public/private rsa key pair.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.471002] Spectre V2 : Filling RSB on context switch
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: Your identification has been saved in /etc/ssh/ssh_host_rsa_key.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.476340] Speculative Store Bypass: Vulnerable
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.482100] Freeing SMP alternatives memory: 32K
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.492610] ftrace: allocating 31371 entries in 123 pages
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: Your public key has been saved in /etc/ssh/ssh_host_rsa_key.pub.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.543795] smpboot: APIC(0) Converting physical 0 to logical package 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.548006] smpboot: Max logical packages: 2
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: The key fingerprint is:
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.551603] x2apic enabled
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.556293] Switched APIC routing to physical x2apic.
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: SHA256:cv82QQtvoDJDeGg97Blhexvt+ZErbnjiX1DWjl3oM4E root@ip-10-0-0-215
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.562700] ..TIMER: vector=0x30 apic1=0 pin1=0 apic2=-1 pin2=-1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.566858] TSC deadline timer enabled
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.566864] smpboot: CPU0: Intel(R) Xeon(R) Platinum 8124M CPU @ 3.00GHz (family: 0x6, model: 0x55, stepping: 0x3)
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: The key's randomart image is:
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.574605] Performance Events: generic architected perfmon, Intel PMU driver.
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: +---[RSA 2048]----+
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.580936] ... version:                2
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.584161] ... bit width:              48
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.587389] ... generic registers:      4
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.590594] ... value mask:             0000ffffffffffff
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.594280] ... max period:             000000007fffffff
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.597989] ... fixed-purpose events:   3
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |                 |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |      o      o . |
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.601192] ... event mask:             000000070000000f
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |     * o .  E + .|
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.606210] x86: Booting SMP configuration:
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.609475] .... node  #0, CPUs:        #1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.611797] kvm-clock: cpu 1, msr 11:b7ff4041, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.614303] KVM setup async PF for cpu 1
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |    + O o +o.= o |
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.614511]   #2
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |   . +.=S=.*.o*  |
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.614511] kvm-clock: cpu 2, msr 11:b7ff4081, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |      *oo.o.B  o |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |       + ..o.+   |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |        o +o=    |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |       ..*oo..   |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: +----[SHA256]-----+
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: Generating public/private dsa key pair.
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: Your identification has been saved in /etc/ssh/ssh_host_dsa_key.
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: Your public key has been saved in /etc/ssh/ssh_host_dsa_key.pub.
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: The key fingerprint is:
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: SHA256:E6KxI8AG4ltoFk9YqE7dnC+Fv0E7buBO5ke5N0eWs/o root@ip-10-0-0-215
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: The key's randomart image is:
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: +---[DSA 1024]----+
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |o.+o             |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |=o=              |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |oB.o+ + .        |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |=oo. O + .       |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |o.. + = S   .    |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: | . . + O . =     |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |    .o= = o o    |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |    +. * o o     |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |    .oo ..=E     |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: +----[SHA256]-----+
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: Generating public/private ecdsa key pair.
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: Your identification has been saved in /etc/ssh/ssh_host_ecdsa_key.
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: Your public key has been saved in /etc/ssh/ssh_host_ecdsa_key.pub.
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: The key fingerprint is:
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: SHA256:HlNM9Px7dh9XzpE0WXchsmFrIfqnSJsYNWmnK70dJZ8 root@ip-10-0-0-215
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: The key's randomart image is:
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: +---[ECDSA 256]---+
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |         oo= . .=|
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |        oooo* . =|
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |       * .o+o  + |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |      o =..  .. o|
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |     . oSo o  .o.|
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |      =.=o* .  +o|
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |     o *.o E  ..B|
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |      . o .    o=|
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |       . .      .|
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.615933] KVM setup async PF for cpu 2
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: +----[SHA256]-----+
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.615937] kvm-stealtime: cpu 2, msr 1170e90080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.616148]   #3
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.616148] kvm-clock: cpu 3, msr 11:b7ff40c1, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: Generating public/private ed25519 key pair.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.617599] KVM setup async PF for cpu 3
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: Your identification has been saved in /etc/ssh/ssh_host_ed25519_key.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.617603] kvm-stealtime: cpu 3, msr 1170ed0080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.617817]   #4
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.617817] kvm-clock: cpu 4, msr 11:b7ff4101, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: Your public key has been saved in /etc/ssh/ssh_host_ed25519_key.pub.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.619257] KVM setup async PF for cpu 4
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.619261] kvm-stealtime: cpu 4, msr 1170f10080
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: The key fingerprint is:
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.619447]   #5
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.619447] kvm-clock: cpu 5, msr 11:b7ff4141, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.620810] KVM setup async PF for cpu 5
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: SHA256:m9656/QF/61tGy12uRZ7Cf5KbTlgiXeBThPbT5L9GNQ root@ip-10-0-0-215
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.620814] kvm-stealtime: cpu 5, msr 1170f50080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.621021]   #6
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.621021] kvm-clock: cpu 6, msr 11:b7ff4181, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: The key's randomart image is:
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.622402] KVM setup async PF for cpu 6
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: +--[ED25519 256]--+
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.622406] kvm-stealtime: cpu 6, msr 1170f90080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.622615]   #7
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.622616] kvm-clock: cpu 7, msr 11:b7ff41c1, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |             ... |
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |             .=oE|
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.624020] KVM setup async PF for cpu 7
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |             =+oo|
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.624024] kvm-stealtime: cpu 7, msr 1170fd0080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.624244]   #8
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.624244] kvm-clock: cpu 8, msr 11:b7ff4201, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |            + o=+|
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.625718] KVM setup async PF for cpu 8
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.625722] kvm-stealtime: cpu 8, msr 1171010080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.625911]   #9
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |        S  ..*..o|
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.625911] kvm-clock: cpu 9, msr 11:b7ff4241, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |         o  o++.+|
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.627310] KVM setup async PF for cpu 9
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.627314] kvm-stealtime: cpu 9, msr 1171050080
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |        o . ..*B*|
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.627524]  #10
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.627525] kvm-clock: cpu 10, msr 11:b7ff4281, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.628908] KVM setup async PF for cpu 10
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |       . o o.+.OB|
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.628912] kvm-stealtime: cpu 10, msr 1171090080
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Initial cloud-init job (metadata service crawler).
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.629110]  #11
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.629110] kvm-clock: cpu 11, msr 11:b7ff42c1, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.630508] KVM setup async PF for cpu 11
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.630512] kvm-stealtime: cpu 11, msr 11710d0080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.630722]  #12
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: |        ..*o..=**|
+May 20 01:35:40 ip-10-0-0-215 cloud-init[1319]: +----[SHA256]-----+
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.630722] kvm-clock: cpu 12, msr 11:b7ff4301, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Reached target System Initialization.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.632170] KVM setup async PF for cpu 12
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Listening on ACPID Listen Socket.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.632174] kvm-stealtime: cpu 12, msr 1171110080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.632388]  #13
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.632388] kvm-clock: cpu 13, msr 11:b7ff4341, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Daily apt download activities.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.633871] KVM setup async PF for cpu 13
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.633875] kvm-stealtime: cpu 13, msr 1171150080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.634074]  #14
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.634074] kvm-clock: cpu 14, msr 11:b7ff4381, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Daily apt upgrade and clean activities.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.635433] KVM setup async PF for cpu 14
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.635437] kvm-stealtime: cpu 14, msr 1171190080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.635632]  #15
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Socket activation for snappy daemon.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.635633] kvm-clock: cpu 15, msr 11:b7ff43c1, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Listening on UUID daemon activation socket.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.637021] KVM setup async PF for cpu 15
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.637025] kvm-stealtime: cpu 15, msr 11711d0080
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started ACPI Events Check.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.637221]  #16
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.637221] kvm-clock: cpu 16, msr 11:b7ff4401, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.638646] KVM setup async PF for cpu 16
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Reached target Paths.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.638650] kvm-stealtime: cpu 16, msr 1171210080
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Listening on D-Bus System Message Bus Socket.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.638843]  #17
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.638843] kvm-clock: cpu 17, msr 11:b7ff4441, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.640320] KVM setup async PF for cpu 17
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.640325] kvm-stealtime: cpu 17, msr 1171250080
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Daily Cleanup of Temporary Directories.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Reached target Timers.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.640562]  #18
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting LXD - unix socket.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.640562] kvm-clock: cpu 18, msr 11:b7ff4481, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Reached target Cloud-config availability.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.641998] KVM setup async PF for cpu 18
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.642003] kvm-stealtime: cpu 18, msr 1171290080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.642219]  #19
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Reached target Network is Online.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.642219] kvm-clock: cpu 19, msr 11:b7ff44c1, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting iSCSI initiator daemon (iscsid)...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.643728] KVM setup async PF for cpu 19
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.643734] kvm-stealtime: cpu 19, msr 11712d0080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.643936]  #20
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.643936] kvm-clock: cpu 20, msr 11:b7ff4501, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Listening on Socket activation for snappy daemon.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.645363] KVM setup async PF for cpu 20
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.645368] kvm-stealtime: cpu 20, msr 1171310080
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Listening on LXD - unix socket.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.645566]  #21
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.645566] kvm-clock: cpu 21, msr 11:b7ff4541, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Reached target Sockets.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.647022] KVM setup async PF for cpu 21
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.647026] kvm-stealtime: cpu 21, msr 1171350080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.647219]  #22
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.647219] kvm-clock: cpu 22, msr 11:b7ff4581, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.648691] KVM setup async PF for cpu 22
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Reached target Basic System.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.648695] kvm-stealtime: cpu 22, msr 1171390080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.648900]  #23
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.648900] kvm-clock: cpu 23, msr 11:b7ff45c1, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Deferred execution scheduler.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.650261] KVM setup async PF for cpu 23
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.650265] kvm-stealtime: cpu 23, msr 11713d0080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.650458]  #24
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Login Service...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.650459] kvm-clock: cpu 24, msr 11:b7ff4601, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.651846] KVM setup async PF for cpu 24
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.651850] kvm-stealtime: cpu 24, msr 1171410080
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting LSB: Record successful boot for GRUB...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.652054]  #25
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.652054] kvm-clock: cpu 25, msr 11:b7ff4641, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.653466] KVM setup async PF for cpu 25
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Accounts Service...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.653470] kvm-stealtime: cpu 25, msr 1171450080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.653687]  #26
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.653688] kvm-clock: cpu 26, msr 11:b7ff4681, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Unattended Upgrades Shutdown.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.655170] KVM setup async PF for cpu 26
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.655174] kvm-stealtime: cpu 26, msr 1171490080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.655365]  #27
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started D-Bus System Message Bus.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.655366] kvm-clock: cpu 27, msr 11:b7ff46c1, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.656774] KVM setup async PF for cpu 27
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.656778] kvm-stealtime: cpu 27, msr 11714d0080
+May 20 01:35:40 ip-10-0-0-215 dbus[1419]: [system] AppArmor D-Bus mediation is enabled
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.656999]  #28
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.656999] kvm-clock: cpu 28, msr 11:b7ff4701, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.658402] KVM setup async PF for cpu 28
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Regular background program processing daemon.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.658406] kvm-stealtime: cpu 28, msr 1171510080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.658622]  #29
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting /etc/rc.local Compatibility...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.658623] kvm-clock: cpu 29, msr 11:b7ff4741, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.660035] KVM setup async PF for cpu 29
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.660039] kvm-stealtime: cpu 29, msr 1171550080
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Snappy daemon...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.660240]  #30
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.660240] kvm-clock: cpu 30, msr 11:b7ff4781, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.661710] KVM setup async PF for cpu 30
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting LSB: MD monitoring daemon...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.661714] kvm-stealtime: cpu 30, msr 1171590080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.661912]  #31
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.661912] kvm-clock: cpu 31, msr 11:b7ff47c1, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Pollinate to seed the pseudo random number generator...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.663388] KVM setup async PF for cpu 31
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.663392] kvm-stealtime: cpu 31, msr 11715d0080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.663598]  #32
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started FUSE filesystem for LXC.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.663598] kvm-clock: cpu 32, msr 11:b7ff4801, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.664974] KVM setup async PF for cpu 32
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.664978] kvm-stealtime: cpu 32, msr 1171610080
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting LXD - container startup/shutdown...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.665174]  #33
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.665174] kvm-clock: cpu 33, msr 11:b7ff4841, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.666565] KVM setup async PF for cpu 33
+May 20 01:35:40 ip-10-0-0-215 cron[1424]: (CRON) INFO (pidfile fd = 3)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.666569] kvm-stealtime: cpu 33, msr 1171650080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.666774]  #34
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.666774] kvm-clock: cpu 34, msr 11:b7ff4881, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.668205] KVM setup async PF for cpu 34
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.668209] kvm-stealtime: cpu 34, msr 1171690080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.668424]  #35
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting System Logging Service...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.668424] kvm-clock: cpu 35, msr 11:b7ff48c1, secondary cpu clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.669891] Skipped synchronization checks as TSC is reliable.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.669905] x86: Booted up 1 node, 36 CPUs
+May 20 01:35:40 ip-10-0-0-215 cron[1424]: (CRON) INFO (Running @reboot jobs)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.669906] smpboot: Total of 36 processors activated (216000.14 BogoMIPS)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.669907] KVM setup async PF for cpu 35
+May 20 01:35:40 ip-10-0-0-215 kernel: [    1.669911] kvm-stealtime: cpu 35, msr 11716d0080
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started /etc/rc.local Compatibility.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.074723] kvm-stealtime: cpu 1, msr 1170e50080
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.080129] devtmpfs: initialized
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.083112] Using 2GB memory block size for large-memory system
+May 20 01:35:40 ip-10-0-0-215 mdadm[1431]:  * Starting MD monitoring service mdadm --monitor
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.088040] evm: security.selinux
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.090959] evm: security.SMACK64
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.093868] evm: security.SMACK64EXEC
+May 20 01:35:40 ip-10-0-0-215 acpid: starting up with netlink and the input layer
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.096907] evm: security.SMACK64TRANSMUTE
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.100186] evm: security.SMACK64MMAP
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.103291] evm: security.ima
+May 20 01:35:40 ip-10-0-0-215 acpid: 1 rule loaded
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.106129] evm: security.capability
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.109371] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.191531] futex hash table entries: 16384 (order: 8, 1048576 bytes)
+May 20 01:35:40 ip-10-0-0-215 acpid: waiting for events: event logging is off
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.196331] RTC time:  1:35:24, date: 05/20/19
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.200853] NET: Registered protocol family 16
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.228362] cpuidle: using governor ladder
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Login Service.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.243670] cpuidle: using governor menu
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.246915] PCCT header not found.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.250140] ACPI: bus type PCI registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.253429] acpiphp: ACPI Hot Plug PCI Controller Driver version: 0.5
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.257798] PCI: Using configuration type 1 for base access
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.274260] ACPI: Added _OSI(Module Device)
+May 20 01:35:40 ip-10-0-0-215 pollinate[1435]: client sent challenge to [https://entropy.ubuntu.com/]
+May 20 01:35:40 ip-10-0-0-215 iscsid: iSCSI logger with pid=1477 started!
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started iSCSI initiator daemon (iscsid).
+May 20 01:35:40 ip-10-0-0-215 dbus[1419]: [system] Activating via systemd: service name='org.freedesktop.PolicyKit1' unit='polkitd.service'
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.277592] ACPI: Added _OSI(Processor Device)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.281032] ACPI: Added _OSI(3.0 _SCP Extensions)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.284546] ACPI: Added _OSI(Processor Aggregator Device)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.292285] ACPI: Interpreter enabled
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.295400] ACPI: (supports S0 S4 S5)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.298464] ACPI: Using IOAPIC for interrupt routing
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.302054] PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.312758] ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.316854] acpi PNP0A03:00: _OSC: OS supports [ASPM ClockPM Segments MSI]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.321227] acpi PNP0A03:00: _OSC failed (AE_NOT_FOUND); disabling ASPM
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.325490] acpi PNP0A03:00: fail to add MMCONFIG information, can't access extended PCI configuration space under this bridge.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.333398] acpiphp: Slot [3] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.336569] acpiphp: Slot [4] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.339765] acpiphp: Slot [5] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.343000] acpiphp: Slot [6] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.346192] acpiphp: Slot [7] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.349390] acpiphp: Slot [8] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.352599] acpiphp: Slot [9] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.355799] acpiphp: Slot [10] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.359040] acpiphp: Slot [11] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.362283] acpiphp: Slot [12] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.365548] acpiphp: Slot [13] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.368746] acpiphp: Slot [14] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.371980] acpiphp: Slot [15] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.375216] acpiphp: Slot [16] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.378717] acpiphp: Slot [17] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.381980] acpiphp: Slot [18] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.385223] acpiphp: Slot [19] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.388446] acpiphp: Slot [20] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.391671] acpiphp: Slot [21] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.394907] acpiphp: Slot [22] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.398202] acpiphp: Slot [23] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.401451] acpiphp: Slot [24] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.404703] acpiphp: Slot [25] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.407958] acpiphp: Slot [26] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.411225] acpiphp: Slot [27] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.414492] acpiphp: Slot [28] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.417760] acpiphp: Slot [29] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.421028] acpiphp: Slot [30] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.424282] acpiphp: Slot [31] registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.427496] PCI host bridge to bus 0000:00
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.430767] pci_bus 0000:00: root bus resource [io  0x0000-0x0cf7 window]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.435115] pci_bus 0000:00: root bus resource [io  0x0d00-0xffff window]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.439464] pci_bus 0000:00: root bus resource [mem 0x000a0000-0x000bffff window]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.445539] pci_bus 0000:00: root bus resource [mem 0xc0000000-0xfebfffff window]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.451639] pci_bus 0000:00: root bus resource [bus 00-ff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.455457] pci 0000:00:00.0: [8086:1237] type 00 class 0x060000
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.455869] pci 0000:00:01.0: [8086:7000] type 00 class 0x060100
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.456961] pci 0000:00:01.3: [8086:7113] type 00 class 0x000000
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.457869] pci 0000:00:01.3: quirk: [io  0xb000-0xb03f] claimed by PIIX4 ACPI
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.463881] pci 0000:00:01.3: quirk: [io  0xb100-0xb10f] claimed by PIIX4 SMB
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.468424] pci 0000:00:01.3: PIIX4 devres E PIO at fff0-ffff
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.472379] pci 0000:00:01.3: PIIX4 devres F MMIO at ffc00000-ffffffff
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.476646] pci 0000:00:01.3: PIIX4 devres G PIO at fff0-ffff
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.480624] pci 0000:00:01.3: PIIX4 devres H MMIO at ffc00000-ffffffff
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.484839] pci 0000:00:01.3: PIIX4 devres I PIO at fff0-ffff
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.488764] pci 0000:00:01.3: PIIX4 devres J PIO at fff0-ffff
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.492915] pci 0000:00:03.0: [1d0f:1111] type 00 class 0x030000
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.493157] pci 0000:00:03.0: reg 0x10: [mem 0xfe400000-0xfe7fffff pref]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.493947] pci 0000:00:03.0: reg 0x30: [mem 0xfebd0000-0xfebdffff pref]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.494191] pci 0000:00:04.0: [1d0f:8061] type 00 class 0x010802
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.494884] pci 0000:00:04.0: reg 0x10: [mem 0xfebf0000-0xfebf3fff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.497861] pci 0000:00:05.0: [1d0f:ec20] type 00 class 0x020000
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.498775] pci 0000:00:05.0: reg 0x10: [mem 0xfebf4000-0xfebf7fff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.500409] pci 0000:00:05.0: reg 0x18: [mem 0xfe800000-0xfe8fffff pref]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.502020] pci 0000:00:05.0: reg 0x20: [mem 0xfebe0000-0xfebeffff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.504285] ACPI: PCI Interrupt Link [LNKA] (IRQs 5 *10 11)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.509315] ACPI: PCI Interrupt Link [LNKB] (IRQs 5 *10 11)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.514361] ACPI: PCI Interrupt Link [LNKC] (IRQs 5 10 *11)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.519425] ACPI: PCI Interrupt Link [LNKD] (IRQs 5 10 *11)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.524421] ACPI: PCI Interrupt Link [LNKS] (IRQs *9)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.531716] ACPI: Enabled 16 GPEs in block 00 to 0F
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.535858] vgaarb: setting as boot device: PCI:0000:00:03.0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.539753] vgaarb: device added: PCI:0000:00:03.0,decodes=io+mem,owns=io+mem,locks=none
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.546153] vgaarb: loaded
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.548891] vgaarb: bridge control possible 0000:00:03.0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.552802] SCSI subsystem initialized
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.556023] libata version 3.00 loaded.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.556038] ACPI: bus type USB registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.559296] usbcore: registered new interface driver usbfs
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.563138] usbcore: registered new interface driver hub
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.567016] usbcore: registered new device driver usb
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.570874] PCI: Using ACPI for IRQ routing
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.574231] PCI: pci_cache_line_size set to 64 bytes
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.574378] e820: reserve RAM buffer [mem 0x0009fc00-0x0009ffff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.574380] e820: reserve RAM buffer [mem 0xbfff8000-0xbfffffff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.574468] NetLabel: Initializing
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.577463] NetLabel:  domain hash size = 128
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.580892] NetLabel:  protocols = UNLABELED CIPSOv4
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.584540] NetLabel:  unlabeled traffic allowed by default
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.588468] amd_nb: Cannot enumerate AMD northbridges
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.592200] clocksource: Switched to clocksource kvm-clock
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.600853] AppArmor: AppArmor Filesystem Enabled
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.604487] pnp: PnP ACPI init
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.607411] pnp 00:00: Plug and Play ACPI device, IDs PNP0b00 (active)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.607432] pnp 00:01: Plug and Play ACPI device, IDs PNP0303 (active)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.607449] pnp 00:02: Plug and Play ACPI device, IDs PNP0f13 (active)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.607491] pnp 00:03: Plug and Play ACPI device, IDs PNP0400 (active)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.607529] pnp 00:04: Plug and Play ACPI device, IDs PNP0501 (active)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.607699] pnp: PnP ACPI: found 5 devices
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.616891] clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff, max_idle_ns: 2085701024 ns
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.623619] pci_bus 0000:00: resource 4 [io  0x0000-0x0cf7 window]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.623621] pci_bus 0000:00: resource 5 [io  0x0d00-0xffff window]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.623622] pci_bus 0000:00: resource 6 [mem 0x000a0000-0x000bffff window]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.623624] pci_bus 0000:00: resource 7 [mem 0xc0000000-0xfebfffff window]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.623676] NET: Registered protocol family 2
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.627428] TCP established hash table entries: 524288 (order: 10, 4194304 bytes)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.634105] TCP bind hash table entries: 65536 (order: 8, 1048576 bytes)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.638572] TCP: Hash tables configured (established 524288 bind 65536)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.643052] UDP hash table entries: 65536 (order: 9, 2097152 bytes)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.647505] UDP-Lite hash table entries: 65536 (order: 9, 2097152 bytes)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.652207] NET: Registered protocol family 1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.655626] pci 0000:00:00.0: Limiting direct PCI/PCI transfers
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.659720] pci 0000:00:01.0: Activating ISA DMA hang workarounds
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.663847] pci 0000:00:03.0: Video device with shadowed ROM
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.663892] PCI: CLS 0 bytes, default 64
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.663927] Trying to unpack rootfs image as initramfs...
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.813069] Freeing initrd memory: 12412K
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.816352] PCI-DMA: Using software bounce buffering for IO (SWIOTLB)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.820583] software IO TLB [mem 0xbbff8000-0xbfff8000] (64MB) mapped at [ffff8800bbff8000-ffff8800bfff7fff]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.827792] Scanning for low memory corruption every 60 seconds
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.832274] audit: initializing netlink subsys (disabled)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.836105] audit: type=2000 audit(1558316124.603:1): initialized
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.840395] Initialise system trusted keyring
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.843987] HugeTLB registered 1 GB page size, pre-allocated 0 pages
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.848155] HugeTLB registered 2 MB page size, pre-allocated 0 pages
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.853216] zbud: loaded
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.856125] VFS: Disk quotas dquot_6.6.0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.859405] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.864047] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.868200] fuse init (API version 7.23)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.871496] Key type big_key registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.874670] Allocating IMA MOK and blacklist keyrings.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.878737] Key type asymmetric registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.882041] Asymmetric key parser 'x509' registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.885657] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 249)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.891799] io scheduler noop registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.894980] io scheduler deadline registered (default)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.898633] io scheduler cfq registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.901849] pci_hotplug: PCI Hot Plug PCI Core version: 0.5
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.905718] pciehp: PCI Express Hot Plug Controller Driver version: 0.4
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.909979] intel_idle: does not run on family 6 model 85
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.910025] input: Power Button as /devices/LNXSYSTM:00/LNXPWRBN:00/input/input0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.916164] ACPI: Power Button [PWRF]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.919283] input: Sleep Button as /devices/LNXSYSTM:00/LNXSLPBN:00/input/input1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.925352] ACPI: Sleep Button [SLPF]
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.929047] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.956195] 00:04: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.962560] Linux agpgart interface v0.103
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.970357] brd: module loaded
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.975155] loop: module loaded
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.978230] libphy: Fixed MDIO Bus: probed
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.981466] tun: Universal TUN/TAP device driver, 1.6
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.985127] tun: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.989257] PPP generic driver version 2.4.2
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.992674] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+May 20 01:35:40 ip-10-0-0-215 kernel: [    2.996924] ehci-pci: EHCI PCI platform driver
+May 20 01:35:40 ip-10-0-0-215 kernel: [    3.000354] ehci-platform: EHCI generic platform driver
+May 20 01:35:40 ip-10-0-0-215 kernel: [    3.004078] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+May 20 01:35:40 ip-10-0-0-215 kernel: [    3.008171] ohci-pci: OHCI PCI platform driver
+May 20 01:35:40 ip-10-0-0-215 kernel: [    3.011586] ohci-platform: OHCI generic platform driver
+May 20 01:35:40 ip-10-0-0-215 kernel: [    3.015346] uhci_hcd: USB Universal Host Controller Interface driver
+May 20 01:35:40 ip-10-0-0-215 kernel: [    3.019647] i8042: PNP: PS/2 Controller [PNP0303:KBD,PNP0f13:MOU] at 0x60,0x64 irq 1,12
+May 20 01:35:40 ip-10-0-0-215 kernel: [    3.026201] i8042: Warning: Keylock active
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.180523] serio: i8042 KBD port at 0x60,0x64 irq 1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.184224] mousedev: PS/2 mouse device common for all mice
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.188288] rtc_cmos 00:00: RTC can wake from S4
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.192300] rtc_cmos 00:00: rtc core: registered rtc_cmos as rtc0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.196649] rtc_cmos 00:00: alarms up to one day, 114 bytes nvram
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.200732] i2c /dev entries driver
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.203776] device-mapper: uevent: version 1.0.3
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.207317] device-mapper: ioctl: 4.34.0-ioctl (2015-10-28) initialised: dm-devel@redhat.com
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.214137] NET: Registered protocol family 10
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.217861] NET: Registered protocol family 17
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.221338] Key type dns_resolver registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.225565] registered taskstats version 1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.228925] Loading compiled-in X.509 certificates
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.233025] Loaded X.509 cert 'Build time autogenerated kernel key: 999331f4e42d791a53730c2883c63539f919e8cf'
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.240212] zswap: loaded using pool lzo/zbud
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.245028] Key type trusted registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.250561] Key type encrypted registered
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.328928] AppArmor: AppArmor sha1 policy hashing enabled
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.332898] ima: No TPM chip found, activating TPM-bypass!
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.336811] ima: Allocated hash algorithm: sha1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.340342] evm: HMAC attrs: 0x1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.343568]   Magic number: 3:628:559
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.346997] rtc_cmos 00:00: setting system clock to 2019-05-20 01:35:26 UTC (1558316126)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.353737] BIOS EDD facility v0.16 2004-Jun-25, 0 devices found
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.357843] EDD information not available.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.361206] PM: Hibernation image not present or could not be loaded.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.362811] Freeing unused kernel memory: 1504K
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.440204] Write protecting the kernel read-only data: 14336k
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.445015] Freeing unused kernel memory: 1856K
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.448892] Freeing unused kernel memory: 208K
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.461586] random: systemd-udevd: uninitialized urandom read (16 bytes read, 3 bits of entropy available)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.462148] random: udevadm: uninitialized urandom read (16 bytes read, 3 bits of entropy available)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.462164] random: udevadm: uninitialized urandom read (16 bytes read, 3 bits of entropy available)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.467502] random: udevadm: uninitialized urandom read (16 bytes read, 3 bits of entropy available)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.467537] random: udevadm: uninitialized urandom read (16 bytes read, 3 bits of entropy available)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.469054] random: udevadm: uninitialized urandom read (16 bytes read, 3 bits of entropy available)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.469092] random: udevadm: uninitialized urandom read (16 bytes read, 3 bits of entropy available)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.469128] random: udevadm: uninitialized urandom read (16 bytes read, 3 bits of entropy available)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.469162] random: udevadm: uninitialized urandom read (16 bytes read, 3 bits of entropy available)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.469197] random: udevadm: uninitialized urandom read (16 bytes read, 3 bits of entropy available)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.546587] ena: Elastic Network Adapter (ENA) v1.5.0K
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.547026] ACPI: PCI Interrupt Link [LNKD] enabled at IRQ 11
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.554964] ena 0000:00:05.0: Elastic Network Adapter (ENA) v1.5.0K
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.568858] ena: ena device version: 0.10
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.572316] ena: ena controller version: 0.0.1 implementation version 1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.577245] AVX2 version of gcm_enc/dec engaged.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.580807] AES CTR mode by8 optimization enabled
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.660240] ena 0000:00:05.0: creating 8 io queues. queue size: 1024
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.666138] ena 0000:00:05.0: Elastic Network Adapter (ENA) found at mem febf4000, mac addr 06:a5:6e:95:3e:14 Queues 8
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.674437] ena 0000:00:05.0 ens5: renamed from eth0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.688714] input: AT Translated Set 2 keyboard as /devices/platform/i8042/serio0/input/input2
+May 20 01:35:40 ip-10-0-0-215 kernel: [    4.758437]  nvme0n1: p1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    7.910607] md: linear personality registered for level -1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    7.916605] md: multipath personality registered for level -4
+May 20 01:35:40 ip-10-0-0-215 kernel: [    7.922715] md: raid0 personality registered for level 0
+May 20 01:35:40 ip-10-0-0-215 kernel: [    7.928976] md: raid1 personality registered for level 1
+May 20 01:35:40 ip-10-0-0-215 kernel: [    7.984199] raid6: sse2x1   gen() 11397 MB/s
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.032197] raid6: sse2x1   xor()  8642 MB/s
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.080197] raid6: sse2x2   gen() 14365 MB/s
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.128198] raid6: sse2x2   xor()  9922 MB/s
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.176198] raid6: sse2x4   gen() 15926 MB/s
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.224196] raid6: sse2x4   xor() 11131 MB/s
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.272200] raid6: avx2x1   gen() 19454 MB/s
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.320196] raid6: avx2x2   gen() 26061 MB/s
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.368198] raid6: avx2x4   gen() 27736 MB/s
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.371494] raid6: using algorithm avx2x4 gen() 27736 MB/s
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.375263] raid6: using avx2x2 recovery algorithm
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.379838] xor: automatically using best checksumming function:
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.420195]    avx       : 26508.000 MB/sec
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.424569] async_tx: api initialized (async)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.434052] md: raid6 personality registered for level 6
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.437810] md: raid5 personality registered for level 5
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.441535] md: raid4 personality registered for level 4
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.449300] md: raid10 personality registered for level 10
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.475175] Btrfs loaded
+May 20 01:35:40 ip-10-0-0-215 kernel: [    8.528958] EXT4-fs (nvme0n1p1): mounted filesystem with ordered data mode. Opts: (null)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    9.685551] EXT4-fs (nvme0n1p1): re-mounted. Opts: discard
+May 20 01:35:40 ip-10-0-0-215 kernel: [    9.842985] Loading iSCSI transport class v2.0-870.
+May 20 01:35:40 ip-10-0-0-215 kernel: [    9.885361] iscsi: registered transport (tcp)
+May 20 01:35:40 ip-10-0-0-215 kernel: [    9.969085] iscsi: registered transport (iser)
+May 20 01:35:40 ip-10-0-0-215 kernel: [   10.216850] parport_pc 00:03: reported by Plug and Play ACPI
+May 20 01:35:40 ip-10-0-0-215 kernel: [   10.219435] ppdev: user-space parallel port driver
+May 20 01:35:40 ip-10-0-0-215 kernel: [   12.265298] random: nonblocking pool is initialized
+May 20 01:35:40 ip-10-0-0-215 kernel: [   16.013722] audit: type=1400 audit(1558316138.164:2): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/bin/lxc-start" pid=1091 comm="apparmor_parser"
+May 20 01:35:40 ip-10-0-0-215 kernel: [   16.052579] audit: type=1400 audit(1558316138.204:3): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/lib/lxd/lxd-bridge-proxy" pid=1092 comm="apparmor_parser"
+May 20 01:35:40 ip-10-0-0-215 kernel: [   16.067363] audit: type=1400 audit(1558316138.216:4): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/sbin/tcpdump" pid=1094 comm="apparmor_parser"
+May 20 01:35:40 ip-10-0-0-215 kernel: [   16.116227] audit: type=1400 audit(1558316138.268:5): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/sbin/dhclient" pid=1093 comm="apparmor_parser"
+May 20 01:35:40 ip-10-0-0-215 kernel: [   16.116453] audit: type=1400 audit(1558316138.268:6): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/lib/NetworkManager/nm-dhcp-client.action" pid=1093 comm="apparmor_parser"
+May 20 01:35:40 ip-10-0-0-215 kernel: [   16.116660] audit: type=1400 audit(1558316138.268:7): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/lib/NetworkManager/nm-dhcp-helper" pid=1093 comm="apparmor_parser"
+May 20 01:35:40 ip-10-0-0-215 kernel: [   16.116860] audit: type=1400 audit(1558316138.268:8): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/lib/connman/scripts/dhclient-script" pid=1093 comm="apparmor_parser"
+May 20 01:35:40 ip-10-0-0-215 kernel: [   16.139028] audit: type=1400 audit(1558316138.288:9): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/lib/snapd/snap-confine" pid=1090 comm="apparmor_parser"
+May 20 01:35:40 ip-10-0-0-215 kernel: [   16.139145] audit: type=1400 audit(1558316138.288:10): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/lib/snapd/snap-confine//mount-namespace-capture-helper" pid=1090 comm="apparmor_parser"
+May 20 01:35:40 ip-10-0-0-215 kernel: [   16.176675] audit: type=1400 audit(1558316138.328:11): apparmor="STATUS" operation="profile_load" profile="unconfined" name="lxc-container-default" pid=1095 comm="apparmor_parser"
+May 20 01:35:40 ip-10-0-0-215 kernel: [   17.133480] EXT4-fs (nvme0n1p1): resizing filesystem from 2096891 to 26214139 blocks
+May 20 01:35:40 ip-10-0-0-215 kernel: [   17.164437] EXT4-fs (nvme0n1p1): resized filesystem to 26214139
+May 20 01:35:40 ip-10-0-0-215 kernel: [   18.278253] cgroup: new mount options do not match the existing superblock, will be ignored
+May 20 01:35:40 ip-10-0-0-215 lxcfs[1438]: hierarchies:
+May 20 01:35:40 ip-10-0-0-215 lxcfs[1438]:   0: fd:   5: hugetlb
+May 20 01:35:40 ip-10-0-0-215 lxcfs[1438]:   1: fd:   6: cpu,cpuacct
+May 20 01:35:40 ip-10-0-0-215 lxcfs[1438]:   2: fd:   7: devices
+May 20 01:35:40 ip-10-0-0-215 lxcfs[1438]:   3: fd:   8: memory
+May 20 01:35:40 ip-10-0-0-215 lxcfs[1438]:   4: fd:   9: cpuset
+May 20 01:35:40 ip-10-0-0-215 lxcfs[1438]:   5: fd:  10: net_cls,net_prio
+May 20 01:35:40 ip-10-0-0-215 lxcfs[1438]:   6: fd:  11: pids
+May 20 01:35:40 ip-10-0-0-215 lxcfs[1438]:   7: fd:  12: perf_event
+May 20 01:35:40 ip-10-0-0-215 lxcfs[1438]:   8: fd:  13: blkio
+May 20 01:35:40 ip-10-0-0-215 lxcfs[1438]:   9: fd:  14: freezer
+May 20 01:35:40 ip-10-0-0-215 lxcfs[1438]:  10: fd:  15: name=systemd
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Login to default iSCSI targets...
+May 20 01:35:40 ip-10-0-0-215 mdadm[1431]:    ...done.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started System Logging Service.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started LSB: Record successful boot for GRUB.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started LSB: MD monitoring daemon.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Authenticate and Authorize Users to Run Privileged Tasks...
+May 20 01:35:40 ip-10-0-0-215 iscsiadm[1492]: iscsiadm: No records found
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Login to default iSCSI targets.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Reached target Remote File Systems (Pre).
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Reached target Remote File Systems.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting LSB: daemon to balance interrupts for SMP systems...
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting LSB: Set the CPU Frequency Scaling governor to "ondemand"...
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Permit User Sessions...
+May 20 01:35:40 ip-10-0-0-215 polkitd[1494]: started daemon version 0.105 using authority implementation `local' version `0.105'
+May 20 01:35:40 ip-10-0-0-215 dbus[1419]: [system] Successfully activated service 'org.freedesktop.PolicyKit1'
+May 20 01:35:40 ip-10-0-0-215 accounts-daemon[1416]: started daemon version 0.6.40
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting LSB: automatic crash report generation...
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Permit User Sessions.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Authenticate and Authorize Users to Run Privileged Tasks.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Accounts Service.
+May 20 01:35:40 ip-10-0-0-215 irqbalance[1513]:  * Starting SMP IRQ Balancer: irqbalance
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Hold until boot process finishes up...
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Terminate Plymouth Boot Screen...
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started LSB: Set the CPU Frequency Scaling governor to "ondemand".
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Hold until boot process finishes up.
+May 20 01:35:40 ip-10-0-0-215 apport[1525]:  * Starting automatic crash report generation: apport
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Terminate Plymouth Boot Screen.
+May 20 01:35:40 ip-10-0-0-215 apport[1525]:    ...done.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting Set console scheme...
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Getty on tty1.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Serial Getty on ttyS0.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Reached target Login Prompts.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started LSB: automatic crash report generation.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Set console scheme.
+May 20 01:35:40 ip-10-0-0-215 irqbalance[1513]:    ...done.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started LSB: daemon to balance interrupts for SMP systems.
+May 20 01:35:40 ip-10-0-0-215 pollinate[1435]: client verified challenge/response with [https://entropy.ubuntu.com/]
+May 20 01:35:40 ip-10-0-0-215 pollinate[1435]: client hashed response from [https://entropy.ubuntu.com/]
+May 20 01:35:40 ip-10-0-0-215 pollinate[1435]: client successfully seeded [/dev/urandom]
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started Pollinate to seed the pseudo random number generator.
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Starting OpenBSD Secure Shell server...
+May 20 01:35:40 ip-10-0-0-215 systemd[1]: Started OpenBSD Secure Shell server.
+May 20 01:35:41 ip-10-0-0-215 systemd[1]: Started LXD - container startup/shutdown.
+May 20 01:35:41 ip-10-0-0-215 snapd[1429]: AppArmor status: apparmor is enabled and all features are available
+May 20 01:35:41 ip-10-0-0-215 snapd[1429]: 2019/05/20 01:35:41.189042 helpers.go:119: error trying to compare the snap system key: system-key missing on disk
+May 20 01:35:41 ip-10-0-0-215 snapd[1429]: 2019/05/20 01:35:41.195003 daemon.go:343: started snapd/2.34.2 (series 16; classic) ubuntu/16.04 (amd64) linux/4.4.0-1067-aws.
+May 20 01:35:41 ip-10-0-0-215 systemd[1]: Started Snappy daemon.
+May 20 01:35:41 ip-10-0-0-215 systemd[1]: Starting Wait until snapd is fully seeded...
+May 20 01:35:41 ip-10-0-0-215 iscsid: iSCSI daemon with pid=1478 started!
+May 20 01:35:46 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:35:46 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:35:46 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:35:46 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:35:46 ip-10-0-0-215 systemd[1]: Mounting Mount unit for core, revision 5328...
+May 20 01:35:46 ip-10-0-0-215 systemd[1]: Mounted Mount unit for core, revision 5328.
+May 20 01:35:46 ip-10-0-0-215 snapd[1429]: 2019/05/20 01:35:46.883426 backend.go:303: cannot create host snap-confine apparmor configuration: cannot synchronize snap-confine apparmor profile: open /var/lib/snapd/apparmor/profiles/snap-confine.core.5328.jL372pjfW2m6~: no such file or directory
+May 20 01:35:46 ip-10-0-0-215 kernel: [   24.746796] audit_printk_skb: 9 callbacks suppressed
+May 20 01:35:46 ip-10-0-0-215 kernel: [   24.746798] audit: type=1400 audit(1558316146.896:15): apparmor="STATUS" operation="profile_load" profile="unconfined" name="snap-update-ns.core" pid=2151 comm="apparmor_parser"
+May 20 01:35:46 ip-10-0-0-215 kernel: [   24.806913] audit: type=1400 audit(1558316146.956:16): apparmor="STATUS" operation="profile_load" profile="unconfined" name="snap.core.hook.configure" pid=2153 comm="apparmor_parser"
+May 20 01:35:51 ip-10-0-0-215 snapd[1429]: 2019/05/20 01:35:51.276911 daemon.go:531: gracefully waiting for running hooks
+May 20 01:35:51 ip-10-0-0-215 snapd[1429]: 2019/05/20 01:35:51.276927 daemon.go:533: done waiting for running hooks
+May 20 01:35:51 ip-10-0-0-215 systemd[1]: snapd.service: Service hold-off time over, scheduling restart.
+May 20 01:35:51 ip-10-0-0-215 systemd[1]: Stopped Snappy daemon.
+May 20 01:35:51 ip-10-0-0-215 systemd[1]: Starting Snappy daemon...
+May 20 01:35:51 ip-10-0-0-215 snapd[2289]: AppArmor status: apparmor is enabled and all features are available
+May 20 01:35:52 ip-10-0-0-215 kernel: [   30.187875] audit: type=1400 audit(1558316152.336:17): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/snap/core/5328/usr/lib/snapd/snap-confine" pid=2309 comm="apparmor_parser"
+May 20 01:35:52 ip-10-0-0-215 kernel: [   30.188004] audit: type=1400 audit(1558316152.336:18): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/snap/core/5328/usr/lib/snapd/snap-confine//mount-namespace-capture-helper" pid=2309 comm="apparmor_parser"
+May 20 01:35:52 ip-10-0-0-215 kernel: [   30.204745] audit: type=1400 audit(1558316152.356:19): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap-update-ns.core" pid=2311 comm="apparmor_parser"
+May 20 01:35:52 ip-10-0-0-215 kernel: [   30.262241] audit: type=1400 audit(1558316152.412:20): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="snap.core.hook.configure" pid=2313 comm="apparmor_parser"
+May 20 01:35:52 ip-10-0-0-215 snapd[2289]: AppArmor status: apparmor is enabled and all features are available
+May 20 01:35:52 ip-10-0-0-215 snapd[2289]: daemon.go:344: started snapd/2.35 (series 16; classic) ubuntu/16.04 (amd64) linux/4.4.0-1067-aws.
+May 20 01:35:52 ip-10-0-0-215 systemd[1]: Started Snappy daemon.
+May 20 01:35:52 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Mounting Mount unit for amazon-ssm-agent, revision 495...
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Mounted Mount unit for amazon-ssm-agent, revision 495.
+May 20 01:35:53 ip-10-0-0-215 kernel: [   31.018538] audit: type=1400 audit(1558316153.168:21): apparmor="STATUS" operation="profile_load" profile="unconfined" name="snap-update-ns.amazon-ssm-agent" pid=2604 comm="apparmor_parser"
+May 20 01:35:53 ip-10-0-0-215 kernel: [   31.022073] audit: type=1400 audit(1558316153.172:22): apparmor="STATUS" operation="profile_load" profile="unconfined" name="snap.amazon-ssm-agent.amazon-ssm-agent" pid=2606 comm="apparmor_parser"
+May 20 01:35:53 ip-10-0-0-215 kernel: [   31.025503] audit: type=1400 audit(1558316153.176:23): apparmor="STATUS" operation="profile_load" profile="unconfined" name="snap.amazon-ssm-agent.ssm-cli" pid=2608 comm="apparmor_parser"
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Started Service for snap application amazon-ssm-agent.amazon-ssm-agent.
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Started Wait until snapd is fully seeded.
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Reached target Multi-User System.
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Reached target Graphical Interface.
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Starting Update UTMP about System Runlevel Changes...
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Starting Apply the settings specified in cloud-config...
+May 20 01:35:53 ip-10-0-0-215 systemd[1]: Started Update UTMP about System Runlevel Changes.
+May 20 01:35:53 ip-10-0-0-215 cloud-init[2678]: Generating locales (this might take a while)...
+May 20 01:35:54 ip-10-0-0-215 amazon-ssm-agent.amazon-ssm-agent[2664]: 2019/05/20 01:35:54 Failed to load instance info from vault. RegistrationKey does not exist.
+May 20 01:35:54 ip-10-0-0-215 amazon-ssm-agent.amazon-ssm-agent[2664]: Error occurred fetching the seelog config file path:  open /etc/amazon/ssm/seelog.xml: no such file or directory
+May 20 01:35:54 ip-10-0-0-215 amazon-ssm-agent.amazon-ssm-agent[2664]: Initializing new seelog logger
+May 20 01:35:54 ip-10-0-0-215 amazon-ssm-agent.amazon-ssm-agent[2664]: New Seelog Logger Creation Complete
+May 20 01:35:54 ip-10-0-0-215 amazon-ssm-agent.amazon-ssm-agent[2664]: 2019-05-20 01:35:54 ERROR Error adding the directory to watcher: no such file or directory
+May 20 01:35:54 ip-10-0-0-215 amazon-ssm-agent.amazon-ssm-agent[2664]: 2019-05-20 01:35:54 INFO Agent enters hibernate mode. Reducing logging...
+May 20 01:35:54 ip-10-0-0-215 cloud-init[2678]:   en_US.UTF-8... done
+May 20 01:35:54 ip-10-0-0-215 cloud-init[2678]: Generation complete.
+May 20 01:35:55 ip-10-0-0-215 cloud-init[2678]: Cloud-init v. 18.3-9-g2e62cb8a-0ubuntu1~16.04.2 running 'modules:config' at Mon, 20 May 2019 01:35:53 +0000. Up 30.07 seconds.
+May 20 01:35:55 ip-10-0-0-215 systemd[1]: Started Apply the settings specified in cloud-config.
+May 20 01:35:55 ip-10-0-0-215 systemd[1]: Starting Execute cloud user/final scripts...
+May 20 01:35:55 ip-10-0-0-215 ec2: 
+May 20 01:35:55 ip-10-0-0-215 ec2: #############################################################
+May 20 01:35:55 ip-10-0-0-215 ec2: -----BEGIN SSH HOST KEY FINGERPRINTS-----
+May 20 01:35:55 ip-10-0-0-215 ec2: 1024 SHA256:E6KxI8AG4ltoFk9YqE7dnC+Fv0E7buBO5ke5N0eWs/o root@ip-10-0-0-215 (DSA)
+May 20 01:35:55 ip-10-0-0-215 ec2: 256 SHA256:HlNM9Px7dh9XzpE0WXchsmFrIfqnSJsYNWmnK70dJZ8 root@ip-10-0-0-215 (ECDSA)
+May 20 01:35:55 ip-10-0-0-215 ec2: 256 SHA256:m9656/QF/61tGy12uRZ7Cf5KbTlgiXeBThPbT5L9GNQ root@ip-10-0-0-215 (ED25519)
+May 20 01:35:55 ip-10-0-0-215 ec2: 2048 SHA256:cv82QQtvoDJDeGg97Blhexvt+ZErbnjiX1DWjl3oM4E root@ip-10-0-0-215 (RSA)
+May 20 01:35:55 ip-10-0-0-215 ec2: -----END SSH HOST KEY FINGERPRINTS-----
+May 20 01:35:55 ip-10-0-0-215 ec2: #############################################################
+May 20 01:35:55 ip-10-0-0-215 cloud-init[2759]: Cloud-init v. 18.3-9-g2e62cb8a-0ubuntu1~16.04.2 running 'modules:final' at Mon, 20 May 2019 01:35:55 +0000. Up 31.86 seconds.
+May 20 01:35:55 ip-10-0-0-215 cloud-init[2759]: Cloud-init v. 18.3-9-g2e62cb8a-0ubuntu1~16.04.2 finished at Mon, 20 May 2019 01:35:55 +0000. Datasource DataSourceEc2Local.  Up 31.97 seconds
+May 20 01:35:55 ip-10-0-0-215 systemd[1]: Started Execute cloud user/final scripts.
+May 20 01:35:55 ip-10-0-0-215 systemd[1]: Reached target Cloud-init target.
+May 20 01:35:55 ip-10-0-0-215 systemd[1]: Startup finished in 7.495s (kernel) + 24.506s (userspace) = 32.001s.
+May 20 01:36:06 ip-10-0-0-215 systemd[1]: Time has been changed
+May 20 01:36:06 ip-10-0-0-215 systemd-timesyncd[1020]: Synchronized to time server 91.189.91.157:123 (ntp.ubuntu.com).
+May 20 01:36:07 ip-10-0-0-215 systemd[1]: Created slice User Slice of ubuntu.
+May 20 01:36:07 ip-10-0-0-215 systemd[1]: Starting User Manager for UID 1000...
+May 20 01:36:07 ip-10-0-0-215 systemd[1]: Started Session 1 of user ubuntu.
+May 20 01:36:07 ip-10-0-0-215 systemd[2780]: Reached target Sockets.
+May 20 01:36:07 ip-10-0-0-215 systemd[2780]: Reached target Paths.
+May 20 01:36:07 ip-10-0-0-215 systemd[2780]: Reached target Timers.
+May 20 01:36:07 ip-10-0-0-215 systemd[2780]: Reached target Basic System.
+May 20 01:36:07 ip-10-0-0-215 systemd[2780]: Reached target Default.
+May 20 01:36:07 ip-10-0-0-215 systemd[2780]: Startup finished in 8ms.
+May 20 01:36:07 ip-10-0-0-215 systemd[1]: Started User Manager for UID 1000.
+May 20 01:40:54 ip-10-0-0-215 amazon-ssm-agent.amazon-ssm-agent[2664]: 2019-05-20 01:40:54 INFO Backing off health check to every 600 minutes for 1800 minutes. Logging will be reduced to one log per backoff period
+May 20 01:40:54 ip-10-0-0-215 amazon-ssm-agent.amazon-ssm-agent[2664]: 2019-05-20 01:40:54 ERROR Health ping failed with error - AccessDeniedException: User: arn:aws:sts::695067801333:assumed-role/jpt-short-term-storage-668a08a9-StorageRole-VZG7NH5U7ZW5/i-0a02386503d73e22d is not authorized to perform: ssm:UpdateInstanceInformation on resource: arn:aws:ec2:eu-west-1:695067801333:instance/i-0a02386503d73e22d
+May 20 01:40:54 ip-10-0-0-215 amazon-ssm-agent.amazon-ssm-agent[2664]: #011status code: 400, request id: 62019fc8-1992-4ef8-8f0e-c4b28a2b457a
+May 20 01:50:36 ip-10-0-0-215 systemd[1]: Starting Cleanup of Temporary Directories...
+May 20 01:50:36 ip-10-0-0-215 systemd-tmpfiles[5330]: [/usr/lib/tmpfiles.d/var.conf:14] Duplicate line for path "/var/log", ignoring.
+May 20 01:50:39 ip-10-0-0-215 systemd[1]: Started Cleanup of Temporary Directories.
+May 20 01:50:51 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:50:51 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:50:52 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:50:52 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:50:52 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:50:52 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:50:55 ip-10-0-0-215 systemd[1]: Stopping User Manager for UID 1000...
+May 20 01:50:56 ip-10-0-0-215 systemd[2780]: Stopped target Default.
+May 20 01:50:56 ip-10-0-0-215 systemd[2780]: Stopped target Basic System.
+May 20 01:50:56 ip-10-0-0-215 systemd[2780]: Stopped target Sockets.
+May 20 01:50:56 ip-10-0-0-215 systemd[2780]: Stopped target Paths.
+May 20 01:50:56 ip-10-0-0-215 systemd[2780]: Stopped target Timers.
+May 20 01:50:56 ip-10-0-0-215 systemd[2780]: Reached target Shutdown.
+May 20 01:50:56 ip-10-0-0-215 systemd[2780]: Starting Exit the Session...
+May 20 01:50:56 ip-10-0-0-215 systemd[2780]: Received SIGRTMIN+24 from PID 6110 (kill).
+May 20 01:50:56 ip-10-0-0-215 systemd[1]: Stopped User Manager for UID 1000.
+May 20 01:50:56 ip-10-0-0-215 systemd[1]: Removed slice User Slice of ubuntu.
+May 20 01:50:56 ip-10-0-0-215 systemd[1]: Created slice User Slice of ubuntu.
+May 20 01:50:56 ip-10-0-0-215 systemd[1]: Starting User Manager for UID 1000...
+May 20 01:50:56 ip-10-0-0-215 systemd[1]: Started Session 2 of user ubuntu.
+May 20 01:50:56 ip-10-0-0-215 systemd[6116]: Reached target Sockets.
+May 20 01:50:56 ip-10-0-0-215 systemd[6116]: Reached target Paths.
+May 20 01:50:56 ip-10-0-0-215 systemd[6116]: Reached target Timers.
+May 20 01:50:56 ip-10-0-0-215 systemd[6116]: Reached target Basic System.
+May 20 01:50:56 ip-10-0-0-215 systemd[6116]: Reached target Default.
+May 20 01:50:56 ip-10-0-0-215 systemd[6116]: Startup finished in 6ms.
+May 20 01:50:56 ip-10-0-0-215 systemd[1]: Started User Manager for UID 1000.
+May 20 01:51:35 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:51:35 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:51:35 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:51:35 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:51:35 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:51:35 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:51:35 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:51:35 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:51:35 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:51:35 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:51:35 ip-10-0-0-215 systemd[1]: Listening on RPCbind Server Activation Socket.
+May 20 01:51:35 ip-10-0-0-215 systemd[1]: Starting RPC bind portmap service...
+May 20 01:51:35 ip-10-0-0-215 rpcbind[7248]: rpcbind: xdr_/run/rpcbind/rpcbind.xdr: failed
+May 20 01:51:35 ip-10-0-0-215 rpcbind[7248]: rpcbind: xdr_/run/rpcbind/portmap.xdr: failed
+May 20 01:51:35 ip-10-0-0-215 systemd[1]: Started RPC bind portmap service.
+May 20 01:51:35 ip-10-0-0-215 systemd[1]: Reached target RPC Port Mapper.
+May 20 01:51:36 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:51:36 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:51:36 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:51:36 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:51:36 ip-10-0-0-215 systemd[1]: Reloading.
+May 20 01:51:36 ip-10-0-0-215 systemd[1]: Started ACPI event daemon.
+May 20 01:51:37 ip-10-0-0-215 kernel: [  974.969937] FS-Cache: Loaded
+May 20 01:51:37 ip-10-0-0-215 kernel: [  974.981820] RPC: Registered named UNIX socket transport module.
+May 20 01:51:37 ip-10-0-0-215 kernel: [  974.981822] RPC: Registered udp transport module.
+May 20 01:51:37 ip-10-0-0-215 kernel: [  974.981823] RPC: Registered tcp transport module.
+May 20 01:51:37 ip-10-0-0-215 kernel: [  974.981824] RPC: Registered tcp NFSv4.1 backchannel transport module.
+May 20 01:51:37 ip-10-0-0-215 kernel: [  974.996575] FS-Cache: Netfs 'nfs' registered for caching
+May 20 01:51:37 ip-10-0-0-215 kernel: [  975.020312] NFS: Registering the id_resolver key type
+May 20 01:51:37 ip-10-0-0-215 kernel: [  975.020318] Key type id_resolver registered
+May 20 01:51:37 ip-10-0-0-215 kernel: [  975.020319] Key type id_legacy registered
+May 20 01:51:38 ip-10-0-0-215 systemd[1]: Stopping User Manager for UID 1000...
+May 20 01:51:38 ip-10-0-0-215 systemd[6116]: Reached target Shutdown.
+May 20 01:51:38 ip-10-0-0-215 systemd[6116]: Stopped target Default.
+May 20 01:51:38 ip-10-0-0-215 systemd[6116]: Stopped target Basic System.
+May 20 01:51:38 ip-10-0-0-215 systemd[6116]: Stopped target Sockets.
+May 20 01:51:38 ip-10-0-0-215 systemd[6116]: Stopped target Paths.
+May 20 01:51:38 ip-10-0-0-215 systemd[6116]: Stopped target Timers.
+May 20 01:51:38 ip-10-0-0-215 systemd[6116]: Starting Exit the Session...
+May 20 01:51:38 ip-10-0-0-215 systemd[6116]: Received SIGRTMIN+24 from PID 7599 (kill).
+May 20 01:51:38 ip-10-0-0-215 systemd[1]: Stopped User Manager for UID 1000.
+May 20 01:51:38 ip-10-0-0-215 systemd[1]: Removed slice User Slice of ubuntu.
+May 20 01:55:01 ip-10-0-0-215 CRON[7613]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 20 01:56:10 ip-10-0-0-215 systemd[1]: Created slice User Slice of ubuntu.
+May 20 01:56:10 ip-10-0-0-215 systemd[1]: Starting User Manager for UID 1000...
+May 20 01:56:10 ip-10-0-0-215 systemd[1]: Started Session 4 of user ubuntu.
+May 20 01:56:10 ip-10-0-0-215 systemd[7618]: Reached target Paths.
+May 20 01:56:10 ip-10-0-0-215 systemd[7618]: Reached target Sockets.
+May 20 01:56:10 ip-10-0-0-215 systemd[7618]: Reached target Timers.
+May 20 01:56:10 ip-10-0-0-215 systemd[7618]: Reached target Basic System.
+May 20 01:56:10 ip-10-0-0-215 systemd[7618]: Reached target Default.
+May 20 01:56:10 ip-10-0-0-215 systemd[7618]: Startup finished in 5ms.
+May 20 01:56:10 ip-10-0-0-215 systemd[1]: Started User Manager for UID 1000.
+May 20 02:03:39 ip-10-0-0-215 dhclient[1242]: DHCPREQUEST of 10.0.0.215 on ens5 to 10.0.0.1 port 67 (xid=0x4bc7fd34)
+May 20 02:03:39 ip-10-0-0-215 dhclient[1242]: DHCPACK of 10.0.0.215 from 10.0.0.1
+May 20 02:03:39 ip-10-0-0-215 dhclient[1242]: bound to 10.0.0.215 -- renewal in 1597 seconds.
+May 20 02:05:01 ip-10-0-0-215 CRON[13072]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 20 02:10:54 ip-10-0-0-215 amazon-ssm-agent.amazon-ssm-agent[2664]: 2019-05-20 02:10:54 INFO Backing off health check to every 1200 minutes for 3600 minutes. Logging will be reduced to one log per backoff period
+May 20 02:10:54 ip-10-0-0-215 amazon-ssm-agent.amazon-ssm-agent[2664]: 2019-05-20 02:10:54 ERROR Health ping failed with error - AccessDeniedException: User: arn:aws:sts::695067801333:assumed-role/jpt-short-term-storage-668a08a9-StorageRole-VZG7NH5U7ZW5/i-0a02386503d73e22d is not authorized to perform: ssm:UpdateInstanceInformation on resource: arn:aws:ec2:eu-west-1:695067801333:instance/i-0a02386503d73e22d
+May 20 02:10:54 ip-10-0-0-215 amazon-ssm-agent.amazon-ssm-agent[2664]: #011status code: 400, request id: 939db231-5a43-49b7-860f-7d80b212470d
+May 20 02:15:01 ip-10-0-0-215 CRON[19596]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+May 20 02:17:01 ip-10-0-0-215 CRON[20864]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+May 20 02:22:06 ip-10-0-0-215 systemd[1]: Started Session 8 of user ubuntu.
