@@ -21,7 +21,7 @@ class ApplicationScales {
     ): ApplicationScale {
         val jira8 = isJira8(jiraVersion)
         return ApplicationScale(
-            description = "Jira XL profile",
+            description = "Jira $jiraVersion XL",
             dataset = when {
                 jira8 && postgres -> datasets.xl8Postgres()
                 jira8 && !postgres -> datasets.xl8Mysql()
@@ -43,7 +43,7 @@ class ApplicationScales {
     ): ApplicationScale {
         val jira8 = isJira8(jiraVersion)
         return ApplicationScale(
-            description = "Jira L profile",
+            description = "Jira $jiraVersion L",
             dataset = when {
                 jira8 -> datasets.l8Mysql()
                 else -> datasets.l7Mysql()

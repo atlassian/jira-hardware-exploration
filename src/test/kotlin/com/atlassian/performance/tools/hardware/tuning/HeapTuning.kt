@@ -9,32 +9,29 @@ import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
 import com.atlassian.performance.tools.infrastructure.api.jvm.JvmArg
 import java.time.Duration
 
-class HeapTuning : JiraNodeTuning {
+class HeapTuning(
+    private val desiredGigabytes: Int
+) : JiraNodeTuning {
 
     override fun tune(
         nodeConfig: JiraNodeConfig,
         hardware: Hardware,
         scale: ApplicationScale
     ): JiraNodeConfig {
-        return if (scale.description == "Jira XL profile") {
-            JiraNodeConfig.Builder(nodeConfig)
-                .jvmArgs(
-                    bumpHeap(50, hardware)
-                )
-                .launchTimeouts(
-                    JiraLaunchTimeouts.Builder()
-                        .initTimeout(Duration.ofMinutes(7))
-                        .offlineTimeout(Duration.ofMinutes(15))
-                        .build()
-                )
-                .build()
-        } else {
-            nodeConfig
-        }
+        return JiraNodeConfig.Builder(nodeConfig)
+            .jvmArgs(
+                bumpHeap(hardware)
+            )
+            .launchTimeouts(
+                JiraLaunchTimeouts.Builder()
+                    .initTimeout(Duration.ofMinutes(7))
+                    .offlineTimeout(Duration.ofMinutes(15))
+                    .build()
+            )
+            .build()
     }
 
     private fun bumpHeap(
-        desiredGigabytes: Int,
         hardware: Hardware
     ): JiraJvmArgs {
         val maxGigabytes = when (hardware.jira) {

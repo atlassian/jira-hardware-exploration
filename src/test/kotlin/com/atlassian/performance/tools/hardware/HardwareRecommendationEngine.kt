@@ -7,7 +7,7 @@ import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.taskName
 import com.atlassian.performance.tools.hardware.failure.BugAwareTolerance
 import com.atlassian.performance.tools.hardware.guidance.DbExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
-import com.atlassian.performance.tools.hardware.tuning.HeapTuning
+import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
@@ -18,6 +18,7 @@ import java.time.Duration
 class HardwareRecommendationEngine(
     private val product: ProductDistribution,
     private val scale: ApplicationScale,
+    private val tuning: JiraNodeTuning,
     private val jiraExploration: ExplorationGuidance,
     private val dbInstanceTypes: List<InstanceType>,
     private val minApdex: Double,
@@ -104,7 +105,7 @@ class HardwareRecommendationEngine(
             useCase = "Test hardware recommendations - $taskName",
             lifespan = Duration.ofHours(2)
         ),
-        tuning = HeapTuning(),
+        tuning = tuning,
         s3Cache = s3Cache,
         explorationCache = explorationCache,
         aws = aws,
