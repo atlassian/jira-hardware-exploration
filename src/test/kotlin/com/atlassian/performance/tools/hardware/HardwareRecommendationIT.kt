@@ -1,13 +1,18 @@
 package com.atlassian.performance.tools.hardware
 
+import com.amazonaws.services.ec2.model.InstanceType
 import com.amazonaws.services.ec2.model.InstanceType.*
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
 import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
+import com.atlassian.performance.tools.hardware.tuning.HeapTuning
+import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
+import com.atlassian.performance.tools.hardware.tuning.NoTuning
 import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJiraSoftwareDistribution
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.lib.workspace.GitRepo2
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
+import com.atlassian.performance.tools.workspace.api.TaskWorkspace
 import org.apache.logging.log4j.core.config.ConfigurationFactory
 import org.eclipse.jgit.api.Git
 import org.junit.Before
@@ -27,12 +32,35 @@ class HardwareRecommendationIT {
     }
 
     @Test
-    fun shouldRecommendHardware() {
+    fun shouldRecommendHardwareForExtraLarge() {
+        recommend(
+            scale = ApplicationScales().extraLarge(jiraVersion = jswVersion, postgres = false),
+            tuning = HeapTuning(50),
+            db = M44xlarge
+        )
+    }
+
+    @Test
+    fun shouldRecommendHardwareForLarge() {
+        recommend(
+            scale = ApplicationScales().large(jiraVersion = jswVersion),
+            tuning = NoTuning(),
+            db = M42xlarge
+        )
+    }
+
+    private fun recommend(
+        scale: ApplicationScale,
+        tuning: JiraNodeTuning,
+        db: InstanceType
+    ): List<Recommendation> {
         requireCleanRepo()
         val aws = IntegrationTestRuntime.prepareAws()
+        val taskWorkspace = TaskWorkspace(workspace.directory.resolve(scale.description))
         val engine = HardwareRecommendationEngine(
             product = PublicJiraSoftwareDistribution(jswVersion),
-            scale = ApplicationScales().extraLarge(jiraVersion = jswVersion, postgres = false),
+            scale = scale,
+            tuning = tuning,
             jiraExploration = JiraExplorationGuidance(
                 instanceTypes = listOf(
                     C52xlarge,
@@ -41,11 +69,11 @@ class HardwareRecommendationIT {
                     C59xlarge,
                     C518xlarge
                 ),
-                maxNodeCount = 16,
                 minNodeCountForAvailability = 3,
+                maxNodeCount = 16,
                 minApdexGain = 0.01,
                 minThroughputGain = TemporalRate(5.0, Duration.ofSeconds(1)),
-                db = M44xlarge
+                db = db
             ),
             dbInstanceTypes = listOf(
                 M42xlarge,
@@ -57,7 +85,7 @@ class HardwareRecommendationIT {
             minApdex = 0.70,
             repeats = 2,
             aws = aws,
-            workspace = workspace,
+            workspace = taskWorkspace,
             s3Cache = S3Cache(
                 transfer = TransferManagerBuilder.standard()
                     .withS3Client(aws.s3)
@@ -66,9 +94,9 @@ class HardwareRecommendationIT {
                 cacheKey = taskName,
                 localPath = workspace.directory
             ),
-            explorationCache = HardwareExplorationResultCache(workspace.directory.resolve("processed-cache.json"))
+            explorationCache = HardwareExplorationResultCache(taskWorkspace.directory.resolve("processed-cache.json"))
         )
-        engine.recommend()
+        return engine.recommend()
     }
 
     private fun requireCleanRepo() {
