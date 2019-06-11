@@ -17,19 +17,25 @@ import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
 import com.atlassian.performance.tools.infrastructure.api.profiler.AsyncProfiler
 import com.atlassian.performance.tools.io.api.dereference
 import com.atlassian.performance.tools.jiraperformancetests.api.ProvisioningPerformanceTest
+import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import com.atlassian.performance.tools.lib.infrastructure.BestEffortProfiler
 import com.atlassian.performance.tools.lib.infrastructure.PatientChromium69
 import com.atlassian.performance.tools.lib.infrastructure.WgetOracleJdk
 import com.atlassian.performance.tools.report.api.FullReport
 import com.atlassian.performance.tools.report.api.FullTimeline
 import com.atlassian.performance.tools.workspace.api.TestWorkspace
+import org.apache.logging.log4j.core.config.ConfigurationFactory
 import org.junit.Test
 import java.time.Duration
 
 class BrowseBoardsIT {
 
+    private val workspace = IntegrationTestRuntime.rootWorkspace.currentTask
+
     @Test
     fun shouldReproTheBug() {
+        val testWorkspace = workspace.isolateTest("BrowseBoardsRepro")
+        ConfigurationFactory.setConfigurationFactory(LogConfigurationFactory(workspace))
         val jswVersion = "7.13.0"
         val hardware = Hardware(
             jira = InstanceType.C59xlarge,
@@ -70,16 +76,15 @@ class BrowseBoardsIT {
                 )
                     .browser(PatientChromium69())
                     .build(),
-                aws = IntegrationTestRuntime.aws
+                aws = IntegrationTestRuntime.prepareAws()
             )
         )
-        val workspace = IntegrationTestRuntime.rootWorkspace.currentTask.isolateTest("BrowseBoardsRepro")
         val vuOptions = HardwareExploration.ScaleVirtualUserOptions(scale)
-        val rawResult = test.execute(workspace, vuOptions)
+        val rawResult = test.execute(testWorkspace, vuOptions)
         val result = rawResult.prepareForJudgement(FullTimeline())
         FullReport().dump(
             results = listOf(result),
-            workspace = TestWorkspace(workspace.directory)
+            workspace = TestWorkspace(testWorkspace.directory)
         )
     }
 }

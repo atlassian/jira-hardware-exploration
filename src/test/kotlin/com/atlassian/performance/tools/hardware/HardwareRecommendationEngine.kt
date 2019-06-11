@@ -1,9 +1,8 @@
 package com.atlassian.performance.tools.hardware
 
 import com.amazonaws.services.ec2.model.InstanceType
+import com.atlassian.performance.tools.aws.api.Aws
 import com.atlassian.performance.tools.aws.api.Investment
-import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.aws
-import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.taskName
 import com.atlassian.performance.tools.hardware.failure.BugAwareTolerance
 import com.atlassian.performance.tools.hardware.guidance.DbExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
@@ -23,6 +22,7 @@ class HardwareRecommendationEngine(
     private val minApdex: Double,
     private val maxErrorRate: Double,
     private val repeats: Int,
+    private val aws: Aws,
     private val workspace: TaskWorkspace,
     private val s3Cache: S3Cache,
     private val explorationCache: HardwareExplorationResultCache
@@ -101,7 +101,7 @@ class HardwareRecommendationEngine(
         pastFailures = BugAwareTolerance(logger),
         repeats = repeats,
         investment = Investment(
-            useCase = "Test hardware recommendations - $taskName",
+            useCase = "Test hardware recommendations - ${workspace.directory.fileName}",
             lifespan = Duration.ofHours(2)
         ),
         tuning = HeapTuning(),
