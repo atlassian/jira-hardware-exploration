@@ -13,7 +13,7 @@ import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBackl
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.Apdex
 import com.atlassian.performance.tools.lib.table.GenericPlainTextTable
-import com.atlassian.performance.tools.lib.WeightedActionMetric
+import com.atlassian.performance.tools.lib.ScoredActionMetric
 import com.atlassian.performance.tools.lib.readResult
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.report.api.StandardTimeline
@@ -32,39 +32,42 @@ class HardwareApdexAnalysisIT {
 
     private val logger: Logger = logContext.getLogger(this::class.java.canonicalName)
 
-    // define the appdex sets we want to investigate
-    private val jiraInstanceTypeOfInterest: InstanceType = C518xlarge
-    private val nodeCountOfInterest: Int = 7
+    // define the Apdex sets we want to investigate
+    private val hardwareOfInterest: Hardware = Hardware(C518xlarge, 7, M44xlarge)
 
     // The following needs to match the configuration of the test run you want to analyze
     // Taken from extraLarge.Kt hold + ramp + flat values
+    // This is done manulally rather than by using an instance of ExtraLarge etc because they require a Jira Licence file.
     private val testDuration: Duration = Duration.ZERO + Duration.ofSeconds(90) + Duration.ofMinutes(20)
 
     @Test
-    fun shouldAnalyzeAppdex() {
+    fun shouldAnalyzeApdex() {
 
         // https://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob
-        // action-metrics.jpt contain the appdex information
+        val searchPatternRoot = "**/${hardwareOfInterest.jira}/nodes/${hardwareOfInterest.nodeCount}/dbs/${hardwareOfInterest.db}"
+
+        // action-metrics.jpt contain the apdex information
         // status.txt is needed to pass TestWorkspace.readResult
-        val searchPattern = "**/$jiraInstanceTypeOfInterest/nodes/$nodeCountOfInterest/**/{action-metrics.jpt,status.txt}"
-        val cache = getWorkspaceCache(searchPattern)
+        val downloadFileFilter = "${searchPatternRoot}/**/{action-metrics.jpt,status.txt}"
+        val cache = getWorkspaceCache(downloadFileFilter)
 
         // get the files
         time("download") { cache.download() }
         val runs = workspace.directory.toFile().walkTopDown()
             .filter { file ->
-                matchesSearchPattern(file.absolutePath,"**/nodes/$nodeCountOfInterest/**runs/[0-9]*")
+                val actionMetricFileFilter = "${searchPatternRoot}/**runs/[0-9]*"
+                matchesSearchPattern(file.absolutePath, actionMetricFileFilter)
             }
             .filter { file ->
                 // ignore any empty run/# folders or ones that only contain a status.txt which indicates a failed run
-                file.listFiles().any{ it.name != "status.txt" }
+                file.listFiles().any { it.name != "status.txt" }
             }
             .map { file ->
                 apdexMetrics(file)
             }
             .toList()
 
-        // get the best worst runs as defined by the overall appdex
+        // get the best worst runs as defined by the overall apdex
         val sortedRuns = runs
             .sortedByDescending { it.apdex }
         val best = sortedRuns.first()
@@ -86,7 +89,7 @@ class HardwareApdexAnalysisIT {
         val table = GenericPlainTextTable()
 
         // header
-        table.addRow(listOf( "", "Run", "Apdex", "Total Actions", "Error %", "Satisfactory %", "Tolerable %"))
+        table.addRow(listOf("", "Run", "Apdex", "Total Actions", "Error %", "Satisfactory %", "Tolerable %"))
 
         // data
         tableAddRunSummaryRow(table, best, "best")
@@ -98,8 +101,8 @@ class HardwareApdexAnalysisIT {
     private fun tableAddRunSummaryRow(table: GenericPlainTextTable, results: ApdexResults, name: String) {
         val eventTot = results.metrics.size
         val errorPerc = results.metrics.filter { it.actionMetric.result == ActionResult.ERROR }.size * 100.0 / eventTot
-        val satisfactoryPerc = results.metrics.filter { it.weight == 1.0f }.size * 100.0 / eventTot
-        val tolerablePerc = results.metrics.filter { it.weight == 0.5f }.size * 100.0 / eventTot
+        val satisfactoryPerc = results.metrics.filter { it.score == 1.0f }.size * 100.0 / eventTot
+        val tolerablePerc = results.metrics.filter { it.score == 0.5f }.size * 100.0 / eventTot
         table.addRow(listOf(
             name,
             "${results.run}",
@@ -108,7 +111,7 @@ class HardwareApdexAnalysisIT {
             String.format("%.3f", errorPerc),
             String.format("%.3f", satisfactoryPerc),
             String.format("%.3f", tolerablePerc)
-            ))
+        ))
     }
 
     private fun compareActionEventByLabel(best: ApdexResults, worst: ApdexResults) {
@@ -116,7 +119,7 @@ class HardwareApdexAnalysisIT {
         val table = GenericPlainTextTable()
 
         // header
-        table.addRow(listOf( "Action", "Run", "Apdex", "Total", "Profile", "Error %", "Satisfactory %", "Tolerable %"))
+        table.addRow(listOf("Action", "Run", "Apdex", "Total", "Profile", "Error %", "Satisfactory %", "Tolerable %"))
 
         // data
         best.metrics
@@ -134,7 +137,7 @@ class HardwareApdexAnalysisIT {
                     .asSequence().singleOrNull {
                         it.key == entry.key
                     }
-                if(worstRow != null) {
+                if (worstRow != null) {
                     tableAddActionRow(table, worst.run, worst.metrics.size, "", worstRow.value)
                 } else {
                     table.addRowEmpty("?")
@@ -147,18 +150,18 @@ class HardwareApdexAnalysisIT {
         println(table.generate())
     }
 
-    private fun tableAddActionRow(table: GenericPlainTextTable, run: Int, allActionTotal: Int, actionLabel: String, metrics: List<WeightedActionMetric>) {
+    private fun tableAddActionRow(table: GenericPlainTextTable, run: Int, allActionTotal: Int, actionLabel: String, metrics: List<ScoredActionMetric>) {
 
         val actionTotal = metrics.size
-        val apdex = String.format("%.2f", Apdex().average(metrics))
+        val apdex = String.format("%.2f", Apdex().averageAllScoredMetrics(metrics))
         val ok = metrics.filter { it.actionMetric.result == ActionResult.OK }.size
         val error = metrics.filter { it.actionMetric.result == ActionResult.ERROR }.size
         val errorPerc = String.format("%.2f", error * 100.0 / actionTotal)
-        val satisfactory = metrics.filter { it.weight == 1.0f }.size
+        val satisfactory = metrics.filter { it.score == 1.0f }.size
         val satisfactoryPerc = String.format("%.2f", satisfactory * 100.0 / actionTotal)
-        val tolerable = metrics.filter { it.weight == 0.5f }.size
+        val tolerable = metrics.filter { it.score == 0.5f }.size
         val tolerablePerc = String.format("%.2f", tolerable * 100.0 / actionTotal)
-        val frustrated = metrics.filter { it.weight == 0.0f && it.actionMetric.result == ActionResult.OK }.size
+        val frustrated = metrics.filter { it.score == 0.0f && it.actionMetric.result == ActionResult.OK }.size
         val profilePerc = String.format("%.2f", actionTotal * 100.0 / allActionTotal)
 
         // double check our sums add up
@@ -181,62 +184,64 @@ class HardwareApdexAnalysisIT {
         val cohortResults = targetFile.listFiles()
             .filter { file ->
                 // I think this is a linear folder structure only ever 1 cohort per run? So potentially this could be simpler
-                val cohortFilter = "**/*$jiraInstanceTypeOfInterest*"
+                val cohortFilter = "**/*${hardwareOfInterest.jira}*"
                 matchesSearchPattern(file.absolutePath, cohortFilter)
             }
-            .map { file ->
-
-                val cohortResult = workspace.readResult(file.name)
-                val failure = cohortResult.failure
-                if (failure == null) {
-                    
-                    val postProcessedResult = processResults(cohortResult)
-
-                    val cohort = postProcessedResult.cohort
-                    if (postProcessedResult.failure != null) {
-                        throw Exception("$cohort failed", postProcessedResult.failure)
-                    }
-
-                    // reproduce the apdex calculation from HardwareExploration
-                    val labels = listOf(
-                        ViewBacklogAction.VIEW_BACKLOG,
-                        VIEW_BOARD,
-                        VIEW_ISSUE,
-                        VIEW_DASHBOARD,
-                        SEARCH_WITH_JQL,
-                        ADD_COMMENT_SUBMIT,
-                        CREATE_ISSUE_SUBMIT,
-                        EDIT_ISSUE_SUBMIT,
-                        PROJECT_SUMMARY,
-                        BROWSE_PROJECTS,
-                        BROWSE_BOARDS
-                    ).map { it.label }
-                    val metrics = postProcessedResult.actionMetrics.filter { it.label in labels }
-                    val apdex = Apdex().score(metrics)
-
-                    // keep the per-action apdex as 'weight' this applied to OK and ERROR actionMetrics as we want to keep the ERRORs on hand for later use
-                    val weightedMetrics = Apdex().weight(metrics)
-
-                    // filter out the ERRORs before re-calculating apdex
-                    val apdexW = Apdex().average(weightedMetrics.filter { it.actionMetric.result == ActionResult.OK })
-
-                    // ensure our new calculation matches the original style
-                    if(apdex != apdexW) {
-                        throw Exception("apdex $apdex != apdexW $apdexW")
-                    }
-
-                    ApdexResults(run.toInt(), apdex, weightedMetrics)
-
-                } else {
-                    println("ignominious failure! ${failure.localizedMessage}")
-                    BugAwareTolerance(logger).handle(failure, workspace)
-                    null
-                }
+            .mapNotNull { file ->
+                calculateApdexResults(workspace, file, run)
             }
-            // this seems very hacky, I should just be able to get 1 result out of the sequence code above ... ?
-            .first{ it is ApdexResults}
+            .first()
 
         return cohortResults!!
+    }
+
+    private fun calculateApdexResults(workspace: TestWorkspace, file: File, run: String): ApdexResults? {
+        val cohortResult = workspace.readResult(file.name)
+        val failure = cohortResult.failure
+        return if (failure == null) {
+
+            val postProcessedResult = processResults(cohortResult)
+
+            val cohort = postProcessedResult.cohort
+            if (postProcessedResult.failure != null) {
+                throw Exception("$cohort failed", postProcessedResult.failure)
+            }
+
+            // reproduce the apdex calculation from HardwareExploration
+            val labels = listOf(
+                ViewBacklogAction.VIEW_BACKLOG,
+                VIEW_BOARD,
+                VIEW_ISSUE,
+                VIEW_DASHBOARD,
+                SEARCH_WITH_JQL,
+                ADD_COMMENT_SUBMIT,
+                CREATE_ISSUE_SUBMIT,
+                EDIT_ISSUE_SUBMIT,
+                PROJECT_SUMMARY,
+                BROWSE_PROJECTS,
+                BROWSE_BOARDS
+            ).map { it.label }
+            val metrics = postProcessedResult.actionMetrics.filter { it.label in labels }
+            val apdexStandard = Apdex().score(metrics)
+
+            // keep the per-action apdex as score this applied to OK and ERROR actionMetrics as we want to keep the ERRORs on hand for later use
+            val scoredMetrics = Apdex().scoreEachMetric(metrics)
+
+            // filter out the ERRORs before re-calculating apdex
+            val apdexFromScoredMetrics = Apdex().averageAllScoredMetrics(scoredMetrics.filter { it.actionMetric.result == ActionResult.OK })
+
+            // ensure our new calculation matches the original style
+            if (apdexStandard != apdexFromScoredMetrics) {
+                throw Exception("apdex standard $apdexStandard != apdex from scored metrics $apdexFromScoredMetrics")
+            }
+
+            ApdexResults(run.toInt(), apdexStandard, scoredMetrics)
+
+        } else {
+            println("ignominious failure! ${failure.localizedMessage}")
+            BugAwareTolerance(logger).handle(failure, workspace)
+            null
+        }
     }
 
     private fun getWorkspaceCache(searchPattern: String = "**/action-metrics.jpt") = S3Cache(
@@ -262,8 +267,7 @@ class HardwareApdexAnalysisIT {
         return rawResults.prepareForJudgement(timeline)
     }
 
-    private class ApdexResults(val run: Int, val apdex: Double, val metrics: List<WeightedActionMetric>)
-    {
+    private class ApdexResults(val run: Int, val apdex: Double, val metrics: List<ScoredActionMetric>) {
         override fun toString(): String = "run:$run apdex:$apdex"
     }
 }
