@@ -412,7 +412,7 @@ class HardwareExploration(
         )
     }
 
-    private class ScaleVirtualUserOptions(
+    internal class ScaleVirtualUserOptions(
         private val scale: ApplicationScale
     ) : TargetingVirtualUserOptions {
         override fun target(

@@ -44,6 +44,17 @@ task<Test>("recommendHardware").apply {
     }
 }
 
+task<Test>("reproBrowseBoardsBug").apply {
+    outputs.upToDateWhen { false }
+    include("**/BrowseBoardsIT.class")
+    val shadowJarTask = tasks.getByPath(":virtual-users:shadowJar")
+    dependsOn(shadowJarTask)
+    systemProperty("jpt.virtual-users.shadow-jar", shadowJarTask.outputs.files.files.first())
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
 task<Test>("cleanUpAfterBamboo").apply {
     outputs.upToDateWhen { false }
     include("**/BambooCleanupIT.class")
