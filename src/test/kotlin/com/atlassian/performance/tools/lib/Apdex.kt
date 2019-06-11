@@ -2,7 +2,7 @@ package com.atlassian.performance.tools.lib
 
 import com.atlassian.performance.tools.jiraactions.api.ActionMetric
 import com.atlassian.performance.tools.jiraactions.api.ActionResult
-import com.atlassian.performance.tools.jiraactions.api.ActionType
+import com.atlassian.performance.tools.lib.Apdex.Experience.*
 import java.time.Duration
 
 class Apdex {
@@ -10,32 +10,46 @@ class Apdex {
     private val tolerableThreshold = Duration.ofSeconds(4)
 
     fun score(
-        metrics: List<ActionMetric>
+        metrics: List<ActionMetric>,
+        // retain backwards compatibility where apdex is only across OK results
+        filter: (ActionResult) -> Boolean = { it -> it == ActionResult.OK }
     ): Double {
-        return average(weight(metrics
-            .filter { it.result == ActionResult.OK }))
+        return averageAllScoredMetrics(
+            scoreEachMetric(
+                metrics
+                    .filter { filter(it.result) })
+        )
     }
 
-    fun average(
-        weightedMetrics: List<WeightedActionMetric>
+    fun scoreEachMetric(
+        metrics: List<ActionMetric>
+    ): List<ScoredActionMetric> {
+        return metrics
+            .map { ScoredActionMetric(it, categorize(it).score) }
+    }
+
+    fun averageAllScoredMetrics(
+        scoredMetrics: List<ScoredActionMetric>
     ): Double {
-        return weightedMetrics
-            .map { it.weight }
+        return scoredMetrics
+            .map { it.score }
             .average()
     }
 
-    fun weight(
-        metrics: List<ActionMetric>
-    ): List<WeightedActionMetric> {
-        return metrics
-            .map { WeightedActionMetric(it, score(it)) }
+    private fun categorize(
+        metric: ActionMetric
+    ): Experience = when {
+        metric.duration < satisfactoryThreshold -> SATISFACTORY
+        metric.duration < tolerableThreshold -> TOLERATING
+        else -> FRUSTRATED
     }
 
-    private fun score(
-        metric: ActionMetric
-    ): Float = when {
-        metric.duration < satisfactoryThreshold -> 1.0f
-        metric.duration < tolerableThreshold -> 0.5f
-        else -> 0.0f
+    private enum class Experience(
+        val score: Float
+    ) {
+        SATISFACTORY(1.0f),
+        TOLERATING(0.5f),
+        FRUSTRATED(0.0f)
     }
 }
+

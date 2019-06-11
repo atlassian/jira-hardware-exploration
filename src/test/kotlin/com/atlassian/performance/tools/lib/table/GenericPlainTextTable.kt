@@ -5,27 +5,11 @@ import java.util.*
 /**
  * Provides generic functionality for creating basic ascii tables
  *
- * Basic usage
- *
- *  val table = GenericPlainTextTable()
- *  table.addRow(listOf( "", "Run", "Apdex", "Total Actions", "Error %", "Satisfactory %", "Tolerable %"))
- *  table.addRow(listOf( "best", "5", "0.7713201820940819", "23155", "0.389", "59.490", "34.684"))
- *  table.addRow(listOf( "worst", "6", "0.7677944046844503", "23143", "0.380", "58.925", "35.125"))
- *  println(table.generate())
- *
- * giving
- *
- *  *------*----*-------------------*--------------*--------*---------------*------------*
- *  |      | Run| Apdex             | Total Actions| Error %| Satisfactory %| Tolerable %|
- *  *------*----*-------------------*--------------*--------*---------------*------------*
- *  | best | 5  | 0.7713201820940819| 23155        | 0.389  | 59.490        | 34.684     |
- *  | worst| 6  | 0.7677944046844503| 23143        | 0.380  | 58.925        | 35.125     |
- *  *------*----*-------------------*--------------*--------*---------------*------------*
- *
+ * see @see GenericPlainTextTableTest.shouldGenerateTable() for basic usage
  *
  * Assumes the first row added is the header, but that can be defined in the constructor. Dynamically works out column widths so you don't have to.
  */
-class GenericPlainTextTable (private val headerRowCount: Int = 1) {
+class GenericPlainTextTable(private val headerRowCount: Int = 1) {
     private val _builder = StringBuilder()
     private val _formatter = Formatter(_builder)
     private val _rows = mutableListOf<List<String>>()
@@ -36,13 +20,13 @@ class GenericPlainTextTable (private val headerRowCount: Int = 1) {
         for (i in 0..limit) {
             val requiredWidth = entries[i].length
             val currentWidth =
-                if(_columnWidths.size > i)
+                if (_columnWidths.size > i)
                     _columnWidths[i]
                 else {
-                    _columnWidths.add(i,0)
+                    _columnWidths.add(i, 0)
                     0
                 }
-            if(requiredWidth > currentWidth)
+            if (requiredWidth > currentWidth)
                 _columnWidths[i] = requiredWidth
         }
 
@@ -55,7 +39,7 @@ class GenericPlainTextTable (private val headerRowCount: Int = 1) {
         addRow(entries)
     }
 
-    fun generate() : String {
+    fun generate(): String {
         val divider = divider()
 
         // top
@@ -71,7 +55,7 @@ class GenericPlainTextTable (private val headerRowCount: Int = 1) {
 
             _formatter.format(rowFormat.toString(), *it.toTypedArray())
 
-            if(rowCount() == headerRowCount)
+            if (rowCount() == headerRowCount)
                 _formatter.format(divider)
         }
 
@@ -91,7 +75,7 @@ class GenericPlainTextTable (private val headerRowCount: Int = 1) {
             .forEach {
                 builder.append("*")
                 // allow for 1 space before as padding
-                for(i in 1..(it+1))
+                for (i in 1..(it + 1))
                     builder.append("-")
             }
         builder.append("*\n")
