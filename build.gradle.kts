@@ -50,6 +50,7 @@ task<Test>("reproBrowseBoardsBug").apply {
     val shadowJarTask = tasks.getByPath(":virtual-users:shadowJar")
     dependsOn(shadowJarTask)
     systemProperty("jpt.virtual-users.shadow-jar", shadowJarTask.outputs.files.files.first())
+    maxHeapSize = "8g"
     testLogging {
         showStandardStreams = true
     }
