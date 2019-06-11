@@ -11,18 +11,20 @@ import com.atlassian.performance.tools.hardware.ApplicationScales
 import com.atlassian.performance.tools.hardware.Hardware
 import com.atlassian.performance.tools.hardware.HardwareExploration
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime
+import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.rootWorkspace
 import com.atlassian.performance.tools.hardware.tuning.HeapTuning
 import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJiraSoftwareDistribution
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
 import com.atlassian.performance.tools.infrastructure.api.profiler.AsyncProfiler
 import com.atlassian.performance.tools.io.api.dereference
-import com.atlassian.performance.tools.jiraperformancetests.api.ProvisioningPerformanceTest
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
+import com.atlassian.performance.tools.lib.awsinfrastructure.CacheableInfrastructure
 import com.atlassian.performance.tools.lib.infrastructure.BestEffortProfiler
 import com.atlassian.performance.tools.lib.infrastructure.PatientChromium69
 import com.atlassian.performance.tools.lib.infrastructure.WgetOracleJdk
 import com.atlassian.performance.tools.report.api.FullReport
 import com.atlassian.performance.tools.report.api.FullTimeline
+import com.atlassian.performance.tools.report.api.result.RawCohortResult
 import com.atlassian.performance.tools.workspace.api.TestWorkspace
 import org.apache.logging.log4j.core.config.ConfigurationFactory
 import org.junit.Test
@@ -44,12 +46,12 @@ class BrowseBoardsIT {
         )
         val tuning = HeapTuning()
         val scale = ApplicationScales().extraLarge(jiraVersion = jswVersion, postgres = false)
-        val test = ProvisioningPerformanceTest(
-            cohort = "repro",
-            infrastructureFormula = InfrastructureFormula(
+        val aws = IntegrationTestRuntime.prepareAws()
+        val infrastructure = CacheableInfrastructure(
+            formula = InfrastructureFormula(
                 investment = Investment(
                     useCase = "Repro the Browse Boards bug",
-                    lifespan = Duration.ofHours(2)
+                    lifespan = Duration.ofHours(8)
                 ),
                 jiraFormula = DataCenterFormula.Builder(
                     productDistribution = PublicJiraSoftwareDistribution(jswVersion),
@@ -76,11 +78,20 @@ class BrowseBoardsIT {
                 )
                     .browser(PatientChromium69())
                     .build(),
-                aws = IntegrationTestRuntime.prepareAws()
-            )
-        )
+                aws = aws
+            ),
+            cache = rootWorkspace
+                .isolateTask("Cache infra")
+                .isolateReport("infra-for-browse-boards.json"),
+            workspace = workspace.directory,
+            aws = aws
+        ).obtain()
         val vuOptions = HardwareExploration.ScaleVirtualUserOptions(scale)
-        val rawResult = test.execute(testWorkspace, vuOptions)
+        infrastructure.applyLoad(vuOptions)
+        val rawResult = RawCohortResult.Factory().fullResult(
+            cohort = "repro",
+            results = infrastructure.downloadResults(workspace.directory)
+        )
         val result = rawResult.prepareForJudgement(FullTimeline())
         FullReport().dump(
             results = listOf(result),
