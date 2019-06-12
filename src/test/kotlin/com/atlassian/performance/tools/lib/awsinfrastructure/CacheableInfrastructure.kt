@@ -132,9 +132,9 @@ class CacheableInfrastructure(
         json: JsonObject
     ): Jira = Jira(
         nodes = emptyList(),
+        address = URI(json.getString("address")),
         jiraHome = RemoteLocation(json.getJsonObject("jiraHome")),
-        database = json.getJsonObject("database")?.let { RemoteLocation(it) },
-        address = URI(json.getString("address"))
+        database = json.getJsonObject("database")?.let { RemoteLocation(it) }
     )
 
     private fun writeJira(
@@ -142,6 +142,8 @@ class CacheableInfrastructure(
     ): JsonValue = jsonp
         .createObjectBuilder()
         .add("address", jira.address.toString())
+        .add("jiraHome", jira.jiraHome.toJson())
+        .apply { jira.database?.let { add("database", it.toJson()) } }
         .build()
 
     private fun writeSshKey(
