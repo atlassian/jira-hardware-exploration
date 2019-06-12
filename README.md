@@ -39,7 +39,7 @@ so either match AWS creds to the bucket or change the bucket in [test source].
 The `quicksilver-jhwr-cache-ireland` is owned by AWS account `jira-server-perf-dev (695067801333)`.
 You can browse the shared cached results via S3 GUI. You can also make them public an link them: [a cached file].
 
-If you customize the test and want to get a fresh batch of results, change the `taskName` from the [runtime config].
+If you customize the test and want to get a fresh batch of results, change the `val cacheKey` in the [test source].
 
 ### Customization
 
@@ -53,5 +53,4 @@ Feel free to chat, ask for help, bounce ideas on the [JPT Community Slack].
 [Bamboo]: https://server-gdn-bamboo.internal.atlassian.com/browse/QUICK-JHWR
 [test source]: src/test/kotlin/com/atlassian/performance/tools/hardware/HardwareRecommendationIT.kt
 [a cached file]: https://s3-eu-west-1.amazonaws.com/quicksilver-jhwr-cache-ireland/QUICK-132-fix-v3/jira-exploration-chart.html
-[runtime config]: src/test/kotlin/com/atlassian/performance/tools/hardware/IntegrationTestRuntime.kt
 [JPT Community Slack]: http://go.atlassian.com/jpt-slack
