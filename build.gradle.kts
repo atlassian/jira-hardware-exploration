@@ -36,7 +36,7 @@ task<Test>("recommendHardware").apply {
     val shadowJarTask = tasks.getByPath(":virtual-users:shadowJar")
     dependsOn(shadowJarTask)
     systemProperty("jpt.virtual-users.shadow-jar", shadowJarTask.outputs.files.files.first())
-    systemProperty("hwr.jsw.version", System.getProperty("hwr.jsw.version"))
+    System.getProperty("hwr.jsw.version")?.let { systemProperty("hwr.jsw.version", it) }
     failFast = true
     maxHeapSize = "8g"
     testLogging {
