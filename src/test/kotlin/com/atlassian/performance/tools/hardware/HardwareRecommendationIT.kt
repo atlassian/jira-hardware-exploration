@@ -13,6 +13,7 @@ import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.lib.workspace.GitRepo2
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
+import org.apache.logging.log4j.CloseableThreadContext
 import org.apache.logging.log4j.core.config.ConfigurationFactory
 import org.eclipse.jgit.api.Git
 import org.junit.Before
@@ -33,20 +34,24 @@ class HardwareRecommendationIT {
 
     @Test
     fun shouldRecommendHardwareForExtraLarge() {
-        recommend(
-            scale = ApplicationScales().extraLarge(jiraVersion = jswVersion, postgres = false),
-            tuning = HeapTuning(50),
-            db = M44xlarge
-        )
+        CloseableThreadContext.push("XL").use {
+            recommend(
+                scale = ApplicationScales().extraLarge(jiraVersion = jswVersion, postgres = false),
+                tuning = HeapTuning(50),
+                db = M44xlarge
+            )
+        }
     }
 
     @Test
     fun shouldRecommendHardwareForLarge() {
-        recommend(
-            scale = ApplicationScales().large(jiraVersion = jswVersion),
-            tuning = NoTuning(),
-            db = M42xlarge
-        )
+        CloseableThreadContext.push("L").use {
+            recommend(
+                scale = ApplicationScales().large(jiraVersion = jswVersion),
+                tuning = NoTuning(),
+                db = M42xlarge
+            )
+        }
     }
 
     private fun recommend(
