@@ -7,6 +7,7 @@ import java.time.Duration
 
 class ApplicationScale(
     val description: String,
+    val cacheKey: String,
     val dataset: AdminDataset,
     val load: VirtualUserLoad,
     val vuNodes: Int
@@ -22,6 +23,7 @@ class ApplicationScales {
         val jira8 = isJira8(jiraVersion)
         return ApplicationScale(
             description = "Jira $jiraVersion XL",
+            cacheKey = "xl-jsw-$jiraVersion",
             dataset = when {
                 jira8 && postgres -> datasets.xl8Postgres()
                 jira8 && !postgres -> datasets.xl8Mysql()
@@ -44,6 +46,7 @@ class ApplicationScales {
         val jira8 = isJira8(jiraVersion)
         return ApplicationScale(
             description = "Jira $jiraVersion L",
+            cacheKey = "l-jsw-$jiraVersion",
             dataset = when {
                 jira8 -> datasets.l8Mysql()
                 else -> datasets.l7Mysql()
