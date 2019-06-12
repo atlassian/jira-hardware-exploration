@@ -21,6 +21,7 @@ import com.atlassian.performance.tools.jiraactions.api.*
 import com.atlassian.performance.tools.jiraperformancetests.api.ProvisioningPerformanceTest
 import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBacklogAction.Companion.VIEW_BACKLOG
 import com.atlassian.performance.tools.lib.*
+import com.atlassian.performance.tools.lib.concurrency.submitWithLogContext
 import com.atlassian.performance.tools.lib.infrastructure.BestEffortProfiler
 import com.atlassian.performance.tools.lib.infrastructure.PatientChromium69
 import com.atlassian.performance.tools.lib.infrastructure.WgetOracleJdk
@@ -91,11 +92,13 @@ class HardwareExploration(
         val completion = ExecutorCompletionService<HardwareExplorationResult>(explorationExecutor)
         hardwareSpace.forEach { hardware ->
             results.computeIfAbsent(hardware) {
-                completion.submit(explore(
-                    hardware,
-                    awsExecutor,
-                    completion
-                ))
+                completion.submitWithLogContext("explore $hardware") {
+                    explore(
+                        hardware,
+                        awsExecutor,
+                        completion
+                    )
+                }
             }
         }
         val completedResults = awaitResults(completion)
@@ -162,7 +165,7 @@ class HardwareExploration(
         hardware: Hardware,
         awsExecutor: ExecutorService,
         completion: ExecutorCompletionService<HardwareExplorationResult>
-    ): Callable<HardwareExplorationResult> = Callable {
+    ): HardwareExplorationResult {
         val decision = guidance.decideTesting(hardware) { otherHardware ->
             if (otherHardware == hardware) {
                 throw Exception(
@@ -171,14 +174,16 @@ class HardwareExploration(
                 )
             }
             results.computeIfAbsent(otherHardware) {
-                completion.submit(explore(
-                    hardware = it,
-                    awsExecutor = awsExecutor,
-                    completion = completion
-                ))
+                completion.submitWithLogContext("explore $it to decide on $hardware") {
+                    explore(
+                        hardware = it,
+                        awsExecutor = awsExecutor,
+                        completion = completion
+                    )
+                }
             }
         }
-        if (decision.worthExploring) {
+        return if (decision.worthExploring) {
             HardwareExplorationResult(
                 decision = decision,
                 testResult = getRobustResult(hardware, awsExecutor)
