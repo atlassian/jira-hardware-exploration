@@ -18,6 +18,7 @@ class Waterfall {
             }
         walkRawResult(metricsFiltered)
         walkGap(metricsFiltered)
+        numOfReqwithNoLastVisitedCall(metrics)
         //diffDrilldown(metrics)
     }
 
@@ -60,18 +61,72 @@ class Waterfall {
             }
     }
 
+    private fun numOfReqwithNoLastVisitedCall(metrics: List<ActionMetric>) {
+        metrics.filter { matches(it) }
+            .filter {
+                it.drilldown!!.resources.all {
+                    !it.entry.name.endsWith("/lastVisited")
+                } && it.drilldown!!.resources.all {
+                    !it.entry.name.endsWith("/bulk")
+                }
+            }.map {
+                it.duration.toMillis()
+            }.apply {
+                println("Request with no lastVisited/bulk call, Duration Sample/Average/Median: ${this.size}/${this.average().toLong()}/${median(this)}")
+            }
+        metrics.filter { matches(it) }
+            .filter {
+                it.drilldown!!.resources.all {
+                    !it.entry.name.endsWith("/lastVisited")
+                } && it.drilldown!!.resources.all {
+                    !it.entry.name.endsWith("/bulk")
+                }
+            }.map {
+                (it.duration - it.drilldown!!.navigations.first().loadEventEnd).toMillis()
+            }.apply {
+                println("Request with no lastVisited/bulk call, Gap Sample/Average/Median: ${this.size}/${this.average().toLong()}/${median(this)}")
+            }
+
+        metrics.filter { matches(it) }
+            .filter {
+                it.drilldown!!.resources.any {
+                    it.entry.name.endsWith("/lastVisited")
+                } || it.drilldown!!.resources.any {
+                    it.entry.name.endsWith("/bulk")
+                }
+            }.map {
+                it.duration.toMillis()
+            }.apply {
+                println("Request with lastVisited/bulk call, Duration Sample/Average/Median: ${this.size}/${this.average().toLong()}/${median(this)}")
+            }
+
+        metrics.filter { matches(it) }
+            .filter {
+                it.drilldown!!.resources.any {
+                    it.entry.name.endsWith("/lastVisited")
+                } || it.drilldown!!.resources.any {
+                    it.entry.name.endsWith("/bulk")
+                }
+            }.map {
+                (it.duration - it.drilldown!!.navigations.first().loadEventEnd).toMillis()
+            }.apply {
+                println("Request with lastVisited/bulk call, Gap Sample/Average/Median: ${this.size}/${this.average().toLong()}/${median(this)}")
+            }
+    }
+
     private fun diffDrilldown(metrics: List<ActionMetric>) {
         println("Short Gap req:")
         metrics.filter { matches(it) }
             .filter {
-                ((it.duration - it.drilldown!!.navigations.first().loadEventEnd).toMillis() < 200
+                ((it.duration - it.drilldown!!.navigations.first().loadEventEnd).toMillis() < 250
                     && it.drilldown != null)
-            }.last().let {
+            }.takeLast(10).forEach {
+                println("gap : ${(it.duration - it.drilldown!!.navigations.first().loadEventEnd).toMillis()}")
                 it.drilldown!!.navigations.forEach {
-                    println("Started ${it.resource.entry.startTime} for ${it.resource.entry.duration.toMillis()} : ${it.resource.entry.name}")
+                    println("Navigation Started ${it.resource.entry.startTime} for ${it.resource.entry.duration.toMillis()} : ${it.resource.entry.name}")
                 }
-                it.drilldown!!.resources.forEach {
-                    println("Started ${it.entry.startTime} for ${it.entry.duration.toMillis()} : ${it.entry.name}")
+                it.drilldown!!.resources.takeLast(8).forEach {
+                    println("Resource Started ${it.entry.startTime} for ${it.entry.duration.toMillis()} : ${it.entry.name}")
                 }
             }
 
@@ -80,12 +135,13 @@ class Waterfall {
             .filter {
                 ((it.duration - it.drilldown!!.navigations.first().loadEventEnd).toMillis() > 500
                     && it.drilldown != null)
-            }.last().let {
+            }.takeLast(10).forEach {
+                println("gap : ${(it.duration - it.drilldown!!.navigations.first().loadEventEnd).toMillis()}")
                 it.drilldown!!.navigations.forEach {
-                    println("Started ${it.resource.entry.startTime} for ${it.resource.entry.duration.toMillis()} : ${it.resource.entry.name}")
+                    println("Navigation Started ${it.resource.entry.startTime} for ${it.resource.entry.duration.toMillis()} : ${it.resource.entry.name}")
                 }
-                it.drilldown!!.resources.forEach {
-                    println("Started ${it.entry.startTime} for ${it.entry.duration.toMillis()} : ${it.entry.name}")
+                it.drilldown!!.resources.takeLast(8).forEach {
+                    println("Resource Started ${it.entry.startTime} for ${it.entry.duration.toMillis()} : ${it.entry.name}")
                 }
             }
     }

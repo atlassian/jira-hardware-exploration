@@ -6,27 +6,27 @@ import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
 import org.junit.Test
 import java.io.File
+import java.nio.file.Paths
 import java.time.Duration
 
 class WaterfallDrilldownTest {
 
     @Test
-    fun shouldScore() {
-        val result = RawCohortResult.Factory().fullResult(
-            cohort = "large_c48_3nodes",
-            results = File(javaClass.getResource("/large_c48_3nodes").toURI()).toPath()
-        )
-            .prepareForJudgement(StandardTimeline(Duration.ofMinutes(20)))
-            .actionMetrics
-        Waterfall().walk(result)
+    fun shouldAnalysis() {
 
-        val result2 = RawCohortResult.Factory().fullResult(
-            cohort = "large_c59_3nodes",
-            results = File(javaClass.getResource("/large_c59_3nodes").toURI()).toPath()
-        )
-            .prepareForJudgement(StandardTimeline(Duration.ofMinutes(20)))
-            .actionMetrics
-        Waterfall().walk(result2)
-
+        mapOf(
+            "large_c48_3nodes" to File(javaClass.getResource("/large_c48_3nodes").toURI()).toPath(),
+            "large_c59_3nodes" to File(javaClass.getResource("/large_c59_3nodes").toURI()).toPath()
+        ).forEach() { (cohort, results) ->
+            run {
+                val result = RawCohortResult.Factory().fullResult(
+                    cohort = cohort,
+                    results = results
+                ).prepareForJudgement(StandardTimeline(Duration.ofMinutes(20)))
+                    .actionMetrics
+                println("\nProcessing $cohort")
+                Waterfall().walk(result)
+            }
+        }
     }
 }
