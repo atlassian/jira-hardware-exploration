@@ -14,13 +14,13 @@ import net.jcip.annotations.NotThreadSafe
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.File
+import java.nio.file.FileSystems
 import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.Paths
 import java.nio.file.attribute.PosixFileAttributeView
 import java.nio.file.attribute.PosixFilePermission
 import java.time.Instant
-import java.nio.file.FileSystems
-import java.nio.file.Paths
 
 
 @NotThreadSafe
@@ -29,12 +29,13 @@ class S3Cache(
     private val bucketName: String,
     cacheKey: String,
     private val localPath: Path,
+    etags: Path,
     private val searchPattern: String = ""
 ) {
     private val s3Prefix = "$cacheKey/"
     private val localDirectory = localPath.toFile().ensureDirectory()
     private val logger: Logger = LogManager.getLogger(this::class.java)
-    private val etags = EtagCache(localPath.parent.resolve(".etags"))
+    private val etagsCache = EtagCache(etags)
     private val uploadLock = Object()
 
     fun download() {
@@ -51,7 +52,7 @@ class S3Cache(
                 .map { startDownload(it, progress) }
                 .onEach { it.download.waitForCompletion() }
                 .onEach { it.local.setLastModified(it.download.objectMetadata.lastModified.time) }
-                .forEach { etags.write(it.download) }
+                .forEach { etagsCache.write(it.download) }
         }
     }
 
@@ -59,7 +60,7 @@ class S3Cache(
         objectSummary: S3ObjectSummary
     ): Boolean {
         val local = findLocal(objectSummary).toExistingFile()
-        val cachedEtag = etags.read(objectSummary.key)
+        val cachedEtag = etagsCache.read(objectSummary.key)
         val match = matchesSearchPattern(objectSummary)
         return when {
             !match -> false
@@ -139,7 +140,7 @@ class S3Cache(
                 .also { it.waitForCompletion() }
                 .subTransfers
                 .map { it.waitForUploadResult() }
-                .forEach { etags.write(it) }
+                .forEach { etagsCache.write(it) }
         }
     }
 

@@ -1,6 +1,7 @@
 package com.atlassian.performance.tools.hardware
 
-import com.amazonaws.services.ec2.model.InstanceType.*
+import com.amazonaws.services.ec2.model.InstanceType.C518xlarge
+import com.amazonaws.services.ec2.model.InstanceType.M44xlarge
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
 import com.atlassian.performance.tools.aws.api.Aws
 import com.atlassian.performance.tools.jiraactions.api.*
@@ -8,10 +9,10 @@ import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBackl
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.Apdex
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
-import com.atlassian.performance.tools.lib.table.GenericPlainTextTable
 import com.atlassian.performance.tools.lib.ScoredActionMetric
 import com.atlassian.performance.tools.lib.readResult
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
+import com.atlassian.performance.tools.lib.table.GenericPlainTextTable
 import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.EdibleResult
 import com.atlassian.performance.tools.report.api.result.RawCohortResult
@@ -21,15 +22,15 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import java.io.File
-import java.time.Duration
 import java.nio.file.FileSystems
 import java.nio.file.Paths
+import java.time.Duration
 
 
 class HardwareApdexAnalysisIT {
 
-    private val taskName = "QUICK-132-fix-v3"
-    private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(taskName)
+    private val cacheKey = "QUICK-132-fix-v3"
+    private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(cacheKey)
 
     // define the Apdex sets we want to investigate
     private val hardwareOfInterest: Hardware = Hardware(C518xlarge, 7, M44xlarge)
@@ -70,8 +71,7 @@ class HardwareApdexAnalysisIT {
                 apdexMetrics(file)
             }
 
-        if(runs.none())
-        {
+        if (runs.none()) {
             println("Unable to run comparison no apdex calculated")
             return
         }
@@ -84,14 +84,12 @@ class HardwareApdexAnalysisIT {
         val best = sortedRuns.firstOrNull()
         val worst = sortedRuns.lastOrNull()
 
-        if(best == null )
-        {
+        if (best == null) {
             println("Unable to run comparison 'best' is undefined")
             return
         }
 
-        if(worst == null )
-        {
+        if (worst == null) {
             println("Unable to run comparison 'worst' is undefined")
             return
         }
@@ -273,8 +271,9 @@ class HardwareApdexAnalysisIT {
             .withS3Client(aws.s3)
             .build(),
         bucketName = "quicksilver-jhwr-cache-ireland",
-        cacheKey = taskName,
+        cacheKey = cacheKey,
         localPath = workspace.directory,
+        etags = IntegrationTestRuntime.rootWorkspace.directory.resolve(".etags"),
         searchPattern = searchPattern
     )
 

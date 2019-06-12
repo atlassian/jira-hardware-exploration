@@ -23,8 +23,8 @@ import java.time.Duration
 
 class HardwareRecommendationIT {
 
-    private val taskName = "QUICK-132-fix-v3"
-    private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(taskName)
+    private val cacheKey = "QUICK-132-fix-v3"
+    private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(cacheKey)
     private val jswVersion = System.getProperty("hwr.jsw.version") ?: "7.13.0"
 
     @Before
@@ -61,7 +61,7 @@ class HardwareRecommendationIT {
     ): List<Recommendation> {
         requireCleanRepo()
         val aws = IntegrationTestRuntime.prepareAws()
-        val taskWorkspace = TaskWorkspace(workspace.directory.resolve(scale.description))
+        val scaleWorkspace = TaskWorkspace(workspace.directory.resolve(scale.cacheKey))
         val engine = HardwareRecommendationEngine(
             product = PublicJiraSoftwareDistribution(jswVersion),
             scale = scale,
@@ -90,16 +90,17 @@ class HardwareRecommendationIT {
             minApdex = 0.70,
             repeats = 2,
             aws = aws,
-            workspace = taskWorkspace,
+            workspace = scaleWorkspace,
             s3Cache = S3Cache(
                 transfer = TransferManagerBuilder.standard()
                     .withS3Client(aws.s3)
                     .build(),
                 bucketName = "quicksilver-jhwr-cache-ireland",
-                cacheKey = taskName,
-                localPath = workspace.directory
+                cacheKey = "$cacheKey/${scale.cacheKey}",
+                localPath = scaleWorkspace.directory,
+                etags = IntegrationTestRuntime.rootWorkspace.directory.resolve(".etags")
             ),
-            explorationCache = HardwareExplorationResultCache(taskWorkspace.directory.resolve("processed-cache.json"))
+            explorationCache = HardwareExplorationResultCache(scaleWorkspace.directory.resolve("processed-cache.json"))
         )
         return engine.recommend()
     }
