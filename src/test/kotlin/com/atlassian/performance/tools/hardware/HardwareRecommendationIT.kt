@@ -23,7 +23,7 @@ import java.time.Duration
 
 class HardwareRecommendationIT {
 
-    private val cacheKey = "QUICK-132-fix-v3"
+    private val cacheKey = "QUICK-174-run-both-scales"
     private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(cacheKey)
     private val jswVersion = System.getProperty("hwr.jsw.version") ?: "7.13.0"
 
