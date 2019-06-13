@@ -14,6 +14,7 @@ class BugAwareTolerance(
         when {
             causedByJperf387(failure) -> cleanAfterKnownIssue(failure, workspace, "JPERF-387")
             causedByJperf382(failure) -> cleanAfterKnownIssue(failure, workspace, "JPERF-382")
+            causedByAbruptness(failure) -> cleanWithJustification(failure, workspace, "it didn't finish")
             else -> logging.handle(failure, workspace)
         }
     }
@@ -35,7 +36,25 @@ class BugAwareTolerance(
         workspace: TestWorkspace,
         issueKey: String
     ) {
-        logger.warn("Failure in $workspace due to https://ecosystem.atlassian.net/browse/$issueKey, cleaning...")
-        cleaning.handle(failure, workspace)
+        cleanWithJustification(
+            failure,
+            workspace,
+            "it is a known issue: https://ecosystem.atlassian.net/browse/$issueKey"
+        )
     }
+
+    private fun cleanWithJustification(
+        failure: Exception,
+        workspace: TestWorkspace,
+        justification: String
+    ) {
+        cleaning.handle(failure, workspace)
+        logger.warn("Cleaned failure in $workspace because $justification")
+    }
+
+    private fun causedByAbruptness(
+        failure: Exception
+    ): Boolean = failure
+        .message!!
+        .endsWith("terminated abruptly")
 }
