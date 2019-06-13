@@ -2,25 +2,34 @@ package com.atlassian.performance.tools.hardware
 
 import com.amazonaws.services.ec2.model.InstanceType.*
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
-import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.aws
-import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.taskName
-import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.workspace
 import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
 import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJiraSoftwareDistribution
+import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.lib.workspace.GitRepo2
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
+import org.apache.logging.log4j.core.config.ConfigurationFactory
 import org.eclipse.jgit.api.Git
+import org.junit.Before
 import org.junit.Test
 import java.io.File
 import java.time.Duration
 
 class HardwareRecommendationIT {
 
+    private val taskName = "QUICK-132-fix-v3"
+    private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(taskName)
+    private val jswVersion = System.getProperty("hwr.jsw.version") ?: "7.13.0"
+
+    @Before
+    fun setUp() {
+        ConfigurationFactory.setConfigurationFactory(LogConfigurationFactory(workspace))
+    }
+
     @Test
     fun shouldRecommendHardware() {
         requireCleanRepo()
-        val jswVersion = System.getProperty("hwr.jsw.version") ?: "7.13.0"
+        val aws = IntegrationTestRuntime.prepareAws()
         val engine = HardwareRecommendationEngine(
             product = PublicJiraSoftwareDistribution(jswVersion),
             scale = ApplicationScales().extraLarge(jiraVersion = jswVersion, postgres = false),
@@ -47,6 +56,7 @@ class HardwareRecommendationIT {
             maxErrorRate = 0.01,
             minApdex = 0.70,
             repeats = 2,
+            aws = aws,
             workspace = workspace,
             s3Cache = S3Cache(
                 transfer = TransferManagerBuilder.standard()
