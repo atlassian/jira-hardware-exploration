@@ -1,12 +1,17 @@
 package com.atlassian.performance.tools.lib
 
 import com.atlassian.performance.tools.ssh.api.SshConnection
+import java.io.File
 
-interface SshSqlClient{
+interface SshSqlClient {
 
     fun runSql(
         ssh: SshConnection,
         sql: String
     ): SshConnection.SshResult
 
+    fun runSql(
+        ssh: SshConnection,
+        sql: File
+    ): SshConnection.SshResult
 }
