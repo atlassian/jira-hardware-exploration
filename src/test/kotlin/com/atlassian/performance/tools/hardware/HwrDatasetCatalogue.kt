@@ -158,7 +158,6 @@ class HwrDatasetCatalogue {
             listOf(
                 localLicense
                     .toExistingFile()
-                    ?.readText()
                     ?: throw Exception("Put a Jira license to ${localLicense.toAbsolutePath()}")
             ))
     }

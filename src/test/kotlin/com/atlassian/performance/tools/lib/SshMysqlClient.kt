@@ -1,8 +1,9 @@
 package com.atlassian.performance.tools.lib
 
 import com.atlassian.performance.tools.ssh.api.SshConnection
+import java.io.File
 
-class SshMysqlClient : SshSqlClient{
+class SshMysqlClient : SshSqlClient {
 
     override fun runSql(
         ssh: SshConnection,
@@ -22,4 +23,12 @@ class SshMysqlClient : SshSqlClient{
         oldValue = character.toString(),
         newValue = "\\$character"
     )
+
+    override fun runSql(
+        ssh: SshConnection,
+        sql: File
+    ): SshConnection.SshResult {
+        ssh.upload(sql, sql.name)
+        return ssh.execute("mysql -h 127.0.0.1 -u root < ${sql.name}")
+    }
 }

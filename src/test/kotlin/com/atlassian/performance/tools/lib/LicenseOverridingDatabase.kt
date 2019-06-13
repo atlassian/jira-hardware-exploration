@@ -6,11 +6,13 @@ import com.atlassian.performance.tools.infrastructure.api.database.DbType.MySql
 import com.atlassian.performance.tools.infrastructure.api.database.DbType.Postgres
 import com.atlassian.performance.tools.ssh.api.SshConnection
 import org.apache.logging.log4j.LogManager
+import java.io.File
 import java.net.URI
+import java.nio.file.Files
 
 internal class LicenseOverridingDatabase(
     private val database: Database,
-    private val licenses: List<String>
+    private val licenses: List<File>
 ) : Database {
 
     private val logger = LogManager.getLogger(this::class.java)
@@ -40,13 +42,17 @@ internal class LicenseOverridingDatabase(
         client.runSql(ssh, "DELETE FROM $licenseTable;")
         logger.info("Licenses nuked")
         licenses.forEachIndexed { index, license ->
-            val flattenedLicense = license.lines().joinToString(separator = "") { it.trim() }
+            val flatLicenseText = license.readLines().joinToString(separator = "") { it.trim() }
             val insert = when (dbType) {
-                MySql -> "INSERT INTO $licenseTable VALUES ($index, \"$flattenedLicense\");"
-                Postgres -> "INSERT INTO $licenseTable (id, license) VALUES ($index, '$flattenedLicense');"
+                MySql -> "INSERT INTO $licenseTable VALUES ($index, \"$flatLicenseText\");"
+                Postgres -> "INSERT INTO $licenseTable (id, license) VALUES ($index, '$flatLicenseText');"
             }
-            client.runSql(ssh, insert)
-            logger.info("Added license: ${license.substring(0..8)}...")
+            val insertFile = Files.createTempFile("license-insert", ".sql").toFile()
+            insertFile
+                .bufferedWriter()
+                .use { it.write(insert) }
+            client.runSql(ssh, insertFile)
+            logger.info("Added license: ${flatLicenseText.substring(0..8)}...")
         }
     }
 }

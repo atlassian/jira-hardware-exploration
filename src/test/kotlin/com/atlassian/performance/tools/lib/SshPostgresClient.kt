@@ -1,20 +1,22 @@
 package com.atlassian.performance.tools.lib
 
 import com.atlassian.performance.tools.ssh.api.SshConnection
+import java.io.File
 
 class SshPostgresClient(
-    private val dbName: String = "atldb",
-    private val dbUser: String = "postgres",
-    private val dbPassword: String ="postgres"): SshSqlClient {
+    dbName: String = "atldb",
+    dbUser: String = "postgres",
+    dbPassword: String = "postgres"
+) : SshSqlClient {
 
-    val connectStr = "PGPASSWORD=$dbPassword psql -h 127.0.0.1 -U $dbUser -d $dbName -c"
+    private val psql = "PGPASSWORD=$dbPassword psql -h 127.0.0.1 -U $dbUser -d $dbName"
 
     override fun runSql(
         ssh: SshConnection,
         sql: String
     ): SshConnection.SshResult {
         val quotedSql = sql.quote('"')
-        return ssh.execute("$connectStr $quotedSql")
+        return ssh.execute("$psql -c $quotedSql")
     }
 
     private fun String.quote(
@@ -28,4 +30,11 @@ class SshPostgresClient(
         newValue = "\\$character"
     )
 
+    override fun runSql(
+        ssh: SshConnection,
+        sql: File
+    ): SshConnection.SshResult {
+        ssh.upload(sql, sql.name)
+        return ssh.execute("$psql -f ${sql.name}")
+    }
 }
