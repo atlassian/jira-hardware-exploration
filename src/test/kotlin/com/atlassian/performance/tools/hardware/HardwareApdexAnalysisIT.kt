@@ -61,16 +61,35 @@ class HardwareApdexAnalysisIT {
                 // ignore any empty run/# folders or ones that only contain a status.txt which indicates a failed run
                 file.listFiles().any { it.name != "status.txt" }
             }
-            .map { file ->
+            .mapNotNull { file ->
                 apdexMetrics(file)
             }
-            .toList()
+
+        if(runs.none())
+        {
+            println("Unable to run comparison no apdex calculated")
+            return
+        }
 
         // get the best worst runs as defined by the overall apdex
         val sortedRuns = runs
+            .toList()
             .sortedByDescending { it.apdex }
-        val best = sortedRuns.first()
-        val worst = sortedRuns.last()
+
+        val best = sortedRuns.firstOrNull()
+        val worst = sortedRuns.lastOrNull()
+
+        if(best == null )
+        {
+            println("Unable to run comparison 'best' is undefined")
+            return
+        }
+
+        if(worst == null )
+        {
+            println("Unable to run comparison 'worst' is undefined")
+            return
+        }
 
         // comparison
         compare(best, worst)
@@ -175,10 +194,12 @@ class HardwareApdexAnalysisIT {
         table.addRow(listOf(actionLabel, "$run", apdex, "$actionTotal", profilePerc, errorPerc, satisfactoryPerc, tolerablePerc))
     }
 
-    private fun apdexMetrics(targetFile: File): ApdexResults {
+    private fun apdexMetrics(targetFile: File): ApdexResults? {
 
         val run = targetFile.name
         val workspace = TestWorkspace(targetFile.toPath())
+
+        println("Processing $targetFile")
 
         return targetFile.listFiles()
             .filter { file ->
@@ -189,10 +210,11 @@ class HardwareApdexAnalysisIT {
             .mapNotNull { file ->
                 calculateApdexResults(workspace, file, run)
             }
-            .first()
+            .firstOrNull()
     }
 
     private fun calculateApdexResults(workspace: TestWorkspace, file: File, run: String): ApdexResults? {
+        println("Calculate Apdex for ${file.name}")
         val cohortResult = workspace.readResult(file.name)
         val failure = cohortResult.failure
         return if (failure == null) {
@@ -235,7 +257,7 @@ class HardwareApdexAnalysisIT {
             ApdexResults(run.toInt(), apdexStandard, scoredMetrics)
 
         } else {
-            println("ignominious failure! ${failure.localizedMessage}")
+            println("Unable to calculate Apdex for ${file.name}! ${failure.localizedMessage}")
             BugAwareTolerance(logger).handle(failure, workspace)
             null
         }
