@@ -8,6 +8,6 @@ class LoggingFailureTolerance(
 ) : FailureTolerance {
 
     override fun handle(failure: Exception, workspace: TestWorkspace) {
-        logger.error("Failure in $workspace, better investigate or remove it")
+        logger.error("Failure in $workspace: ${failure.message}")
     }
 }
