@@ -1,6 +1,5 @@
 package com.atlassian.performance.tools.hardware
 
-import com.amazonaws.services.ec2.model.InstanceType
 import com.amazonaws.services.ec2.model.InstanceType.*
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.aws
@@ -48,14 +47,14 @@ class HardwareApdexAnalysisIT {
 
         // action-metrics.jpt contain the apdex information
         // status.txt is needed to pass TestWorkspace.readResult
-        val downloadFileFilter = "${searchPatternRoot}/**/{action-metrics.jpt,status.txt}"
+        val downloadFileFilter = "$searchPatternRoot/**/{action-metrics.jpt,status.txt}"
         val cache = getWorkspaceCache(downloadFileFilter)
 
         // get the files
         time("download") { cache.download() }
         val runs = workspace.directory.toFile().walkTopDown()
             .filter { file ->
-                val actionMetricFileFilter = "${searchPatternRoot}/**runs/[0-9]*"
+                val actionMetricFileFilter = "$searchPatternRoot/**runs/[0-9]*"
                 matchesSearchPattern(file.absolutePath, actionMetricFileFilter)
             }
             .filter { file ->
@@ -181,7 +180,7 @@ class HardwareApdexAnalysisIT {
         val run = targetFile.name
         val workspace = TestWorkspace(targetFile.toPath())
 
-        val cohortResults = targetFile.listFiles()
+        return targetFile.listFiles()
             .filter { file ->
                 // I think this is a linear folder structure only ever 1 cohort per run? So potentially this could be simpler
                 val cohortFilter = "**/*${hardwareOfInterest.jira}*"
@@ -191,8 +190,6 @@ class HardwareApdexAnalysisIT {
                 calculateApdexResults(workspace, file, run)
             }
             .first()
-
-        return cohortResults!!
     }
 
     private fun calculateApdexResults(workspace: TestWorkspace, file: File, run: String): ApdexResults? {
