@@ -2,3 +2,5 @@
 build
 jpt-workspace
 jira-license.txt
+.idea
+jira-hardware-exploration.iml
