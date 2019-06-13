@@ -16,18 +16,12 @@ class ApplicationScales {
     private val datasets = HwrDatasetCatalogue()
 
     fun extraLarge(
-        jiraVersion: String,
-        postgres: Boolean
+        jiraVersion: String
     ): ApplicationScale {
         val jira8 = isJira8(jiraVersion)
         return ApplicationScale(
             description = "Jira XL profile",
-            dataset = when {
-                jira8 && postgres -> datasets.xl8Postgres()
-                jira8 && !postgres -> datasets.xl8Mysql()
-                !jira8 && !postgres -> datasets.xl7Mysql()
-                else -> throw Exception("We don't have an XL dataset matching jira8=$jira8 and postgres=$postgres")
-            },
+            dataset = if (jira8) datasets.xl8Mysql() else datasets.xl7Mysql(),
             load = VirtualUserLoad.Builder()
                 .virtualUsers(150)
                 .ramp(Duration.ofSeconds(90))

@@ -3,7 +3,6 @@ package com.atlassian.performance.tools.hardware.vu
 import com.atlassian.performance.tools.jiraactions.api.BROWSE_BOARDS
 import com.atlassian.performance.tools.jiraactions.api.action.Action
 import com.atlassian.performance.tools.jiraactions.api.measure.ActionMeter
-import com.atlassian.performance.tools.jiraactions.api.page.JiraErrors
 import com.atlassian.performance.tools.jiraactions.api.page.wait
 import com.atlassian.performance.tools.jirasoftwareactions.api.WebJiraSoftware
 import com.atlassian.performance.tools.jirasoftwareactions.api.boards.AgileBoard
@@ -36,7 +35,7 @@ class PatientBrowseBoardsAction(
     private fun BrowseBoardsPage.waitForBoardsList(
         patience: Duration
     ): BrowseBoardsPage {
-        val jiraErrors = JiraErrors(driver)
+        val jiraErrors = MoreVigilantJiraErrors(driver)
         driver.wait(
             patience,
             ExpectedConditions.or(

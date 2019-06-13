@@ -32,7 +32,7 @@ class HardwareRecommendationIT {
         val aws = IntegrationTestRuntime.prepareAws()
         val engine = HardwareRecommendationEngine(
             product = PublicJiraSoftwareDistribution(jswVersion),
-            scale = ApplicationScales().extraLarge(jiraVersion = jswVersion, postgres = false),
+            scale = ApplicationScales().extraLarge(jiraVersion = jswVersion),
             jiraExploration = JiraExplorationGuidance(
                 instanceTypes = listOf(
                     C52xlarge,
