@@ -13,12 +13,13 @@ import org.eclipse.jgit.api.Git
 import org.junit.Before
 import org.junit.Test
 import java.io.File
+import java.time.Duration
 
 class HardwareRecommendationIT {
 
-    private val taskName = "QUICK-132-fix-v3"
+    private val taskName = "DCNG-195-initial"
     private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(taskName)
-    private val jswVersion = System.getProperty("hwr.jsw.version") ?: "7.13.0"
+    private val jswVersion = System.getProperty("hwr.jsw.version") ?: "8.1.0"
 
     @Before
     fun setUp() {

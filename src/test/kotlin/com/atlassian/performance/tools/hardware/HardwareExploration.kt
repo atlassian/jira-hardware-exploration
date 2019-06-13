@@ -319,18 +319,20 @@ class HardwareExploration(
         workspace: TestWorkspace,
         executor: ExecutorService
     ): CompletableFuture<HardwareTestResult> {
-        return dataCenter(
-            cohort = hardware.nameCohort(workspace),
-            hardware = hardware
-        ).executeAsync(
-            workspace,
-            executor,
-            ScaleVirtualUserOptions(scale)
-        ).thenApply { raw ->
-            workspace.writeStatus(raw)
-            s3Cache.upload(workspace.directory.toFile())
-            return@thenApply score(hardware, raw, workspace)
-        }
+       val future =  CompletableFuture<HardwareTestResult>()
+        future.complete(
+            HardwareTestResult(
+                hardware = hardware,
+                apdex = 1.0,
+                apdexes = listOf(1.0),
+                errorRate = 0.0,
+                errorRates = listOf(0.0),
+                httpThroughput = ZERO_RATE,
+                httpThroughputs = listOf(ZERO_RATE),
+                results = listOf()
+            )
+        )
+        return future
     }
 
     private fun dataCenter(
