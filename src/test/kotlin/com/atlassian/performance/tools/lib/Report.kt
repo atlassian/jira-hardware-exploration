@@ -14,13 +14,11 @@ fun TestWorkspace.readResult(cohort: String): RawCohortResult {
             cohort = cohort,
             results = digOutTheRawResults(cohort).toPath()
         )
-        null -> {
-            factory.failedResult(
-                cohort = cohort,
-                failure = Exception("Test for $cohort terminated abruptly"),
-                results = directory
-            )
-        }
+        null -> factory.failedResult(
+            cohort = cohort,
+            failure = Exception("Test for $cohort terminated abruptly"),
+            results = directory
+        )
         else -> factory.failedResult(
             cohort = cohort,
             failure = Exception("Test for $cohort failed due to an error: $statusText"),
