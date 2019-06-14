@@ -17,7 +17,7 @@ import java.time.Duration
 
 class HardwareRecommendationIT {
 
-    private val taskName = "DCNG-195-7nodes-300vu"
+    private val taskName = "DCNG-195-7nodes-600vu"
     private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(taskName)
     private val jswVersion = System.getProperty("hwr.jsw.version") ?: "8.1.0"
 
