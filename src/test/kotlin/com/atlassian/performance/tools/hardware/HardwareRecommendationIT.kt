@@ -17,7 +17,7 @@ import java.time.Duration
 
 class HardwareRecommendationIT {
 
-    private val taskName = "DCNG-195-7nodes"
+    private val taskName = "DCNG-195-10nodes"
     private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(taskName)
     private val jswVersion = System.getProperty("hwr.jsw.version") ?: "8.1.0"
 
@@ -36,7 +36,7 @@ class HardwareRecommendationIT {
             jiraExploration = SingleHardwareGuidance(
                 Hardware(
                     jira = C59xlarge,
-                    nodeCount = 7,
+                    nodeCount = 10,
                     db = M44xlarge)),
             dbInstanceTypes = listOf(
                 M44xlarge
