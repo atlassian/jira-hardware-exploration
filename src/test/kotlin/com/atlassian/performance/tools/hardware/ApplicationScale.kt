@@ -23,12 +23,12 @@ class ApplicationScales {
             description = "Jira XL profile",
             dataset = if (jira8) datasets.xl8Mysql() else datasets.xl7Mysql(),
             load = VirtualUserLoad.Builder()
-                .virtualUsers(300)
+                .virtualUsers(600)
                 .ramp(Duration.ofSeconds(90))
                 .flat(Duration.ofMinutes(20))
                 .maxOverallLoad(TemporalRate(10000.0, Duration.ofSeconds(1)))
                 .build(),
-            vuNodes = 24
+            vuNodes = 48
         )
     }
 
