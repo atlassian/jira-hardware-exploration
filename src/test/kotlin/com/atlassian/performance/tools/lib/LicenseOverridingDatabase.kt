@@ -48,10 +48,12 @@ internal class LicenseOverridingDatabase(
                 Postgres -> "INSERT INTO $licenseTable (id, license) VALUES ($index, '$flatLicenseText');"
             }
             val insertFile = Files.createTempFile("license-insert", ".sql").toFile()
+            insertFile.deleteOnExit()
             insertFile
                 .bufferedWriter()
                 .use { it.write(insert) }
             client.runSql(ssh, insertFile)
+            insertFile.delete()
             logger.info("Added license: ${flatLicenseText.substring(0..8)}...")
         }
     }
