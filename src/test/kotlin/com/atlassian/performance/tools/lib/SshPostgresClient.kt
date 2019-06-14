@@ -34,7 +34,10 @@ class SshPostgresClient(
         ssh: SshConnection,
         sql: File
     ): SshConnection.SshResult {
-        ssh.upload(sql, sql.name)
-        return ssh.execute("$psql -f ${sql.name}")
+        val remoteSqlFile = sql.name
+        ssh.upload(sql, remoteSqlFile)
+        val result = ssh.execute("$psql -f $remoteSqlFile")
+        ssh.execute("rm $remoteSqlFile")
+        return result
     }
 }

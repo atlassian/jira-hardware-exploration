@@ -28,7 +28,10 @@ class SshMysqlClient : SshSqlClient {
         ssh: SshConnection,
         sql: File
     ): SshConnection.SshResult {
-        ssh.upload(sql, sql.name)
-        return ssh.execute("mysql -h 127.0.0.1 -u root < ${sql.name}")
+        val remoteSqlFile = sql.name
+        ssh.upload(sql, remoteSqlFile)
+        val result = ssh.execute("mysql -h 127.0.0.1 -u root < $remoteSqlFile")
+        ssh.execute("rm $remoteSqlFile")
+        return result
     }
 }
