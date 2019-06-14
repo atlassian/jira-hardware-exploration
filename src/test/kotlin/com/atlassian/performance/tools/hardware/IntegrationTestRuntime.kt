@@ -3,6 +3,7 @@ package com.atlassian.performance.tools.hardware
 import com.amazonaws.auth.AWSCredentialsProviderChain
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain
 import com.amazonaws.auth.STSAssumeRoleSessionCredentialsProvider
+import com.amazonaws.auth.profile.ProfileCredentialsProvider
 import com.amazonaws.regions.Regions
 import com.atlassian.performance.tools.aws.api.Aws
 import com.atlassian.performance.tools.aws.api.TextCapacityMediator
@@ -21,6 +22,7 @@ object IntegrationTestRuntime {
                 "arn:aws:iam::695067801333:role/server-gdn-bamboo",
                 UUID.randomUUID().toString()
             ).build(),
+            ProfileCredentialsProvider("jpt-dev"),
             DefaultAWSCredentialsProviderChain()
         ),
         region = Regions.EU_WEST_1,
