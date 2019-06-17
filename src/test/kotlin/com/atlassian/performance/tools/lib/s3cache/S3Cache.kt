@@ -49,10 +49,13 @@ class S3Cache(
             logger.info("Downloading ${s3Objects.kept.size}, skipping ${s3Objects.skipped}")
             s3Objects
                 .kept
+                .parallelStream()
                 .map { startDownload(it, progress) }
-                .onEach { it.download.waitForCompletion() }
-                .onEach { it.local.setLastModified(it.download.objectMetadata.lastModified.time) }
-                .forEach { etagsCache.write(it.download) }
+                .forEach { localDownload ->
+                    localDownload.download.waitForCompletion()
+                    localDownload.local.setLastModified(localDownload.download.objectMetadata.lastModified.time)
+                    etagsCache.write(localDownload.download)
+                }
         }
     }
 
