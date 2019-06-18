@@ -65,7 +65,7 @@ class HeapTuning : JiraNodeTuning {
         desiredGigabytes: Int
     ): Int {
         return if (desiredGigabytes in (32..40)) {
-            32
+            31
         } else {
             desiredGigabytes
         }
