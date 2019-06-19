@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/atlassian/jira-hardware-exploration.svg?style=svg)](https://circleci.com/gh/atlassian/jira-hardware-exploration)
+
 ### Usage
 
 1. Set up AWS credentials
