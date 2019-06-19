@@ -2,15 +2,12 @@ package com.atlassian.performance.tools.hardware
 
 import com.amazonaws.services.ec2.model.InstanceType.*
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
-import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.aws
-import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.logContext
-import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.taskName
-import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.workspace
-import com.atlassian.performance.tools.hardware.failure.BugAwareTolerance
+import com.atlassian.performance.tools.aws.api.Aws
 import com.atlassian.performance.tools.jiraactions.api.*
 import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBacklogAction
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.Apdex
+import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import com.atlassian.performance.tools.lib.table.GenericPlainTextTable
 import com.atlassian.performance.tools.lib.ScoredActionMetric
 import com.atlassian.performance.tools.lib.readResult
@@ -19,7 +16,9 @@ import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.EdibleResult
 import com.atlassian.performance.tools.report.api.result.RawCohortResult
 import com.atlassian.performance.tools.workspace.api.TestWorkspace
-import org.apache.logging.log4j.Logger
+import org.apache.logging.log4j.core.config.ConfigurationFactory
+import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 import java.io.File
 import java.time.Duration
@@ -29,7 +28,8 @@ import java.nio.file.Paths
 
 class HardwareApdexAnalysisIT {
 
-    private val logger: Logger = logContext.getLogger(this::class.java.canonicalName)
+    private val taskName = "QUICK-132-fix-v3"
+    private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(taskName)
 
     // define the Apdex sets we want to investigate
     private val hardwareOfInterest: Hardware = Hardware(C518xlarge, 7, M44xlarge)
@@ -38,6 +38,11 @@ class HardwareApdexAnalysisIT {
     // Taken from extraLarge.Kt hold + ramp + flat values
     // This is done manulally rather than by using an instance of ExtraLarge etc because they require a Jira Licence file.
     private val testDuration: Duration = Duration.ZERO + Duration.ofSeconds(90) + Duration.ofMinutes(20)
+
+    @Before
+    fun setup() {
+        ConfigurationFactory.setConfigurationFactory(LogConfigurationFactory(IntegrationTestRuntime.rootWorkspace.currentTask))
+    }
 
     @Test
     fun shouldAnalyzeApdex() {
@@ -48,7 +53,7 @@ class HardwareApdexAnalysisIT {
         // action-metrics.jpt contain the apdex information
         // status.txt is needed to pass TestWorkspace.readResult
         val downloadFileFilter = "$searchPatternRoot/**/{action-metrics.jpt,status.txt}"
-        val cache = getWorkspaceCache(downloadFileFilter)
+        val cache = getWorkspaceCache(IntegrationTestRuntime.prepareAws(), downloadFileFilter)
 
         // get the files
         time("download") { cache.download() }
@@ -258,12 +263,12 @@ class HardwareApdexAnalysisIT {
 
         } else {
             println("Unable to calculate Apdex for ${file.name}! ${failure.localizedMessage}")
-            BugAwareTolerance(logger).handle(failure, workspace)
+            Assert.fail("Nothing to calculate!")
             null
         }
     }
 
-    private fun getWorkspaceCache(searchPattern: String = "**/action-metrics.jpt") = S3Cache(
+    private fun getWorkspaceCache(aws: Aws, searchPattern: String = "**/action-metrics.jpt") = S3Cache(
         transfer = TransferManagerBuilder.standard()
             .withS3Client(aws.s3)
             .build(),
