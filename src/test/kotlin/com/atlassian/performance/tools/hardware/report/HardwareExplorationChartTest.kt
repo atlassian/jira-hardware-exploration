@@ -39,6 +39,47 @@ class HardwareExplorationChartTest {
     }
 
     @Test
+    fun shouldPlotJiraRecommendation() {
+        val chart = HardwareExplorationChart(
+            JiraInstanceTypeGrouping(compareBy { it.ordinal }),
+            NodeCountXAxis(),
+            HardcodedGitRepo("5fcd73c04783561c3ad672101ac8f759de00dea7")
+        )
+        val resourcePath = "/xl-quick-132-cache.json"
+        val exploration = readExploration(resourcePath)
+        val candidates = exploration
+            .mapNotNull { it.testResult }
+            .filter { it.apdex > 0.40 }
+
+        chart.plotRecommendation(
+            exploration = exploration,
+            recommendationByApdex = candidates.sortedByDescending { it.apdex }.first(),
+            recommendationByCostEffectiveness = candidates.sortedByDescending { it.apdexPerUsdUpkeep }.first(),
+            application = "test",
+            output = workspace.isolateReport("jira-hardware-recommendation-chart.html")
+        )
+    }
+
+    @Test
+    fun shouldPlotDbRecommendation() {
+        val chart = HardwareExplorationChart(
+            JiraInstanceTypeGrouping(compareBy { it.ordinal }),
+            DbInstanceTypeXAxis(),
+            HardcodedGitRepo("5fcd73c04783561c3ad672101ac8f759de00dea7")
+        )
+        val resourcePath = "/xl-quick-132-cache-db.json"
+        val exploration = readExploration(resourcePath)
+
+        chart.plotRecommendation(
+            exploration = exploration,
+            recommendationByApdex = exploration.mapNotNull { it.testResult }.sortedByDescending { it.apdex }.first(),
+            recommendationByCostEffectiveness = exploration.mapNotNull { it.testResult }.filter { it.apdex > 0.40 }.sortedByDescending { it.apdexPerUsdUpkeep }.first(),
+            application = "test",
+            output = workspace.isolateReport("db-hardware-recommendation-chart.html")
+        )
+    }
+
+    @Test
     fun shouldPlotDbExploration() {
         val chart = HardwareExplorationChart(
             JiraClusterGrouping(InstanceType.values().toList()),

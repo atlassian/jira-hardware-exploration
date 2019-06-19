@@ -3,10 +3,7 @@ package com.atlassian.performance.tools.hardware.report
 import com.atlassian.performance.tools.hardware.HardwareExplorationResult
 import com.atlassian.performance.tools.hardware.HardwareTestResult
 import com.atlassian.performance.tools.io.api.ensureParentDirectory
-import com.atlassian.performance.tools.lib.chart.Chart
-import com.atlassian.performance.tools.lib.chart.ChartLine
-import com.atlassian.performance.tools.lib.chart.ErrorBar
-import com.atlassian.performance.tools.lib.chart.Point
+import com.atlassian.performance.tools.lib.chart.*
 import com.atlassian.performance.tools.lib.chart.color.Color
 import com.atlassian.performance.tools.lib.chart.color.PresetLabelColor
 import com.atlassian.performance.tools.workspace.api.git.GitRepo
@@ -102,6 +99,122 @@ internal class HardwareExplorationChart<S, X>(
         logger.info("Hardware exploration chart available at ${output.toUri()}")
     }
 
+    fun plotRecommendation(
+        exploration: List<HardwareExplorationResult>,
+        recommendationByApdex: HardwareTestResult,
+        recommendationByCostEffectiveness: HardwareTestResult,
+        application: String,
+        output: Path
+    ) {
+        val results = exploration.mapNotNull { it.testResult }
+        if (results.isEmpty()) {
+            return
+        }
+        val resultsPerSeries = results
+            .let { seriesGrouping.group(it) }
+            .mapValues { (_, resultGroup) -> resultGroup.sortedBy { xAxis.getX(it) } }
+        val report = HardwareExplorationChart::class
+            .java
+            .getResourceAsStream("/hardware-recommendation-chart-template.html")
+            .bufferedReader()
+            .use { it.readText() }
+            .replace(
+                oldValue = "'<%= apdexChartData =%>'",
+                newValue = plotRecommendationByApdex(resultsPerSeries, recommendationByApdex).toJson().toString()
+            )
+            .replace(
+                oldValue = "'<%= maxApdex =%>'",
+                newValue = "1.00"
+            )
+            .replace(
+                oldValue = "'<%= costPerApdexChartData =%>'",
+                newValue = plotRecommendationByCostEffectiveness(resultsPerSeries, recommendationByCostEffectiveness).toJson().toString()
+            )
+            .replace(
+                oldValue = "'<%= maxApdexPerCost =%>'",
+                newValue = results
+                    .map { it.apdexPerUsdUpkeep.change }
+                    .maxAxis()
+                    .times(1.20)//scale further to make the graph more readable
+                    .toBigDecimal(mathContext)
+                    .toString()
+            )
+            .replace(
+                oldValue = "'<%= maxIndex =%>'",
+                newValue = resultsPerSeries.size.toString()
+            )
+            .replace(
+                oldValue = "<%= xAxisLabel =%>",
+                newValue = xAxis.label
+            )
+            .replace(
+                oldValue = "<%= application =%>",
+                newValue = application
+            )
+        output.toFile().ensureParentDirectory().printWriter().use { it.print(report) }
+        logger.info("Hardware recommendation chart available at ${output.toUri()}")
+    }
+
+    private fun plotRecommendationByApdex(
+        resultsPerSeries: Map<S, List<HardwareTestResult>>,
+        recommendation: HardwareTestResult
+    ): Chart<X> = resultsPerSeries
+        .map { (series, testResults) ->
+            chartLine(
+                data = testResults.map {
+                    HardwarePoint(
+                        x = xAxis.getX(it),
+                        value = it.apdex.toBigDecimal(mathContext)
+                    )
+                },
+                errorBars = emptyList(),
+                label = series.toString()
+            )
+        }
+        .toMutableList().apply {
+            this.add(ChartCircledDots(
+                data = listOf(
+                    HardwarePoint(
+                        x = xAxis.getX(recommendation),
+                        value = recommendation.apdex.toBigDecimal(mathContext)
+                    )
+                ),
+                label = "Recommanded HW : ${recommendation.hardware.jira} x ${recommendation.hardware.nodeCount}",
+                labelColor = presetLabelColor.color(recommendation.hardware.jira.toString())
+            ))
+        }
+        .let { Chart(it) }
+
+    private fun plotRecommendationByCostEffectiveness(
+        resultsPerSeries: Map<S, List<HardwareTestResult>>,
+        recommendation: HardwareTestResult
+    ): Chart<X> = resultsPerSeries
+        .map { (series, testResults) ->
+            chartLine(
+                data = testResults.map {
+                    HardwarePoint(
+                        x = xAxis.getX(it),
+                        value = it.apdexPerUsdUpkeep.change.toBigDecimal(mathContext)
+                    )
+                },
+                errorBars = emptyList(),
+                label = series.toString()
+            )
+        }
+        .toMutableList().apply {
+            this.add(ChartCircledDots(
+                data = listOf(
+                    HardwarePoint(
+                        x = xAxis.getX(recommendation),
+                        value = recommendation.apdexPerUsdUpkeep.change.toBigDecimal(mathContext)
+                    )
+                ),
+                label = "Recommanded HW : ${recommendation.hardware.jira} x ${recommendation.hardware.nodeCount}",
+                labelColor = presetLabelColor.color(recommendation.hardware.jira.toString())
+            ))
+        }
+        .let { Chart(it) }
+
     private fun plotApdex(
         resultsPerSeries: Map<S, List<HardwareTestResult>>
     ): Chart<X> = resultsPerSeries
@@ -129,7 +242,7 @@ internal class HardwareExplorationChart<S, X>(
         data: List<Point<X>>,
         errorBars: List<ErrorBar>,
         label: String
-    ): ChartLine<X> {
+    ): ChartItem<X> {
         val labelColor = presetLabelColor
         return ChartLine(
             data = data,

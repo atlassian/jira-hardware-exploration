@@ -5,7 +5,7 @@ import javax.json.JsonArrayBuilder
 import javax.json.JsonObject
 
 internal class Chart<X>(
-    private val lines: List<ChartLine<X>>
+    private val lines: List<ChartItem<X>>
 ) where X : Comparable<X> {
 
     fun toJson(): JsonObject {

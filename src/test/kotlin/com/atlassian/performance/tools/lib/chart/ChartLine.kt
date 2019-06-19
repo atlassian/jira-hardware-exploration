@@ -7,15 +7,15 @@ import javax.json.Json
 import javax.json.JsonObject
 
 internal class ChartLine<X>(
-    val data: List<Point<X>>,
+    override val data: List<Point<X>>,
     private val label: String,
     private val type: String,
     private val yAxisId: String,
     private val hidden: Boolean = false,
     private val errorBars: List<ErrorBar> = emptyList(),
     private val labelColor: LabelColor = SeedLabelColor()
-) where X : Comparable<X> {
-    fun toJson(): JsonObject {
+) : ChartItem<X>(data) where X : Comparable<X> {
+    override fun toJson(): JsonObject {
         val dataBuilder = Json.createArrayBuilder()
         data.forEach { point ->
             dataBuilder.add(
