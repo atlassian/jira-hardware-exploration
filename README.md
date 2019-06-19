@@ -1,22 +1,31 @@
 [![CircleCI](https://circleci.com/gh/atlassian/jira-hardware-exploration.svg?style=svg)](https://circleci.com/gh/atlassian/jira-hardware-exploration)
 
-### Usage
-
-1. Set up AWS credentials
-    * Locally according to [default AWS credentials]
-    * Or let STS work out-of-the-box for [Bamboo]
-2. Create a `jira-license.txt` file and fill it with a Jira license
-    * BYO
-    * Or reuse the one from [Bamboo]
-3. Run `recommendHardware` Gradle task
-    * From terminal: `./gradlew recommendHardware`
-    * Or in short: `./gradlew recHar`
-    * Or if you want to override Jira Software version without code changes: `./gradlew recHar -Dhwr.jsw.version=8.1.0`
-    * Or from IntelliJ 2019+: `Run anything` (e.g. double tap `Ctrl`) and type `gradle recommendHardware`
+### Automated Jira hardware recommendations
 
 This runs the entire hardware recommendation.
 It will run all the tests, produce all the charts and print out the recommendations.
-Currently it covers a single Jira profile per run (e.g. Jira L or Jira XL).
+Currently it covers Jira L and Jira XL.
+
+### Usage
+
+#### Bamboo
+
+1. Run the [Bamboo] plan
+   * Optionally override the `HWR_PROPS` variable with a value like `-Dhwr.jsw.version=7.13.0`
+2. Look for results in the Bamboo artifacts
+
+If the Bamboo agent goes offline after 12 hours, rerun the plan. This can take 3-4 reruns.
+
+#### Local
+
+1. Navigate to the repo root
+2. Set up AWS credentials according to [default AWS credentials]
+3. Create a `jira-license.txt` file and fill it with a Jira license
+4. Run `recommendHardware` Gradle task
+    * From terminal: `./gradlew recommendHardware`
+    * Or in short: `./gradlew recHar`
+    * Or from IntelliJ 2019+: `Run anything` (e.g. double tap `Ctrl`) and type `gradle recommendHardware`
+5. Read the logs and look for results in `build/jpt-workspace`
 
 ### Caching
 
