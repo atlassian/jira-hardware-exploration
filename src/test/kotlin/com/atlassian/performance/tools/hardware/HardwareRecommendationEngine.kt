@@ -6,11 +6,16 @@ import com.atlassian.performance.tools.aws.api.Investment
 import com.atlassian.performance.tools.hardware.failure.BugAwareTolerance
 import com.atlassian.performance.tools.hardware.guidance.DbExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
+import com.atlassian.performance.tools.hardware.report.DbInstanceTypeXAxis
+import com.atlassian.performance.tools.hardware.report.HardwareExplorationChart
+import com.atlassian.performance.tools.hardware.report.JiraInstanceTypeGrouping
+import com.atlassian.performance.tools.hardware.report.NodeCountXAxis
 import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
+import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import org.apache.logging.log4j.LogManager
 import java.time.Duration
 
@@ -40,13 +45,64 @@ class HardwareRecommendationEngine(
             time("upload") { s3Cache.upload() }
         }
         val jiraExplorationRecommendations = recommend(jiraExploration)
+        reportJiraRecommendation(
+            jiraExploration,
+            jiraExplorationRecommendations[0].testResult,
+            jiraExplorationRecommendations[1].testResult
+        )
         try {
             val dbExploration = exploreDbHardware(jiraExplorationRecommendations, jiraExploration)
-            return recommend(dbExploration)
+            val result = recommend(dbExploration)
+            reportDbRecommendation(dbExploration, result[0].testResult, result[1].testResult)
+            return result
         } finally {
             time("upload") { s3Cache.upload() }
         }
     }
+
+    private fun reportJiraRecommendation(
+        exploration: List<HardwareExplorationResult>,
+        recommendationByApdex: HardwareTestResult,
+        recommendationByCostEffectness: HardwareTestResult
+    ) = HardwareExplorationChart(
+        JiraInstanceTypeGrouping(compareBy { InstanceType.values().toList().indexOf(it) }),
+        NodeCountXAxis(),
+        GitRepo.findFromCurrentDirectory()
+    ).plotRecommendation(
+        exploration = exploration,
+        recommendationByApdex = recommendationByApdex,
+        recommendationByCostEffectiveness = recommendationByCostEffectness,
+        application = scale.description,
+        output = workspace.isolateReport("jira-recommendation-chart.html")
+    )
+
+    private fun reportDbRecommendation(
+        exploration: List<HardwareExplorationResult>,
+        recommendationByApdex: HardwareTestResult,
+        recommendationByCostEffectness: HardwareTestResult
+    ) = HardwareExplorationChart(
+        JiraInstanceTypeGrouping(compareBy { InstanceType.values().toList().indexOf(it) }),
+        DbInstanceTypeXAxis(),
+        GitRepo.findFromCurrentDirectory()
+    ).plotRecommendation(
+        exploration = exploration.sortedWith(
+            compareBy<HardwareExplorationResult> {
+                InstanceType.values().toList().indexOf(it.decision.hardware.jira)
+            }.thenComparing(
+                compareBy<HardwareExplorationResult> {
+                    it.decision.hardware.nodeCount
+                }
+            ).thenComparing(
+                compareBy<HardwareExplorationResult> {
+                    InstanceType.values().toList().indexOf(it.decision.hardware.db)
+                }
+            )
+        ),
+        recommendationByApdex = recommendationByApdex,
+        recommendationByCostEffectiveness = recommendationByCostEffectness,
+        application = scale.description,
+        output = workspace.isolateReport("db-recommendation-chart.html")
+    )
 
     private fun recommend(
         exploration: List<HardwareExplorationResult>
