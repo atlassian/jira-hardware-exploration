@@ -58,7 +58,7 @@ class HardwareRecommendationIT {
         scale: ApplicationScale,
         tuning: JiraNodeTuning,
         db: InstanceType
-    ): List<Recommendation> {
+    ): RecommendationSet {
         requireCleanRepo()
         val aws = IntegrationTestRuntime.prepareAws()
         val scaleWorkspace = TaskWorkspace(workspace.directory.resolve(scale.cacheKey))

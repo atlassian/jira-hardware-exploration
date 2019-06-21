@@ -2,6 +2,7 @@ package com.atlassian.performance.tools.hardware.report
 
 import com.atlassian.performance.tools.hardware.HardwareExplorationResult
 import com.atlassian.performance.tools.hardware.HardwareTestResult
+import com.atlassian.performance.tools.hardware.RecommendationSet
 import com.atlassian.performance.tools.io.api.ensureParentDirectory
 import com.atlassian.performance.tools.lib.chart.*
 import com.atlassian.performance.tools.lib.chart.color.Color
@@ -100,13 +101,11 @@ internal class HardwareExplorationChart<S, X>(
     }
 
     fun plotRecommendation(
-        exploration: List<HardwareExplorationResult>,
-        recommendationByApdex: HardwareTestResult,
-        recommendationByCostEffectiveness: HardwareTestResult,
+        recommendations: RecommendationSet,
         application: String,
         output: Path
     ) {
-        val results = exploration.mapNotNull { it.testResult }
+        val results = recommendations.exploration.mapNotNull { it.testResult }
         if (results.isEmpty()) {
             return
         }
@@ -120,7 +119,7 @@ internal class HardwareExplorationChart<S, X>(
             .use { it.readText() }
             .replace(
                 oldValue = "'<%= apdexChartData =%>'",
-                newValue = plotRecommendationByApdex(resultsPerSeries, recommendationByApdex).toJson().toString()
+                newValue = plotRecommendationByApdex(resultsPerSeries, recommendations.bestApdex).toJson().toString()
             )
             .replace(
                 oldValue = "'<%= maxApdex =%>'",
@@ -128,14 +127,14 @@ internal class HardwareExplorationChart<S, X>(
             )
             .replace(
                 oldValue = "'<%= costPerApdexChartData =%>'",
-                newValue = plotRecommendationByCostEffectiveness(resultsPerSeries, recommendationByCostEffectiveness).toJson().toString()
+                newValue = plotRecommendationByCostEffectiveness(resultsPerSeries, recommendations.bestCostEffectiveness).toJson().toString()
             )
             .replace(
                 oldValue = "'<%= maxApdexPerCost =%>'",
                 newValue = results
                     .map { it.apdexPerUsdUpkeep.change }
                     .maxAxis()
-                    .times(1.20)//scale further to make the graph more readable
+                    .times(1.20) // scale further to make the graph more readable
                     .toBigDecimal(mathContext)
                     .toString()
             )
