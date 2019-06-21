@@ -12,7 +12,7 @@ import java.util.concurrent.Future
 
 class DbExplorationGuidance(
     private val dbs: List<InstanceType>,
-    private val jiraRecommendations: List<Recommendation>,
+    private val jiraRecommendations: List<HardwareTestResult>,
     private val jiraExploration: List<HardwareExplorationResult>
 ) : ExplorationGuidance {
 
@@ -20,7 +20,7 @@ class DbExplorationGuidance(
 
     override fun space(): List<Hardware> = jiraRecommendations.flatMap { jiraRecommendation ->
         dbs.map { db ->
-            jiraRecommendation.testResult.hardware.let { hardware ->
+            jiraRecommendation.hardware.let { hardware ->
                 Hardware(
                     hardware.jira,
                     hardware.nodeCount,

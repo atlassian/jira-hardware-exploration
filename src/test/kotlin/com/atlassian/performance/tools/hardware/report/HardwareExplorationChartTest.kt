@@ -3,6 +3,7 @@ package com.atlassian.performance.tools.hardware.report
 import com.amazonaws.services.ec2.model.InstanceType
 import com.atlassian.performance.tools.hardware.HardwareExplorationResult
 import com.atlassian.performance.tools.hardware.HardwareExplorationResultCache
+import com.atlassian.performance.tools.hardware.RecommendationSet
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import com.atlassian.performance.tools.workspace.api.RootWorkspace
 import com.atlassian.performance.tools.workspace.api.git.HardcodedGitRepo
@@ -45,18 +46,26 @@ class HardwareExplorationChartTest {
             NodeCountXAxis(),
             HardcodedGitRepo("5fcd73c04783561c3ad672101ac8f759de00dea7")
         )
-        val resourcePath = "/xl-quick-132-cache.json"
+        val recommendations = readRecommendations("/xl-quick-132-cache.json")
+
+        chart.plotRecommendation(
+            recommendations = recommendations,
+            application = "test",
+            output = workspace.isolateReport("jira-hardware-recommendation-chart.html")
+        )
+    }
+
+    private fun readRecommendations(
+        resourcePath: String
+    ): RecommendationSet {
         val exploration = readExploration(resourcePath)
         val candidates = exploration
             .mapNotNull { it.testResult }
             .filter { it.apdex > 0.40 }
-
-        chart.plotRecommendation(
+        return RecommendationSet(
             exploration = exploration,
-            recommendationByApdex = candidates.sortedByDescending { it.apdex }.first(),
-            recommendationByCostEffectiveness = candidates.sortedByDescending { it.apdexPerUsdUpkeep }.first(),
-            application = "test",
-            output = workspace.isolateReport("jira-hardware-recommendation-chart.html")
+            bestApdex = candidates.sortedByDescending { it.apdex }.first(),
+            bestCostEffectiveness = candidates.sortedByDescending { it.apdexPerUsdUpkeep }.first()
         )
     }
 
@@ -67,13 +76,10 @@ class HardwareExplorationChartTest {
             DbInstanceTypeXAxis(),
             HardcodedGitRepo("5fcd73c04783561c3ad672101ac8f759de00dea7")
         )
-        val resourcePath = "/xl-quick-132-cache-db.json"
-        val exploration = readExploration(resourcePath)
+        val recommendations = readRecommendations("/xl-quick-132-cache-db.json")
 
         chart.plotRecommendation(
-            exploration = exploration,
-            recommendationByApdex = exploration.mapNotNull { it.testResult }.sortedByDescending { it.apdex }.first(),
-            recommendationByCostEffectiveness = exploration.mapNotNull { it.testResult }.filter { it.apdex > 0.40 }.sortedByDescending { it.apdexPerUsdUpkeep }.first(),
+            recommendations = recommendations,
             application = "test",
             output = workspace.isolateReport("db-hardware-recommendation-chart.html")
         )

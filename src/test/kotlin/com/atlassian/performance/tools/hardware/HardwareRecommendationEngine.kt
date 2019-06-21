@@ -36,7 +36,7 @@ class HardwareRecommendationEngine(
 
     private val logger = LogManager.getLogger(this::class.java)
 
-    fun recommend(): List<Recommendation> {
+    fun recommend(): RecommendationSet {
         logger.info("Using $s3Cache")
         time("download") { s3Cache.download() }
         val jiraExploration = try {
@@ -44,108 +44,89 @@ class HardwareRecommendationEngine(
         } finally {
             time("upload") { s3Cache.upload() }
         }
-        val jiraExplorationRecommendations = recommend(jiraExploration)
-        reportJiraRecommendation(
-            jiraExploration,
-            jiraExplorationRecommendations[0].testResult,
-            jiraExplorationRecommendations[1].testResult
-        )
+        val jiraRecommendations = recommend(jiraExploration)
+        reportJiraRecommendation(jiraRecommendations)
         try {
-            val dbExploration = exploreDbHardware(jiraExplorationRecommendations, jiraExploration)
-            val result = recommend(dbExploration)
-            reportDbRecommendation(dbExploration, result[0].testResult, result[1].testResult)
-            return result
+            val dbExploration = exploreDbHardware(jiraRecommendations.allRecommendations, jiraExploration)
+            val dbRecommendations = recommend(dbExploration)
+            reportDbRecommendation(dbRecommendations)
+            return dbRecommendations
         } finally {
             time("upload") { s3Cache.upload() }
         }
     }
 
     private fun reportJiraRecommendation(
-        exploration: List<HardwareExplorationResult>,
-        recommendationByApdex: HardwareTestResult,
-        recommendationByCostEffectness: HardwareTestResult
+        recommendations: RecommendationSet
     ) = HardwareExplorationChart(
         JiraInstanceTypeGrouping(compareBy { InstanceType.values().toList().indexOf(it) }),
         NodeCountXAxis(),
         GitRepo.findFromCurrentDirectory()
     ).plotRecommendation(
-        exploration = exploration,
-        recommendationByApdex = recommendationByApdex,
-        recommendationByCostEffectiveness = recommendationByCostEffectness,
+        recommendations = recommendations,
         application = scale.description,
         output = workspace.isolateReport("jira-recommendation-chart.html")
     )
 
     private fun reportDbRecommendation(
-        exploration: List<HardwareExplorationResult>,
-        recommendationByApdex: HardwareTestResult,
-        recommendationByCostEffectness: HardwareTestResult
+        recommendations: RecommendationSet
     ) = HardwareExplorationChart(
         JiraInstanceTypeGrouping(compareBy { InstanceType.values().toList().indexOf(it) }),
         DbInstanceTypeXAxis(),
         GitRepo.findFromCurrentDirectory()
     ).plotRecommendation(
-        exploration = exploration.sortedWith(
-            compareBy<HardwareExplorationResult> {
-                InstanceType.values().toList().indexOf(it.decision.hardware.jira)
-            }.thenComparing(
+        recommendations = RecommendationSet(
+            exploration = recommendations.exploration.sortedWith(
                 compareBy<HardwareExplorationResult> {
-                    it.decision.hardware.nodeCount
-                }
-            ).thenComparing(
-                compareBy<HardwareExplorationResult> {
-                    InstanceType.values().toList().indexOf(it.decision.hardware.db)
-                }
-            )
+                    InstanceType.values().toList().indexOf(it.decision.hardware.jira)
+                }.thenComparing(
+                    compareBy<HardwareExplorationResult> {
+                        it.decision.hardware.nodeCount
+                    }
+                ).thenComparing(
+                    compareBy<HardwareExplorationResult> {
+                        InstanceType.values().toList().indexOf(it.decision.hardware.db)
+                    }
+                )
+            ),
+            bestApdex = recommendations.bestApdex,
+            bestCostEffectiveness = recommendations.bestCostEffectiveness
         ),
-        recommendationByApdex = recommendationByApdex,
-        recommendationByCostEffectiveness = recommendationByCostEffectness,
         application = scale.description,
         output = workspace.isolateReport("db-recommendation-chart.html")
     )
 
     private fun recommend(
         exploration: List<HardwareExplorationResult>
-    ): List<Recommendation> {
+    ): RecommendationSet {
         val candidates = exploration
             .mapNotNull { it.testResult }
             .filter { it.apdex > minApdex }
             .filter { it.errorRate < maxErrorRate }
-        return listOf(
-            recommendByApdex(candidates),
-            recommendByCostEffectiveness(candidates)
+        val bestApdex = pickTheBestApdex(candidates)
+        logger.info("Recommending best Apdex achieved by $bestApdex")
+        val bestCostEffectiveness = pickTheMostCostEffective(candidates)
+        logger.info("Recommending best cost-effectiveness achieved by $bestCostEffectiveness")
+        return RecommendationSet(
+            exploration,
+            bestApdex,
+            bestCostEffectiveness
         )
     }
 
-    private fun recommendByApdex(
+    private fun pickTheBestApdex(
         candidates: List<HardwareTestResult>
-    ): Recommendation {
-        val highestApdex = candidates
-            .sortedByDescending { it.apdex }
-            .firstOrNull()
-            ?: throw Exception("We don't have an Apdex recommendation")
-        val recommendation = Recommendation(
-            feat = "the highest Apdex",
-            testResult = highestApdex
-        )
-        logRecommendation(recommendation)
-        return recommendation
-    }
+    ): HardwareTestResult = candidates
+        .sortedByDescending { it.apdex }
+        .firstOrNull()
+        ?: throw Exception("We don't have an Apdex recommendation")
 
-    private fun recommendByCostEffectiveness(
+    private fun pickTheMostCostEffective(
         candidates: List<HardwareTestResult>
-    ): Recommendation {
-        val mostCostEfficient = candidates
-            .sortedByDescending { it.apdexPerUsdUpkeep }
-            .firstOrNull()
-            ?: throw Exception("We don't have a cost-effectiveness recommendation")
-        val recommendation = Recommendation(
-            feat = "the highest cost-efficiency",
-            testResult = mostCostEfficient
-        )
-        logRecommendation(recommendation)
-        return recommendation
-    }
+    ): HardwareTestResult = candidates
+        .sortedByDescending { it.apdexPerUsdUpkeep }
+        .firstOrNull()
+        ?: throw Exception("We don't have a cost-effectiveness recommendation")
 
     private fun explore(
         guidance: ExplorationGuidance
@@ -169,7 +150,7 @@ class HardwareRecommendationEngine(
     ).exploreHardware()
 
     private fun exploreDbHardware(
-        jiraRecommendations: List<Recommendation>,
+        jiraRecommendations: List<HardwareTestResult>,
         jiraExploration: List<HardwareExplorationResult>
     ): List<HardwareExplorationResult> = explore(
         DbExplorationGuidance(
@@ -178,15 +159,12 @@ class HardwareRecommendationEngine(
             jiraExploration = jiraExploration
         )
     )
-
-    private fun logRecommendation(
-        recommendation: Recommendation
-    ) {
-        logger.info("Recommending ${recommendation.feat} achieved by ${recommendation.testResult}")
-    }
 }
 
-class Recommendation(
-    val feat: String,
-    val testResult: HardwareTestResult
-)
+class RecommendationSet(
+    val exploration: List<HardwareExplorationResult>,
+    val bestApdex: HardwareTestResult,
+    val bestCostEffectiveness: HardwareTestResult
+) {
+    val allRecommendations = listOf(bestApdex, bestCostEffectiveness)
+}
