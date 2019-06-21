@@ -30,7 +30,7 @@ class S3Cache(
     cacheKey: String,
     private val localPath: Path,
     etags: Path,
-    private val searchPattern: String = ""
+    private val searchPattern: String = "**"
 ) {
     private val s3Prefix = "$cacheKey/"
     private val localDirectory = localPath.toFile().ensureDirectory()
