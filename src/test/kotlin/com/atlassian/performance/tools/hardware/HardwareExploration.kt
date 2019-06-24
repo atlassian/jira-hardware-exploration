@@ -7,6 +7,7 @@ import com.atlassian.performance.tools.awsinfrastructure.api.TargetingVirtualUse
 import com.atlassian.performance.tools.awsinfrastructure.api.hardware.EbsEc2Instance
 import com.atlassian.performance.tools.awsinfrastructure.api.hardware.Volume
 import com.atlassian.performance.tools.awsinfrastructure.api.jira.DataCenterFormula
+import com.atlassian.performance.tools.awsinfrastructure.api.loadbalancer.ApacheEc2LoadBalancerFormula
 import com.atlassian.performance.tools.awsinfrastructure.api.loadbalancer.ElasticLoadBalancerFormula
 import com.atlassian.performance.tools.awsinfrastructure.api.virtualusers.MulticastVirtualUsersFormula
 import com.atlassian.performance.tools.hardware.failure.FailureTolerance
@@ -353,7 +354,7 @@ class HardwareExploration(
                         .build()
                         .let { tuning.tune(it, hardware, scale) }
                 })
-                .loadBalancerFormula(ElasticLoadBalancerFormula())
+                .loadBalancerFormula(ApacheEc2LoadBalancerFormula())
                 .computer(EbsEc2Instance(hardware.jira))
                 .jiraVolume(Volume(300))
                 .databaseComputer(EbsEc2Instance(hardware.db))
