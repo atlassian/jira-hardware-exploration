@@ -63,6 +63,7 @@ dependencies {
     testCompile("org.eclipse.jgit:org.eclipse.jgit:4.11.0.201803080745-r")
     testCompile("junit:junit:4.12")
     testCompile("org.hamcrest:hamcrest-library:1.3")
+    testCompile("org.assertj:assertj-core:3.11.1")
     testCompile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.70")
 
     listOf(

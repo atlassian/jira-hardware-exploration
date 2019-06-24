@@ -1,7 +1,7 @@
 package com.atlassian.performance.tools.lib
 
 import com.atlassian.performance.tools.io.api.ensureDirectory
-import com.atlassian.performance.tools.virtualusers.api.TemporalRate
+import org.assertj.core.api.Assertions
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
 import org.junit.Test
@@ -40,12 +40,16 @@ class AccessLogThroughputTest {
     }
 
     @Test
-    fun shouldGaugePorousLogs() {
+    fun shouldRejectPorousLogs() {
         val rawResults = unzip(getResource("/quick-174-duplicated-run.zip"))
 
-        val throughput = AccessLogThroughput().gauge(rawResults)
+        val thrown = Assertions.catchThrowable {
+            AccessLogThroughput().gauge(rawResults)
+        }
 
-        assertThat(throughput, equalTo(TemporalRate(0.694768916863438, Duration.ofSeconds(1))))
+        Assertions.assertThat(thrown)
+            .`as`("should detect porous logs and throw")
+            .isNotNull()
     }
 
     private fun getResource(
