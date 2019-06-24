@@ -53,6 +53,7 @@ dependencies {
     testCompile(project(":virtual-users"))
     testCompile(fileTree(mapOf("dir" to "lib", "include" to "*.jar")))
     testCompile("com.atlassian.performance.tools:jira-performance-tests:[3.3.0,4.0.0)")
+    testCompile("com.atlassian.performance.tools:aws-infrastructure:[2.10.0,3.0.0)")
     testCompile("com.atlassian.performance.tools:infrastructure:[4.12.0,5.0.0)")
     testCompile("com.atlassian.performance.tools:virtual-users:[3.6.2,4.0.0)")
     testCompile("com.atlassian.performance.tools:jira-software-actions:[1.1.0,2.0.0]")
