@@ -8,7 +8,6 @@ import com.atlassian.performance.tools.awsinfrastructure.api.hardware.EbsEc2Inst
 import com.atlassian.performance.tools.awsinfrastructure.api.hardware.Volume
 import com.atlassian.performance.tools.awsinfrastructure.api.jira.DataCenterFormula
 import com.atlassian.performance.tools.awsinfrastructure.api.loadbalancer.ApacheEc2LoadBalancerFormula
-import com.atlassian.performance.tools.awsinfrastructure.api.loadbalancer.ElasticLoadBalancerFormula
 import com.atlassian.performance.tools.awsinfrastructure.api.virtualusers.MulticastVirtualUsersFormula
 import com.atlassian.performance.tools.hardware.failure.FailureTolerance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
@@ -250,6 +249,12 @@ class HardwareExploration(
         workspace: TestWorkspace
     ): HardwareTestResult {
         val postProcessedResult = postProcess(results)
+
+        logger.warn("Load distribution")
+        postProcessedResult.nodeDistribution.forEach { (key, value) ->
+            logger.warn("$key=$value")
+        }
+
         val cohort = postProcessedResult.cohort
         if (postProcessedResult.failure != null) {
             throw Exception("$cohort failed", postProcessedResult.failure)
@@ -260,7 +265,6 @@ class HardwareExploration(
             VIEW_ISSUE,
             VIEW_DASHBOARD,
             SEARCH_WITH_JQL,
-            ADD_COMMENT_SUBMIT,
             CREATE_ISSUE_SUBMIT,
             EDIT_ISSUE_SUBMIT,
             PROJECT_SUMMARY,
