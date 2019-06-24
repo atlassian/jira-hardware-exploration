@@ -50,6 +50,9 @@ class AccessLogThroughputTest {
         Assertions.assertThat(thrown)
             .`as`("should detect porous logs and throw")
             .isNotNull()
+            .hasMessageContaining("a big gap")
+            .hasMessageContaining("PT168H")
+            .hasMessageContaining("between access_log.2019-06-13 and access_log.2019-06-21")
     }
 
     private fun getResource(

@@ -5,9 +5,7 @@ import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.File
-import java.time.Duration
-import java.time.Instant
-import java.time.ZonedDateTime
+import java.time.*
 import java.time.format.DateTimeFormatter
 import java.util.stream.Stream
 
@@ -29,9 +27,16 @@ class AccessLogThroughput {
         rawNodeResults: File
     ): TemporalRate {
         val logs = rawNodeResults
-            .listFiles { file: File -> file.name.startsWith("access_log") }
+            .listFiles { file: File -> file.name.startsWith("access_log.") }
             .sortedBy { it.name }
-        val readers = logs.map { it.bufferedReader() }
+            .map { AccessLogFile(it) }
+        logs.zipWithNext { a, b ->
+            val gap = a.estimateGap(b)
+            if (gap > Duration.ofDays(1)) {
+                throw Exception("There's a big gap ($gap) between $a and $b in $rawNodeResults")
+            }
+        }
+        val readers = logs.map { it.file.bufferedReader() }
         try {
             val allLines = readers
                 .map { it.lines() }
@@ -88,3 +93,24 @@ class AccessLogThroughput {
 private class AccessLogEntry(
     val timestamp: Instant
 )
+
+private class AccessLogFile(
+    val file: File
+) {
+    private val day = file
+        .name
+        .removePrefix("access_log.")
+        .let { LocalDate.parse(it) }
+    private val earliestPossibleEntry = day.atTime(LocalTime.MIN)
+    private val latestPossibleEntry = day.atTime(LocalTime.MAX)
+
+    fun estimateGap(
+        other: AccessLogFile
+    ): Duration {
+        return Duration.between(latestPossibleEntry, other.earliestPossibleEntry).abs()
+    }
+
+    override fun toString(): String {
+        return file.name
+    }
+}
