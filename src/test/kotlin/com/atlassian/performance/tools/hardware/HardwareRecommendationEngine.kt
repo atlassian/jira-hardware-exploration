@@ -6,10 +6,7 @@ import com.atlassian.performance.tools.aws.api.Investment
 import com.atlassian.performance.tools.hardware.failure.BugAwareTolerance
 import com.atlassian.performance.tools.hardware.guidance.DbExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
-import com.atlassian.performance.tools.hardware.report.DbInstanceTypeXAxis
-import com.atlassian.performance.tools.hardware.report.HardwareExplorationChart
-import com.atlassian.performance.tools.hardware.report.JiraInstanceTypeGrouping
-import com.atlassian.performance.tools.hardware.report.NodeCountXAxis
+import com.atlassian.performance.tools.hardware.report.*
 import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
@@ -71,7 +68,7 @@ class HardwareRecommendationEngine(
     private fun reportDbRecommendation(
         recommendations: RecommendationSet
     ) = HardwareExplorationChart(
-        JiraInstanceTypeGrouping(compareBy { InstanceType.values().toList().indexOf(it) }),
+        JiraClusterGrouping(InstanceType.values().toList()),
         DbInstanceTypeXAxis(),
         GitRepo.findFromCurrentDirectory()
     ).plotRecommendation(

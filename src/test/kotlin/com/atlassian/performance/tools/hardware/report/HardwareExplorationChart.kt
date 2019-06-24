@@ -9,6 +9,7 @@ import com.atlassian.performance.tools.lib.chart.color.Color
 import com.atlassian.performance.tools.lib.chart.color.PresetLabelColor
 import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import org.apache.logging.log4j.LogManager
+import java.lang.Exception
 import java.math.BigDecimal
 import java.math.MathContext
 import java.math.RoundingMode.HALF_UP
@@ -178,8 +179,13 @@ internal class HardwareExplorationChart<S, X>(
                         value = recommendation.apdex.toBigDecimal(mathContext)
                     )
                 ),
-                label = "Recommanded HW : ${recommendation.hardware.jira} x ${recommendation.hardware.nodeCount}",
-                labelColor = presetLabelColor.color(recommendation.hardware.jira.toString())
+                label = "Recommended HW : ${recommendation.hardware}",
+                labelColor = when (seriesGrouping) {
+                    is JiraInstanceTypeGrouping -> presetLabelColor.color(recommendation.hardware.jira.toString())
+                    is JiraClusterGrouping -> presetLabelColor.color(JiraCluster(recommendation.hardware.jira,
+                        recommendation.hardware.nodeCount).toString())
+                    else -> throw Exception("Unknown grouping : $seriesGrouping")
+                }
             ))
         }
         .let { Chart(it) }
@@ -208,8 +214,13 @@ internal class HardwareExplorationChart<S, X>(
                         value = recommendation.apdexPerUsdUpkeep.change.toBigDecimal(mathContext)
                     )
                 ),
-                label = "Recommanded HW : ${recommendation.hardware.jira} x ${recommendation.hardware.nodeCount}",
-                labelColor = presetLabelColor.color(recommendation.hardware.jira.toString())
+                label = "Recommended HW : ${recommendation.hardware}",
+                labelColor = when (seriesGrouping) {
+                    is JiraInstanceTypeGrouping -> presetLabelColor.color(recommendation.hardware.jira.toString())
+                    is JiraClusterGrouping -> presetLabelColor.color(JiraCluster(recommendation.hardware.jira,
+                        recommendation.hardware.nodeCount).toString())
+                    else -> throw Exception("Unknown grouping : $seriesGrouping")
+                }
             ))
         }
         .let { Chart(it) }

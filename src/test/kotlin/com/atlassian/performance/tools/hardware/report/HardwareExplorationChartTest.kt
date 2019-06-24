@@ -72,7 +72,7 @@ class HardwareExplorationChartTest {
     @Test
     fun shouldPlotDbRecommendation() {
         val chart = HardwareExplorationChart(
-            JiraInstanceTypeGrouping(compareBy { it.ordinal }),
+            JiraClusterGrouping(InstanceType.values().toList()),
             DbInstanceTypeXAxis(),
             HardcodedGitRepo("5fcd73c04783561c3ad672101ac8f759de00dea7")
         )
