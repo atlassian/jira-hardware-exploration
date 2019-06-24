@@ -4,6 +4,7 @@ import com.atlassian.performance.tools.io.api.resolveSafely
 import com.atlassian.performance.tools.report.api.result.RawCohortResult
 import com.atlassian.performance.tools.workspace.api.TestWorkspace
 import java.io.File
+import java.io.PrintWriter
 import java.nio.file.Path
 
 fun TestWorkspace.readResult(cohort: String): RawCohortResult {
@@ -30,13 +31,15 @@ fun TestWorkspace.readResult(cohort: String): RawCohortResult {
 fun TestWorkspace.writeStatus(
     results: RawCohortResult
 ) {
-    val failure = results.failure
-    val statusText = if (failure != null) {
-        "FAILED: $failure"
-    } else {
-        "OK"
+    getStatusFile().write {
+        val failure = results.failure
+        if (failure != null) {
+            it.write("FAILED: ")
+            failure.printStackTrace(PrintWriter(it))
+        } else {
+            it.write("OK")
+        }
     }
-    getStatusFile().write { it.write(statusText) }
 }
 
 private fun TestWorkspace.getStatusFile(): Path = directory.resolve("status.txt")
