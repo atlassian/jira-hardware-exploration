@@ -1,16 +1,20 @@
 package com.atlassian.performance.tools.lib
 
+import com.atlassian.performance.tools.io.api.ensureDirectory
+import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
 import org.junit.Test
 import java.io.File
+import java.nio.file.Files
 import java.time.Duration
+import java.util.zip.ZipFile
 
 class AccessLogThroughputTest {
 
     @Test
     fun shouldGauge() {
-        val rawResults = File(javaClass.getResource("/JIRA-JPTC-1339").toURI())
+        val rawResults = getResource("/JIRA-JPTC-1339")
 
         val throughput = AccessLogThroughput().gauge(rawResults)
 
@@ -20,7 +24,7 @@ class AccessLogThroughputTest {
 
     @Test
     fun shouldGaugeWithSquareBracketsInUri() {
-        val rawResults = File(javaClass.getResource("/QUICK-8").toURI())
+        val rawResults = getResource("/QUICK-8")
 
         val throughput = AccessLogThroughput().gauge(rawResults)
 
@@ -30,8 +34,46 @@ class AccessLogThroughputTest {
 
     @Test
     fun shouldGaugeOvernightLogs() {
-        val rawResults = File(javaClass.getResource("/QUICK-73").toURI())
+        val rawResults = getResource("/QUICK-73")
 
         AccessLogThroughput().gauge(rawResults)
+    }
+
+    @Test
+    fun shouldGaugePorousLogs() {
+        val rawResults = unzip(getResource("/quick-174-duplicated-run.zip"))
+
+        val throughput = AccessLogThroughput().gauge(rawResults)
+
+        assertThat(throughput, equalTo(TemporalRate(0.694768916863438, Duration.ofSeconds(1))))
+    }
+
+    private fun getResource(
+        resourcePath: String
+    ): File = File(
+        this::class
+            .java
+            .getResource(resourcePath)
+            .toURI()
+    )
+
+    private fun unzip(
+        file: File
+    ): File {
+        val unpacked = Files.createTempDirectory("hwr-test")
+        val zip = ZipFile(file)
+        zip.stream().forEach { entry ->
+            val unpackedEntry = unpacked.resolve(entry.name)
+            if (entry.isDirectory) {
+                unpackedEntry.ensureDirectory()
+            } else {
+                zip.getInputStream(entry).use { packedStream ->
+                    unpackedEntry.toFile().outputStream().use { unpackedStream ->
+                        packedStream.copyTo(unpackedStream)
+                    }
+                }
+            }
+        }
+        return unpacked.toFile()
     }
 }
