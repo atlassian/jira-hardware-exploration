@@ -61,7 +61,7 @@ class HardwareExploration(
 ) {
     private val awsParallelism = 6
     private val results = ConcurrentHashMap<Hardware, Future<HardwareExplorationResult>>()
-    private val failedHardware = mutableSetOf<Hardware>()
+    private val failures = CopyOnWriteArrayList<Exception>()
     private val logger: Logger = LogManager.getLogger(this::class.java)
 
     fun exploreHardware(): List<HardwareExplorationResult> {
@@ -73,10 +73,12 @@ class HardwareExploration(
         val explorationExecutor = Executors.newFixedThreadPool(space.size)
         try {
             val result = exploreHardwareInParallel(space, explorationExecutor, awsExecutor)
-            if (failedHardware.isNotEmpty()) {
-                throw Exception("One or more tests failed : $failedHardware")
+            if (failures.isNotEmpty()) {
+                val exception = Exception("One or more tests failed")
+                failures.forEach { exception.addSuppressed(it) }
+                throw exception
             }
-            return result;
+            return result
         } finally {
             explorationExecutor.shutdown()
             awsExecutor.shutdown()
@@ -144,7 +146,7 @@ class HardwareExploration(
             } catch (e: Exception) {
                 failed++
                 logger.error("Failed when testing $hardware", e)
-                failedHardware.add(hardware)
+                failures.add(e)
                 return@mapNotNull null
             } finally {
                 val remaining = resultCount - tested - failed - skipped
