@@ -9,8 +9,10 @@ import com.atlassian.performance.tools.infrastructure.api.dataset.Dataset
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraHomePackage
 import com.atlassian.performance.tools.lib.LicenseOverridingDatabase
 import com.atlassian.performance.tools.lib.infrastructure.AdminDataset
+import com.atlassian.performance.tools.lib.infrastructure.AppNukingJiraHome
 import com.atlassian.performance.tools.lib.infrastructure.ConfigurableMysqlDatabase
 import com.atlassian.performance.tools.lib.overrideDatabase
+import com.atlassian.performance.tools.lib.overrideJiraHome
 import com.atlassian.performance.tools.lib.toExistingFile
 import java.net.URI
 import java.nio.file.Paths
@@ -46,11 +48,9 @@ class HwrDatasetCatalogue {
                 )
             )
         )
-    }.overrideDatabase { original ->
-        overrideLicense(original)
     }.let { dataset ->
         AdminDataset(
-            dataset = dataset,
+            dataset = fix(dataset),
             adminLogin = "admin",
             adminPassword = "admin"
         )
@@ -82,11 +82,9 @@ class HwrDatasetCatalogue {
                 )
             )
         )
-    }.overrideDatabase { original ->
-        overrideLicense(original)
     }.let { dataset ->
         AdminDataset(
-            dataset = dataset,
+            dataset = fix(dataset),
             adminLogin = "admin",
             adminPassword = "MasterPassword18"
         )
@@ -101,11 +99,9 @@ class HwrDatasetCatalogue {
         label = "7M issues JSW 8 MySQL",
         databaseDownload = Duration.ofMinutes(55),
         jiraHomeDownload = Duration.ofMinutes(55)
-    ).overrideDatabase { original ->
-        overrideLicense(original)
-    }.let { dataset ->
+    ).let { dataset ->
         AdminDataset(
-            dataset = dataset,
+            dataset = fix(dataset),
             adminLogin = "admin",
             adminPassword = "admin"
         )
@@ -120,11 +116,9 @@ class HwrDatasetCatalogue {
         label = "1M issues JSW 7 MySQL",
         databaseDownload = Duration.ofMinutes(20),
         jiraHomeDownload = Duration.ofMinutes(20)
-    ).overrideDatabase { original ->
-        overrideLicense(original)
-    }.let { dataset ->
+    ).let { dataset ->
         AdminDataset(
-            dataset = dataset,
+            dataset = fix(dataset),
             adminLogin = "admin",
             adminPassword = "admin"
         )
@@ -139,15 +133,22 @@ class HwrDatasetCatalogue {
         label = "1M issues JSW 8 MySQL",
         databaseDownload = Duration.ofMinutes(20),
         jiraHomeDownload = Duration.ofMinutes(20)
-    ).overrideDatabase { original ->
-        overrideLicense(original)
-    }.let { dataset ->
+    ).let { dataset ->
         AdminDataset(
-            dataset = dataset,
+            dataset = fix(dataset),
             adminLogin = "admin",
             adminPassword = "admin"
         )
     }
+
+    private fun fix(
+        dataset: Dataset
+    ): Dataset = dataset
+        .overrideDatabase {
+            overrideLicense(it)
+        }.overrideJiraHome {
+            AppNukingJiraHome(it.jiraHomeSource)
+        }
 
     private fun overrideLicense(
         dataset: Dataset
