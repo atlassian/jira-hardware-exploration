@@ -21,6 +21,7 @@ import com.atlassian.performance.tools.jiraactions.api.*
 import com.atlassian.performance.tools.jiraperformancetests.api.ProvisioningPerformanceTest
 import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBacklogAction.Companion.VIEW_BACKLOG
 import com.atlassian.performance.tools.lib.*
+import com.atlassian.performance.tools.lib.infrastructure.AppNukingJiraHome
 import com.atlassian.performance.tools.lib.infrastructure.BestEffortProfiler
 import com.atlassian.performance.tools.lib.infrastructure.PatientChromium69
 import com.atlassian.performance.tools.lib.infrastructure.WgetOracleJdk
@@ -341,7 +342,7 @@ class HardwareExploration(
             investment = investment,
             jiraFormula = DataCenterFormula.Builder(
                 productDistribution = product,
-                jiraHomeSource = scale.dataset.dataset.jiraHomeSource,
+                jiraHomeSource = AppNukingJiraHome(scale.dataset.dataset.jiraHomeSource),
                 database = scale.dataset.dataset.database
             )
                 .configs((1..hardware.nodeCount).map { nodeNumber ->
