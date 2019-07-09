@@ -21,7 +21,8 @@ import java.time.Duration
 class HwrDatasetCatalogue {
 
     fun xl7Mysql() = StorageLocation(
-        uri = URI("s3://jpt-custom-mysql-xl/dataset-7m-jira7"),
+        uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-1sjxdtrv5hdhj/")
+            .resolve("dataset-2ca38baf-5463-41cd-b2c8-a3c8e110b3c1"),
         region = Regions.EU_WEST_1
     ).let { location ->
         Dataset(
