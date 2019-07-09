@@ -44,6 +44,16 @@ task<Test>("recommendHardware").apply {
     }
 }
 
+task<Test>("reproTheBug").apply {
+    outputs.upToDateWhen { false }
+    include("**/JswVersionIT.class")
+    failFast = true
+    maxHeapSize = "8g"
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
 task<Test>("cleanUpAfterBamboo").apply {
     outputs.upToDateWhen { false }
     include("**/BambooCleanupIT.class")
