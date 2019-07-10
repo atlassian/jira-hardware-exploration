@@ -59,7 +59,7 @@ class HardwareExploration(
     private val s3Cache: S3Cache,
     private val explorationCache: HardwareExplorationResultCache
 ) {
-    private val awsParallelism = 6
+    private val awsParallelism = 8
     private val results = ConcurrentHashMap<Hardware, Future<HardwareExplorationResult>>()
     private val failures = CopyOnWriteArrayList<Exception>()
     private val logger: Logger = LogManager.getLogger(this::class.java)
