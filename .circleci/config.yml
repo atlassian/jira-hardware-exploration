@@ -63,11 +63,11 @@ workflows:
   scheduled_integrationtests:
     triggers:
       - schedule:
-        cron: "0 0 * * SUN"
-        filter:
-          branches:
-            only:
-              - master
+          cron: "0 0 * * SUN"
+          filter:
+            branches:
+              only:
+                - master
     jobs:
       - integration_test
 
