@@ -21,7 +21,7 @@ import java.time.Duration
 
 class HwrDatasetCatalogue {
 
-    fun xl7Mysql() = URI("https://jpt-custom-datasets-storage-a008820-datasetbucket-1sjxdtrv5hdhj/")
+    fun xl7Mysql() = URI("https://jpt-custom-datasets-storage-a008820-datasetbucket-1sjxdtrv5hdhj.s3-eu-west-1.amazonaws.com/")
         .resolve("dataset-b9618677-7852-426e-9ca6-19dc11c49ddb/")
         .let { uri ->
             Dataset(
