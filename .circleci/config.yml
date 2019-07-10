@@ -42,7 +42,9 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
       - run:
-          command: ./gradlew testIntegration
+          command: |
+              echo ${JIRA_LICENSE} > jira-license.txt
+              ./gradlew testIntegration
       - store_artifacts:
           path: ./build/reports/tests
           destination: test-reports
