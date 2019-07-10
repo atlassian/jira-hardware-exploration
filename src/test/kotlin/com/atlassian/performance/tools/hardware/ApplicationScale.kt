@@ -25,7 +25,6 @@ class ApplicationScales {
             description = "Jira $jiraVersion XL",
             cacheKey = "xl-jsw-$jiraVersion",
             dataset = when {
-                jira8 && postgres -> datasets.xl8Postgres()
                 jira8 && !postgres -> datasets.xl8Mysql()
                 !jira8 && !postgres -> datasets.xl7Mysql()
                 else -> throw Exception("We don't have an XL dataset matching jira8=$jira8 and postgres=$postgres")

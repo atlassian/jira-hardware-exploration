@@ -2,13 +2,13 @@ package com.atlassian.performance.tools.hardware
 
 import com.amazonaws.regions.Regions
 import com.atlassian.performance.tools.aws.api.StorageLocation
-import com.atlassian.performance.tools.awsinfrastructure.S3DatasetPackage
 import com.atlassian.performance.tools.awsinfrastructure.api.DatasetCatalogue
-import com.atlassian.performance.tools.infrastructure.api.database.PostgresDatabase
+import com.atlassian.performance.tools.awsinfrastructure.api.dataset.S3DatasetPackage
+import com.atlassian.performance.tools.infrastructure.api.database.Database
+import com.atlassian.performance.tools.infrastructure.api.database.LicenseOverridingMysql
 import com.atlassian.performance.tools.infrastructure.api.dataset.Dataset
 import com.atlassian.performance.tools.infrastructure.api.dataset.HttpDatasetPackage
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraHomePackage
-import com.atlassian.performance.tools.lib.LicenseOverridingDatabase
 import com.atlassian.performance.tools.lib.infrastructure.AdminDataset
 import com.atlassian.performance.tools.lib.infrastructure.AppNukingJiraHome
 import com.atlassian.performance.tools.lib.infrastructure.ConfigurableMysqlDatabase
@@ -51,40 +51,6 @@ class HwrDatasetCatalogue {
                 adminPassword = "admin"
             )
         }
-
-    fun xl8Postgres() = StorageLocation(
-        uri = URI("s3://jpt-custom-postgres-xl/dataset-7m"),
-        region = Regions.EU_WEST_1
-    ).let { location ->
-        Dataset(
-            label = "7M issues JSW 8 Postgres",
-            database = PostgresDatabase(
-                source = S3DatasetPackage(
-                    artifactName = "database.tar.bz2",
-                    location = location,
-                    unpackedPath = "database",
-                    downloadTimeout = Duration.ofMinutes(55)
-                ),
-                dbName = "atldb",
-                dbUser = "postgres",
-                dbPassword = "postgres"
-            ),
-            jiraHomeSource = JiraHomePackage(
-                S3DatasetPackage(
-                    artifactName = "jirahome.tar.bz2",
-                    location = location,
-                    unpackedPath = "jirahome",
-                    downloadTimeout = Duration.ofMinutes(55)
-                )
-            )
-        )
-    }.let { dataset ->
-        AdminDataset(
-            dataset = fix(dataset),
-            adminLogin = "admin",
-            adminPassword = "MasterPassword18"
-        )
-    }
 
     fun xl8Mysql() = DatasetCatalogue().custom(
         location = StorageLocation(
@@ -148,14 +114,15 @@ class HwrDatasetCatalogue {
 
     private fun overrideLicense(
         dataset: Dataset
-    ): LicenseOverridingDatabase {
+    ): Database {
         val localLicense = Paths.get("jira-license.txt")
-        return LicenseOverridingDatabase(
-            dataset.database,
-            listOf(
+        return LicenseOverridingMysql
+            .Builder(dataset.database)
+            .licenseFiles(listOf(
                 localLicense
                     .toExistingFile()
                     ?: throw Exception("Put a Jira license to ${localLicense.toAbsolutePath()}")
             ))
+            .build()
     }
 }
