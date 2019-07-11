@@ -53,7 +53,7 @@ task<Test>("testIntegration").apply {
     dependsOn(shadowJarTask)
     systemProperty("jpt.virtual-users.shadow-jar", shadowJarTask.outputs.files.files.first())
     failFast = true
-    maxHeapSize = "7g"
+    maxHeapSize = "3g"
     testLogging {
         showStandardStreams = true
     }
