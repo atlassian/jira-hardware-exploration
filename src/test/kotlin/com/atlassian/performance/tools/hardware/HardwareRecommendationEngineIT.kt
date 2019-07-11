@@ -12,8 +12,8 @@ import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJir
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
+import com.atlassian.performance.tools.virtualusers.api.VirtualUserLoad
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
-import org.apache.logging.log4j.CloseableThreadContext
 import org.apache.logging.log4j.core.config.ConfigurationFactory
 import org.junit.Before
 import org.junit.Test
@@ -36,7 +36,7 @@ class HardwareRecommendationEngineIT {
     fun shouldRunHardwareRecommendation() {
         val executor = Executors.newCachedThreadPool()
 
-        val xl =executor.submitWithLogContext("XL") {
+        val xl = executor.submitWithLogContext("XL") {
             recommend(
                 scale = ApplicationScales().extraLarge(jiraVersion = jswVersion, postgres = false),
                 tuning = HeapTuning(50),
@@ -48,7 +48,7 @@ class HardwareRecommendationEngineIT {
             )
         }
 
-        val l =executor.submitWithLogContext("L") {
+        val l = executor.submitWithLogContext("L") {
             recommend(
                 scale = ApplicationScales().large(jiraVersion = jswVersion),
                 tuning = NoTuning(),
@@ -76,7 +76,7 @@ class HardwareRecommendationEngineIT {
         val scaleWorkspace = TaskWorkspace(workspace.directory.resolve(scale.cacheKey))
         val engine = HardwareRecommendationEngine(
             product = PublicJiraSoftwareDistribution(jswVersion),
-            scale = scale,
+            scale = scale.reduceVirtualUsers(),
             tuning = tuning,
             jiraExploration = JiraExplorationGuidance(
                 instanceTypes = listOf(
@@ -111,5 +111,16 @@ class HardwareRecommendationEngineIT {
             explorationCache = HardwareExplorationResultCache(scaleWorkspace.directory.resolve("processed-cache.json"))
         )
         return engine.recommend()
+    }
+
+    private fun ApplicationScale.reduceVirtualUsers() = apply {
+        copy(
+            load = VirtualUserLoad.Builder()
+                .virtualUsers(25)
+                .flat(Duration.ofMinutes(5))
+                .maxOverallLoad(TemporalRate(5.0, Duration.ofSeconds(1)))
+                .build(),
+            vuNodes = 2
+        )
     }
 }
