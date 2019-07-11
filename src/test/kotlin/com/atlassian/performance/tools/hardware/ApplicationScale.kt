@@ -5,7 +5,7 @@ import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserLoad
 import java.time.Duration
 
-class ApplicationScale(
+data class ApplicationScale(
     val description: String,
     val cacheKey: String,
     val dataset: AdminDataset,
