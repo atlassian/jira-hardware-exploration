@@ -3,7 +3,6 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:8u181-jdk
-    resource_class: large
     working_directory: ~/repo
     environment:
       TERM: dumb
@@ -28,6 +27,7 @@ jobs:
   test_integration:
     docker:
       - image: circleci/openjdk:8u181-jdk
+    resource_class: large
     working_directory: ~/repo
     environment:
       TERM: dumb
