@@ -45,6 +45,7 @@ jobs:
           command: |
               echo ${JIRA_LICENSE} > jira-license.txt
               ./gradlew testIntegration
+          no_output_timeout: 70m
       - store_artifacts:
           path: ./build/reports/tests
           destination: test-reports
