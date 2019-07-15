@@ -45,7 +45,6 @@ jobs:
           command: |
               echo ${JIRA_LICENSE} > jira-license.txt
               USER=$CIRCLE_BUILD_URL ./gradlew testIntegration
-              tree -d ./build/jpt-workspace
           no_output_timeout: 70m
       - store_artifacts:
           path: ./build/reports/tests
