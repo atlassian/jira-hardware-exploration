@@ -248,9 +248,13 @@ class HardwareExploration(
         }
     }
 
+    /**
+     * Currently post-processing is very memory-intensive,
+     * so it needs to be sequential JVM-wide.
+     */
     private fun postProcess(
         rawResults: RawCohortResult
-    ): EdibleResult = synchronized(this) {
+    ): EdibleResult = synchronized(POST_PROCESSING_LOCK) {
         val timeline = StandardTimeline(scale.load.total)
         return rawResults.prepareForJudgement(timeline)
     }
@@ -446,5 +450,9 @@ class HardwareExploration(
                 .skipSetup(true)
                 .build()
         )
+    }
+
+    private companion object {
+        val POST_PROCESSING_LOCK = Object()
     }
 }
