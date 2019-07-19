@@ -2,6 +2,7 @@ package com.atlassian.performance.tools.hardware
 
 import com.amazonaws.auth.AWSCredentialsProviderChain
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain
+import com.amazonaws.auth.EC2ContainerCredentialsProviderWrapper
 import com.amazonaws.auth.STSAssumeRoleSessionCredentialsProvider
 import com.amazonaws.auth.profile.ProfileCredentialsProvider
 import com.amazonaws.regions.Regions
@@ -23,6 +24,7 @@ object IntegrationTestRuntime {
                 UUID.randomUUID().toString()
             ).build(),
             ProfileCredentialsProvider("jpt-dev"),
+            EC2ContainerCredentialsProviderWrapper(),
             DefaultAWSCredentialsProviderChain()
         ),
         region = Regions.EU_WEST_1,
