@@ -44,6 +44,22 @@ task<Test>("recommendHardware").apply {
     }
 }
 
+task<Test>("testIntegration").apply {
+    outputs.upToDateWhen { false }
+    description = "Runs IT tests against the framework"
+    include("**/HardwareRecommendationEngineIT.class")
+
+    val shadowJarTask = tasks.getByPath(":virtual-users:shadowJar")
+    dependsOn(shadowJarTask)
+    systemProperty("jpt.virtual-users.shadow-jar", shadowJarTask.outputs.files.files.first())
+    failFast = true
+    maxParallelForks = 2
+    maxHeapSize = "8g"
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
 task<Test>("cleanUpAfterBamboo").apply {
     outputs.upToDateWhen { false }
     include("**/BambooCleanupIT.class")
