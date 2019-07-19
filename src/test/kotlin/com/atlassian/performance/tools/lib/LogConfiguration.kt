@@ -23,8 +23,8 @@ internal class LogConfiguration(
             ).also { log ->
                 log.addAppender(
                     KConsoleAppenderBuilder()
-                        .withName("console")
-                        .withLayout(layout("%d{ABSOLUTE} %highlight{%-5level} %x %msg%n"))
+                        .setName("console")
+                        .setLayout(layout("%d{ABSOLUTE} %highlight{%-5level} %x %msg%n"))
                         .build(),
                     Level.INFO,
                     null
@@ -37,8 +37,8 @@ internal class LogConfiguration(
             ).also { log ->
                 log.addAppender(
                     KConsoleAppenderBuilder()
-                        .withName("console")
-                        .withLayout(layout("%d{ABSOLUTE} %highlight{%-5level} %x %msg%n"))
+                        .setName("console")
+                        .setLayout(layout("%d{ABSOLUTE} %highlight{%-5level} %x %msg%n"))
                         .build(),
                     Level.ALL,
                     null
@@ -50,8 +50,8 @@ internal class LogConfiguration(
             ).also { log ->
                 log.addAppender(
                     KConsoleAppenderBuilder()
-                        .withName("console")
-                        .withLayout(layout("%d{ABSOLUTE} %highlight{%-5level} %x %msg%n"))
+                        .setName("console")
+                        .setLayout(layout("%d{ABSOLUTE} %highlight{%-5level} %x %msg%n"))
                         .build(),
                     Level.DEBUG,
                     null
@@ -96,8 +96,8 @@ internal class LogConfiguration(
             .toAbsolutePath()
         log.addAppender(
             KFileAppenderBuilder()
-                .withName(absolutePath.fileName.toString())
-                .withLayout(layout(pattern))
+                .setName(absolutePath.fileName.toString())
+                .setLayout(layout(pattern))
                 .withFileName(absolutePath.toString())
                 .withAppend(true)
                 .build(),

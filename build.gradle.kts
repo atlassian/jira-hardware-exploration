@@ -86,7 +86,7 @@ dependencies {
         "core",
         "slf4j-impl"
     ).map {
-        "org.apache.logging.log4j:log4j-$it:2.10.0"
+        "org.apache.logging.log4j:log4j-$it:2.12.0"
     }.forEach {
         testCompile(it)
     }
@@ -111,8 +111,9 @@ configurations.all {
                     "org.jsoup:jsoup" -> useVersion("1.10.2")
                     "com.jcraft:jzlib" -> useVersion("1.1.3")
                 }
-                if (requested.group == "org.jetbrains.kotlin") {
-                    useVersion("1.2.70")
+                when (requested.group) {
+                    "org.jetbrains.kotlin" -> useVersion("1.2.70")
+                    "org.apache.logging.log4j" -> useVersion("2.12.0")
                 }
             }
         }
