@@ -10,6 +10,7 @@ import com.atlassian.performance.tools.jiraactions.api.memories.adaptive.Adaptiv
 import com.atlassian.performance.tools.jiraactions.api.memories.adaptive.AdaptiveProjectMemory
 import com.atlassian.performance.tools.jiraactions.api.scenario.Scenario
 import com.atlassian.performance.tools.jiraactions.api.scenario.addMultiple
+import com.atlassian.performance.tools.jiraactions.api.w3c.DisabledW3cPerformanceTimeline
 import com.atlassian.performance.tools.jiraactions.api.w3c.JavascriptW3cPerformanceTimeline
 import com.atlassian.performance.tools.jirasoftwareactions.api.WebJiraSoftware
 import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBacklogAction
@@ -34,7 +35,7 @@ class CustomScenario : Scenario {
         meter: ActionMeter
     ): List<Action> {
         val drilldownMeter = meter.withW3cPerformanceTimeline(
-            JavascriptW3cPerformanceTimeline(jira.driver as JavascriptExecutor)
+            DisabledW3cPerformanceTimeline()
         )
         val projectMemory = AdaptiveProjectMemory(random = seededRandom)
         val jqlMemory = AdaptiveJqlMemory(seededRandom)
