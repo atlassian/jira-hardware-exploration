@@ -41,11 +41,14 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
+      - run: echo ${JIRA_LICENSE} > jira-license.txt
       - run:
-          command: |
-              echo ${JIRA_LICENSE} > jira-license.txt
-              USER=$CIRCLE_BUILD_URL ./gradlew testIntegration
+          command: USER=$CIRCLE_BUILD_URL ./gradlew testIntegration
+          shell: /bin/sh # skip -e, expect it to sometimes flake
           no_output_timeout: 70m
+      - run: # rerun for flakiness
+          command: USER=$CIRCLE_BUILD_URL ./gradlew testIntegration # if the last run was green, this should be quick
+          shell: /bin/sh -e # expect the rerun to be green
       - store_artifacts:
           path: ./build/reports/tests
           destination: test-reports

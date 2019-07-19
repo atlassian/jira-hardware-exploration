@@ -13,17 +13,16 @@ import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
-import org.apache.logging.log4j.CloseableThreadContext
+import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import org.apache.logging.log4j.core.config.ConfigurationFactory
 import org.junit.Before
 import org.junit.Test
 import java.time.Duration
-import java.time.ZonedDateTime
 import java.util.concurrent.Executors
 
 class HardwareRecommendationEngineIT {
 
-    private val cacheKey = "HardwareRecommendationEngineIT/" + ZonedDateTime.now().toString().replace(':', '-')
+    private val cacheKey = "HardwareRecommendationEngineIT/" + GitRepo.findFromCurrentDirectory().getHead()
     private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(cacheKey)
     private val jswVersion = "7.13.0"
 
@@ -36,7 +35,7 @@ class HardwareRecommendationEngineIT {
     fun shouldRunHardwareRecommendation() {
         val executor = Executors.newCachedThreadPool()
 
-        val xl =executor.submitWithLogContext("XL") {
+        val xl = executor.submitWithLogContext("XL") {
             recommend(
                 scale = ApplicationScales().extraLarge(jiraVersion = jswVersion, postgres = false),
                 tuning = HeapTuning(50),
@@ -48,7 +47,7 @@ class HardwareRecommendationEngineIT {
             )
         }
 
-        val l =executor.submitWithLogContext("L") {
+        val l = executor.submitWithLogContext("L") {
             recommend(
                 scale = ApplicationScales().large(jiraVersion = jswVersion),
                 tuning = NoTuning(),
