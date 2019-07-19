@@ -49,8 +49,14 @@ Start from the [test source] and tweak existing knobs and levers or build new on
 
 Feel free to chat, ask for help, bounce ideas on the [JPT Community Slack].
 
+### Maintenance
+
+The [CI] covers a scaled-down version of the full process.
+It should be run periodically to prevent breakage caused by code changes or external services.
+
 [default AWS credentials]: https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html
 [Bamboo]: https://server-gdn-bamboo.internal.atlassian.com/browse/QUICK-JHWR
 [test source]: src/test/kotlin/com/atlassian/performance/tools/hardware/HardwareRecommendationIT.kt
 [a cached file]: https://s3-eu-west-1.amazonaws.com/quicksilver-jhwr-cache-ireland/QUICK-132-fix-v3/jira-exploration-chart.html
 [JPT Community Slack]: http://go.atlassian.com/jpt-slack
+[CI]: https://server-gdn-bamboo.internal.atlassian.com/browse/QUICK-JHWRCI
