@@ -1,11 +1,9 @@
 package com.atlassian.performance.tools.hardware.report
 
 import com.amazonaws.services.ec2.model.InstanceType
-import com.atlassian.performance.tools.hardware.Hardware
-import com.atlassian.performance.tools.hardware.HardwareExplorationDecision
-import com.atlassian.performance.tools.hardware.HardwareExplorationResult
-import com.atlassian.performance.tools.hardware.HardwareMetric
-import com.atlassian.performance.tools.report.api.FullTimeline
+import com.atlassian.performance.tools.hardware.*
+import com.atlassian.performance.tools.lib.Ratio
+import com.atlassian.performance.tools.lib.report.VirtualUsersPresenceJudge
 import com.atlassian.performance.tools.report.api.result.RawCohortResult
 import com.atlassian.performance.tools.workspace.api.RootWorkspace
 import org.assertj.core.api.Assertions.assertThat
@@ -31,7 +29,8 @@ class HardwareExplorationTableTest {
                 reason = "It's a unit test"
             ),
             testResult = HardwareMetric(
-                timeline = FullTimeline(),
+                scale = ApplicationScales().large("7.5.0"),
+                presenceJudge = VirtualUsersPresenceJudge(Ratio(0.12)), // partial data
                 errorRateWarningThreshold = 0.05
             ).score(
                 hardware = hardware,

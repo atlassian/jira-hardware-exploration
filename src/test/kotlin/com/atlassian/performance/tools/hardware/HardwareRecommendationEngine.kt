@@ -12,8 +12,8 @@ import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDi
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.OverallError
 import com.atlassian.performance.tools.lib.Ratio
+import com.atlassian.performance.tools.lib.report.VirtualUsersPresenceJudge
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
-import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
 import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import org.apache.logging.log4j.LogManager
@@ -138,7 +138,8 @@ class HardwareRecommendationEngine(
         guidance = guidance,
         apdexSpreadWarningThreshold = 0.10,
         metric = HardwareMetric(
-            timeline = StandardTimeline(scale.load.total),
+            scale = scale,
+            presenceJudge = VirtualUsersPresenceJudge(Ratio(0.90)),
             errorRateWarningThreshold = 0.05
         ),
         pastFailures = BugAwareTolerance(logger),
