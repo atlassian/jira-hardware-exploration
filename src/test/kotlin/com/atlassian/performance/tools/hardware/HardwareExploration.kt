@@ -25,6 +25,7 @@ import com.atlassian.performance.tools.lib.concurrency.submitWithLogContext
 import com.atlassian.performance.tools.lib.infrastructure.BestEffortProfiler
 import com.atlassian.performance.tools.lib.infrastructure.PatientChromium69
 import com.atlassian.performance.tools.lib.infrastructure.WgetOracleJdk
+import com.atlassian.performance.tools.lib.report.VirtualUsersPresenceJudge
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.report.api.FullReport
 import com.atlassian.performance.tools.report.api.StandardTimeline
@@ -256,7 +257,21 @@ class HardwareExploration(
         rawResults: RawCohortResult
     ): EdibleResult = synchronized(POST_PROCESSING_LOCK) {
         val timeline = StandardTimeline(scale.load.total)
-        return rawResults.prepareForJudgement(timeline)
+        val result = rawResults.prepareForJudgement(timeline)
+        validate(result)
+        return result
+    }
+
+    private fun validate(
+        result: EdibleResult
+    ) {
+        val vuNodes = scale.vuNodes
+        val roundedExpectedVus = (scale.load.virtualUsers / vuNodes) * vuNodes
+        VirtualUsersPresenceJudge().judge(
+            result = result,
+            expectedPresenceRatio = 0.95,
+            expectedVus = roundedExpectedVus
+        )
     }
 
     private fun score(
