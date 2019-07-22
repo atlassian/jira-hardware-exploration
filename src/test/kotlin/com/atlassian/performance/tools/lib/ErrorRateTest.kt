@@ -19,6 +19,6 @@ class ErrorRateTest {
 
         val errorRate = ErrorRate().measure(metrics)
 
-        assertThat(errorRate).isEqualTo(0.09375)
+        assertThat(errorRate).isEqualTo(0.3333333333333333)
     }
 }
