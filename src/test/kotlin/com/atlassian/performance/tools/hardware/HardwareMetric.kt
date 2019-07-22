@@ -5,14 +5,16 @@ import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBackl
 import com.atlassian.performance.tools.lib.AccessLogThroughput
 import com.atlassian.performance.tools.lib.Apdex
 import com.atlassian.performance.tools.lib.ErrorGauge
-import com.atlassian.performance.tools.report.api.Timeline
+import com.atlassian.performance.tools.lib.report.VirtualUsersPresenceJudge
+import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.EdibleResult
 import com.atlassian.performance.tools.report.api.result.RawCohortResult
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 
 class HardwareMetric(
-    private val timeline: Timeline,
+    private val scale: ApplicationScale,
+    private val presenceJudge: VirtualUsersPresenceJudge,
     private val errorRateWarningThreshold: Double
 ) {
     private val logger: Logger = LogManager.getLogger(this::class.java)
@@ -70,7 +72,21 @@ class HardwareMetric(
     fun postProcess(
         rawResults: RawCohortResult
     ): EdibleResult = synchronized(POST_PROCESSING_LOCK) {
-        return rawResults.prepareForJudgement(timeline)
+        val timeline = StandardTimeline(scale.load.total)
+        val result = rawResults.prepareForJudgement(timeline)
+        validate(result)
+        return result
+    }
+
+    private fun validate(
+        result: EdibleResult
+    ) {
+        val vuNodes = scale.vuNodes
+        val roundedExpectedVus = (scale.load.virtualUsers / vuNodes) * vuNodes
+        presenceJudge.judge(
+            result = result,
+            expectedVus = roundedExpectedVus
+        )
     }
 
     private companion object {
