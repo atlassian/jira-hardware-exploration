@@ -269,7 +269,7 @@ class HardwareExploration(
         val roundedExpectedVus = (scale.load.virtualUsers / vuNodes) * vuNodes
         VirtualUsersPresenceJudge().judge(
             result = result,
-            expectedPresenceRatio = 0.95,
+            expectedPresenceRatio = 0.90,
             expectedVus = roundedExpectedVus
         )
     }

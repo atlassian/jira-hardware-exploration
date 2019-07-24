@@ -19,12 +19,12 @@ class VirtualUsersPresenceJudge {
         val actualPresenceRatio = encounteredVus.toDouble().div(expectedVus)
         if (actualPresenceRatio < expectedPresenceRatio) {
             throw Exception(
-                "Only ${actualPresenceRatio.toPercentage()} % VUs were encountered in ${result.cohort}," +
-                    " but we expected at least ${expectedPresenceRatio.toPercentage()} %." +
+                "Only ${actualPresenceRatio.toPercentage()} VUs were encountered in ${result.cohort}," +
+                    " but we expected at least ${expectedPresenceRatio.toPercentage()}." +
                     " Look for VU creation problems."
             )
         }
     }
 
-    private fun Double.toPercentage() = "%+.0f%%".format(this * 100)
+    private fun Double.toPercentage() = "${this * 100} %"
 }
