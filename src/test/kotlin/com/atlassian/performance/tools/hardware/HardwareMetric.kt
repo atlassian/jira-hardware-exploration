@@ -39,9 +39,6 @@ class HardwareMetric(
     ): HardwareTestResult {
         val postProcessedResult = postProcess(results)
         val cohort = postProcessedResult.cohort
-        if (postProcessedResult.failure != null) {
-            throw Exception("$cohort failed", postProcessedResult.failure)
-        }
         val metrics = postProcessedResult.actionMetrics.filter { it.label in labels }
         val apdex = Apdex().score(metrics)
         val throughput = AccessLogThroughput().gauge(results.results.toFile())
@@ -81,6 +78,9 @@ class HardwareMetric(
     private fun validate(
         result: EdibleResult
     ) {
+        if (result.failure != null) {
+            throw Exception("${result.cohort} failed", result.failure)
+        }
         val vuNodes = scale.vuNodes
         val roundedExpectedVus = (scale.load.virtualUsers / vuNodes) * vuNodes
         presenceJudge.judge(
