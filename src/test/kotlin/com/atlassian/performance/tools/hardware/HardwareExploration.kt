@@ -265,6 +265,9 @@ class HardwareExploration(
     private fun validate(
         result: EdibleResult
     ) {
+        if (result.failure != null) {
+            throw Exception("${result.cohort} failed", result.failure)
+        }
         val vuNodes = scale.vuNodes
         val roundedExpectedVus = (scale.load.virtualUsers / vuNodes) * vuNodes
         VirtualUsersPresenceJudge().judge(
@@ -281,9 +284,6 @@ class HardwareExploration(
     ): HardwareTestResult {
         val postProcessedResult = postProcess(results)
         val cohort = postProcessedResult.cohort
-        if (postProcessedResult.failure != null) {
-            throw Exception("$cohort failed", postProcessedResult.failure)
-        }
         val labels = listOf(
             VIEW_BACKLOG,
             VIEW_BOARD,
