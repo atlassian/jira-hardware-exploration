@@ -27,6 +27,7 @@ import com.atlassian.performance.tools.lib.infrastructure.PatientChromium69
 import com.atlassian.performance.tools.lib.infrastructure.WgetOracleJdk
 import com.atlassian.performance.tools.lib.report.VirtualUsersPresenceJudge
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
+import com.atlassian.performance.tools.hardware.vu.lib.users.PredictableRestUserGenerator
 import com.atlassian.performance.tools.report.api.FullReport
 import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.EdibleResult
@@ -457,11 +458,10 @@ class HardwareExploration(
             ),
             behavior = VirtualUserBehavior.Builder(CustomScenario::class.java)
                 .load(scale.load)
-                .createUsers(true)
+                .userGenerator(PredictableRestUserGenerator::class.java)
                 .seed(78432)
                 .diagnosticsLimit(32)
                 .browser(HeadlessChromeBrowser::class.java)
-                .createUsers(true)
                 .skipSetup(true)
                 .build()
         )
