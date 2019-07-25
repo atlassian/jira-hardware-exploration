@@ -13,6 +13,7 @@ import com.atlassian.performance.tools.hardware.failure.FailureTolerance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
 import com.atlassian.performance.tools.hardware.vu.CustomScenario
+import com.atlassian.performance.tools.hardware.vu.lib.users.PredictableRestUserGenerator
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraLaunchTimeouts
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
@@ -383,11 +384,10 @@ class HardwareExploration(
             ),
             behavior = VirtualUserBehavior.Builder(CustomScenario::class.java)
                 .load(scale.load)
-                .createUsers(true)
+                .userGenerator(PredictableRestUserGenerator::class.java)
                 .seed(78432)
                 .diagnosticsLimit(32)
                 .browser(HeadlessChromeBrowser::class.java)
-                .createUsers(true)
                 .skipSetup(true)
                 .build()
         )
