@@ -1,7 +1,8 @@
 package com.atlassian.performance.tools.lib
 
 import com.atlassian.performance.tools.jiraactions.api.parser.ActionMetricsParser
-import org.assertj.core.api.Assertions.assertThat
+import org.hamcrest.CoreMatchers.equalTo
+import org.junit.Assert.assertThat
 import org.junit.Test
 import java.io.File
 import java.nio.file.Paths
@@ -19,6 +20,6 @@ class ErrorRateTest {
 
         val errorRate = ErrorRate().measure(metrics)
 
-        assertThat(errorRate).isEqualTo(0.3333333333333333)
+        assertThat(errorRate, equalTo(0.3333333333333333))
     }
 }
