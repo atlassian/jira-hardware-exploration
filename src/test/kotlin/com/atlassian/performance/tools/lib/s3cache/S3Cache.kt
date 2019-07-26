@@ -27,12 +27,12 @@ import java.time.Instant
 class S3Cache(
     private val transfer: TransferManager,
     private val bucketName: String,
-    cacheKey: String,
+    cacheKey: String = "",
     private val localPath: Path,
     etags: Path,
     private val searchPattern: String = "**"
 ) {
-    private val s3Prefix = "$cacheKey/"
+    private val s3Prefix = if (cacheKey != null && cacheKey != "") "$cacheKey/" else cacheKey;
     private val localDirectory = localPath.toFile().ensureDirectory()
     private val logger: Logger = LogManager.getLogger(this::class.java)
     private val etagsCache = EtagCache(etags)
