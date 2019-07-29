@@ -18,7 +18,7 @@ class ApdexSpreadHypothesisTest {
         val exploration = readExploration(processedCache)
         val testResults = exploration.mapNotNull { it.testResult }
         val highApdexSpread = testResults.filter { it.apdexSpread() > 0.03 }
-        val highErrorRateSpread = testResults.filter { it.errorRateSpread() > 0.01 }
+        val highErrorRateSpread = testResults.filter { it.errorRateSpread() > 1 }
 
         val quality = measureQuality(
             population = testResults,
@@ -72,6 +72,8 @@ class ApdexSpreadHypothesisTest {
     }
 
     private fun HardwareTestResult.errorRateSpread(): Double {
-        return errorRates.max()!! - errorRates.min()!!
+        return actionErrors
+            .map { it.percentage }
+            .let { it.max()!! - it.min()!! }
     }
 }

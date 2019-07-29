@@ -9,6 +9,7 @@ import javax.json.Json.*
 import javax.json.JsonArray
 import javax.json.JsonNumber
 import javax.json.JsonObject
+import javax.json.JsonValue
 
 class HardwareExplorationResultCache(
     private val cache: Path
@@ -70,8 +71,8 @@ class HardwareExplorationResultCache(
         createObjectBuilder()
             .add("apdex", apdex)
             .add("apdexes", createArrayBuilder(apdexes).build())
-            .add("errorRate", errorRate)
-            .add("errorRates", createArrayBuilder(errorRates).build())
+            .add("actionError", writeActionError(actionError))
+            .add("actionErrors", writeActionErrors(actionErrors))
             .add("httpThroughput", writeThroughput(httpThroughput))
             .add("httpThroughputs",
                 createArrayBuilder()
@@ -84,6 +85,23 @@ class HardwareExplorationResultCache(
             )
             .add("hardware", writeHardware(hardware))
             .build()
+    }
+
+    private fun writeActionError(
+        actionError: ActionError
+    ): JsonValue = actionError.run {
+        createObjectBuilder()
+            .add("actionLabel", actionLabel)
+            .add("percentage", percentage.toInt())
+            .build()
+    }
+
+    private fun writeActionErrors(
+        actionsErrors: List<ActionError>
+    ): JsonValue {
+        val builder = createArrayBuilder()
+        actionsErrors.map { writeActionError(it) }.forEach { builder.add(it) }
+        return builder.build()
     }
 
     private fun writeThroughput(
@@ -147,13 +165,48 @@ class HardwareExplorationResultCache(
             hardware = readHardware(getJsonObject("hardware")),
             apdex = getJsonNumber("apdex").doubleValue(),
             apdexes = getJsonArray("apdexes").map { it as JsonNumber }.map { it.doubleValue() },
-            errorRate = getJsonNumber("errorRate").doubleValue(),
-            errorRates = getJsonArray("errorRates").map { it as JsonNumber }.map { it.doubleValue() },
+            actionError = readActionError(this),
+            actionErrors = readActionErrors(this),
             httpThroughput = readThroughput(getJsonObject("httpThroughput")),
             httpThroughputs = getJsonArray("httpThroughputs").map { it.asJsonObject() }.map { readThroughput(it) },
             results = emptyList()
         )
     }
+
+    private fun readActionError(
+        json: JsonObject
+    ): ActionError = json
+        .getJsonObject("actionError")
+        ?.let {
+            ActionError(
+                percentage = it.getJsonNumber("percentage").doubleValue(),
+                actionLabel = it.getString("actionLabel")
+            )
+        }
+        ?: json
+            .getJsonNumber("errorRate")
+            .let { readOverallErrorRate(it) }
+
+    /**
+     * Legacy for old existing JSONs.
+     */
+    private fun readOverallErrorRate(
+        json: JsonNumber
+    ): ActionError = ActionError(
+        percentage = json.doubleValue().times(100),
+        actionLabel = "overall"
+    )
+
+    private fun readActionErrors(
+        json: JsonObject
+    ): List<ActionError> = json
+        .getJsonArray("actionErrors")
+        ?.map { it.asJsonObject() }
+        ?.map { readActionError(it) }
+        ?: json
+            .getJsonArray("errorRates")
+            .map { it as JsonNumber }
+            .map { readOverallErrorRate(it) }
 
     private fun readThroughput(
         json: JsonObject

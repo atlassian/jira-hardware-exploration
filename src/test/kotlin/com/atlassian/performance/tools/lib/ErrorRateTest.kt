@@ -9,7 +9,7 @@ import java.nio.file.Paths
 class ErrorRateTest {
 
     @Test
-    fun shouldMeasure() {
+    fun shouldMeasureMaxPerAction() {
         val path = Paths.get("/QUICK-132-fix-v3/c5.9xlarge/nodes/3/dbs/m4.4xlarge/runs/5/")
             .resolve("3 x c5.9xlarge Jira, m4.4xlarge DB, run 5/virtual-users/virtual-user-node-10/test-results/")
             .resolve("050f54b3-2f92-4480-8bdb-b8079e3ab5b8/action-metrics.jpt")
@@ -17,8 +17,9 @@ class ErrorRateTest {
             ActionMetricsParser().parse(it)
         }
 
-        val errorRate = ErrorRate().measure(metrics)
+        val actionError = ErrorRate().measureMaxPerAction(metrics)
 
-        assertThat(errorRate).isEqualTo(0.3333333333333333)
+        assertThat(actionError.percentage).isEqualTo(33.333333333333336)
+        assertThat(actionError.actionLabel).isEqualTo("Search with JQL")
     }
 }

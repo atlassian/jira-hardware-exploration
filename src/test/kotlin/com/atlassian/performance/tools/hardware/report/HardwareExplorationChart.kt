@@ -9,7 +9,6 @@ import com.atlassian.performance.tools.lib.chart.color.Color
 import com.atlassian.performance.tools.lib.chart.color.PresetLabelColor
 import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import org.apache.logging.log4j.LogManager
-import java.lang.Exception
 import java.math.BigDecimal
 import java.math.MathContext
 import java.math.RoundingMode.HALF_UP
@@ -67,8 +66,8 @@ internal class HardwareExplorationChart<S, X>(
             .replace(
                 oldValue = "'<%= maxErrorRate =%>'",
                 newValue = results
-                    .flatMap { it.errorRates }
-                    .map { it * 100 }
+                    .flatMap { it.actionErrors }
+                    .map { it.percentage }
                     .maxAxis()
                     .coerceAtMost(100.0)
                     .toString()
@@ -273,14 +272,14 @@ internal class HardwareExplorationChart<S, X>(
                 data = testResults.map {
                     HardwarePoint(
                         x = xAxis.getX(it),
-                        value = it.errorRate.times(100).toBigDecimal(mathContext)
+                        value = it.actionError.percentage.toBigDecimal(mathContext)
                     )
                 },
                 errorBars = testResults.map { result ->
                     plotErrorBar(
                         x = xAxis.getX(result),
-                        y = result.errorRate * 100,
-                        yRange = result.errorRates.map { it * 100 }
+                        y = result.actionError.percentage,
+                        yRange = result.actionErrors.map { it.percentage }
                     )
                 },
                 label = series.toString()
