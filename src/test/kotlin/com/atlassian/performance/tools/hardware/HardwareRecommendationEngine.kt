@@ -11,6 +11,7 @@ import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
+import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
 import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import org.apache.logging.log4j.LogManager
@@ -132,7 +133,10 @@ class HardwareRecommendationEngine(
         scale = scale,
         guidance = guidance,
         apdexSpreadWarningThreshold = 0.10,
-        errorRateWarningThreshold = 0.05,
+        metric = HardwareMetric(
+            timeline = StandardTimeline(scale.load.total),
+            errorRateWarningThreshold = 0.05
+        ),
         pastFailures = BugAwareTolerance(logger),
         repeats = repeats,
         investment = Investment(
