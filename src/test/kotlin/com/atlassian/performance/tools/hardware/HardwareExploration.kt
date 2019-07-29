@@ -285,7 +285,7 @@ class HardwareExploration(
         val metrics = postProcessedResult.actionMetrics.filter { it.label in labels }
         val apdex = Apdex().score(metrics)
         val throughput = AccessLogThroughput().gauge(workspace.digOutTheRawResults(cohort))
-        val errorRate = ErrorRate().measure(metrics)
+        val actionError = ErrorRate().measureMaxPerAction(metrics)
         val hardwareResult = HardwareTestResult(
             hardware = hardware,
             apdex = apdex,
@@ -293,11 +293,11 @@ class HardwareExploration(
             httpThroughput = throughput,
             httpThroughputs = listOf(throughput),
             results = listOf(results),
-            errorRate = errorRate,
-            errorRates = listOf(errorRate)
+            actionError = actionError,
+            actionErrors = listOf(actionError)
         )
-        if (hardwareResult.errorRate > errorRateWarningThreshold) {
-            logger.warn("Error rate for $cohort is too high: $errorRate")
+        if (hardwareResult.actionError.percentage > errorRateWarningThreshold * 100) {
+            logger.warn("Error rate for $cohort is too high: $actionError")
         }
         return hardwareResult
     }
@@ -395,7 +395,7 @@ class HardwareExploration(
             .map { it.httpThroughput }
             .map { it.scaleTime(throughputUnit) }
             .map { it.change }
-        val errorRates = results.map { it.errorRate }
+        val errorRates = results.map { it.actionError }
         val testResult = HardwareTestResult(
             hardware = hardware,
             apdex = apdexes.average(),
@@ -403,8 +403,8 @@ class HardwareExploration(
             httpThroughput = TemporalRate(throughputs.average(), throughputUnit),
             httpThroughputs = results.flatMap { it.httpThroughputs },
             results = results.flatMap { it.results },
-            errorRate = errorRates.average(),
-            errorRates = results.flatMap { it.errorRates }
+            actionError = errorRates.maxBy { it.percentage }!!,
+            actionErrors = results.flatMap { it.actionErrors }
         )
         val postProcessedResults = results.flatMap { it.results }.map { postProcess(it) }
         reportRaw("sub-test-comparison", postProcessedResults, hardware)

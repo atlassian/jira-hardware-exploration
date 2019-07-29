@@ -1,5 +1,6 @@
 package com.atlassian.performance.tools.lib
 
+import com.atlassian.performance.tools.hardware.ActionError
 import com.atlassian.performance.tools.jiraactions.api.ActionMetric
 import com.atlassian.performance.tools.jiraactions.api.ActionResult
 
@@ -9,16 +10,21 @@ import com.atlassian.performance.tools.jiraactions.api.ActionResult
  */
 class ErrorRate {
 
-    fun measure(
+    fun measureMaxPerAction(
         metrics: List<ActionMetric>
-    ): Double = metrics
+    ): ActionError = metrics
         .groupBy { it.label }
-        .values
-        .map { labelMetrics ->
-            val errors = labelMetrics.count { it.result == ActionResult.ERROR }
-            val all = labelMetrics.count()
-            return@map errors.toDouble().div(all)
+        .map { (label, metricsGroup) ->
+            val errors = metricsGroup.count { it.result == ActionResult.ERROR }
+            val all = metricsGroup.count()
+            return@map ActionError(
+                percentage = errors
+                    .times(100)
+                    .toDouble()
+                    .div(all),
+                actionLabel = label
+            )
         }
-        .max()
+        .maxBy { it.percentage }
         ?: throw Exception("No max error rate")
 }

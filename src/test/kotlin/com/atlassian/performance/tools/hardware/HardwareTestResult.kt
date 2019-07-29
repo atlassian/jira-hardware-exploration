@@ -10,8 +10,8 @@ class HardwareTestResult(
     val apdexes: List<Double>,
     val httpThroughput: TemporalRate,
     val httpThroughputs: List<TemporalRate>,
-    val errorRate: Double,
-    val errorRates: List<Double>,
+    val actionError: ActionError,
+    val actionErrors: List<ActionError>,
     val results: List<RawCohortResult>
 ) {
 
@@ -26,8 +26,8 @@ class HardwareTestResult(
         ", apdexes=$apdexes" +
         ", httpThroughput=$httpThroughput" +
         ", httpThroughputs=$httpThroughputs" +
-        ", errorRate=$errorRate" +
-        ", errorRates=$errorRates" +
+        ", actionError=$actionError" +
+        ", actionErrors=$actionErrors" +
         ", apdexPerUsdUpkeep=$apdexPerUsdUpkeep" +
         ", usdUpkeep=$usdUpkeep" +
         ")"
