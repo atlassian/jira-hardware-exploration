@@ -12,26 +12,23 @@ import com.atlassian.performance.tools.hardware.failure.FailureTolerance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
 import com.atlassian.performance.tools.hardware.vu.CustomScenario
+import com.atlassian.performance.tools.hardware.vu.lib.users.PredictableRestUserGenerator
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
 import com.atlassian.performance.tools.infrastructure.api.profiler.AsyncProfiler
 import com.atlassian.performance.tools.io.api.dereference
 import com.atlassian.performance.tools.io.api.directories
-import com.atlassian.performance.tools.jiraactions.api.*
 import com.atlassian.performance.tools.jiraperformancetests.api.ProvisioningPerformanceTest
-import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBacklogAction.Companion.VIEW_BACKLOG
-import com.atlassian.performance.tools.lib.*
 import com.atlassian.performance.tools.lib.concurrency.submitWithLogContext
 import com.atlassian.performance.tools.lib.infrastructure.BestEffortProfiler
 import com.atlassian.performance.tools.lib.infrastructure.PatientChromium69
 import com.atlassian.performance.tools.lib.infrastructure.WgetOracleJdk
+import com.atlassian.performance.tools.lib.readResult
 import com.atlassian.performance.tools.lib.report.VirtualUsersPresenceJudge
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
-import com.atlassian.performance.tools.hardware.vu.lib.users.PredictableRestUserGenerator
+import com.atlassian.performance.tools.lib.writeStatus
 import com.atlassian.performance.tools.report.api.FullReport
-import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.EdibleResult
-import com.atlassian.performance.tools.report.api.result.RawCohortResult
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserOptions
 import com.atlassian.performance.tools.virtualusers.api.browsers.HeadlessChromeBrowser
@@ -56,7 +53,7 @@ class HardwareExploration(
     private val task: TaskWorkspace,
     private val repeats: Int,
     private val pastFailures: FailureTolerance,
-    private val errorRateWarningThreshold: Double,
+    private val metric: HardwareMetric,
     private val apdexSpreadWarningThreshold: Double,
     private val s3Cache: S3Cache,
     private val explorationCache: HardwareExplorationResultCache
@@ -229,7 +226,7 @@ class HardwareExploration(
         val cohortResult = workspace.readResult(hardware.nameCohort(workspace))
         val failure = cohortResult.failure
         return if (failure == null) {
-            score(hardware, cohortResult, workspace)
+            metric.score(hardware, cohortResult)
         } else {
             pastFailures.handle(failure, workspace)
             null
@@ -248,74 +245,6 @@ class HardwareExploration(
         } else {
             emptyList()
         }
-    }
-
-    /**
-     * Currently post-processing is very memory-intensive,
-     * so it needs to be sequential JVM-wide.
-     */
-    private fun postProcess(
-        rawResults: RawCohortResult
-    ): EdibleResult = synchronized(POST_PROCESSING_LOCK) {
-        val timeline = StandardTimeline(scale.load.total)
-        val result = rawResults.prepareForJudgement(timeline)
-        validate(result)
-        return result
-    }
-
-    private fun validate(
-        result: EdibleResult
-    ) {
-        if (result.failure != null) {
-            throw Exception("${result.cohort} failed", result.failure)
-        }
-        val vuNodes = scale.vuNodes
-        val roundedExpectedVus = (scale.load.virtualUsers / vuNodes) * vuNodes
-        VirtualUsersPresenceJudge().judge(
-            result = result,
-            expectedPresenceRatio = 0.90,
-            expectedVus = roundedExpectedVus
-        )
-    }
-
-    private fun score(
-        hardware: Hardware,
-        results: RawCohortResult,
-        workspace: TestWorkspace
-    ): HardwareTestResult {
-        val postProcessedResult = postProcess(results)
-        val cohort = postProcessedResult.cohort
-        val labels = listOf(
-            VIEW_BACKLOG,
-            VIEW_BOARD,
-            VIEW_ISSUE,
-            VIEW_DASHBOARD,
-            SEARCH_WITH_JQL,
-            ADD_COMMENT_SUBMIT,
-            CREATE_ISSUE_SUBMIT,
-            EDIT_ISSUE_SUBMIT,
-            PROJECT_SUMMARY,
-            BROWSE_PROJECTS,
-            BROWSE_BOARDS
-        ).map { it.label }
-        val metrics = postProcessedResult.actionMetrics.filter { it.label in labels }
-        val apdex = Apdex().score(metrics)
-        val throughput = AccessLogThroughput().gauge(workspace.digOutTheRawResults(cohort))
-        val actionError = ErrorRate().measureMaxPerAction(metrics)
-        val hardwareResult = HardwareTestResult(
-            hardware = hardware,
-            apdex = apdex,
-            apdexes = listOf(apdex),
-            httpThroughput = throughput,
-            httpThroughputs = listOf(throughput),
-            results = listOf(results),
-            actionError = actionError,
-            actionErrors = listOf(actionError)
-        )
-        if (hardwareResult.actionError.percentage > errorRateWarningThreshold * 100) {
-            logger.warn("Error rate for $cohort is too high: $actionError")
-        }
-        return hardwareResult
     }
 
     private fun runFreshResults(
@@ -361,7 +290,7 @@ class HardwareExploration(
         ).thenApply { raw ->
             workspace.writeStatus(raw)
             s3Cache.upload(workspace.directory.toFile())
-            return@thenApply score(hardware, raw, workspace)
+            return@thenApply metric.score(hardware, raw)
         }
     }
 
@@ -411,7 +340,7 @@ class HardwareExploration(
             .map { it.httpThroughput }
             .map { it.scaleTime(throughputUnit) }
             .map { it.change }
-        val errorRates = results.map { it.actionError }
+        val actionErrors = results.map { it.actionError }
         val testResult = HardwareTestResult(
             hardware = hardware,
             apdex = apdexes.average(),
@@ -419,10 +348,10 @@ class HardwareExploration(
             httpThroughput = TemporalRate(throughputs.average(), throughputUnit),
             httpThroughputs = results.flatMap { it.httpThroughputs },
             results = results.flatMap { it.results },
-            actionError = errorRates.maxBy { it.percentage }!!,
+            actionError = actionErrors.maxBy { it.percentage }!!,
             actionErrors = results.flatMap { it.actionErrors }
         )
-        val postProcessedResults = results.flatMap { it.results }.map { postProcess(it) }
+        val postProcessedResults = results.flatMap { it.results }.map { metric.postProcess(it) }
         reportRaw("sub-test-comparison", postProcessedResults, hardware)
         val apdexSpread = apdexes.spread()
         if (apdexSpread > apdexSpreadWarningThreshold) {
@@ -465,9 +394,5 @@ class HardwareExploration(
                 .skipSetup(true)
                 .build()
         )
-    }
-
-    private companion object {
-        val POST_PROCESSING_LOCK = Object()
     }
 }

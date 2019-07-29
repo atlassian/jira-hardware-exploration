@@ -2,12 +2,13 @@ package com.atlassian.performance.tools.lib.report
 
 import com.atlassian.performance.tools.report.api.result.EdibleResult
 
-class VirtualUsersPresenceJudge {
+class VirtualUsersPresenceJudge(
+    private val expectedPresenceRatio: Double
+) {
 
     fun judge(
         result: EdibleResult,
-        expectedVus: Int,
-        expectedPresenceRatio: Double
+        expectedVus: Int
     ) {
         val encounteredVus = result
             .actionMetrics
