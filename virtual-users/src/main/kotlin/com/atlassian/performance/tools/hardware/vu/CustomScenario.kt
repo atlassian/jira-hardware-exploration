@@ -11,14 +11,15 @@ import com.atlassian.performance.tools.jiraactions.api.memories.adaptive.Adaptiv
 import com.atlassian.performance.tools.jiraactions.api.scenario.Scenario
 import com.atlassian.performance.tools.jiraactions.api.scenario.addMultiple
 import com.atlassian.performance.tools.jiraactions.api.w3c.DisabledW3cPerformanceTimeline
-import com.atlassian.performance.tools.jiraactions.api.w3c.JavascriptW3cPerformanceTimeline
 import com.atlassian.performance.tools.jirasoftwareactions.api.WebJiraSoftware
 import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBacklogAction
 import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBoardAction
 import com.atlassian.performance.tools.jirasoftwareactions.api.boards.AgileBoard
 import com.atlassian.performance.tools.jirasoftwareactions.api.boards.ScrumBoard
 import com.atlassian.performance.tools.jirasoftwareactions.api.memories.AdaptiveBoardMemory
-import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.By
+import org.openqa.selenium.WebDriver
+import org.openqa.selenium.support.ui.Select
 
 class CustomScenario : Scenario {
 
@@ -48,7 +49,8 @@ class CustomScenario : Scenario {
             jira = jira,
             meter = drilldownMeter,
             seededRandom = seededRandom,
-            projectMemory = projectMemory
+            projectMemory = projectMemory,
+            preSubmit = selectResolution
         )
         val searchWithJql = SearchJqlAction(
             jira = jira,
@@ -75,7 +77,8 @@ class CustomScenario : Scenario {
         val editIssue = EditIssueAction(
             jira = jira,
             meter = drilldownMeter,
-            issueMemory = issueMemory
+            issueMemory = issueMemory,
+            preSubmit = selectResolution
         )
         val addComment = AddCommentAction(
             jira = jira,
@@ -126,4 +129,16 @@ class CustomScenario : Scenario {
         scenario.shuffle(seededRandom.random)
         return scenario
     }
+
+    val selectResolution = fun(driver: WebDriver) {
+        val resolutionField = By.id("resolution")
+        if (driver.findElements(resolutionField).isNotEmpty()) {
+            val dropDown = Select(driver.findElement(resolutionField))
+            if (dropDown.options != null && dropDown.options.size > 1) {
+                val selection = dropDown.options.get(1)
+                dropDown.selectByVisibleText(selection.text)
+            }
+        }
+    }
+
 }
