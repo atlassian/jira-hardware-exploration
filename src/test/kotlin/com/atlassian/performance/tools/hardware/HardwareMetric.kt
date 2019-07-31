@@ -4,7 +4,7 @@ import com.atlassian.performance.tools.jiraactions.api.*
 import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBacklogAction.Companion.VIEW_BACKLOG
 import com.atlassian.performance.tools.lib.AccessLogThroughput
 import com.atlassian.performance.tools.lib.Apdex
-import com.atlassian.performance.tools.lib.ErrorRate
+import com.atlassian.performance.tools.lib.ErrorGauge
 import com.atlassian.performance.tools.report.api.Timeline
 import com.atlassian.performance.tools.report.api.result.EdibleResult
 import com.atlassian.performance.tools.report.api.result.RawCohortResult
@@ -43,7 +43,7 @@ class HardwareMetric(
         val metrics = postProcessedResult.actionMetrics.filter { it.label in labels }
         val apdex = Apdex().score(metrics)
         val throughput = AccessLogThroughput().gauge(results.results.toFile())
-        val errorRate = ErrorRate().measure(metrics)
+        val overallError = ErrorGauge().measureOverall(metrics)
         val hardwareResult = HardwareTestResult(
             hardware = hardware,
             apdex = apdex,
@@ -51,11 +51,11 @@ class HardwareMetric(
             httpThroughput = throughput,
             httpThroughputs = listOf(throughput),
             results = listOf(results),
-            errorRate = errorRate,
-            errorRates = listOf(errorRate)
+            overallError = overallError,
+            overallErrors = listOf(overallError)
         )
-        if (hardwareResult.errorRate > errorRateWarningThreshold) {
-            logger.warn("Error rate for $cohort is too high: $errorRate")
+        if (hardwareResult.overallError.ratio.proportion > errorRateWarningThreshold) {
+            logger.warn("Error rate for $cohort is too high: $overallError")
         }
         return hardwareResult
     }
