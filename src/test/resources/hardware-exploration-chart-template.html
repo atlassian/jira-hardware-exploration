@@ -39,7 +39,10 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: '<%= application =%> hardware exploration: Apdex'
+                    text: [
+                        '<%= application =%> hardware exploration: Apdex',
+                        'how good is the user experience?'
+                    ]
                 },
                 scales: {
                     yAxes: [
@@ -81,7 +84,10 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: '<%= application =%> hardware exploration: overall error'
+                    text: [
+                        '<%= application =%> hardware exploration: overall error',
+                        'how often do users see failed actions?'
+                    ]
                 },
                 scales: {
                     yAxes: [
@@ -123,7 +129,10 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: '<%= application =%> hardware exploration: max action error'
+                    text: [
+                        '<%= application =%> hardware exploration: max action error',
+                        'how broken is the most broken action?'
+                    ]
                 },
                 scales: {
                     yAxes: [
@@ -165,7 +174,10 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: '<%= application =%> hardware exploration: throughput'
+                    text: [
+                        '<%= application =%> hardware exploration: throughput',
+                        'how many responses are served each second?'
+                    ]
                 },
                 scales: {
                     yAxes: [
