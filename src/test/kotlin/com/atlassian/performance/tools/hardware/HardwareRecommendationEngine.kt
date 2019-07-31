@@ -100,7 +100,7 @@ class HardwareRecommendationEngine(
         val candidates = exploration
             .mapNotNull { it.testResult }
             .filter { it.apdex > minApdex }
-            .filter { it.errorRate < maxErrorRate }
+            .filter { it.overallError.ratio.proportion < maxErrorRate }
         val bestApdex = pickTheBestApdex(candidates)
         logger.info("Recommending best Apdex achieved by $bestApdex")
         val bestCostEffectiveness = pickTheMostCostEffective(candidates)

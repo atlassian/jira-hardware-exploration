@@ -18,6 +18,8 @@ import com.atlassian.performance.tools.infrastructure.api.profiler.AsyncProfiler
 import com.atlassian.performance.tools.io.api.dereference
 import com.atlassian.performance.tools.io.api.directories
 import com.atlassian.performance.tools.jiraperformancetests.api.ProvisioningPerformanceTest
+import com.atlassian.performance.tools.lib.OverallError
+import com.atlassian.performance.tools.lib.Ratio
 import com.atlassian.performance.tools.lib.concurrency.submitWithLogContext
 import com.atlassian.performance.tools.lib.infrastructure.BestEffortProfiler
 import com.atlassian.performance.tools.lib.infrastructure.PatientChromium69
@@ -338,7 +340,7 @@ class HardwareExploration(
             .map { it.httpThroughput }
             .map { it.scaleTime(throughputUnit) }
             .map { it.change }
-        val errorRates = results.map { it.errorRate }
+        val errorRates = results.map { it.overallError }
         val testResult = HardwareTestResult(
             hardware = hardware,
             apdex = apdexes.average(),
@@ -346,8 +348,8 @@ class HardwareExploration(
             httpThroughput = TemporalRate(throughputs.average(), throughputUnit),
             httpThroughputs = results.flatMap { it.httpThroughputs },
             results = results.flatMap { it.results },
-            errorRate = errorRates.average(),
-            errorRates = results.flatMap { it.errorRates }
+            overallError = OverallError(Ratio(errorRates.map { it.ratio.proportion }.average())),
+            overallErrors = results.flatMap { it.overallErrors }
         )
         val postProcessedResults = results.flatMap { it.results }.map { metric.postProcess(it) }
         reportRaw("sub-test-comparison", postProcessedResults, hardware)

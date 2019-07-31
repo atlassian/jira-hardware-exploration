@@ -1,5 +1,6 @@
 package com.atlassian.performance.tools.hardware
 
+import com.atlassian.performance.tools.lib.OverallError
 import com.atlassian.performance.tools.lib.invert
 import com.atlassian.performance.tools.report.api.result.RawCohortResult
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
@@ -10,8 +11,8 @@ class HardwareTestResult(
     val apdexes: List<Double>,
     val httpThroughput: TemporalRate,
     val httpThroughputs: List<TemporalRate>,
-    val errorRate: Double,
-    val errorRates: List<Double>,
+    val overallError: OverallError,
+    val overallErrors: List<OverallError>,
     val results: List<RawCohortResult>
 ) {
 
@@ -26,8 +27,8 @@ class HardwareTestResult(
         ", apdexes=$apdexes" +
         ", httpThroughput=$httpThroughput" +
         ", httpThroughputs=$httpThroughputs" +
-        ", errorRate=$errorRate" +
-        ", errorRates=$errorRates" +
+        ", overallError=$overallError" +
+        ", overallErrors=$overallErrors" +
         ", apdexPerUsdUpkeep=$apdexPerUsdUpkeep" +
         ", usdUpkeep=$usdUpkeep" +
         ")"
