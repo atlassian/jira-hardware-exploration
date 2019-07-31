@@ -10,6 +10,8 @@ import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
 import com.atlassian.performance.tools.hardware.tuning.NoTuning
 import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJiraSoftwareDistribution
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
+import com.atlassian.performance.tools.lib.OverallError
+import com.atlassian.performance.tools.lib.Ratio
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
@@ -93,7 +95,8 @@ class HardwareRecommendationEngineIT {
                 M44xlarge
             ),
             // attempt to ensure some results are 'good' some are 'bad'
-            maxErrorRate = 0.10,
+            overallErrorThreshold = OverallError(Ratio(0.10)),
+            maxActionErrorThreshold = Ratio(0.20),
             minApdex = 0.40,
             repeats = 2,
             aws = aws,

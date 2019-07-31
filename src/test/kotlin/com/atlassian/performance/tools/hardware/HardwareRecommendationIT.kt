@@ -9,6 +9,8 @@ import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
 import com.atlassian.performance.tools.hardware.tuning.NoTuning
 import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJiraSoftwareDistribution
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
+import com.atlassian.performance.tools.lib.OverallError
+import com.atlassian.performance.tools.lib.Ratio
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.lib.workspace.GitRepo2
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
@@ -86,7 +88,8 @@ class HardwareRecommendationIT {
                 M410xlarge,
                 M416xlarge
             ),
-            maxErrorRate = 0.01,
+            overallErrorThreshold = OverallError(Ratio(0.01)),
+            maxActionErrorThreshold = Ratio(0.05),
             minApdex = 0.70,
             repeats = 2,
             aws = aws,

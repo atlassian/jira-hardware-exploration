@@ -10,6 +10,8 @@ import com.atlassian.performance.tools.hardware.report.*
 import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
+import com.atlassian.performance.tools.lib.OverallError
+import com.atlassian.performance.tools.lib.Ratio
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
@@ -24,7 +26,8 @@ class HardwareRecommendationEngine(
     private val jiraExploration: ExplorationGuidance,
     private val dbInstanceTypes: List<InstanceType>,
     private val minApdex: Double,
-    private val maxErrorRate: Double,
+    private val overallErrorThreshold: OverallError,
+    private val maxActionErrorThreshold: Ratio,
     private val repeats: Int,
     private val aws: Aws,
     private val workspace: TaskWorkspace,
@@ -100,7 +103,8 @@ class HardwareRecommendationEngine(
         val candidates = exploration
             .mapNotNull { it.testResult }
             .filter { it.apdex > minApdex }
-            .filter { it.overallError.ratio.proportion < maxErrorRate }
+            .filter { it.overallError.ratio < overallErrorThreshold.ratio }
+            .filter { it.maxActionError!!.ratio < maxActionErrorThreshold }
         val bestApdex = pickTheBestApdex(candidates)
         logger.info("Recommending best Apdex achieved by $bestApdex")
         val bestCostEffectiveness = pickTheMostCostEffective(candidates)
