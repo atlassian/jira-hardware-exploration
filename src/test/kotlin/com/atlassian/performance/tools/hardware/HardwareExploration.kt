@@ -349,7 +349,9 @@ class HardwareExploration(
             httpThroughputs = results.flatMap { it.httpThroughputs },
             results = results.flatMap { it.results },
             overallError = OverallError(Ratio(errorRates.map { it.ratio.proportion }.average())),
-            overallErrors = results.flatMap { it.overallErrors }
+            overallErrors = results.flatMap { it.overallErrors },
+            maxActionError = results.mapNotNull { it.maxActionError }.maxBy { it.ratio }!!,
+            maxActionErrors = results.flatMap { it.maxActionErrors ?: emptyList() }
         )
         val postProcessedResults = results.flatMap { it.results }.map { metric.postProcess(it) }
         reportRaw("sub-test-comparison", postProcessedResults, hardware)
