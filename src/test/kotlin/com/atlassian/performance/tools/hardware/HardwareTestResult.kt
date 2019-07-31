@@ -6,6 +6,10 @@ import com.atlassian.performance.tools.lib.invert
 import com.atlassian.performance.tools.report.api.result.RawCohortResult
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 
+/**
+ * @param [maxActionError] Might be null in old cached processed results.
+ * @param [maxActionErrors] Might be null in old cached processed results.
+ */
 class HardwareTestResult(
     val hardware: Hardware,
     val apdex: Double,

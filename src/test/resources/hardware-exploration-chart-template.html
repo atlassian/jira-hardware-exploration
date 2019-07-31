@@ -26,7 +26,8 @@
     <a href="https://github.com/atlassian/jira-hardware-exploration/commit/<%= commit =%>"><%= commit =%></a>
 </span>
 <canvas id="apdex-chart"></canvas>
-<canvas id="error-rate-chart"></canvas>
+<canvas id="overall-error-chart"></canvas>
+<canvas id="max-action-error-chart"></canvas>
 <canvas id="throughput-chart"></canvas>
 <script>
     new Chart(
@@ -72,15 +73,15 @@
 </script>
 <script>
     new Chart(
-        document.getElementById("error-rate-chart").getContext("2d"),
+        document.getElementById("overall-error-chart").getContext("2d"),
         {
             type: 'bar',
-            data: '<%= errorRateChartData =%>',
+            data: '<%= overallErrorChartData =%>',
             options: {
                 responsive: true,
                 title: {
                     display: true,
-                    text: '<%= application =%> hardware exploration: error rate'
+                    text: '<%= application =%> hardware exploration: overall error'
                 },
                 scales: {
                     yAxes: [
@@ -91,11 +92,53 @@
                             id: "y-axis-0",
                             scaleLabel: {
                                 display: true,
-                                labelString: "error rate [%]"
+                                labelString: "overall error [%]"
                             },
                             ticks: {
                                 min: 0,
-                                max: '<%= maxErrorRate =%>'
+                                max: '<%= maxOverallError =%>'
+                            }
+                        }
+                    ],
+                    xAxes: [
+                        {
+                            scaleLabel: {
+                                display: true,
+                                labelString: "<%= xAxisLabel =%>"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    );
+</script>
+<script>
+    new Chart(
+        document.getElementById("max-action-error-chart").getContext("2d"),
+        {
+            type: 'bar',
+            data: '<%= maxActionErrorChartData =%>',
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: '<%= application =%> hardware exploration: max action error'
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            type: "linear",
+                            display: true,
+                            position: "left",
+                            id: "y-axis-0",
+                            scaleLabel: {
+                                display: true,
+                                labelString: "max action error [%]"
+                            },
+                            ticks: {
+                                min: 0,
+                                max: '<%= maxMaxActionError =%>'
                             }
                         }
                     ],
