@@ -10,9 +10,28 @@ class ErrorGauge {
     ): OverallError {
         val errors = metrics.count { it.result == ActionResult.ERROR }
         val all = metrics.count()
-        val ratio = errors.toDouble() / all.toDouble()
-        return OverallError(Ratio(ratio))
+        return OverallError(Ratio(errors, all))
     }
+
+    fun measureMaxAction(
+        metrics: List<ActionMetric>
+    ): ActionError = measureActions(metrics)
+        .maxBy { it.ratio }
+        ?: throw Exception("There's no max action error")
+
+    private fun measureActions(
+        metrics: List<ActionMetric>
+    ): List<ActionError> = metrics
+        .groupBy { it.label }
+        .map { (actionLabel, metricsGroup) ->
+            ActionError(
+                actionLabel = actionLabel,
+                ratio = Ratio(
+                    dividend = metricsGroup.count { it.result == ActionResult.ERROR },
+                    divisor = metricsGroup.count()
+                )
+            )
+        }
 }
 
 class OverallError(
@@ -21,14 +40,28 @@ class OverallError(
     override fun toString() = "${ratio.percent} % metrics errored"
 }
 
+class ActionError(
+    val actionLabel: String,
+    val ratio: Ratio
+) {
+    override fun toString() = "${ratio.percent} % of $actionLabel errored"
+}
+
 /**
  * @param [proportion] Between 0 and 1.
  */
 class Ratio(
     val proportion: Double
-) {
+) : Comparable<Ratio> {
+    constructor(
+        dividend: Number,
+        divisor: Number
+    ) : this(dividend.toDouble() / divisor.toDouble())
+
     /**
      * Between 0% and 100%.
      */
     val percent = proportion * 100
+
+    override fun compareTo(other: Ratio): Int = compareBy<Ratio> { it.proportion }.compare(this, other)
 }

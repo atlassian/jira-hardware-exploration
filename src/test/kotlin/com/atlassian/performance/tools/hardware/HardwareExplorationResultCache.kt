@@ -2,6 +2,7 @@ package com.atlassian.performance.tools.hardware
 
 import com.amazonaws.services.ec2.model.InstanceType
 import com.atlassian.performance.tools.io.api.ensureParentDirectory
+import com.atlassian.performance.tools.lib.ActionError
 import com.atlassian.performance.tools.lib.OverallError
 import com.atlassian.performance.tools.lib.Ratio
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
@@ -75,6 +76,8 @@ class HardwareExplorationResultCache(
             .add("apdexes", createArrayBuilder(apdexes).build())
             .add("overallError", writeOverallError(overallError))
             .add("overallErrors", writeOverallErrors(overallErrors))
+            .also { if (maxActionError != null) it.add("maxActionError", writeMaxActionError(maxActionError)) }
+            .also { if (maxActionErrors != null) it.add("maxActionErrors", writeMaxActionErrors(maxActionErrors)) }
             .add("httpThroughput", writeThroughput(httpThroughput))
             .add("httpThroughputs",
                 createArrayBuilder()
@@ -102,6 +105,23 @@ class HardwareExplorationResultCache(
     ): JsonValue {
         val builder = createArrayBuilder()
         overallErrors.map { writeOverallError(it) }.forEach { builder.add(it) }
+        return builder.build()
+    }
+
+    private fun writeMaxActionError(
+        maxActionError: ActionError
+    ): JsonValue = maxActionError.run {
+        createObjectBuilder()
+            .add("ratio", ratio.proportion)
+            .add("actionLabel", actionLabel)
+            .build()
+    }
+
+    private fun writeMaxActionErrors(
+        maxActionErrors: List<ActionError>
+    ): JsonValue {
+        val builder = createArrayBuilder()
+        maxActionErrors.map { writeMaxActionError(it) }.forEach { builder.add(it) }
         return builder.build()
     }
 
@@ -168,6 +188,8 @@ class HardwareExplorationResultCache(
             apdexes = getJsonArray("apdexes").map { it as JsonNumber }.map { it.doubleValue() },
             overallError = readOverallError(this),
             overallErrors = readOverallErrors(this),
+            maxActionError = getJsonObject("maxActionError")?.let { readActionError(it) },
+            maxActionErrors = getJsonArray("maxActionErrors")?.map { it.asJsonObject() }?.map { readActionError(it) },
             httpThroughput = readThroughput(getJsonObject("httpThroughput")),
             httpThroughputs = getJsonArray("httpThroughputs").map { it.asJsonObject() }.map { readThroughput(it) },
             results = emptyList()
@@ -197,6 +219,17 @@ class HardwareExplorationResultCache(
             .map { it as JsonNumber }
             .map { it.doubleValue() }
             .map { OverallError(Ratio(it)) }
+
+    private fun readActionError(
+        json: JsonObject
+    ): ActionError = json.run {
+        ActionError(
+            actionLabel = getString("actionLabel"),
+            ratio = getJsonNumber("ratio")
+                .doubleValue()
+                .let { Ratio(it) }
+        )
+    }
 
 
     private fun readThroughput(

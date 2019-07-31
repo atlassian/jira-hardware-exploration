@@ -44,6 +44,7 @@ class HardwareMetric(
         val apdex = Apdex().score(metrics)
         val throughput = AccessLogThroughput().gauge(results.results.toFile())
         val overallError = ErrorGauge().measureOverall(metrics)
+        val maxActionError = ErrorGauge().measureMaxAction(metrics)
         val hardwareResult = HardwareTestResult(
             hardware = hardware,
             apdex = apdex,
@@ -52,7 +53,9 @@ class HardwareMetric(
             httpThroughputs = listOf(throughput),
             results = listOf(results),
             overallError = overallError,
-            overallErrors = listOf(overallError)
+            overallErrors = listOf(overallError),
+            maxActionError = maxActionError,
+            maxActionErrors = listOf(maxActionError)
         )
         if (hardwareResult.overallError.ratio.proportion > errorRateWarningThreshold) {
             logger.warn("Error rate for $cohort is too high: $overallError")
