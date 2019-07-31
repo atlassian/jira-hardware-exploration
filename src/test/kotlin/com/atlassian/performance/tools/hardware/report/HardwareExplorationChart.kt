@@ -60,17 +60,25 @@ internal class HardwareExplorationChart<S, X>(
                 newValue = "1.00"
             )
             .replace(
-                oldValue = "'<%= errorRateChartData =%>'",
-                newValue = plotErrorRate(resultsPerSeries).toJson().toString()
+                oldValue = "'<%= overallErrorChartData =%>'",
+                newValue = plotOverallError(resultsPerSeries).toJson().toString()
             )
             .replace(
-                oldValue = "'<%= maxErrorRate =%>'",
+                oldValue = "'<%= maxOverallError =%>'",
                 newValue = results
                     .flatMap { it.overallErrors }
                     .map { it.ratio.percent }
                     .maxAxis()
                     .coerceAtMost(100.0)
                     .toString()
+            )
+            .replace(
+                oldValue = "'<%= maxActionErrorChartData =%>'",
+                newValue = plotMaxActionError(resultsPerSeries).toJson().toString()
+            )
+            .replace(
+                oldValue = "'<%= maxMaxActionError =%>'",
+                newValue = "100.00"
             )
             .replace(
                 oldValue = "'<%= throughputChartData =%>'",
@@ -264,7 +272,7 @@ internal class HardwareExplorationChart<S, X>(
         )
     }
 
-    private fun plotErrorRate(
+    private fun plotOverallError(
         resultsPerSeries: Map<S, List<HardwareTestResult>>
     ): Chart<X> = resultsPerSeries
         .map { (series, testResults) ->
@@ -280,6 +288,34 @@ internal class HardwareExplorationChart<S, X>(
                         x = xAxis.getX(result),
                         y = result.overallError.ratio.percent,
                         yRange = result.overallErrors.map { it.ratio.percent }
+                    )
+                },
+                label = series.toString()
+            )
+        }
+        .let { Chart(it) }
+
+    private fun plotMaxActionError(
+        resultsPerSeries: Map<S, List<HardwareTestResult>>
+    ): Chart<X> = resultsPerSeries
+        .filterValues { testResults ->
+            testResults.all { testResult ->
+                testResult.maxActionError != null
+            }
+        }
+        .map { (series, testResults) ->
+            chartLine(
+                data = testResults.map {
+                    HardwarePoint(
+                        x = xAxis.getX(it),
+                        value = it.maxActionError!!.ratio.percent.toBigDecimal(mathContext)
+                    )
+                },
+                errorBars = testResults.map { result ->
+                    plotErrorBar(
+                        x = xAxis.getX(result),
+                        y = result.maxActionError!!.ratio.percent,
+                        yRange = result.maxActionErrors!!.map { it.ratio.percent }
                     )
                 },
                 label = series.toString()
