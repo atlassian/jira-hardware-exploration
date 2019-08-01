@@ -49,8 +49,7 @@ class CustomScenario : Scenario {
             jira = jira,
             meter = drilldownMeter,
             seededRandom = seededRandom,
-            projectMemory = projectMemory,
-            preSubmit = selectResolution
+            projectMemory = projectMemory
         )
         val searchWithJql = SearchJqlAction(
             jira = jira,
@@ -77,8 +76,7 @@ class CustomScenario : Scenario {
         val editIssue = EditIssueAction(
             jira = jira,
             meter = drilldownMeter,
-            issueMemory = issueMemory,
-            preSubmit = selectResolution
+            issueMemory = issueMemory
         )
         val addComment = AddCommentAction(
             jira = jira,
