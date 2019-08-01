@@ -5,6 +5,7 @@ import com.atlassian.performance.tools.aws.api.Investment
 import com.atlassian.performance.tools.awsinfrastructure.api.InfrastructureFormula
 import com.atlassian.performance.tools.awsinfrastructure.api.TargetingVirtualUserOptions
 import com.atlassian.performance.tools.awsinfrastructure.api.hardware.EbsEc2Instance
+import com.atlassian.performance.tools.awsinfrastructure.api.hardware.Volume
 import com.atlassian.performance.tools.awsinfrastructure.api.jira.DataCenterFormula
 import com.atlassian.performance.tools.awsinfrastructure.api.loadbalancer.ElasticLoadBalancerFormula
 import com.atlassian.performance.tools.awsinfrastructure.api.virtualusers.MulticastVirtualUsersFormula
@@ -370,10 +371,8 @@ class HardwareExploration(
                         .let { tuning.tune(it, hardware, scale) }
                 })
                 .loadBalancerFormula(ElasticLoadBalancerFormula())
-                .computer(EbsEc2Instance(hardware.jira).withVolumeSize(300))
-                .databaseComputer(EbsEc2Instance(hardware.db).withVolumeSize(300))
-                .adminUser(scale.dataset.adminLogin)
-                .adminPwd(scale.dataset.adminPassword)
+                .computer(EbsEc2Instance(hardware.jira)).jiraVolume(Volume(300))
+                .databaseComputer(EbsEc2Instance(hardware.db)).databaseVolume(Volume(300))
                 .build(),
             virtualUsersFormula = MulticastVirtualUsersFormula.Builder(
                 nodes = scale.vuNodes,

@@ -1,7 +1,6 @@
 package com.atlassian.performance.tools.lib.infrastructure
 
 import com.atlassian.performance.tools.infrastructure.api.database.Database
-import com.atlassian.performance.tools.infrastructure.api.database.DbType
 import com.atlassian.performance.tools.infrastructure.api.dataset.DatasetPackage
 import com.atlassian.performance.tools.infrastructure.api.os.Ubuntu
 import com.atlassian.performance.tools.ssh.api.SshConnection
@@ -15,8 +14,6 @@ class ConfigurableMysqlDatabase(
     private val source: DatasetPackage,
     private val extraDockerArgs: List<String>
 ) : Database {
-
-    override fun getDbType(): DbType = DbType.MySql
 
     private val logger: Logger = LogManager.getLogger(this::class.java)
 
