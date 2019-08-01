@@ -88,9 +88,11 @@ class HardwareRecommendationIT {
                 M410xlarge,
                 M416xlarge
             ),
-            overallErrorThreshold = OverallError(Ratio(0.01)),
-            maxActionErrorThreshold = Ratio(0.05),
-            minApdex = 0.70,
+            requirements = OutcomeRequirements(
+                overallErrorThreshold = OverallError(Ratio(0.01)),
+                maxActionErrorThreshold = Ratio(0.05),
+                apdexThreshold = 0.70
+            ),
             repeats = 2,
             aws = aws,
             workspace = scaleWorkspace,

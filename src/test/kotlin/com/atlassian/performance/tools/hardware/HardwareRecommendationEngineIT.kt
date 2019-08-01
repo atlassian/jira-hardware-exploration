@@ -95,9 +95,11 @@ class HardwareRecommendationEngineIT {
                 M44xlarge
             ),
             // attempt to ensure some results are 'good' some are 'bad'
-            overallErrorThreshold = OverallError(Ratio(0.10)),
-            maxActionErrorThreshold = Ratio(0.20),
-            minApdex = 0.40,
+            requirements = OutcomeRequirements(
+                overallErrorThreshold = OverallError(Ratio(0.10)),
+                maxActionErrorThreshold = Ratio(0.20),
+                apdexThreshold = 0.40
+            ),
             repeats = 2,
             aws = aws,
             workspace = scaleWorkspace,

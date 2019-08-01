@@ -41,6 +41,7 @@ class DbExplorationGuidance(
 
     override fun report(
         exploration: List<HardwareExplorationResult>,
+        requirements: OutcomeRequirements,
         task: TaskWorkspace,
         title: String,
         resultsCache: HardwareExplorationResultCache
@@ -57,6 +58,7 @@ class DbExplorationGuidance(
             GitRepo.findFromCurrentDirectory()
         ).plot(
             exploration = sort(exploration),
+            requirements = requirements,
             application = title,
             output = task.isolateReport("db-exploration-chart.html")
         )

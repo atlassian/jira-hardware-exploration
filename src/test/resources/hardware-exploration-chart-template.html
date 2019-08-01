@@ -6,6 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
     <script src="https://unpkg.com/chart.js@2.8.0/dist/Chart.bundle.min.js"></script>
     <script src="https://unpkg.com/chartjs-plugin-error-bars@1.1.0/build/Plugin.Errorbars.js"></script>
+    <script src="https://unpkg.com/chartjs-plugin-annotation@0.5.7/chartjs-plugin-annotation.min.js"></script>
     <style>
         span.commit-flag {
             padding: 3px;
@@ -29,6 +30,21 @@
 <canvas id="overall-error-chart"></canvas>
 <canvas id="max-action-error-chart"></canvas>
 <canvas id="throughput-chart"></canvas>
+<script>
+    function annotate(threshold) {
+        return {
+            annotations: [{
+                type: 'line',
+                mode: 'horizontal',
+                scaleID: 'y-axis-0',
+                value: threshold,
+                borderColor: '#DE350B',
+                borderWidth: 2,
+                borderDash: [16, 8]
+            }]
+        };
+    }
+</script>
 <script>
     new Chart(
         document.getElementById("apdex-chart").getContext("2d"),
@@ -69,7 +85,8 @@
                             }
                         }
                     ]
-                }
+                },
+                annotation: annotate('<%= apdexThreshold =%>')
             }
         }
     );
@@ -114,7 +131,8 @@
                             }
                         }
                     ]
-                }
+                },
+                annotation: annotate('<%= overallErrorThreshold =%>')
             }
         }
     );
@@ -159,7 +177,8 @@
                             }
                         }
                     ]
-                }
+                },
+                annotation: annotate('<%= maxActionErrorThreshold =%>')
             }
         }
     );
