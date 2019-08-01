@@ -3,8 +3,11 @@ package com.atlassian.performance.tools.hardware.report
 import com.amazonaws.services.ec2.model.InstanceType
 import com.atlassian.performance.tools.hardware.HardwareExplorationResult
 import com.atlassian.performance.tools.hardware.HardwareExplorationResultCache
+import com.atlassian.performance.tools.hardware.OutcomeRequirements
 import com.atlassian.performance.tools.hardware.RecommendationSet
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
+import com.atlassian.performance.tools.lib.OverallError
+import com.atlassian.performance.tools.lib.Ratio
 import com.atlassian.performance.tools.workspace.api.RootWorkspace
 import com.atlassian.performance.tools.workspace.api.git.HardcodedGitRepo
 import org.apache.logging.log4j.core.config.ConfigurationFactory
@@ -16,6 +19,11 @@ import java.nio.file.Paths
 class HardwareExplorationChartTest {
 
     private val workspace = RootWorkspace(Paths.get("build/jpt-workspace")).isolateTask(this::class.java.simpleName)
+    private val requirements = OutcomeRequirements(
+        apdexThreshold = 0.70,
+        overallErrorThreshold = OverallError(Ratio(0.01)),
+        maxActionErrorThreshold = Ratio(0.05)
+    )
 
     @Before
     fun setUp() {
@@ -34,6 +42,7 @@ class HardwareExplorationChartTest {
 
         chart.plot(
             exploration = exploration,
+            requirements = requirements,
             application = "test",
             output = workspace.isolateReport("jira-hardware-exploration-chart.html")
         )
@@ -96,6 +105,7 @@ class HardwareExplorationChartTest {
 
         chart.plot(
             exploration = exploration,
+            requirements = requirements,
             application = "test",
             output = workspace.isolateReport("db-hardware-exploration-chart.html")
         )
@@ -112,6 +122,7 @@ class HardwareExplorationChartTest {
 
         chart.plot(
             exploration = exploration,
+            requirements = requirements,
             application = "error bar test",
             output = workspace.isolateReport("error-bars-test.html")
         )

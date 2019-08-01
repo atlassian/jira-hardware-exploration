@@ -2,6 +2,7 @@ package com.atlassian.performance.tools.hardware.report
 
 import com.atlassian.performance.tools.hardware.HardwareExplorationResult
 import com.atlassian.performance.tools.hardware.HardwareTestResult
+import com.atlassian.performance.tools.hardware.OutcomeRequirements
 import com.atlassian.performance.tools.hardware.RecommendationSet
 import com.atlassian.performance.tools.io.api.ensureParentDirectory
 import com.atlassian.performance.tools.lib.chart.*
@@ -36,6 +37,7 @@ internal class HardwareExplorationChart<S, X>(
 
     fun plot(
         exploration: List<HardwareExplorationResult>,
+        requirements: OutcomeRequirements,
         application: String,
         output: Path
     ) {
@@ -60,6 +62,10 @@ internal class HardwareExplorationChart<S, X>(
                 newValue = "1.00"
             )
             .replace(
+                oldValue = "'<%= apdexThreshold =%>'",
+                newValue = requirements.apdexThreshold.toString()
+            )
+            .replace(
                 oldValue = "'<%= overallErrorChartData =%>'",
                 newValue = plotOverallError(resultsPerSeries).toJson().toString()
             )
@@ -73,12 +79,20 @@ internal class HardwareExplorationChart<S, X>(
                     .toString()
             )
             .replace(
+                oldValue = "'<%= overallErrorThreshold =%>'",
+                newValue = requirements.overallErrorThreshold.ratio.percent.toString()
+            )
+            .replace(
                 oldValue = "'<%= maxActionErrorChartData =%>'",
                 newValue = plotMaxActionError(resultsPerSeries).toJson().toString()
             )
             .replace(
                 oldValue = "'<%= maxMaxActionError =%>'",
                 newValue = "100.00"
+            )
+            .replace(
+                oldValue = "'<%= maxActionErrorThreshold =%>'",
+                newValue = requirements.maxActionErrorThreshold.percent.toString()
             )
             .replace(
                 oldValue = "'<%= throughputChartData =%>'",

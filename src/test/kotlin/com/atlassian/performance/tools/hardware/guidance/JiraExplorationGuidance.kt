@@ -1,10 +1,7 @@
 package com.atlassian.performance.tools.hardware.guidance
 
 import com.amazonaws.services.ec2.model.InstanceType
-import com.atlassian.performance.tools.hardware.Hardware
-import com.atlassian.performance.tools.hardware.HardwareExplorationDecision
-import com.atlassian.performance.tools.hardware.HardwareExplorationResult
-import com.atlassian.performance.tools.hardware.HardwareExplorationResultCache
+import com.atlassian.performance.tools.hardware.*
 import com.atlassian.performance.tools.hardware.report.HardwareExplorationChart
 import com.atlassian.performance.tools.hardware.report.HardwareExplorationTable
 import com.atlassian.performance.tools.hardware.report.JiraInstanceTypeGrouping
@@ -84,6 +81,7 @@ class JiraExplorationGuidance(
 
     override fun report(
         exploration: List<HardwareExplorationResult>,
+        requirements: OutcomeRequirements,
         task: TaskWorkspace,
         title: String,
         resultsCache: HardwareExplorationResultCache
@@ -108,6 +106,7 @@ class JiraExplorationGuidance(
             GitRepo.findFromCurrentDirectory()
         ).plot(
             exploration = exploration,
+            requirements = requirements,
             application = title,
             output = task.isolateReport("jira-exploration-chart.html")
         )

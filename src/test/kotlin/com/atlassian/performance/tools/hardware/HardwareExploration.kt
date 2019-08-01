@@ -47,6 +47,7 @@ class HardwareExploration(
     private val product: ProductDistribution,
     private val scale: ApplicationScale,
     private val guidance: ExplorationGuidance,
+    private val requirements: OutcomeRequirements,
     private val investment: Investment,
     private val tuning: JiraNodeTuning,
     private val aws: Aws,
@@ -112,6 +113,7 @@ class HardwareExploration(
     ) {
         guidance.report(
             results,
+            requirements,
             task,
             scale.description,
             explorationCache
