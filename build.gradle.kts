@@ -64,8 +64,21 @@ task<Test>("cleanUpAfterBamboo").apply {
     include("**/BambooCleanupIT.class")
 }
 
+task<Test>("testManually").apply {
+    outputs.upToDateWhen{false}
+    description = "Provision a Jira Instance only"
+    include("**/JiraInstanceTest.class")
+    failFast = true
+    testLogging {
+        if (System.getenv("bamboo_buildResultKey") != null) {
+            showStandardStreams = true
+        }
+    }
+}
+
 dependencies {
     testCompile(project(":virtual-users"))
+    testCompile(fileTree(mapOf("dir" to "lib", "include" to "*.jar")))
     testCompile("com.atlassian.performance.tools:jira-performance-tests:[3.3.0,4.0.0)")
     testCompile("com.atlassian.performance.tools:infrastructure:[4.14.0,5.0.0)")
     testCompile("com.atlassian.performance.tools:virtual-users:[3.6.2,4.0.0)")
