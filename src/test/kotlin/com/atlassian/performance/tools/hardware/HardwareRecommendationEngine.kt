@@ -114,15 +114,13 @@ class HardwareRecommendationEngine(
     private fun pickTheBestApdex(
         candidates: List<HardwareTestResult>
     ): HardwareTestResult = candidates
-        .sortedByDescending { it.apdex }
-        .firstOrNull()
+        .maxBy { it.apdex }
         ?: throw Exception("We don't have an Apdex recommendation")
 
     private fun pickTheMostCostEffective(
         candidates: List<HardwareTestResult>
     ): HardwareTestResult = candidates
-        .sortedByDescending { it.apdexPerUsdUpkeep }
-        .firstOrNull()
+        .maxBy { it.apdexPerUsdUpkeep }
         ?: throw Exception("We don't have a cost-effectiveness recommendation")
 
     private fun explore(
@@ -135,8 +133,7 @@ class HardwareRecommendationEngine(
         apdexSpreadWarningThreshold = 0.10,
         metric = HardwareMetric(
             scale = scale,
-            presenceJudge = VirtualUsersPresenceJudge(Ratio(0.90)),
-            errorRateWarningThreshold = 0.05
+            presenceJudge = VirtualUsersPresenceJudge(Ratio(0.90))
         ),
         pastFailures = BugAwareTolerance(logger),
         repeats = repeats,

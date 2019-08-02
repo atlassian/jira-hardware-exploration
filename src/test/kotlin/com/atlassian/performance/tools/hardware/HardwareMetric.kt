@@ -9,16 +9,11 @@ import com.atlassian.performance.tools.lib.report.VirtualUsersPresenceJudge
 import com.atlassian.performance.tools.report.api.StandardTimeline
 import com.atlassian.performance.tools.report.api.result.EdibleResult
 import com.atlassian.performance.tools.report.api.result.RawCohortResult
-import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.Logger
 
 class HardwareMetric(
     private val scale: ApplicationScale,
-    private val presenceJudge: VirtualUsersPresenceJudge,
-    private val errorRateWarningThreshold: Double
+    private val presenceJudge: VirtualUsersPresenceJudge
 ) {
-    private val logger: Logger = LogManager.getLogger(this::class.java)
-
     private val labels = listOf(
         VIEW_BACKLOG,
         VIEW_BOARD,
@@ -56,9 +51,6 @@ class HardwareMetric(
             maxActionError = maxActionError,
             maxActionErrors = listOf(maxActionError)
         )
-        if (hardwareResult.overallError.ratio.proportion > errorRateWarningThreshold) {
-            logger.warn("Error rate for $cohort is too high: $overallError")
-        }
         return hardwareResult
     }
 

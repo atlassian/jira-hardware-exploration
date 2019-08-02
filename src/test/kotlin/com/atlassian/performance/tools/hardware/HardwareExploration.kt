@@ -356,22 +356,15 @@ class HardwareExploration(
             maxActionErrors = results.flatMap { it.maxActionErrors ?: emptyList() }
         )
         val postProcessedResults = results.flatMap { it.results }.map { metric.postProcess(it) }
-        reportRaw("sub-test-comparison", postProcessedResults, hardware)
-        val apdexSpread = apdexes.spread()
-        if (apdexSpread > apdexSpreadWarningThreshold) {
-            logger.warn("Apdex spread for $hardware is too big: $apdexSpread. Results: $results")
-        }
+        reportRaw(postProcessedResults, hardware)
         return testResult
     }
 
-    private fun Iterable<Double>.spread() = max()!! - min()!!
-
     private fun reportRaw(
-        reportName: String,
         results: List<EdibleResult>,
         hardware: Hardware
     ) {
-        val workspace = hardware.isolateSubTask(task, reportName)
+        val workspace = hardware.isolateSubTask(task, "sub-test-comparison")
         FullReport().dump(
             results = results,
             workspace = TestWorkspace(workspace.directory)
