@@ -60,8 +60,7 @@ class HardwareExplorationTableTest {
                         .build(),
                     vuNodes = 6
                 ),
-                presenceJudge = VirtualUsersPresenceJudge(Ratio(0.12)), // partial data
-                errorRateWarningThreshold = 0.05
+                presenceJudge = VirtualUsersPresenceJudge(Ratio(0.12)) // partial data
             ).score(
                 hardware = hardware,
                 results = RawCohortResult.Factory().fullResult(
