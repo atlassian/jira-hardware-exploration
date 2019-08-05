@@ -44,6 +44,20 @@ task<Test>("recommendHardware").apply {
     }
 }
 
+task<Test>("repro").apply {
+    outputs.upToDateWhen { false }
+    description = "Reproduces the JSW backlog timeout"
+    include("**/BacklogPageIT.class")
+    val shadowJarTask = tasks.getByPath(":virtual-users:shadowJar")
+    dependsOn(shadowJarTask)
+    systemProperty("jpt.virtual-users.shadow-jar", shadowJarTask.outputs.files.files.first())
+    failFast = true
+    maxHeapSize = "8g"
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
 task<Test>("testIntegration").apply {
     outputs.upToDateWhen { false }
     description = "Runs IT tests against the framework"

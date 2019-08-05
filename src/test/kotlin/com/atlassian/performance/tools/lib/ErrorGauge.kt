@@ -19,7 +19,7 @@ class ErrorGauge {
         .maxBy { it.ratio }
         ?: throw Exception("There's no max action error")
 
-    private fun measureActions(
+    internal fun measureActions(
         metrics: List<ActionMetric>
     ): List<ActionError> = metrics
         .groupBy { it.label }
@@ -64,4 +64,6 @@ class Ratio(
     val percent = proportion * 100
 
     override fun compareTo(other: Ratio): Int = compareBy<Ratio> { it.proportion }.compare(this, other)
+
+    override fun toString(): String = "$percent %"
 }
