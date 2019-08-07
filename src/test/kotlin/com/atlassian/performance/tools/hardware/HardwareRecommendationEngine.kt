@@ -130,22 +130,21 @@ class HardwareRecommendationEngine(
         scale = scale,
         guidance = guidance,
         requirements = requirements,
-        apdexSpreadWarningThreshold = 0.10,
-        metric = HardwareMetric(
-            scale = scale,
-            presenceJudge = VirtualUsersPresenceJudge(Ratio(0.90))
-        ),
-        pastFailures = BugAwareTolerance(logger),
-        repeats = repeats,
         investment = Investment(
             useCase = "Test hardware recommendations - ${workspace.directory.fileName}",
             lifespan = Duration.ofHours(2)
         ),
         tuning = tuning,
-        s3Cache = s3Cache,
-        explorationCache = explorationCache,
         aws = aws,
-        task = workspace
+        task = workspace,
+        repeats = repeats,
+        pastFailures = BugAwareTolerance(logger),
+        metric = HardwareMetric(
+            scale = scale,
+            presenceJudge = VirtualUsersPresenceJudge(Ratio(0.90))
+        ),
+        s3Cache = s3Cache,
+        explorationCache = explorationCache
     ).exploreHardware()
 
     private fun exploreDbHardware(

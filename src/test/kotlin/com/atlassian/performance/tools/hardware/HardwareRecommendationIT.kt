@@ -3,6 +3,7 @@ package com.atlassian.performance.tools.hardware
 import com.amazonaws.services.ec2.model.InstanceType
 import com.amazonaws.services.ec2.model.InstanceType.*
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
+import com.atlassian.performance.tools.aws.api.Aws
 import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
 import com.atlassian.performance.tools.hardware.tuning.HeapTuning
 import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
@@ -18,7 +19,6 @@ import com.atlassian.performance.tools.workspace.api.TaskWorkspace
 import org.apache.logging.log4j.CloseableThreadContext
 import org.apache.logging.log4j.core.config.ConfigurationFactory
 import org.eclipse.jgit.api.Git
-import org.junit.Before
 import org.junit.Test
 import java.io.File
 import java.time.Duration
@@ -29,13 +29,15 @@ class HardwareRecommendationIT {
     private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(cacheKey)
     private val jswVersion = System.getProperty("hwr.jsw.version") ?: "7.13.0"
 
-    @Before
-    fun setUp() {
+    @Test
+    fun shouldRecommendHardware() {
         ConfigurationFactory.setConfigurationFactory(LogConfigurationFactory(workspace))
+        requireCleanRepo()
+        recommendHardwareForLarge()
+        recommendHardwareForExtraLarge()
     }
 
-    @Test
-    fun shouldRecommendHardwareForExtraLarge() {
+    private fun recommendHardwareForExtraLarge() {
         CloseableThreadContext.push("XL").use {
             recommend(
                 scale = ApplicationScales().extraLarge(jiraVersion = jswVersion, postgres = false),
@@ -45,8 +47,7 @@ class HardwareRecommendationIT {
         }
     }
 
-    @Test
-    fun shouldRecommendHardwareForLarge() {
+    private fun recommendHardwareForLarge() {
         CloseableThreadContext.push("L").use {
             recommend(
                 scale = ApplicationScales().large(jiraVersion = jswVersion),
@@ -56,32 +57,25 @@ class HardwareRecommendationIT {
         }
     }
 
+    private fun requireCleanRepo() {
+        val status = Git(GitRepo2.findInAncestors(File(".").absoluteFile)).status().call()
+        if (status.isClean.not()) {
+            throw Exception("Your Git repo is not clean. Please commit the changes and consider pushing them.")
+        }
+    }
+
     private fun recommend(
         scale: ApplicationScale,
         tuning: JiraNodeTuning,
         db: InstanceType
     ): RecommendationSet {
-        requireCleanRepo()
         val aws = IntegrationTestRuntime.prepareAws()
         val scaleWorkspace = TaskWorkspace(workspace.directory.resolve(scale.cacheKey))
         val engine = HardwareRecommendationEngine(
             product = PublicJiraSoftwareDistribution(jswVersion),
             scale = scale,
             tuning = tuning,
-            jiraExploration = JiraExplorationGuidance(
-                instanceTypes = listOf(
-                    C52xlarge,
-                    C54xlarge,
-                    C48xlarge,
-                    C59xlarge,
-                    C518xlarge
-                ),
-                minNodeCountForAvailability = 3,
-                maxNodeCount = 16,
-                minApdexGain = 0.01,
-                minThroughputGain = TemporalRate(5.0, Duration.ofSeconds(1)),
-                db = db
-            ),
+            jiraExploration = guideJira(db),
             dbInstanceTypes = listOf(
                 M42xlarge,
                 M44xlarge,
@@ -96,24 +90,42 @@ class HardwareRecommendationIT {
             repeats = 2,
             aws = aws,
             workspace = scaleWorkspace,
-            s3Cache = S3Cache(
-                transfer = TransferManagerBuilder.standard()
-                    .withS3Client(aws.s3)
-                    .build(),
-                bucketName = "quicksilver-jhwr-cache-ireland",
-                cacheKey = "$cacheKey/${scale.cacheKey}",
-                localPath = scaleWorkspace.directory,
-                etags = IntegrationTestRuntime.rootWorkspace.directory.resolve(".etags")
-            ),
-            explorationCache = HardwareExplorationResultCache(scaleWorkspace.directory.resolve("processed-cache.json"))
+            s3Cache = cacheOnS3(aws, scale, scaleWorkspace),
+            explorationCache = HardwareExplorationResultCache(
+                scaleWorkspace.directory.resolve("processed-cache.json")
+            )
         )
         return engine.recommend()
     }
 
-    private fun requireCleanRepo() {
-        val status = Git(GitRepo2.findInAncestors(File(".").absoluteFile)).status().call()
-        if (status.isClean.not()) {
-            throw Exception("Your Git repo is not clean. Please commit the changes and consider pushing them.")
-        }
-    }
+    private fun guideJira(
+        db: InstanceType
+    ): JiraExplorationGuidance = JiraExplorationGuidance(
+        instanceTypes = listOf(
+            C52xlarge,
+            C54xlarge,
+            C48xlarge,
+            C59xlarge,
+            C518xlarge
+        ),
+        minNodeCountForAvailability = 3,
+        maxNodeCount = 16,
+        minApdexGain = 0.01,
+        minThroughputGain = TemporalRate(5.0, Duration.ofSeconds(1)),
+        db = db
+    )
+
+    private fun cacheOnS3(
+        aws: Aws,
+        scale: ApplicationScale,
+        scaleWorkspace: TaskWorkspace
+    ): S3Cache = S3Cache(
+        transfer = TransferManagerBuilder.standard()
+            .withS3Client(aws.s3)
+            .build(),
+        bucketName = "quicksilver-jhwr-cache-ireland",
+        cacheKey = "$cacheKey/${scale.cacheKey}",
+        localPath = scaleWorkspace.directory,
+        etags = IntegrationTestRuntime.rootWorkspace.directory.resolve(".etags")
+    )
 }
