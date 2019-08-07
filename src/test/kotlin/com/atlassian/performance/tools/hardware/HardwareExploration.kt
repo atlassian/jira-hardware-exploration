@@ -63,10 +63,10 @@ class HardwareExploration(
     private val failures = CopyOnWriteArrayList<Exception>()
     private val logger: Logger = LogManager.getLogger(this::class.java)
 
-    fun exploreHardware(): List<HardwareExplorationResult> {
+    fun exploreHardware(): ReportedExploration {
         val space = guidance.space()
         if (space.isEmpty()) {
-            return emptyList()
+            return ReportedExploration(emptyList(), emptyList())
         }
         val awsExecutor = Executors.newFixedThreadPool(awsParallelism)
         val explorationExecutor = Executors.newFixedThreadPool(space.size)
@@ -89,7 +89,7 @@ class HardwareExploration(
         hardwareSpace: List<Hardware>,
         explorationExecutor: ExecutorService,
         awsExecutor: ExecutorService
-    ): List<HardwareExplorationResult> {
+    ): ReportedExploration {
         val completion = ExecutorCompletionService<HardwareExplorationResult>(explorationExecutor)
         hardwareSpace.forEach { hardware ->
             results.computeIfAbsent(hardware) {
@@ -103,14 +103,14 @@ class HardwareExploration(
             }
         }
         val completedResults = awaitResults(completion)
-        report(completedResults)
-        return completedResults
+        val report = report(completedResults)
+        return ReportedExploration(completedResults, report)
     }
 
     private fun report(
         results: List<HardwareExplorationResult>
-    ) {
-        guidance.report(
+    ): List<File> {
+       return guidance.report(
             results,
             requirements,
             task,

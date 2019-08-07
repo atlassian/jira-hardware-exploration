@@ -10,6 +10,7 @@ import com.atlassian.performance.tools.lib.chart.color.Color
 import com.atlassian.performance.tools.lib.chart.color.PresetLabelColor
 import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import org.apache.logging.log4j.LogManager
+import java.io.File
 import java.math.BigDecimal
 import java.math.MathContext
 import java.math.RoundingMode.HALF_UP
@@ -40,10 +41,10 @@ internal class HardwareExplorationChart<S, X>(
         requirements: OutcomeRequirements,
         application: String,
         output: Path
-    ) {
+    ): File? {
         val results = exploration.mapNotNull { it.testResult }
         if (results.isEmpty()) {
-            return
+            return null
         }
         val resultsPerSeries = results
             .let { seriesGrouping.group(it) }
@@ -118,18 +119,20 @@ internal class HardwareExplorationChart<S, X>(
                 oldValue = "<%= application =%>",
                 newValue = application
             )
-        output.toFile().ensureParentDirectory().printWriter().use { it.print(report) }
-        logger.info("Hardware exploration chart available at ${output.toUri()}")
+        val chart = output.toFile()
+        chart.ensureParentDirectory().printWriter().use { it.print(report) }
+        logger.info("Hardware exploration chart available at ${chart.toURI()}")
+        return chart
     }
 
     fun plotRecommendation(
         recommendations: RecommendationSet,
         application: String,
         output: Path
-    ) {
-        val results = recommendations.exploration.mapNotNull { it.testResult }
+    ): File? {
+        val results = recommendations.exploration.results.mapNotNull { it.testResult }
         if (results.isEmpty()) {
-            return
+            return null
         }
         val resultsPerSeries = results
             .let { seriesGrouping.group(it) }
@@ -172,8 +175,10 @@ internal class HardwareExplorationChart<S, X>(
                 oldValue = "<%= application =%>",
                 newValue = application
             )
-        output.toFile().ensureParentDirectory().printWriter().use { it.print(report) }
-        logger.info("Hardware recommendation chart available at ${output.toUri()}")
+        val chart = output.toFile()
+        chart.ensureParentDirectory().printWriter().use { it.print(report) }
+        logger.info("Hardware recommendation chart available at ${chart.toURI()}")
+        return chart
     }
 
     private fun plotRecommendationByApdex(
