@@ -3,6 +3,7 @@ package com.atlassian.performance.tools.hardware.vu
 import com.atlassian.performance.tools.jiraactions.api.SET_UP
 import com.atlassian.performance.tools.jiraactions.api.WebJira
 import com.atlassian.performance.tools.jiraactions.api.action.Action
+import com.atlassian.performance.tools.jiraactions.api.action.CreateIssueShowAllFieldsSetupAction
 import com.atlassian.performance.tools.jiraactions.api.measure.ActionMeter
 import com.atlassian.performance.tools.jiraactions.api.page.AdminAccess
 import com.atlassian.performance.tools.jiraactions.api.page.wait
@@ -30,6 +31,7 @@ class CustomSetup(
             jira.navigateTo("secure/admin/ConfigureRTE!default.jspa")
             disable()
         }
+        CreateIssueShowAllFieldsSetupAction(jira, meter).run()
     }
 
     /**
