@@ -1,10 +1,7 @@
 package com.atlassian.performance.tools.hardware.report
 
 import com.amazonaws.services.ec2.model.InstanceType
-import com.atlassian.performance.tools.hardware.HardwareExplorationResult
-import com.atlassian.performance.tools.hardware.HardwareExplorationResultCache
-import com.atlassian.performance.tools.hardware.OutcomeRequirements
-import com.atlassian.performance.tools.hardware.RecommendationSet
+import com.atlassian.performance.tools.hardware.*
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import com.atlassian.performance.tools.lib.OverallError
 import com.atlassian.performance.tools.lib.Ratio
@@ -72,9 +69,9 @@ class HardwareExplorationChartTest {
             .mapNotNull { it.testResult }
             .filter { it.apdex > 0.40 }
         return RecommendationSet(
-            exploration = exploration,
-            bestApdex = candidates.sortedByDescending { it.apdex }.first(),
-            bestCostEffectiveness = candidates.sortedByDescending { it.apdexPerUsdUpkeep }.first()
+            exploration = ReportedExploration(exploration, emptyList()),
+            bestApdex = candidates.maxBy { it.apdex }!!,
+            bestCostEffectiveness = candidates.maxBy { it.apdexPerUsdUpkeep }!!
         )
     }
 

@@ -33,13 +33,12 @@ class HardwareMetric(
         results: RawCohortResult
     ): HardwareTestResult {
         val postProcessedResult = postProcess(results)
-        val cohort = postProcessedResult.cohort
         val metrics = postProcessedResult.actionMetrics.filter { it.label in labels }
         val apdex = Apdex().score(metrics)
         val throughput = AccessLogThroughput().gauge(results.results.toFile())
         val overallError = ErrorGauge().measureOverall(metrics)
         val maxActionError = ErrorGauge().measureMaxAction(metrics)
-        val hardwareResult = HardwareTestResult(
+        return HardwareTestResult(
             hardware = hardware,
             apdex = apdex,
             apdexes = listOf(apdex),
@@ -51,7 +50,6 @@ class HardwareMetric(
             maxActionError = maxActionError,
             maxActionErrors = listOf(maxActionError)
         )
-        return hardwareResult
     }
 
     /**
