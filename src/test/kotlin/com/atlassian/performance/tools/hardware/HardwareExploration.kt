@@ -55,7 +55,6 @@ class HardwareExploration(
     private val repeats: Int,
     private val pastFailures: FailureTolerance,
     private val metric: HardwareMetric,
-    private val apdexSpreadWarningThreshold: Double,
     private val s3Cache: S3Cache,
     private val explorationCache: HardwareExplorationResultCache
 ) {
