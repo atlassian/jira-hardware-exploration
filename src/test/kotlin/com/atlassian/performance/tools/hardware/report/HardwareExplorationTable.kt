@@ -3,6 +3,7 @@ package com.atlassian.performance.tools.hardware.report
 import com.atlassian.performance.tools.hardware.HardwareExplorationResult
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVPrinter
+import java.io.File
 import java.nio.file.Path
 import java.time.Duration
 
@@ -11,7 +12,7 @@ internal class HardwareExplorationTable {
     fun summarize(
         results: List<HardwareExplorationResult>,
         table: Path
-    ) {
+    ): File {
         val headers = arrayOf(
             "jira",
             "jira nodes",
@@ -29,7 +30,8 @@ internal class HardwareExplorationTable {
             "reason"
         )
         val format = CSVFormat.DEFAULT.withHeader(*headers).withRecordSeparator('\n')
-        table.toFile().bufferedWriter().use { writer ->
+        val tableFile = table.toFile()
+        tableFile.bufferedWriter().use { writer ->
             val printer = CSVPrinter(writer, format)
             results.forEach { exploration ->
                 val result = exploration.testResult
@@ -72,6 +74,7 @@ internal class HardwareExplorationTable {
                 }
             }
         }
+        return tableFile
     }
 
     private fun List<Double>.spread(): Double {

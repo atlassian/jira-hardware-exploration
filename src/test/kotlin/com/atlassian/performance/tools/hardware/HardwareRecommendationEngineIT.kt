@@ -72,7 +72,7 @@ class HardwareRecommendationEngineIT {
         minApdexGain: Double,
         minThroughputGain: TemporalRate,
         maxNodeCount: Int
-    ): RecommendationSet {
+    ): ReportedRecommendations {
         val aws = IntegrationTestRuntime.prepareAws()
         val scaleWorkspace = TaskWorkspace(workspace.directory.resolve(scale.cacheKey))
         val engine = HardwareRecommendationEngine(

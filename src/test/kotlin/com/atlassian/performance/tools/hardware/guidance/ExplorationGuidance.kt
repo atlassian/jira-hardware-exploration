@@ -2,6 +2,7 @@ package com.atlassian.performance.tools.hardware.guidance
 
 import com.atlassian.performance.tools.hardware.*
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
+import java.io.File
 import java.util.concurrent.Future
 
 interface ExplorationGuidance {
@@ -18,5 +19,5 @@ interface ExplorationGuidance {
         task: TaskWorkspace,
         title: String,
         resultsCache: HardwareExplorationResultCache
-    )
+    ): List<File>
 }
