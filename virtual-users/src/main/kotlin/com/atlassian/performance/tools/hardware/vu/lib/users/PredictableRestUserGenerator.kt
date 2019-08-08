@@ -1,6 +1,8 @@
 package com.atlassian.performance.tools.hardware.vu.lib.users
 
+import com.atlassian.performance.tools.hardware.vu.lib.jvmtasks.JitterBackoff
 import com.atlassian.performance.tools.jiraactions.api.memories.User
+import com.atlassian.performance.tools.jvmtasks.api.ExponentialBackoff
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserOptions
 import com.atlassian.performance.tools.virtualusers.api.users.RestUserGenerator
 import com.atlassian.performance.tools.virtualusers.api.users.TimeControllingUserGenerator
@@ -11,7 +13,14 @@ class PredictableRestUserGenerator : UserGenerator {
 
     private val userGenerator = TimeControllingUserGenerator(
         targetTime = Duration.ofMinutes(2),
-        userGenerator = RestUserGenerator(Duration.ofMinutes(2))
+        userGenerator = RetryingUserGenerator(
+            userGenerator = RestUserGenerator(Duration.ofSeconds(5)),
+            maxAttempts = 2,
+            backoff = JitterBackoff(
+                minimum = ExponentialBackoff(Duration.ofSeconds(2)),
+                maxJitter = Duration.ofSeconds(3)
+            )
+        )
     )
 
     override fun generateUser(

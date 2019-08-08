@@ -16,6 +16,7 @@ dependencies {
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     runtime("com.atlassian.performance.tools:io:[1.2.0,2.0.0)") // workaround for JPERF-390
     compile("com.atlassian.performance.tools:virtual-users:[3.10.0,4.0.0)")
+    compile("com.atlassian.performance.tools:jvm-tasks:[1.0.0,2.0.0)")
 }
 
 tasks.getByName("shadowJar", ShadowJar::class).apply {
