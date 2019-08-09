@@ -14,8 +14,8 @@ class PredictableRestUserGenerator : UserGenerator {
     private val userGenerator = TimeControllingUserGenerator(
         targetTime = Duration.ofMinutes(2),
         userGenerator = RetryingUserGenerator(
-            userGenerator = RestUserGenerator(Duration.ofSeconds(5)),
-            maxAttempts = 2,
+            userGenerator = RestUserGenerator(Duration.ofSeconds(20)),
+            maxAttempts = 5,
             backoff = JitterBackoff(
                 minimum = ExponentialBackoff(Duration.ofSeconds(2)),
                 maxJitter = Duration.ofSeconds(3)
