@@ -10,10 +10,13 @@ import com.atlassian.performance.tools.hardware.report.*
 import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
+import com.atlassian.performance.tools.lib.Ratio
+import com.atlassian.performance.tools.lib.report.VirtualUsersPresenceJudge
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
 import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import org.apache.logging.log4j.LogManager
+import java.io.File
 import java.time.Duration
 
 class HardwareRecommendationEngine(
@@ -22,8 +25,7 @@ class HardwareRecommendationEngine(
     private val tuning: JiraNodeTuning,
     private val jiraExploration: ExplorationGuidance,
     private val dbInstanceTypes: List<InstanceType>,
-    private val minApdex: Double,
-    private val maxErrorRate: Double,
+    private val requirements: OutcomeRequirements,
     private val repeats: Int,
     private val aws: Aws,
     private val workspace: TaskWorkspace,
@@ -33,7 +35,7 @@ class HardwareRecommendationEngine(
 
     private val logger = LogManager.getLogger(this::class.java)
 
-    fun recommend(): RecommendationSet {
+    fun recommend(): ReportedRecommendations {
         logger.info("Using $s3Cache")
         time("download") { s3Cache.download() }
         val jiraExploration = try {
@@ -42,12 +44,16 @@ class HardwareRecommendationEngine(
             time("upload") { s3Cache.upload() }
         }
         val jiraRecommendations = recommend(jiraExploration)
-        reportJiraRecommendation(jiraRecommendations)
+        val jiraReport = reportJiraRecommendation(jiraRecommendations)
         try {
             val dbExploration = exploreDbHardware(jiraRecommendations.allRecommendations, jiraExploration)
             val dbRecommendations = recommend(dbExploration)
-            reportDbRecommendation(dbRecommendations)
-            return dbRecommendations
+            val dbReport = reportDbRecommendation(dbRecommendations)
+            return ReportedRecommendations(
+                description = scale.description,
+                recommendations = dbRecommendations,
+                reports = listOfNotNull(jiraReport, dbReport) + jiraExploration.reports + dbExploration.reports
+            )
         } finally {
             time("upload") { s3Cache.upload() }
         }
@@ -73,18 +79,21 @@ class HardwareRecommendationEngine(
         GitRepo.findFromCurrentDirectory()
     ).plotRecommendation(
         recommendations = RecommendationSet(
-            exploration = recommendations.exploration.sortedWith(
-                compareBy<HardwareExplorationResult> {
-                    InstanceType.values().toList().indexOf(it.decision.hardware.jira)
-                }.thenComparing(
+            exploration = ReportedExploration(
+                results = recommendations.exploration.results.sortedWith(
                     compareBy<HardwareExplorationResult> {
-                        it.decision.hardware.nodeCount
-                    }
-                ).thenComparing(
-                    compareBy<HardwareExplorationResult> {
-                        InstanceType.values().toList().indexOf(it.decision.hardware.db)
-                    }
-                )
+                        InstanceType.values().toList().indexOf(it.decision.hardware.jira)
+                    }.thenComparing(
+                        compareBy<HardwareExplorationResult> {
+                            it.decision.hardware.nodeCount
+                        }
+                    ).thenComparing(
+                        compareBy<HardwareExplorationResult> {
+                            InstanceType.values().toList().indexOf(it.decision.hardware.db)
+                        }
+                    )
+                ),
+                reports = recommendations.exploration.reports
             ),
             bestApdex = recommendations.bestApdex,
             bestCostEffectiveness = recommendations.bestCostEffectiveness
@@ -94,12 +103,12 @@ class HardwareRecommendationEngine(
     )
 
     private fun recommend(
-        exploration: List<HardwareExplorationResult>
+        exploration: ReportedExploration
     ): RecommendationSet {
         val candidates = exploration
+            .results
             .mapNotNull { it.testResult }
-            .filter { it.apdex > minApdex }
-            .filter { it.errorRate < maxErrorRate }
+            .filter { requirements.areSatisfiedBy(it) }
         val bestApdex = pickTheBestApdex(candidates)
         logger.info("Recommending best Apdex achieved by $bestApdex")
         val bestCostEffectiveness = pickTheMostCostEffective(candidates)
@@ -114,54 +123,61 @@ class HardwareRecommendationEngine(
     private fun pickTheBestApdex(
         candidates: List<HardwareTestResult>
     ): HardwareTestResult = candidates
-        .sortedByDescending { it.apdex }
-        .firstOrNull()
+        .maxBy { it.apdex }
         ?: throw Exception("We don't have an Apdex recommendation")
 
     private fun pickTheMostCostEffective(
         candidates: List<HardwareTestResult>
     ): HardwareTestResult = candidates
-        .sortedByDescending { it.apdexPerUsdUpkeep }
-        .firstOrNull()
+        .maxBy { it.apdexPerUsdUpkeep }
         ?: throw Exception("We don't have a cost-effectiveness recommendation")
 
     private fun explore(
         guidance: ExplorationGuidance
-    ): List<HardwareExplorationResult> = HardwareExploration(
+    ): ReportedExploration = HardwareExploration(
         product = product,
         scale = scale,
         guidance = guidance,
-        apdexSpreadWarningThreshold = 0.10,
-        errorRateWarningThreshold = 0.05,
-        pastFailures = BugAwareTolerance(logger),
-        repeats = repeats,
+        requirements = requirements,
         investment = Investment(
             useCase = "Test hardware recommendations - ${workspace.directory.fileName}",
             lifespan = Duration.ofHours(2)
         ),
         tuning = tuning,
-        s3Cache = s3Cache,
-        explorationCache = explorationCache,
         aws = aws,
-        task = workspace
+        task = workspace,
+        repeats = repeats,
+        pastFailures = BugAwareTolerance(logger),
+        metric = HardwareMetric(
+            scale = scale,
+            presenceJudge = VirtualUsersPresenceJudge(Ratio(0.90))
+        ),
+        s3Cache = s3Cache,
+        explorationCache = explorationCache
     ).exploreHardware()
 
     private fun exploreDbHardware(
         jiraRecommendations: List<HardwareTestResult>,
-        jiraExploration: List<HardwareExplorationResult>
-    ): List<HardwareExplorationResult> = explore(
+        jiraExploration: ReportedExploration
+    ): ReportedExploration = explore(
         DbExplorationGuidance(
             dbs = dbInstanceTypes,
             jiraRecommendations = jiraRecommendations,
-            jiraExploration = jiraExploration
+            jiraExploration = jiraExploration.results
         )
     )
 }
 
 class RecommendationSet(
-    val exploration: List<HardwareExplorationResult>,
+    val exploration: ReportedExploration,
     val bestApdex: HardwareTestResult,
     val bestCostEffectiveness: HardwareTestResult
 ) {
     val allRecommendations = listOf(bestApdex, bestCostEffectiveness)
 }
+
+class ReportedRecommendations(
+    val description: String,
+    val recommendations: RecommendationSet,
+    val reports: List<File>
+)

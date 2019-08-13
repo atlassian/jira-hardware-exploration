@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title><%= application =%> hardware exploration</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+    <script src="https://unpkg.com/chart.js@2.8.0/dist/Chart.bundle.min.js"></script>
     <script src="https://unpkg.com/chartjs-plugin-error-bars@1.1.0/build/Plugin.Errorbars.js"></script>
+    <script src="https://unpkg.com/chartjs-plugin-annotation@0.5.7/chartjs-plugin-annotation.min.js"></script>
     <style>
         span.commit-flag {
             padding: 3px;
@@ -26,8 +27,24 @@
     <a href="https://github.com/atlassian/jira-hardware-exploration/commit/<%= commit =%>"><%= commit =%></a>
 </span>
 <canvas id="apdex-chart"></canvas>
-<canvas id="error-rate-chart"></canvas>
+<canvas id="overall-error-chart"></canvas>
+<canvas id="max-action-error-chart"></canvas>
 <canvas id="throughput-chart"></canvas>
+<script>
+    function annotate(threshold) {
+        return {
+            annotations: [{
+                type: 'line',
+                mode: 'horizontal',
+                scaleID: 'y-axis-0',
+                value: threshold,
+                borderColor: '#DE350B',
+                borderWidth: 2,
+                borderDash: [16, 8]
+            }]
+        };
+    }
+</script>
 <script>
     new Chart(
         document.getElementById("apdex-chart").getContext("2d"),
@@ -38,7 +55,10 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: '<%= application =%> hardware exploration: Apdex'
+                    text: [
+                        '<%= application =%> hardware exploration: Apdex',
+                        'how good is the user experience?'
+                    ]
                 },
                 scales: {
                     yAxes: [
@@ -65,22 +85,26 @@
                             }
                         }
                     ]
-                }
+                },
+                annotation: annotate('<%= apdexThreshold =%>')
             }
         }
     );
 </script>
 <script>
     new Chart(
-        document.getElementById("error-rate-chart").getContext("2d"),
+        document.getElementById("overall-error-chart").getContext("2d"),
         {
             type: 'bar',
-            data: '<%= errorRateChartData =%>',
+            data: '<%= overallErrorChartData =%>',
             options: {
                 responsive: true,
                 title: {
                     display: true,
-                    text: '<%= application =%> hardware exploration: error rate'
+                    text: [
+                        '<%= application =%> hardware exploration: overall error',
+                        'how often do users see failed actions?'
+                    ]
                 },
                 scales: {
                     yAxes: [
@@ -91,11 +115,11 @@
                             id: "y-axis-0",
                             scaleLabel: {
                                 display: true,
-                                labelString: "error rate [%]"
+                                labelString: "overall error [%]"
                             },
                             ticks: {
                                 min: 0,
-                                max: '<%= maxErrorRate =%>'
+                                max: '<%= maxOverallError =%>'
                             }
                         }
                     ],
@@ -107,7 +131,54 @@
                             }
                         }
                     ]
-                }
+                },
+                annotation: annotate('<%= overallErrorThreshold =%>')
+            }
+        }
+    );
+</script>
+<script>
+    new Chart(
+        document.getElementById("max-action-error-chart").getContext("2d"),
+        {
+            type: 'bar',
+            data: '<%= maxActionErrorChartData =%>',
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: [
+                        '<%= application =%> hardware exploration: max action error',
+                        'how broken is the most broken action?'
+                    ]
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            type: "linear",
+                            display: true,
+                            position: "left",
+                            id: "y-axis-0",
+                            scaleLabel: {
+                                display: true,
+                                labelString: "max action error [%]"
+                            },
+                            ticks: {
+                                min: 0,
+                                max: '<%= maxMaxActionError =%>'
+                            }
+                        }
+                    ],
+                    xAxes: [
+                        {
+                            scaleLabel: {
+                                display: true,
+                                labelString: "<%= xAxisLabel =%>"
+                            }
+                        }
+                    ]
+                },
+                annotation: annotate('<%= maxActionErrorThreshold =%>')
             }
         }
     );
@@ -122,7 +193,10 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: '<%= application =%> hardware exploration: throughput'
+                    text: [
+                        '<%= application =%> hardware exploration: throughput',
+                        'how many responses are served each second?'
+                    ]
                 },
                 scales: {
                     yAxes: [

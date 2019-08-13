@@ -1,10 +1,7 @@
 package com.atlassian.performance.tools.hardware.guidance
 
 import com.amazonaws.services.ec2.model.InstanceType
-import com.atlassian.performance.tools.hardware.Hardware
-import com.atlassian.performance.tools.hardware.HardwareExplorationDecision
-import com.atlassian.performance.tools.hardware.HardwareExplorationResult
-import com.atlassian.performance.tools.hardware.HardwareExplorationResultCache
+import com.atlassian.performance.tools.hardware.*
 import com.atlassian.performance.tools.hardware.report.HardwareExplorationChart
 import com.atlassian.performance.tools.hardware.report.HardwareExplorationTable
 import com.atlassian.performance.tools.hardware.report.JiraInstanceTypeGrouping
@@ -13,6 +10,7 @@ import com.atlassian.performance.tools.lib.minus
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
 import com.atlassian.performance.tools.workspace.api.git.GitRepo
+import java.io.File
 import java.util.concurrent.Future
 
 class JiraExplorationGuidance(
@@ -84,10 +82,11 @@ class JiraExplorationGuidance(
 
     override fun report(
         exploration: List<HardwareExplorationResult>,
+        requirements: OutcomeRequirements,
         task: TaskWorkspace,
         title: String,
         resultsCache: HardwareExplorationResultCache
-    ) = synchronized(this) {
+    ): List<File> = synchronized(this) {
         resultsCache.write(exploration)
         val sortedResults = exploration.sortedWith(
             compareBy<HardwareExplorationResult> {
@@ -98,18 +97,20 @@ class JiraExplorationGuidance(
                 }
             )
         )
-        HardwareExplorationTable().summarize(
+        val table = HardwareExplorationTable().summarize(
             results = sortedResults,
             table = task.isolateReport("exploration-table.csv")
         )
-        HardwareExplorationChart(
+        val chart = HardwareExplorationChart(
             JiraInstanceTypeGrouping(compareBy { instanceTypes.indexOf(it) }),
             NodeCountXAxis(),
             GitRepo.findFromCurrentDirectory()
         ).plot(
             exploration = exploration,
+            requirements = requirements,
             application = title,
             output = task.isolateReport("jira-exploration-chart.html")
         )
+        return listOfNotNull(table, chart)
     }
 }

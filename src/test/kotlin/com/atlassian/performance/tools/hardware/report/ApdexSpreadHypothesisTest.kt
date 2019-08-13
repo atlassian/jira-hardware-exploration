@@ -72,6 +72,8 @@ class ApdexSpreadHypothesisTest {
     }
 
     private fun HardwareTestResult.errorRateSpread(): Double {
-        return errorRates.max()!! - errorRates.min()!!
+        return overallErrors
+            .map { it.ratio.proportion }
+            .let { it.max()!! - it.min()!! }
     }
 }

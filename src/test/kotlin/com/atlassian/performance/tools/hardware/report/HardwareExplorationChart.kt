@@ -2,6 +2,7 @@ package com.atlassian.performance.tools.hardware.report
 
 import com.atlassian.performance.tools.hardware.HardwareExplorationResult
 import com.atlassian.performance.tools.hardware.HardwareTestResult
+import com.atlassian.performance.tools.hardware.OutcomeRequirements
 import com.atlassian.performance.tools.hardware.RecommendationSet
 import com.atlassian.performance.tools.io.api.ensureParentDirectory
 import com.atlassian.performance.tools.lib.chart.*
@@ -9,7 +10,7 @@ import com.atlassian.performance.tools.lib.chart.color.Color
 import com.atlassian.performance.tools.lib.chart.color.PresetLabelColor
 import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import org.apache.logging.log4j.LogManager
-import java.lang.Exception
+import java.io.File
 import java.math.BigDecimal
 import java.math.MathContext
 import java.math.RoundingMode.HALF_UP
@@ -37,12 +38,13 @@ internal class HardwareExplorationChart<S, X>(
 
     fun plot(
         exploration: List<HardwareExplorationResult>,
+        requirements: OutcomeRequirements,
         application: String,
         output: Path
-    ) {
+    ): File? {
         val results = exploration.mapNotNull { it.testResult }
         if (results.isEmpty()) {
-            return
+            return null
         }
         val resultsPerSeries = results
             .let { seriesGrouping.group(it) }
@@ -61,17 +63,37 @@ internal class HardwareExplorationChart<S, X>(
                 newValue = "1.00"
             )
             .replace(
-                oldValue = "'<%= errorRateChartData =%>'",
-                newValue = plotErrorRate(resultsPerSeries).toJson().toString()
+                oldValue = "'<%= apdexThreshold =%>'",
+                newValue = requirements.apdexThreshold.toString()
             )
             .replace(
-                oldValue = "'<%= maxErrorRate =%>'",
+                oldValue = "'<%= overallErrorChartData =%>'",
+                newValue = plotOverallError(resultsPerSeries).toJson().toString()
+            )
+            .replace(
+                oldValue = "'<%= maxOverallError =%>'",
                 newValue = results
-                    .flatMap { it.errorRates }
-                    .map { it * 100 }
+                    .flatMap { it.overallErrors }
+                    .map { it.ratio.percent }
                     .maxAxis()
                     .coerceAtMost(100.0)
                     .toString()
+            )
+            .replace(
+                oldValue = "'<%= overallErrorThreshold =%>'",
+                newValue = requirements.overallErrorThreshold.ratio.percent.toString()
+            )
+            .replace(
+                oldValue = "'<%= maxActionErrorChartData =%>'",
+                newValue = plotMaxActionError(resultsPerSeries).toJson().toString()
+            )
+            .replace(
+                oldValue = "'<%= maxMaxActionError =%>'",
+                newValue = "100.00"
+            )
+            .replace(
+                oldValue = "'<%= maxActionErrorThreshold =%>'",
+                newValue = requirements.maxActionErrorThreshold.percent.toString()
             )
             .replace(
                 oldValue = "'<%= throughputChartData =%>'",
@@ -97,18 +119,20 @@ internal class HardwareExplorationChart<S, X>(
                 oldValue = "<%= application =%>",
                 newValue = application
             )
-        output.toFile().ensureParentDirectory().printWriter().use { it.print(report) }
-        logger.info("Hardware exploration chart available at ${output.toUri()}")
+        val chart = output.toFile()
+        chart.ensureParentDirectory().printWriter().use { it.print(report) }
+        logger.info("Hardware exploration chart available at ${chart.toURI()}")
+        return chart
     }
 
     fun plotRecommendation(
         recommendations: RecommendationSet,
         application: String,
         output: Path
-    ) {
-        val results = recommendations.exploration.mapNotNull { it.testResult }
+    ): File? {
+        val results = recommendations.exploration.results.mapNotNull { it.testResult }
         if (results.isEmpty()) {
-            return
+            return null
         }
         val resultsPerSeries = results
             .let { seriesGrouping.group(it) }
@@ -151,8 +175,10 @@ internal class HardwareExplorationChart<S, X>(
                 oldValue = "<%= application =%>",
                 newValue = application
             )
-        output.toFile().ensureParentDirectory().printWriter().use { it.print(report) }
-        logger.info("Hardware recommendation chart available at ${output.toUri()}")
+        val chart = output.toFile()
+        chart.ensureParentDirectory().printWriter().use { it.print(report) }
+        logger.info("Hardware recommendation chart available at ${chart.toURI()}")
+        return chart
     }
 
     private fun plotRecommendationByApdex(
@@ -265,7 +291,7 @@ internal class HardwareExplorationChart<S, X>(
         )
     }
 
-    private fun plotErrorRate(
+    private fun plotOverallError(
         resultsPerSeries: Map<S, List<HardwareTestResult>>
     ): Chart<X> = resultsPerSeries
         .map { (series, testResults) ->
@@ -273,14 +299,42 @@ internal class HardwareExplorationChart<S, X>(
                 data = testResults.map {
                     HardwarePoint(
                         x = xAxis.getX(it),
-                        value = it.errorRate.times(100).toBigDecimal(mathContext)
+                        value = it.overallError.ratio.percent.toBigDecimal(mathContext)
                     )
                 },
                 errorBars = testResults.map { result ->
                     plotErrorBar(
                         x = xAxis.getX(result),
-                        y = result.errorRate * 100,
-                        yRange = result.errorRates.map { it * 100 }
+                        y = result.overallError.ratio.percent,
+                        yRange = result.overallErrors.map { it.ratio.percent }
+                    )
+                },
+                label = series.toString()
+            )
+        }
+        .let { Chart(it) }
+
+    private fun plotMaxActionError(
+        resultsPerSeries: Map<S, List<HardwareTestResult>>
+    ): Chart<X> = resultsPerSeries
+        .filterValues { testResults ->
+            testResults.all { testResult ->
+                testResult.maxActionError != null
+            }
+        }
+        .map { (series, testResults) ->
+            chartLine(
+                data = testResults.map {
+                    HardwarePoint(
+                        x = xAxis.getX(it),
+                        value = it.maxActionError!!.ratio.percent.toBigDecimal(mathContext)
+                    )
+                },
+                errorBars = testResults.map { result ->
+                    plotErrorBar(
+                        x = xAxis.getX(result),
+                        y = result.maxActionError!!.ratio.percent,
+                        yRange = result.maxActionErrors!!.map { it.ratio.percent }
                     )
                 },
                 label = series.toString()
