@@ -3,7 +3,6 @@ package com.atlassian.performance.tools.hardware.report
 import com.amazonaws.services.ec2.model.InstanceType
 import com.atlassian.performance.tools.hardware.*
 import com.atlassian.performance.tools.infrastructure.api.database.Database
-import com.atlassian.performance.tools.infrastructure.api.database.DbType
 import com.atlassian.performance.tools.infrastructure.api.dataset.Dataset
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraHomeSource
 import com.atlassian.performance.tools.lib.Ratio
@@ -84,7 +83,6 @@ class HardwareExplorationTableTest {
 
 class FailingDatabase : Database {
 
-    override fun getDbType(): DbType = fail()
     override fun setup(ssh: SshConnection): String = fail()
     override fun start(jira: URI, ssh: SshConnection): Unit = fail()
 }
