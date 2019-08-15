@@ -30,7 +30,7 @@ import java.util.zip.ZipOutputStream
 
 class HardwareRecommendationIT {
 
-    private val cacheKey = "QUICK-240-redo-jsw-7.13.0"
+    private val cacheKey = "QUICK-284-analysis-ram-formula"
     private val workspace = rootWorkspace.isolateTask(cacheKey)
     private val jswVersion = System.getProperty("hwr.jsw.version") ?: "7.13.0"
 
@@ -121,14 +121,10 @@ class HardwareRecommendationIT {
         db: InstanceType
     ): JiraExplorationGuidance = JiraExplorationGuidance(
         instanceTypes = listOf(
-            C52xlarge,
-            C54xlarge,
-            C48xlarge,
-            C59xlarge,
-            C518xlarge
+            R512xlarge
         ),
         minNodeCountForAvailability = 3,
-        maxNodeCount = 16,
+        maxNodeCount = 7,
         minApdexGain = 0.01,
         minThroughputGain = TemporalRate(5.0, Duration.ofSeconds(1)),
         db = db
