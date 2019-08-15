@@ -1,9 +1,5 @@
 package com.atlassian.performance.tools.hardware
 
-import com.atlassian.performance.tools.hardware.vu.CustomScenario
-import com.atlassian.performance.tools.hardware.vu.CustomSetup
-import com.atlassian.performance.tools.hardware.vu.EditCustomFieldAction
-import com.atlassian.performance.tools.hardware.vu.MyAdaptiveCustomFieldMemory
 import com.atlassian.performance.tools.jiraactions.api.SeededRandom
 import com.atlassian.performance.tools.jiraactions.api.WebJira
 import com.atlassian.performance.tools.jiraactions.api.action.BrowseProjectsAction
@@ -78,10 +74,10 @@ class VirtualUserTest {
                 userMemory.remember(listOf(User("admin", adminPassword)))
                 LogInAction(webJira, actionMeter, userMemory).run()
 
-                EditCustomFieldAction(driver = chrome.getDriver(),
-                    jira = webJira,
-                    meter = actionMeter,
-                    customFieldMemory = MyAdaptiveCustomFieldMemory(random)).run()
+//                EditCustomFieldAction(driver = chrome.getDriver(),
+//                    jira = webJira,
+//                    meter = actionMeter,
+//                    customFieldMemory = MyAdaptiveCustomFieldMemory(random)).run()
 
 //                CustomScenario().getActions(jira = webJira, seededRandom = random, meter = actionMeter).forEach {
 //                    it.run()

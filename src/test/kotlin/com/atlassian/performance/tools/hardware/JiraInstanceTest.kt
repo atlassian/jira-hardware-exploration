@@ -19,7 +19,7 @@ import org.junit.Test
 import java.time.Duration
 
 class JiraInstanceTest {
-    private val aws = AtlassianAccount.DEVELOPMENT_IRELAND.aws
+    private val aws = IntegrationTestRuntime.prepareAws()
     private val rootWorkspace = RootWorkspace()
     private val testWorkspace = rootWorkspace.currentTask.isolateTest("JiraInstanceTest")
     val jiraVersion = "7.13.0" //""7.13.0"
