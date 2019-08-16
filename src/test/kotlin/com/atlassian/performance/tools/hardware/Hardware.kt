@@ -70,6 +70,7 @@ data class Hardware(
             C54xlarge -> 0.768
             C59xlarge -> 1.728
             C518xlarge -> 3.924
+            R512xlarge -> 3.384
             M4Large -> 0.111
             M4Xlarge -> 0.222
             M42xlarge -> 0.444

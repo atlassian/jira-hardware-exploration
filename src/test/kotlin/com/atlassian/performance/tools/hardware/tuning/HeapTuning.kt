@@ -40,6 +40,7 @@ class HeapTuning(
             C48xlarge -> 50
             C59xlarge -> 60
             C518xlarge -> 120
+            R512xlarge -> 60
             else -> throw Exception("Don't know the max heap for ${hardware.jira}")
         }
         val actualGigabytes = maxGigabytes
