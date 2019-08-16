@@ -41,9 +41,9 @@ class HardwareRecommendationIT {
         val aws = IntegrationTestRuntime.prepareAws()
         val cache = cacheOnS3(aws)
         try {
-            val largeRecommendations = recommendHardwareForLarge(aws, cache)
+            //val largeRecommendations = recommendHardwareForLarge(aws, cache)
             val extraLargeRecommendations = recommendHardwareForExtraLarge(aws, cache)
-            zipReports(listOf(largeRecommendations, extraLargeRecommendations))
+            zipReports(listOf(extraLargeRecommendations))
         } finally {
             cache.upload()
         }
@@ -96,10 +96,7 @@ class HardwareRecommendationIT {
             tuning = tuning,
             jiraExploration = guideJira(db),
             dbInstanceTypes = listOf(
-                M42xlarge,
-                M44xlarge,
-                M410xlarge,
-                M416xlarge
+                M44xlarge
             ),
             requirements = OutcomeRequirements(
                 overallErrorThreshold = OverallError(Ratio(0.01)),
