@@ -91,6 +91,7 @@ dependencies {
     testCompile("org.hamcrest:hamcrest-library:1.3")
     testCompile("org.assertj:assertj-core:3.11.1")
     testCompile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.70")
+    testCompile("commons-io:commons-io:2.5")
 
     listOf(
         "api",
