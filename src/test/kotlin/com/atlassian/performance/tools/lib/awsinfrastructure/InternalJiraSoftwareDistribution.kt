@@ -8,10 +8,11 @@ import com.atlassian.performance.tools.ssh.api.SshConnection
 internal class InternalJiraSoftwareDistribution(
     private val version: String
 ) : ProductDistribution {
+
     override fun install(
         ssh: SshConnection,
         destination: String
-    ): String = InternalJswStorage().download(ssh, destination)
+    ): String = ApplicationStorageWrapper(InternalJswStorage()).install(ssh, destination)
 
     @Suppress("DEPRECATION")
     private inner class InternalJswStorage : ApplicationStorage {
