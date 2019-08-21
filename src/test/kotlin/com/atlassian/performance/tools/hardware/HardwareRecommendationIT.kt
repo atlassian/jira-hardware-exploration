@@ -14,6 +14,8 @@ import com.atlassian.performance.tools.io.api.ensureParentDirectory
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import com.atlassian.performance.tools.lib.OverallError
 import com.atlassian.performance.tools.lib.Ratio
+import com.atlassian.performance.tools.lib.awsinfrastructure.InternalJiraSoftwareDistribution
+import com.atlassian.performance.tools.lib.awsinfrastructure.ProductDistributionChain
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.lib.workspace.GitRepo2
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
@@ -91,7 +93,10 @@ class HardwareRecommendationIT {
     ): ReportedRecommendations {
         val scaleWorkspace = TaskWorkspace(workspace.directory.resolve(scale.cacheKey))
         val engine = HardwareRecommendationEngine(
-            product = PublicJiraSoftwareDistribution(jswVersion),
+            product = ProductDistributionChain(
+                PublicJiraSoftwareDistribution(jswVersion),
+                InternalJiraSoftwareDistribution(jswVersion)
+            ),
             scale = scale,
             tuning = tuning,
             jiraExploration = guideJira(db),
