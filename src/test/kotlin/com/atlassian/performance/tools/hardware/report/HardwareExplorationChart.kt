@@ -5,6 +5,8 @@ import com.atlassian.performance.tools.hardware.HardwareTestResult
 import com.atlassian.performance.tools.hardware.OutcomeRequirements
 import com.atlassian.performance.tools.hardware.RecommendationSet
 import com.atlassian.performance.tools.io.api.ensureParentDirectory
+import com.atlassian.performance.tools.lib.ActionError
+import com.atlassian.performance.tools.lib.Ratio
 import com.atlassian.performance.tools.lib.chart.*
 import com.atlassian.performance.tools.lib.chart.color.Color
 import com.atlassian.performance.tools.lib.chart.color.PresetLabelColor
@@ -89,7 +91,12 @@ internal class HardwareExplorationChart<S, X>(
             )
             .replace(
                 oldValue = "'<%= maxMaxActionError =%>'",
-                newValue = "100.00"
+                newValue = results
+                    .flatMap { it.maxActionErrors ?: listOf(ActionError("missing", Ratio(0.0))) }
+                    .map { it.ratio.percent }
+                    .maxAxis()
+                    .coerceAtMost(100.0)
+                    .toString()
             )
             .replace(
                 oldValue = "'<%= maxActionErrorThreshold =%>'",
