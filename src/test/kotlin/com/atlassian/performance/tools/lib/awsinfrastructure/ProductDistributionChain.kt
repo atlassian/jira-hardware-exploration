@@ -6,25 +6,28 @@ import com.atlassian.performance.tools.ssh.api.SshConnection
 internal class ProductDistributionChain(
     private vararg val distributions: ProductDistribution
 ) : ProductDistribution {
-    private val exception = Exception("Cannot find Jira artifact")
 
     override fun install(
         ssh: SshConnection,
         destination: String
-    ): String = distributions
-        .asSequence()
-        .mapNotNull { tryInstall(it, ssh, destination) }
-        .firstOrNull()
-        ?: throw exception
+    ): String {
+        val exceptionChain = Exception("Cannot find Jira artifact")
+        return distributions
+            .asSequence()
+            .mapNotNull { tryInstall(it, ssh, destination, exceptionChain) }
+            .firstOrNull()
+            ?: throw exceptionChain
+    }
 
     private fun tryInstall(
         distribution: ProductDistribution,
         ssh: SshConnection,
-        destination: String
+        destination: String,
+        exceptionChain: Exception
     ): String? = try {
         distribution.install(ssh, destination)
     } catch (e: Exception) {
-        exception.addSuppressed(e)
+        exceptionChain.addSuppressed(e)
         null
     }
 }
