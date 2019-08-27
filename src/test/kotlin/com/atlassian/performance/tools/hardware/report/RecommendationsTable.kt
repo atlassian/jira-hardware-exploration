@@ -28,7 +28,7 @@ class RecommendationsTable {
         val tableFile = output.toFile()
         tableFile.bufferedWriter().use { writer ->
             val printer = CSVPrinter(writer, format)
-            printRecommendation(recommendations.bestApdex, "best Apdex and reliabilty", printer)
+            printRecommendation(recommendations.bestApdexAndReliability, "best Apdex and reliabilty", printer)
             printRecommendation(recommendations.bestCostEffectiveness, "most cost-effective", printer)
         }
         return tableFile

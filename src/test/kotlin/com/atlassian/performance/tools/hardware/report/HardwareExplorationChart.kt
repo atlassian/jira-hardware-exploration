@@ -151,7 +151,7 @@ internal class HardwareExplorationChart<S, X>(
             .use { it.readText() }
             .replace(
                 oldValue = "'<%= apdexChartData =%>'",
-                newValue = plotRecommendationByApdex(resultsPerSeries, recommendations.bestApdex).toJson().toString()
+                newValue = plotRecommendationByApdex(resultsPerSeries, recommendations.bestApdexAndReliability).toJson().toString()
             )
             .replace(
                 oldValue = "'<%= maxApdex =%>'",

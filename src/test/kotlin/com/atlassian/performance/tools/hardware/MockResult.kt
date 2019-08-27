@@ -13,7 +13,7 @@ class MockResult(
             .filter { it.apdex > 0.40 }
         return RecommendationSet(
             exploration = ReportedExploration(exploration, emptyList()),
-            bestApdex = candidates.maxBy { it.apdex }!!,
+            bestApdexAndReliability = candidates.maxBy { it.apdex }!!,
             bestCostEffectiveness = candidates.maxBy { it.apdexPerUsdUpkeep }!!
         )
     }
