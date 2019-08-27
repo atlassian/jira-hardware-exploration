@@ -98,7 +98,7 @@ class HardwareRecommendationEngine(
                 ),
                 reports = recommendations.exploration.reports
             ),
-            bestApdex = recommendations.bestApdex,
+            bestApdexAndReliability = recommendations.bestApdexAndReliability,
             bestCostEffectiveness = recommendations.bestCostEffectiveness
         ),
         application = scale.description,
@@ -112,15 +112,29 @@ class HardwareRecommendationEngine(
             .results
             .mapNotNull { it.testResult }
             .filter { requirements.areSatisfiedBy(it) }
-        val bestApdex = pickTheBestApdex(candidates)
-        logger.info("Recommending best Apdex achieved by $bestApdex")
+        val bestApdexAndReliability = pickTheBestApdex(pickReliable(candidates))
+        logger.info("Recommending best Apdex and reliability achieved by $bestApdexAndReliability")
         val bestCostEffectiveness = pickTheMostCostEffective(candidates)
         logger.info("Recommending best cost-effectiveness achieved by $bestCostEffectiveness")
         return RecommendationSet(
             exploration,
-            bestApdex,
+            bestApdexAndReliability,
             bestCostEffectiveness
         )
+    }
+
+    private fun pickReliable(
+        candidates: List<HardwareTestResult>
+    ): List<HardwareTestResult> {
+        return candidates
+            .filter { candidate ->
+                val hardwareAfterIncident = candidate.hardware.copy(
+                    nodeCount = candidate.hardware.nodeCount - 1
+                )
+                return@filter candidates
+                    .map { it.hardware }
+                    .contains(hardwareAfterIncident)
+            }
     }
 
     private fun pickTheBestApdex(
@@ -182,10 +196,10 @@ class HardwareRecommendationEngine(
 
 class RecommendationSet(
     val exploration: ReportedExploration,
-    val bestApdex: HardwareTestResult,
+    val bestApdexAndReliability: HardwareTestResult,
     val bestCostEffectiveness: HardwareTestResult
 ) {
-    val allRecommendations = listOf(bestApdex, bestCostEffectiveness)
+    val allRecommendations = listOf(bestApdexAndReliability, bestCostEffectiveness)
 }
 
 class ReportedRecommendations(
