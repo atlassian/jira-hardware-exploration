@@ -199,7 +199,7 @@ class RecommendationSet(
     val bestApdexAndReliability: HardwareTestResult,
     val bestCostEffectiveness: HardwareTestResult
 ) {
-    val allRecommendations = listOf(bestApdexAndReliability, bestCostEffectiveness)
+    val allRecommendations = listOf(bestApdexAndReliability, bestCostEffectiveness).distinctBy { it.hardware }
 }
 
 class ReportedRecommendations(
