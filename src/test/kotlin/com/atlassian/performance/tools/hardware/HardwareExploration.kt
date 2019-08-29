@@ -22,9 +22,9 @@ import com.atlassian.performance.tools.jiraperformancetests.api.ProvisioningPerf
 import com.atlassian.performance.tools.lib.OverallError
 import com.atlassian.performance.tools.lib.Ratio
 import com.atlassian.performance.tools.lib.concurrency.submitWithLogContext
+import com.atlassian.performance.tools.lib.infrastructure.S3HostedJdk
 import com.atlassian.performance.tools.lib.infrastructure.BestEffortProfiler
 import com.atlassian.performance.tools.lib.infrastructure.PatientChromium69
-import com.atlassian.performance.tools.lib.infrastructure.WgetOracleJdk
 import com.atlassian.performance.tools.lib.readResult
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.lib.writeStatus
@@ -312,7 +312,7 @@ class HardwareExploration(
                     JiraNodeConfig.Builder()
                         .name("jira-node-$nodeNumber")
                         .profiler(BestEffortProfiler(AsyncProfiler()))
-                        .jdk(WgetOracleJdk())
+                        .jdk(S3HostedJdk())
                         .build()
                         .let { tuning.tune(it, hardware, scale) }
                 })
