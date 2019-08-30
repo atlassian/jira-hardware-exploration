@@ -24,7 +24,7 @@ class HeapTuning(
             )
             .launchTimeouts(
                 JiraLaunchTimeouts.Builder()
-                    .initTimeout(Duration.ofMinutes(7))
+                    .initTimeout(Duration.ofMinutes(10))
                     .offlineTimeout(Duration.ofMinutes(15))
                     .build()
             )
