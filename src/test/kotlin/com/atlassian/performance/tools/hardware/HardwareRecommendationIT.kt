@@ -33,7 +33,7 @@ import java.util.zip.ZipOutputStream
 class HardwareRecommendationIT {
 
     private val jswVersion = System.getProperty("hwr.jsw.version") ?: "7.13.0"
-    private val cacheKey = "JREL-5693-v2-$jswVersion"
+    private val cacheKey = "QUICK-240-redo-jsw-7.13.0"
     private val workspace = rootWorkspace.isolateTask(cacheKey)
 
     @Test
