@@ -48,11 +48,14 @@ class HardwareRecommendationEngine(
         try {
             val dbExploration = exploreDbHardware(jiraRecommendations.allRecommendations, jiraExploration)
             val dbRecommendations = recommend(dbExploration)
-            val dbReport = reportDbRecommendation(dbRecommendations)
+            val dbRecommendationChart = chartDbRecommendation(dbRecommendations)
+            val dbRecommendationTable = tabularize(dbRecommendations)
             return ReportedRecommendations(
                 description = scale.description,
                 recommendations = dbRecommendations,
-                reports = listOfNotNull(jiraReport, dbReport) + jiraExploration.reports + dbExploration.reports
+                reports = listOfNotNull(jiraReport, dbRecommendationChart, dbRecommendationTable)
+                    + jiraExploration.reports
+                    + dbExploration.reports
             )
         } finally {
             time("upload") { s3Cache.upload() }
@@ -71,7 +74,7 @@ class HardwareRecommendationEngine(
         output = workspace.isolateReport("jira-recommendation-chart.html")
     )
 
-    private fun reportDbRecommendation(
+    private fun chartDbRecommendation(
         recommendations: RecommendationSet
     ) = HardwareExplorationChart(
         JiraClusterGrouping(InstanceType.values().toList()),
@@ -166,6 +169,15 @@ class HardwareRecommendationEngine(
             jiraExploration = jiraExploration.results
         )
     )
+
+    private fun tabularize(
+        recommendations: RecommendationSet
+    ): File {
+        return RecommendationsTable().tabulate(
+            recommendations = recommendations,
+            output = workspace.isolateReport("db-recommendation-table.csv")
+        )
+    }
 }
 
 class RecommendationSet(
