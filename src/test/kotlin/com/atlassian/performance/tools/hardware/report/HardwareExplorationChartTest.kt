@@ -1,7 +1,8 @@
 package com.atlassian.performance.tools.hardware.report
 
 import com.amazonaws.services.ec2.model.InstanceType
-import com.atlassian.performance.tools.hardware.*
+import com.atlassian.performance.tools.hardware.MockResult
+import com.atlassian.performance.tools.hardware.OutcomeRequirements
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import com.atlassian.performance.tools.lib.OverallError
 import com.atlassian.performance.tools.lib.Ratio
@@ -10,7 +11,6 @@ import com.atlassian.performance.tools.workspace.api.git.HardcodedGitRepo
 import org.apache.logging.log4j.core.config.ConfigurationFactory
 import org.junit.Before
 import org.junit.Test
-import java.io.File
 import java.nio.file.Paths
 
 class HardwareExplorationChartTest {
@@ -34,8 +34,7 @@ class HardwareExplorationChartTest {
             NodeCountXAxis(),
             HardcodedGitRepo("5fcd73c04783561c3ad672101ac8f759de00dea7")
         )
-        val resourcePath = "/8-node-exploration-cache.json"
-        val exploration = readExploration(resourcePath)
+        val exploration = MockResult("/8-node-exploration-cache.json").readExploration()
 
         chart.plot(
             exploration = exploration,
@@ -52,26 +51,12 @@ class HardwareExplorationChartTest {
             NodeCountXAxis(),
             HardcodedGitRepo("5fcd73c04783561c3ad672101ac8f759de00dea7")
         )
-        val recommendations = readRecommendations("/xl-quick-132-cache.json")
+        val recommendations = MockResult("/xl-quick-132-cache.json").readRecommendations()
 
         chart.plotRecommendation(
             recommendations = recommendations,
             application = "test",
             output = workspace.isolateReport("jira-hardware-recommendation-chart.html")
-        )
-    }
-
-    private fun readRecommendations(
-        resourcePath: String
-    ): RecommendationSet {
-        val exploration = readExploration(resourcePath)
-        val candidates = exploration
-            .mapNotNull { it.testResult }
-            .filter { it.apdex > 0.40 }
-        return RecommendationSet(
-            exploration = ReportedExploration(exploration, emptyList()),
-            bestApdex = candidates.maxBy { it.apdex }!!,
-            bestCostEffectiveness = candidates.maxBy { it.apdexPerUsdUpkeep }!!
         )
     }
 
@@ -82,7 +67,7 @@ class HardwareExplorationChartTest {
             DbInstanceTypeXAxis(),
             HardcodedGitRepo("5fcd73c04783561c3ad672101ac8f759de00dea7")
         )
-        val recommendations = readRecommendations("/xl-quick-132-cache-db.json")
+        val recommendations = MockResult("/xl-quick-132-cache-db.json").readRecommendations()
 
         chart.plotRecommendation(
             recommendations = recommendations,
@@ -98,7 +83,7 @@ class HardwareExplorationChartTest {
             DbInstanceTypeXAxis(),
             HardcodedGitRepo("fake commit")
         )
-        val exploration = readExploration("/8-node-exploration-cache.json")
+        val exploration = MockResult("/8-node-exploration-cache.json").readExploration()
 
         chart.plot(
             exploration = exploration,
@@ -115,7 +100,7 @@ class HardwareExplorationChartTest {
             NodeCountXAxis(),
             HardcodedGitRepo("whatevs")
         )
-        val exploration = readExploration("/out-of-bounds-error-bars-cache.json")
+        val exploration = MockResult("/out-of-bounds-error-bars-cache.json").readExploration()
 
         chart.plot(
             exploration = exploration,
@@ -125,13 +110,4 @@ class HardwareExplorationChartTest {
         )
     }
 
-    private fun readExploration(
-        resourcePath: String
-    ): List<HardwareExplorationResult> = resourcePath
-        .let { javaClass.getResource(it) }
-        .toURI()
-        .let { File(it) }
-        .toPath()
-        .let { HardwareExplorationResultCache(it) }
-        .read()
 }
