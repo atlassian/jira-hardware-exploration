@@ -4,6 +4,7 @@ import com.amazonaws.services.ec2.model.InstanceType
 import com.amazonaws.services.ec2.model.InstanceType.*
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
 import com.atlassian.performance.tools.aws.api.Aws
+import com.atlassian.performance.tools.awsinfrastructure.api.jira.JiraSoftwareInternalDistribution
 import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.rootWorkspace
 import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
 import com.atlassian.performance.tools.hardware.tuning.HeapTuning
@@ -14,7 +15,6 @@ import com.atlassian.performance.tools.io.api.ensureParentDirectory
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import com.atlassian.performance.tools.lib.OverallError
 import com.atlassian.performance.tools.lib.Ratio
-import com.atlassian.performance.tools.lib.awsinfrastructure.InternalJiraSoftwareDistribution
 import com.atlassian.performance.tools.lib.awsinfrastructure.ProductDistributionChain
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.lib.workspace.GitRepo2
@@ -95,7 +95,10 @@ class HardwareRecommendationIT {
         val engine = HardwareRecommendationEngine(
             product = ProductDistributionChain(
                 PublicJiraSoftwareDistribution(jswVersion),
-                InternalJiraSoftwareDistribution(jswVersion)
+                JiraSoftwareInternalDistribution(
+                    version = jswVersion,
+                    unpackTimeout = Duration.ofSeconds(100)
+                )
             ),
             scale = scale,
             tuning = tuning,

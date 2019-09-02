@@ -23,20 +23,7 @@ class JiraExplorationGuidance(
 ) : ExplorationGuidance {
 
     override fun space(): List<Hardware> = instanceTypes.flatMap { instanceType ->
-        (1..maxNodeCount).map { Hardware(instanceType, it, db) }.filter { avoidProblematicHardware(it) }
-    }
-
-    /**
-     * Avoids:
-     * ```
-     * SSH command exceeded timeout PT1M by PT0.891S: 'tar -xzf ./atlassian-jira-software-8.4.0-m0003-standalone.tar.gz --directory .'
-     * ```
-     * Fixing it requires unhacking [com.atlassian.performance.tools.lib.awsinfrastructure.InternalJiraSoftwareDistribution].
-     */
-    private fun avoidProblematicHardware(
-        hardware: Hardware
-    ): Boolean {
-        return (hardware.jira == InstanceType.C52xlarge && hardware.nodeCount >= 10).not()
+        (1..maxNodeCount).map { Hardware(instanceType, it, db) }
     }
 
     override fun decideTesting(
