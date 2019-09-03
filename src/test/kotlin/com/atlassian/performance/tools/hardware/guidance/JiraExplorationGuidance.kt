@@ -23,7 +23,19 @@ class JiraExplorationGuidance(
 ) : ExplorationGuidance {
 
     override fun space(): List<Hardware> = instanceTypes.flatMap { instanceType ->
-        (1..maxNodeCount).map { Hardware(instanceType, it, db) }
+        (1..maxNodeCount).map { Hardware(instanceType, it, db) }.filter { avoidProblematicHardware(it) }
+    }
+
+    /**
+     * Avoids:
+     * ```
+     * http://admin:admin@localhost:8080/rest/api/2/upgrade failed to get out of 503 status within PT18M
+     * ```
+     */
+    private fun avoidProblematicHardware(
+        hardware: Hardware
+    ): Boolean {
+        return (hardware.jira == InstanceType.C52xlarge && hardware.nodeCount >= 10).not()
     }
 
     override fun decideTesting(
