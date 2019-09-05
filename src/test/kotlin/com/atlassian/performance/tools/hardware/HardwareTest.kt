@@ -19,6 +19,6 @@ class HardwareTest {
 
         val cost = hardware.estimateCost()
 
-        assertThat(cost, equalTo(TemporalRate(3_957.12, Duration.ofDays(30))))
+        assertThat(cost, equalTo(TemporalRate(4.88, Duration.ofHours(1))))
     }
 }
