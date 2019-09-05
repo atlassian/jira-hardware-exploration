@@ -56,26 +56,26 @@ data class Hardware(
     }
 
     /**
-     * [On-Demand pricing](https://aws.amazon.com/ec2/pricing/on-demand/) as of 2019-05-16.
+     * [On-Demand pricing](https://aws.amazon.com/ec2/pricing/on-demand/) as of 2019-09-05 for the Ohio (eu-east-2).
      * We can use https://aws.amazon.com/blogs/aws/new-aws-price-list-api/ in the future.
      */
     private fun estimateCost(
         instanceType: InstanceType
     ): TemporalRate {
         val usdPerHour = when (instanceType) {
-            C48xlarge -> 1.811
-            C5Large -> 0.096
-            C5Xlarge -> 0.192
-            C52xlarge -> 0.384
-            C54xlarge -> 0.768
-            C59xlarge -> 1.728
-            C518xlarge -> 3.924
-            M4Large -> 0.111
-            M4Xlarge -> 0.222
-            M42xlarge -> 0.444
-            M44xlarge -> 0.888
-            M410xlarge -> 2.220
-            M416xlarge -> 3.552
+            C48xlarge -> 1.591
+            C5Large -> 0.085
+            C5Xlarge -> 0.170
+            C52xlarge -> 0.340
+            C54xlarge -> 0.680
+            C59xlarge -> 1.530
+            C518xlarge -> 3.060
+            M4Large -> 0.1
+            M4Xlarge -> 0.2
+            M42xlarge -> 0.4
+            M44xlarge -> 0.8
+            M410xlarge -> 2.0
+            M416xlarge -> 3.2
             else -> throw Exception("Don't know how to estimate the cost of $instanceType")
         }
         return TemporalRate(usdPerHour, Duration.ofHours(1))

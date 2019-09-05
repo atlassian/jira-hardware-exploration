@@ -1,3 +1,3 @@
 reason,jira,jira nodes,database,apdex average (0.0-1.0),cost [USD/hour]
-best Apdex and reliabilty,c5.9xlarge,7,m4.4xlarge,0.774,14.71
-most cost-effective,c5.4xlarge,5,m4.2xlarge,0.676,5.05
+best Apdex and reliabilty,c5.9xlarge,7,m4.4xlarge,0.774,13.04
+most cost-effective,c5.4xlarge,5,m4.2xlarge,0.676,4.48
