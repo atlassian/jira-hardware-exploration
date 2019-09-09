@@ -104,6 +104,7 @@ class HardwareRecommendationIT {
             tuning = tuning,
             jiraExploration = guideJira(db),
             dbInstanceTypes = listOf(
+                M4Xlarge,
                 M42xlarge,
                 M44xlarge,
                 M410xlarge,
