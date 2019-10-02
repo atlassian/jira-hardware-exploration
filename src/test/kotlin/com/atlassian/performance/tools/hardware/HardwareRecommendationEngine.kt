@@ -167,7 +167,7 @@ class HardwareRecommendationEngine(
         pastFailures = BugAwareTolerance(logger),
         metric = HardwareMetric(
             scale = scale,
-            presenceJudge = VirtualUsersPresenceJudge(Ratio(0.90))
+            presenceJudge = VirtualUsersPresenceJudge(Ratio(0.70))
         ),
         s3Cache = s3Cache,
         explorationCache = explorationCache
