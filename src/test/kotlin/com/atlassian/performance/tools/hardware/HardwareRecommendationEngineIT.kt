@@ -12,6 +12,7 @@ import com.atlassian.performance.tools.infrastructure.api.distribution.PublicJir
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import com.atlassian.performance.tools.lib.OverallError
 import com.atlassian.performance.tools.lib.Ratio
+import com.atlassian.performance.tools.lib.report.VirtualUsersPresenceJudge
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
@@ -112,7 +113,8 @@ class HardwareRecommendationEngineIT {
                 localPath = scaleWorkspace.directory,
                 etags = IntegrationTestRuntime.rootWorkspace.directory.resolve(".etags")
             ),
-            explorationCache = HardwareExplorationResultCache(scaleWorkspace.directory.resolve("processed-cache.json"))
+            explorationCache = HardwareExplorationResultCache(scaleWorkspace.directory.resolve("processed-cache.json")),
+            vuPresenceJudge = VirtualUsersPresenceJudge(Ratio(0.70))
         )
         return engine.recommend()
     }

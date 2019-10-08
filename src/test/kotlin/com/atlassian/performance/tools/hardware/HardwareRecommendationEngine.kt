@@ -30,7 +30,8 @@ class HardwareRecommendationEngine(
     private val aws: Aws,
     private val workspace: TaskWorkspace,
     private val s3Cache: S3Cache,
-    private val explorationCache: HardwareExplorationResultCache
+    private val explorationCache: HardwareExplorationResultCache,
+    private val vuPresenceJudge: VirtualUsersPresenceJudge = VirtualUsersPresenceJudge(Ratio(0.90))
 ) {
 
     private val logger = LogManager.getLogger(this::class.java)
@@ -167,7 +168,7 @@ class HardwareRecommendationEngine(
         pastFailures = BugAwareTolerance(logger),
         metric = HardwareMetric(
             scale = scale,
-            presenceJudge = VirtualUsersPresenceJudge(Ratio(0.70))
+            presenceJudge = vuPresenceJudge
         ),
         s3Cache = s3Cache,
         explorationCache = explorationCache
