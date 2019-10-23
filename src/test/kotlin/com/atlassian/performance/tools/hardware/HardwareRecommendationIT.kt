@@ -152,7 +152,7 @@ class HardwareRecommendationIT {
         bucketName = "quicksilver-jhwr-cache-ireland",
         cacheKey = cacheKey,
         localPath = workspace.directory,
-        etags = IntegrationTestRuntime.rootWorkspace.directory.resolve(".etags")
+        etags = rootWorkspace.directory.resolve(".etags")
     )
 
     private fun zipReports(

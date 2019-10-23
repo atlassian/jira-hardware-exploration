@@ -1,5 +1,6 @@
 package com.atlassian.performance.tools.hardware
 
+import com.atlassian.performance.tools.lib.HwrDatasetCatalogue
 import com.atlassian.performance.tools.lib.infrastructure.AdminDataset
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserLoad

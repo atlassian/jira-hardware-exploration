@@ -1,9 +1,8 @@
-package com.atlassian.performance.tools.hardware
+package com.atlassian.performance.tools.lib
 
 import com.amazonaws.regions.Regions
 import com.atlassian.performance.tools.aws.api.StorageLocation
 import com.atlassian.performance.tools.awsinfrastructure.api.DatasetCatalogue
-import com.atlassian.performance.tools.awsinfrastructure.api.dataset.S3DatasetPackage
 import com.atlassian.performance.tools.infrastructure.api.database.Database
 import com.atlassian.performance.tools.infrastructure.api.database.LicenseOverridingMysql
 import com.atlassian.performance.tools.infrastructure.api.dataset.Dataset
@@ -12,9 +11,6 @@ import com.atlassian.performance.tools.infrastructure.api.jira.JiraHomePackage
 import com.atlassian.performance.tools.lib.infrastructure.AdminDataset
 import com.atlassian.performance.tools.lib.infrastructure.AppNukingJiraHome
 import com.atlassian.performance.tools.lib.infrastructure.ConfigurableMysqlDatabase
-import com.atlassian.performance.tools.lib.overrideDatabase
-import com.atlassian.performance.tools.lib.overrideJiraHome
-import com.atlassian.performance.tools.lib.toExistingFile
 import java.net.URI
 import java.nio.file.Paths
 import java.time.Duration

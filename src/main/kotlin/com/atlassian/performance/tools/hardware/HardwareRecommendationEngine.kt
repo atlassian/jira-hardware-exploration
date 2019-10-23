@@ -51,6 +51,7 @@ class HardwareRecommendationEngine(
             val dbRecommendations = recommend(dbExploration + jiraExploration)
             val dbRecommendationChart = chartDbRecommendation(dbRecommendations)
             val dbRecommendationTable = tabularize(dbRecommendations)
+
             return ReportedRecommendations(
                 description = scale.description,
                 recommendations = dbRecommendations,
