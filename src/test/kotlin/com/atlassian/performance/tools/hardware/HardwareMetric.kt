@@ -59,10 +59,14 @@ class HardwareMetric(
     fun postProcess(
         rawResults: RawCohortResult
     ): EdibleResult = synchronized(POST_PROCESSING_LOCK) {
-        val timeline = StandardTimeline(scale.load.total)
-        val result = rawResults.prepareForJudgement(timeline)
-        validate(result)
-        return result
+        try {
+            val timeline = StandardTimeline(scale.load.total)
+            val result = rawResults.prepareForJudgement(timeline)
+            validate(result)
+            return result
+        } catch (e: Exception) {
+            throw Exception("Exception occured during postprocess", e)
+        }
     }
 
     private fun validate(
