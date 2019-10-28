@@ -5,7 +5,8 @@ import com.amazonaws.services.ec2.model.InstanceType.*
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
 import com.atlassian.performance.tools.aws.api.Aws
 import com.atlassian.performance.tools.awsinfrastructure.api.jira.JiraSoftwareInternalDistribution
-import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.rootWorkspace
+import com.atlassian.performance.tools.hardware.aws.HardwareRuntime
+import com.atlassian.performance.tools.hardware.aws.HardwareRuntime.rootWorkspace
 import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
 import com.atlassian.performance.tools.hardware.tuning.HeapTuning
 import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
@@ -40,7 +41,7 @@ class HardwareRecommendationIT {
     fun shouldRecommendHardware() {
         ConfigurationFactory.setConfigurationFactory(LogConfigurationFactory(workspace))
         requireCleanRepo()
-        val aws = IntegrationTestRuntime.prepareAws()
+        val aws = HardwareRuntime.prepareAws()
         val cache = cacheOnS3(aws)
         try {
             val largeRecommendations = recommendHardwareForLarge(aws, cache)

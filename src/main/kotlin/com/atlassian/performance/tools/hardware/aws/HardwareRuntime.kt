@@ -1,4 +1,4 @@
-package com.atlassian.performance.tools.hardware
+package com.atlassian.performance.tools.hardware.aws
 
 import com.amazonaws.auth.AWSCredentialsProviderChain
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain
@@ -13,7 +13,7 @@ import java.nio.file.Paths
 import java.time.Duration
 import java.util.*
 
-object IntegrationTestRuntime {
+object HardwareRuntime {
 
     val rootWorkspace = RootWorkspace(Paths.get("build"))
 

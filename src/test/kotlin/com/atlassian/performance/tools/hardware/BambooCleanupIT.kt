@@ -1,8 +1,8 @@
 package com.atlassian.performance.tools.hardware
 
 import com.atlassian.performance.tools.aws.api.ProvisionedStack
-import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.prepareAws
-import com.atlassian.performance.tools.hardware.IntegrationTestRuntime.rootWorkspace
+import com.atlassian.performance.tools.hardware.aws.HardwareRuntime.prepareAws
+import com.atlassian.performance.tools.hardware.aws.HardwareRuntime.rootWorkspace
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger

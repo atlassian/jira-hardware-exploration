@@ -46,6 +46,8 @@ com.squareup.okio:okio:1.13.0
 com.sun.istack:istack-commons-runtime:3.0.5
 com.sun.xml.fastinfoset:FastInfoset:1.2.13
 com.typesafe:config:1.2.1
+com.xenomachina:kotlin-argparser:2.0.7
+com.xenomachina:xenocom:0.0.7
 commons-cli:commons-cli:1.4
 commons-codec:commons-codec:1.10
 commons-io:commons-io:2.5

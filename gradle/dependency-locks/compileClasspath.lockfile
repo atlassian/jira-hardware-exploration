@@ -41,6 +41,8 @@ com.squareup.okhttp3:okhttp:3.9.1
 com.squareup.okio:okio:1.13.0
 com.sun.istack:istack-commons-runtime:3.0.5
 com.sun.xml.fastinfoset:FastInfoset:1.2.13
+com.xenomachina:kotlin-argparser:2.0.7
+com.xenomachina:xenocom:0.0.7
 commons-codec:commons-codec:1.10
 commons-logging:commons-logging:1.2
 javax.activation:activation:1.1.1

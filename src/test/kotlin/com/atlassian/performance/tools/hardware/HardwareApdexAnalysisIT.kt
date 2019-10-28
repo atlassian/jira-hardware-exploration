@@ -4,6 +4,7 @@ import com.amazonaws.services.ec2.model.InstanceType.C518xlarge
 import com.amazonaws.services.ec2.model.InstanceType.M44xlarge
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
 import com.atlassian.performance.tools.aws.api.Aws
+import com.atlassian.performance.tools.hardware.aws.HardwareRuntime
 import com.atlassian.performance.tools.jiraactions.api.*
 import com.atlassian.performance.tools.jirasoftwareactions.api.actions.ViewBacklogAction
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
@@ -30,7 +31,7 @@ import java.time.Duration
 class HardwareApdexAnalysisIT {
 
     private val cacheKey = "QUICK-132-fix-v3"
-    private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(cacheKey)
+    private val workspace = HardwareRuntime.rootWorkspace.isolateTask(cacheKey)
 
     // define the Apdex sets we want to investigate
     private val hardwareOfInterest: Hardware = Hardware(C518xlarge, 7, M44xlarge)
@@ -42,7 +43,7 @@ class HardwareApdexAnalysisIT {
 
     @Before
     fun setup() {
-        ConfigurationFactory.setConfigurationFactory(LogConfigurationFactory(IntegrationTestRuntime.rootWorkspace.currentTask))
+        ConfigurationFactory.setConfigurationFactory(LogConfigurationFactory(HardwareRuntime.rootWorkspace.currentTask))
     }
 
     @Test
@@ -54,7 +55,7 @@ class HardwareApdexAnalysisIT {
         // action-metrics.jpt contain the apdex information
         // status.txt is needed to pass TestWorkspace.readResult
         val downloadFileFilter = "$searchPatternRoot/**/{action-metrics.jpt,status.txt}"
-        val cache = getWorkspaceCache(IntegrationTestRuntime.prepareAws(), downloadFileFilter)
+        val cache = getWorkspaceCache(HardwareRuntime.prepareAws(), downloadFileFilter)
 
         // get the files
         time("download") { cache.download() }
@@ -273,7 +274,7 @@ class HardwareApdexAnalysisIT {
         bucketName = "quicksilver-jhwr-cache-ireland",
         cacheKey = cacheKey,
         localPath = workspace.directory,
-        etags = IntegrationTestRuntime.rootWorkspace.directory.resolve(".etags"),
+        etags = HardwareRuntime.rootWorkspace.directory.resolve(".etags"),
         searchPattern = searchPattern
     )
 

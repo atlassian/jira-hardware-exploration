@@ -63,6 +63,7 @@ class HardwareExploration(
     private val results = ConcurrentHashMap<Hardware, Future<HardwareExplorationResult>>()
     private val failures = CopyOnWriteArrayList<Exception>()
     private val logger: Logger = LogManager.getLogger(this::class.java)
+    private val existingResults = HardwareExistingResults(task, pastFailures, metric)
 
     fun exploreHardware(): ReportedExploration {
         val space = guidance.space()
@@ -203,50 +204,11 @@ class HardwareExploration(
         hardware: Hardware,
         executor: ExecutorService
     ): HardwareTestResult {
-        val reusableResults = reuseResults(hardware)
+        val reusableResults = existingResults.reuseResults(hardware)
         val missingResultCount = repeats - reusableResults.size
         val freshResults = runFreshResults(hardware, missingResultCount, executor)
         val allResults = reusableResults + freshResults
-        return coalesce(allResults, hardware)
-    }
-
-    private fun reuseResults(
-        hardware: Hardware
-    ): List<HardwareTestResult> {
-        val reusableResults = listPreviousRuns(hardware).mapNotNull { reuseResult(hardware, it) }
-        if (reusableResults.isNotEmpty()) {
-            logger.debug("Reusing ${reusableResults.size} results")
-        }
-        return reusableResults
-    }
-
-    private fun reuseResult(
-        hardware: Hardware,
-        previousRun: File
-    ): HardwareTestResult? {
-        val workspace = TestWorkspace(previousRun.toPath())
-        val cohortResult = workspace.readResult(hardware.nameCohort(workspace))
-        val failure = cohortResult.failure
-        return if (failure == null) {
-            metric.score(hardware, cohortResult)
-        } else {
-            pastFailures.handle(failure, workspace)
-            null
-        }
-    }
-
-    private fun listPreviousRuns(
-        hardware: Hardware
-    ): List<File> {
-        val hardwareDirectory = hardware
-            .isolateRuns(task)
-            .directory
-            .toFile()
-        return if (hardwareDirectory.isDirectory) {
-            hardwareDirectory.directories()
-        } else {
-            emptyList()
-        }
+        return existingResults.coalesce(allResults, hardware)
     }
 
     private fun runFreshResults(
@@ -270,7 +232,7 @@ class HardwareExploration(
 
     private fun chooseNextRunNumber(
         hardware: Hardware
-    ): Int = listPreviousRuns(hardware)
+    ): Int = existingResults.listPreviousRuns(hardware)
         .map { it.name }
         .mapNotNull { it.toIntOrNull() }
         .max()
@@ -330,44 +292,9 @@ class HardwareExploration(
         )
     )
 
-    private fun coalesce(
-        results: List<HardwareTestResult>,
-        hardware: Hardware
-    ): HardwareTestResult {
-        val apdexes = results.map { it.apdex }
-        val throughputUnit = Duration.ofSeconds(1)
-        val throughputs = results
-            .map { it.httpThroughput }
-            .map { it.scaleTime(throughputUnit) }
-            .map { it.change }
-        val errorRates = results.map { it.overallError }
-        val testResult = HardwareTestResult(
-            hardware = hardware,
-            apdex = apdexes.average(),
-            apdexes = results.flatMap { it.apdexes },
-            httpThroughput = TemporalRate(throughputs.average(), throughputUnit),
-            httpThroughputs = results.flatMap { it.httpThroughputs },
-            results = results.flatMap { it.results },
-            overallError = OverallError(Ratio(errorRates.map { it.ratio.proportion }.average())),
-            overallErrors = results.flatMap { it.overallErrors },
-            maxActionError = results.mapNotNull { it.maxActionError }.maxBy { it.ratio }!!,
-            maxActionErrors = results.flatMap { it.maxActionErrors ?: emptyList() }
-        )
-        val postProcessedResults = results.flatMap { it.results }.map { metric.postProcess(it) }
-        reportRaw(postProcessedResults, hardware)
-        return testResult
-    }
 
-    private fun reportRaw(
-        results: List<EdibleResult>,
-        hardware: Hardware
-    ) {
-        val workspace = hardware.isolateSubTask(task, "sub-test-comparison")
-        FullReport().dump(
-            results = results,
-            workspace = TestWorkspace(workspace.directory)
-        )
-    }
+
+
 
     private class ScaleVirtualUserOptions(
         private val scale: ApplicationScale

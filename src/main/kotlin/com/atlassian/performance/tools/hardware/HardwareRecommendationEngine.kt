@@ -9,6 +9,7 @@ import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.report.*
 import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
+import com.atlassian.performance.tools.jvmtasks.api.TaskTimer
 import com.atlassian.performance.tools.jvmtasks.api.TaskTimer.time
 import com.atlassian.performance.tools.lib.Ratio
 import com.atlassian.performance.tools.lib.report.VirtualUsersPresenceJudge
@@ -45,67 +46,23 @@ class HardwareRecommendationEngine(
             time("upload") { s3Cache.upload() }
         }
         val jiraRecommendations = recommend(jiraExploration)
-        val jiraReport = reportJiraRecommendation(jiraRecommendations)
         try {
             val dbExploration = exploreDbHardware(jiraRecommendations.allRecommendations, jiraExploration)
             val dbRecommendations = recommend(dbExploration + jiraExploration)
-            val dbRecommendationChart = chartDbRecommendation(dbRecommendations)
-            val dbRecommendationTable = tabularize(dbRecommendations)
 
-            return ReportedRecommendations(
-                description = scale.description,
-                recommendations = dbRecommendations,
-                reports = listOfNotNull(jiraReport, dbRecommendationChart, dbRecommendationTable)
-                    + jiraExploration.reports
-                    + dbExploration.reports
-            )
+            return HardwareReportEngine().reportedRecommendations(scale.description,
+                workspace.directory,
+                jiraRecommendations,
+                dbRecommendations,
+                jiraExploration,
+                dbExploration)
         } finally {
-            time("upload") { s3Cache.upload() }
+            TaskTimer.time("upload") { s3Cache.upload() }
         }
     }
 
-    private fun reportJiraRecommendation(
-        recommendations: RecommendationSet
-    ) = HardwareExplorationChart(
-        JiraInstanceTypeGrouping(compareBy { InstanceType.values().toList().indexOf(it) }),
-        NodeCountXAxis(),
-        GitRepo.findFromCurrentDirectory()
-    ).plotRecommendation(
-        recommendations = recommendations,
-        application = scale.description,
-        output = workspace.isolateReport("jira-recommendation-chart.html")
-    )
 
-    private fun chartDbRecommendation(
-        recommendations: RecommendationSet
-    ) = HardwareExplorationChart(
-        JiraClusterGrouping(InstanceType.values().toList()),
-        DbInstanceTypeXAxis(),
-        GitRepo.findFromCurrentDirectory()
-    ).plotRecommendation(
-        recommendations = RecommendationSet(
-            exploration = ReportedExploration(
-                results = recommendations.exploration.results.sortedWith(
-                    compareBy<HardwareExplorationResult> {
-                        InstanceType.values().toList().indexOf(it.decision.hardware.jira)
-                    }.thenComparing(
-                        compareBy<HardwareExplorationResult> {
-                            it.decision.hardware.nodeCount
-                        }
-                    ).thenComparing(
-                        compareBy<HardwareExplorationResult> {
-                            InstanceType.values().toList().indexOf(it.decision.hardware.db)
-                        }
-                    )
-                ),
-                reports = recommendations.exploration.reports
-            ),
-            bestApdexAndReliability = recommendations.bestApdexAndReliability,
-            bestCostEffectiveness = recommendations.bestCostEffectiveness
-        ),
-        application = scale.description,
-        output = workspace.isolateReport("db-recommendation-chart.html")
-    )
+
 
     private fun recommend(
         exploration: ReportedExploration
@@ -185,15 +142,6 @@ class HardwareRecommendationEngine(
             jiraExploration = jiraExploration.results
         )
     )
-
-    private fun tabularize(
-        recommendations: RecommendationSet
-    ): File {
-        return RecommendationsTable().tabulate(
-            recommendations = recommendations,
-            output = workspace.isolateReport("db-recommendation-table.csv")
-        )
-    }
 }
 
 class RecommendationSet(

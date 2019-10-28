@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= application =%> hardware exploration</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="https://unpkg.com/chart.js@2.8.0/dist/Chart.bundle.min.js"></script>
+    <script src="https://unpkg.com/chartjs-plugin-error-bars@1.1.0/build/Plugin.Errorbars.js"></script>
+    <style>
+        span.commit-flag {
+            padding: 3px;
+            background: teal;
+            font-family: monospace;
+            color: white;
+        }
+
+        canvas.chartjs-render-monitor {
+            border: 5pt black solid;
+            margin: 0 -5pt
+        }
+    </style>
+</head>
+<body>
+<span class="commit-flag">
+    Generated from
+    <a href="https://github.com/atlassian/jira-hardware-exploration/commit/<%= commit =%>"><%= commit =%></a>
+</span>
+<canvas id="apdex-chart"></canvas>
+<canvas id="cost-per-apdex-chart"></canvas>
+<script>
+    new Chart(
+        document.getElementById("apdex-chart").getContext("2d"),
+        {
+            type: 'bar',
+            data: '<%= apdexChartData =%>',
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: '<%= application =%> hardware recommendation by Apdex and reliability'
+                },
+                tooltips: {
+                    filter: function (tooltipItem) {
+                        return tooltipItem.datasetIndex < '<%= maxIndex =%>';
+                    }
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            type: "linear",
+                            display: true,
+                            position: "left",
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Apdex [0-1]"
+                            },
+                            id: "y-axis-0",
+                            ticks: {
+                                min: 0,
+                                max: '<%= maxApdex =%>'
+                            }
+                        }
+                    ],
+                    xAxes: [
+                        {
+                            scaleLabel: {
+                                display: true,
+                                labelString: "<%= xAxisLabel =%>"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    );
+</script>
+<script>
+    new Chart(
+        document.getElementById("cost-per-apdex-chart").getContext("2d"),
+        {
+            type: 'bar',
+            data: '<%= costPerApdexChartData =%>',
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: '<%= application =%> hardware recommendation by cost effectiveness'
+                },
+                tooltips: {
+                    filter: function (tooltipItem) {
+                        return tooltipItem.datasetIndex < '<%= maxIndex =%>';
+                    }
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            type: "linear",
+                            display: true,
+                            position: "left",
+                            id: "y-axis-0",
+                            scaleLabel: {
+                                display: true,
+                                labelString: "cost-effectiveness [Apdex / (USD / hour)]"
+                            },
+                            ticks: {
+                                min: 0,
+                                max: '<%= maxApdexPerCost =%>'
+                            }
+                        }
+                    ],
+                    xAxes: [
+                        {
+                            scaleLabel: {
+                                display: true,
+                                labelString: "<%= xAxisLabel =%>"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    );
+</script>
+</body>
+</html>

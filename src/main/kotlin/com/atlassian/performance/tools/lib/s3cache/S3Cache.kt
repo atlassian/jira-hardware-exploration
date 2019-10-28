@@ -47,6 +47,8 @@ class S3Cache(
         time("transfer") {
             val progress = TransferLoggingProgress(logger, 50, s3Objects.kept.size)
             logger.info("Downloading ${s3Objects.kept.size}, skipping ${s3Objects.skipped}")
+            logger.info("    downloading to ${localPath}")
+
             s3Objects
                 .kept
                 .parallelStream()

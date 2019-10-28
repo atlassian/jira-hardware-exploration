@@ -4,6 +4,7 @@ import com.amazonaws.services.ec2.model.InstanceType
 import com.amazonaws.services.ec2.model.InstanceType.*
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
 import com.atlassian.performance.tools.concurrency.api.submitWithLogContext
+import com.atlassian.performance.tools.hardware.aws.HardwareRuntime
 import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
 import com.atlassian.performance.tools.hardware.tuning.HeapTuning
 import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
@@ -26,7 +27,7 @@ import java.util.concurrent.Executors
 class HardwareRecommendationEngineIT {
 
     private val cacheKey = "HardwareRecommendationEngineIT/" + GitRepo.findFromCurrentDirectory().getHead()
-    private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(cacheKey)
+    private val workspace = HardwareRuntime.rootWorkspace.isolateTask(cacheKey)
     private val jswVersion = "7.13.0"
 
     @Before
@@ -74,7 +75,7 @@ class HardwareRecommendationEngineIT {
         minThroughputGain: TemporalRate,
         maxNodeCount: Int
     ): ReportedRecommendations {
-        val aws = IntegrationTestRuntime.prepareAws()
+        val aws = HardwareRuntime.prepareAws()
         val scaleWorkspace = TaskWorkspace(workspace.directory.resolve(scale.cacheKey))
         val engine = HardwareRecommendationEngine(
             product = PublicJiraSoftwareDistribution(jswVersion),
@@ -111,7 +112,7 @@ class HardwareRecommendationEngineIT {
                 bucketName = "quicksilver-jhwr-cache-ireland",
                 cacheKey = "$cacheKey/${scale.cacheKey}",
                 localPath = scaleWorkspace.directory,
-                etags = IntegrationTestRuntime.rootWorkspace.directory.resolve(".etags")
+                etags = HardwareRuntime.rootWorkspace.directory.resolve(".etags")
             ),
             explorationCache = HardwareExplorationResultCache(scaleWorkspace.directory.resolve("processed-cache.json")),
             vuPresenceJudge = VirtualUsersPresenceJudge(Ratio(0.70))
