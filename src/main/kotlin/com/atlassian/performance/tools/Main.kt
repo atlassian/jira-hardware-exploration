@@ -1,38 +1,26 @@
 package com.atlassian.performance.tools
 
 import com.amazonaws.regions.Regions
-import com.amazonaws.services.ec2.model.Instance
 import com.amazonaws.services.ec2.model.InstanceType
-import com.amazonaws.services.rds.model.DBInstance
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder
-import com.atlassian.performance.tools.aws.api.Investment
 import com.atlassian.performance.tools.aws.api.StorageLocation
 import com.atlassian.performance.tools.awsinfrastructure.api.DatasetCatalogue
 import com.atlassian.performance.tools.hardware.*
 import com.atlassian.performance.tools.hardware.aws.HardwareRuntime
 import com.atlassian.performance.tools.hardware.failure.BugAwareTolerance
-import com.atlassian.performance.tools.hardware.failure.FailureTolerance
-import com.atlassian.performance.tools.hardware.guidance.DbExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.guidance.JiraExplorationGuidance
-import com.atlassian.performance.tools.hardware.tuning.NoTuning
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
-import com.atlassian.performance.tools.io.api.directories
 import com.atlassian.performance.tools.lib.LogConfigurationFactory
 import com.atlassian.performance.tools.lib.OverallError
 import com.atlassian.performance.tools.lib.Ratio
 import com.atlassian.performance.tools.lib.infrastructure.AdminDataset
-import com.atlassian.performance.tools.lib.readResult
 import com.atlassian.performance.tools.lib.report.VirtualUsersPresenceJudge
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
-import com.atlassian.performance.tools.report.api.FullReport
-import com.atlassian.performance.tools.report.api.result.EdibleResult
 import com.atlassian.performance.tools.ssh.api.SshConnection
 import com.atlassian.performance.tools.virtualusers.api.TemporalRate
 import com.atlassian.performance.tools.virtualusers.api.VirtualUserLoad
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
-import com.atlassian.performance.tools.workspace.api.TestWorkspace
-import com.atlassian.performance.tools.workspace.api.git.GitRepo
 import com.xenomachina.argparser.ArgParser
 import com.xenomachina.argparser.default
 import com.xenomachina.argparser.mainBody
@@ -41,7 +29,6 @@ import org.apache.logging.log4j.Logger
 import org.apache.logging.log4j.core.config.ConfigurationFactory
 import java.nio.file.Path
 import java.io.File
-import java.io.FileFilter
 import java.net.URI
 import java.time.Duration
 import java.util.concurrent.Future
@@ -64,7 +51,7 @@ fun main(args: Array<String>) = mainBody {
 
         val localPathRoot = HardwareRuntime.rootWorkspace.directory
 
-        if("download" == action) {
+        if ("download" == action) {
             val cmd = CommandLine()
             cacheKey?.let {
                 cmd.download(it,
@@ -73,10 +60,11 @@ fun main(args: Array<String>) = mainBody {
             }
         }
 
-        if("analyze" == action) {
+        if ("analyze" == action) {
             val cmd = CommandLine()
             cacheKey?.let { ck ->
-                cmd.analyze(ck, localPathRoot) }
+                cmd.analyze(ck, localPathRoot)
+            }
         }
     }
 }
@@ -95,7 +83,7 @@ class Args(parser: ArgParser) {
         .default("jira")
 
     val productVersion by parser
-        .storing( "atlassian product version to report on")
+        .storing("atlassian product version to report on")
         .default("7.13.0")
 
     val action by parser
@@ -111,20 +99,9 @@ class CommandLine {
 
         val localPath = localPathRoot.resolve(s3CacheKey)
 
-        val virtualUserLoad = VirtualUserLoad.Builder().build()
+
         val vuPresenceJudge = VirtualUsersPresenceJudge(Ratio(0.70))
-        val dataset = DatasetCatalogue().custom(
-            location = StorageLocation(
-                uri = URI("http://example.com"),
-                region = Regions.EU_CENTRAL_1
-            )
-        ).let { dataset ->
-            AdminDataset(
-                dataset = dataset,
-                adminLogin = "admin",
-                adminPassword = "admin"
-            )
-        }
+
         val requirements = OutcomeRequirements(
             overallErrorThreshold = OverallError(Ratio(0.20)),
             maxActionErrorThreshold = Ratio(0.50),
@@ -138,32 +115,56 @@ class CommandLine {
             .toFile()
             .listFiles()
             .filter { it.isDirectory }
+            .filter { it.name.startsWith("l") } // HACK remove
+            .sortedBy { it.name }
             .map {
                 val cacheKey = it.name
                 val parts = cacheKey.split('-')
-                val size = parts[0]
+                val productSize = parts[0]
                 val product = parts[1]
                 val productVersion = parts[2]
                 val task = TaskWorkspace(it.toPath())
-                val results = it.listFiles()
-                    .filter { it.isDirectory }
-                    .map {
-                        val productNodeInstanceType = InstanceType.fromValue(it.name)
-                        val maxNodePath = it.toPath().resolve("nodes").toFile().listFiles().sortedByDescending{ it.name }.first()
-                        val productNodeCount = maxNodePath.name.toInt()
 
-                        val scale = ApplicationScale("", cacheKey, dataset, virtualUserLoad, productNodeCount);
+                println("Processing ${cacheKey}...")
+                var resultsSoFar = mutableListOf<HardwareExplorationResult>()
+                val productInstanceTypes = mutableListOf<InstanceType>()
+                val dbInstanceTypes = mutableListOf<InstanceType>()
+                var maxNodeCount = 0;
+
+                val completedResults = it.listFiles()
+                    .filter { it.isDirectory }
+                    .sortedBy { it.name }
+                    .map {
+
+                        val productNodeInstanceType = InstanceType.fromValue(it.name)
+                        productInstanceTypes.add(productNodeInstanceType)
+                        val localMaxNodePath = it.toPath().resolve("nodes").toFile().listFiles().sortedByDescending { it.name }.first()
+
+                        val localMaxNodeCount = localMaxNodePath.name.toInt()
+                        if (maxNodeCount > localMaxNodeCount) {
+                            maxNodeCount = localMaxNodeCount;
+                        }
+
+                        val scale = getApplicationScale(product, productSize, productVersion, cacheKey, maxNodeCount)
 
                         val metric = HardwareMetric(
                             scale = scale,
                             presenceJudge = vuPresenceJudge
                         )
 
-                        val results = it.toPath().resolve("nodes").toFile().listFiles()
+                        println("Processing ${it.name}...")
+
+
+
+                        var results = it.toPath().resolve("nodes").toFile().listFiles()
                             .map {
+
                                 val nodeCount = it.name.toInt()
                                 val dbInstanceType = it.resolve("dbs").listFiles().filter { it.isDirectory }.map {
-                                    InstanceType.fromValue(it.name) }.first()
+                                    InstanceType.fromValue(it.name)
+                                }.first()
+                                dbInstanceTypes.add(dbInstanceType)
+
                                 val hardware = Hardware(productNodeInstanceType, nodeCount, dbInstanceType)
                                 val decision = HardwareExplorationDecision(
                                     hardware,
@@ -171,45 +172,61 @@ class CommandLine {
                                     reason = "just looking...."
                                 )
 
+                                println("Processing ${hardware}...")
+
                                 val existingResults = HardwareExistingResults(task, pastFailures, metric)
                                 val reusableResults = existingResults.reuseResults(hardware)
-                                HardwareExplorationResult(decision, existingResults.coalesce(reusableResults, hardware))
-                        }
+                                val coalesced = existingResults.coalesce(reusableResults, hardware)
 
-                        val productInstanceTypes = results.mapNotNull { it.testResult?.hardware?.jira }
+                                HardwareExplorationResult(decision, coalesced)
+                            }
+
+                        results
+
+                    }.flatten()
+
+                println("Reporting ${it.name}...")
+                val guidance = JiraExplorationGuidance(productInstanceTypes,
+                    maxNodeCount,
+                    2,
+                    0.01, // HACK we don't know
+                    TemporalRate(2.0, Duration.ofSeconds(1)), // HACK we don't know
+                    dbInstanceTypes.first())
+
+                val outputTask = TaskWorkspace(localPathRoot.resolve("$s3CacheKey-blah-output").resolve(cacheKey))
+                outputTask.directory.toFile().mkdirs()
+
+                resultsSoFar.addAll(completedResults);
+                val report = guidance.report(resultsSoFar,
+                    requirements, outputTask, "blah blah title", HardwareExplorationResultCache(localPathRoot.resolve("blah-cache")))
+
+                ReportedExploration(resultsSoFar, report)
+
+
+            }.toList()
+/*
+
+
+ val productInstanceTypes = results.mapNotNull { it.testResult?.hardware?.jira }
                         val dbInstanceTypes = results.mapNotNull { it.testResult?.hardware?.db }
                         val maxNodeCount = results.mapNotNull { it.testResult?.hardware?.nodeCount }.max()!!
 
-                        val guidance = JiraExplorationGuidance(productInstanceTypes,
-                            maxNodeCount,
-                            2,
-                            0.01,
-                            TemporalRate(2.0, Duration.ofSeconds(1)),
-                            dbInstanceTypes.first())
+
 
                         val outputTask = TaskWorkspace(localPathRoot.resolve("$s3CacheKey-blah-output").resolve(cacheKey))
                         outputTask.directory.toFile().mkdirs()
 
-                        val report = guidance.report(results,
+ val report = guidance.report(results,
                             requirements,outputTask, "blah blah title", HardwareExplorationResultCache(localPathRoot.resolve("blah-cache")))
 
-                        val exploration = ReportedExploration(results, report)
-                        val recommendations = recommend(exploration, requirements)
 
-                        //val dbExploration = exploreDbHardware(recommendations.allRecommendations, exploration)
-                        val dbRecommendations = recommend(/*dbExploration +*/ exploration, requirements)
+        val exploration = ReportedExploration(results, report)
+        val recommendations = recommend(exploration, requirements)
 
-                        /*HardwareReportEngine().reportedRecommendations("blah blah description",
-                            outputTask.directory.resolve("blah-reports"),
-                            recommendations,
-                            recommendations/*dbRecommendations*/,
-                            exploration,
-                            exploration /* dbExploration */)*/
-                    }
+        //val dbExploration = exploreDbHardware(recommendations.allRecommendations, exploration)
+        val dbRecommendations = recommend(/*dbExploration +*/ exploration, requirements)
 
-
-            }.toList()
-
+ */
 
 
 /*
@@ -239,6 +256,33 @@ class CommandLine {
             dbExploration)
 
  */
+    }
+
+    private fun getApplicationScale(product: String, size: String, version: String, cacheKey: String, productNodeCount: Int): ApplicationScale {
+        if (product.equals("jsw", true)) {
+            if (size.equals("l", true)) {
+                return ApplicationScales().large(jiraVersion = version)
+            }
+
+            if (size.equals("xl", true)) {
+                return ApplicationScales().extraLarge(jiraVersion = version, postgres = false) // HACK
+            }
+        }
+
+        val dataset = DatasetCatalogue().custom(
+            location = StorageLocation(
+                uri = URI("http://example.com"),
+                region = Regions.EU_CENTRAL_1
+            )
+        ).let { dataset ->
+            AdminDataset(
+                dataset = dataset,
+                adminLogin = "admin",
+                adminPassword = "admin"
+            )
+        }
+        val virtualUserLoad = VirtualUserLoad.Builder().build() // HACK
+        return ApplicationScale("", cacheKey, dataset, virtualUserLoad, productNodeCount);
     }
 /*
     private fun report(
@@ -297,7 +341,8 @@ class CommandLine {
     ): List<HardwareTestResult> {
         return candidates
             .filter {
-                requirements.areReliable(it, candidates) }
+                requirements.areReliable(it, candidates)
+            }
     }
 
     private fun pickTheBestApdex(
@@ -350,7 +395,7 @@ class GenericGuidance() : ExplorationGuidance {
     override fun decideTesting(
         hardware: Hardware,
         benchmark: (Hardware) -> Future<HardwareExplorationResult>
-    ): HardwareExplorationDecision{
+    ): HardwareExplorationDecision {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -360,7 +405,7 @@ class GenericGuidance() : ExplorationGuidance {
         task: TaskWorkspace,
         title: String,
         resultsCache: HardwareExplorationResultCache
-    ): List<File>{
+    ): List<File> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

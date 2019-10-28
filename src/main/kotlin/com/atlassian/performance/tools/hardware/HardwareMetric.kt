@@ -38,7 +38,7 @@ class HardwareMetric(
         val throughput = AccessLogThroughput().gauge(results.results.toFile())
         val overallError = ErrorGauge().measureOverall(metrics)
         val maxActionError = ErrorGauge().measureMaxAction(metrics)
-        return HardwareTestResult(
+            return HardwareTestResult(
             hardware = hardware,
             apdex = apdex,
             apdexes = listOf(apdex),
