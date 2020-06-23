@@ -12,7 +12,7 @@ dependencies {
     compile("com.atlassian.performance.tools:jira-actions:[3.6.0,4.0.0)")
     compile("com.atlassian.performance.tools:jira-software-actions:[1.0.0,2.0.0)")
     compile("org.apache.logging.log4j:log4j-api:2.12.0")
-    compile("org.seleniumhq.selenium:selenium-support:3.11.0")
+    compile("org.seleniumhq.selenium:selenium-support:3.141.59")
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     runtime("com.atlassian.performance.tools:io:[1.2.0,2.0.0)") // workaround for JPERF-390
     runtime("com.atlassian.performance.tools:virtual-users:[3.6.2,4.0.0)")

@@ -31,7 +31,7 @@ class ApplicationScales {
             },
             load = VirtualUserLoad.Builder()
                 .virtualUsers(150)
-                .ramp(Duration.ofSeconds(90))
+                .ramp(Duration.ofMinutes(2))
                 .flat(Duration.ofMinutes(20))
                 .maxOverallLoad(TemporalRate(30.0, Duration.ofSeconds(1)))
                 .build(),
@@ -52,7 +52,7 @@ class ApplicationScales {
             },
             load = VirtualUserLoad.Builder()
                 .virtualUsers(75)
-                .ramp(Duration.ofSeconds(90))
+                .ramp(Duration.ofMinutes(2))
                 .flat(Duration.ofMinutes(20))
                 .maxOverallLoad(TemporalRate(15.0, Duration.ofSeconds(1)))
                 .build(),
