@@ -56,7 +56,7 @@ class HardwareRecommendationIT {
         s3Cache: S3Cache
     ): ReportedRecommendations = CloseableThreadContext.push("XL").use {
         recommend(
-            scale = ApplicationScales().extraLarge(jiraVersion = jswVersion, postgres = false),
+            scale = ApplicationScales().extraLargeDataExtraLargeLoad(jiraVersion = jswVersion, postgres = false),
             tuning = HeapTuning(50),
             db = M44xlarge,
             aws = aws,
@@ -69,7 +69,7 @@ class HardwareRecommendationIT {
         cache: S3Cache
     ): ReportedRecommendations = CloseableThreadContext.push("L").use {
         recommend(
-            scale = ApplicationScales().large(jiraVersion = jswVersion),
+            scale = ApplicationScales().largeDataLargeLoad(jiraVersion = jswVersion),
             tuning = NoTuning(),
             db = M42xlarge,
             aws = aws,

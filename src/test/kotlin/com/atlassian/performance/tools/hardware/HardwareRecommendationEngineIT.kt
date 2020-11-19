@@ -27,7 +27,7 @@ class HardwareRecommendationEngineIT {
 
     private val cacheKey = "HardwareRecommendationEngineIT/" + GitRepo.findFromCurrentDirectory().getHead()
     private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(cacheKey)
-    private val jswVersion = "7.13.0"
+    private val jswVersion = "8.13.1"
 
     @Before
     fun setUp() {
@@ -38,9 +38,9 @@ class HardwareRecommendationEngineIT {
     fun shouldRunHardwareRecommendation() {
         val executor = Executors.newCachedThreadPool()
 
-        val xl = executor.submitWithLogContext("XL") {
+        val xlxl = executor.submitWithLogContext("XL") {
             recommend(
-                scale = ApplicationScales().extraLarge(jiraVersion = jswVersion, postgres = false),
+                scale = ApplicationScales().extraLargeDataExtraLargeLoad(jiraVersion = jswVersion, postgres = false),
                 tuning = HeapTuning(50),
                 db = M44xlarge,
                 // test the hard node limit kicks in before the (relaxed) behaviour limits
@@ -50,10 +50,22 @@ class HardwareRecommendationEngineIT {
             )
         }
 
-        val l = executor.submitWithLogContext("L") {
+        val xll = executor.submitWithLogContext("XLL") {
             recommend(
-                scale = ApplicationScales().large(jiraVersion = jswVersion),
-                tuning = NoTuning(),
+                scale = ApplicationScales().extraLargeDateLargeLoad(jiraVersion = jswVersion, postgres = false),
+                tuning = HeapTuning(50),
+                db = M44xlarge,
+                // test the behaviour limits kick in before the (high) hard node limit
+                minApdexGain = 0.01,
+                minThroughputGain = TemporalRate(2.0, Duration.ofSeconds(1)),
+                maxNodeCount = 3
+            )
+        }
+
+        val ll = executor.submitWithLogContext("L") {
+            recommend(
+                scale = ApplicationScales().largeDataLargeLoad(jiraVersion = jswVersion),
+                tuning = HeapTuning(50),
                 db = M42xlarge,
                 // test the behaviour limits kick in before the (high) hard node limit
                 minApdexGain = 0.10,
@@ -62,8 +74,22 @@ class HardwareRecommendationEngineIT {
             )
         }
 
-        xl.get()
-        l.get()
+        val lxl = executor.submitWithLogContext("LXL") {
+            recommend(
+                scale = ApplicationScales().largeDataExtraLargeLoad(jiraVersion = jswVersion),
+                tuning = HeapTuning(50),
+                db = M42xlarge,
+                // test the behaviour limits kick in before the (high) hard node limit
+                minApdexGain = 0.10,
+                minThroughputGain = TemporalRate(5.0, Duration.ofSeconds(1)),
+                maxNodeCount = 8
+            )
+        }
+
+        xlxl.get()
+        xll.get()
+        ll.get()
+        lxl.get()
     }
 
     private fun recommend(
