@@ -32,8 +32,8 @@ import java.util.zip.ZipOutputStream
 
 class HardwareRecommendationIT {
 
-    private val jswVersion = System.getProperty("hwr.jsw.version") ?: "8.0.0"
-    private val cacheKey = "JREL-5693-v2-$jswVersion"
+    private val jswVersion = System.getProperty("hwr.jsw.version") ?: "8.13.1"
+    private val cacheKey = "QUICK-2143-$jswVersion"
     private val workspace = rootWorkspace.isolateTask(cacheKey)
 
     @Test
@@ -43,18 +43,21 @@ class HardwareRecommendationIT {
         val aws = IntegrationTestRuntime.prepareAws()
         val cache = cacheOnS3(aws)
         try {
-            val largeRecommendations = recommendHardwareForLarge(aws, cache)
-            val extraLargeRecommendations = recommendHardwareForExtraLarge(aws, cache)
-            zipReports(listOf(largeRecommendations, extraLargeRecommendations))
+            val largeDataLargeLoadRecommendations = recommendHardwareForLargeDataLargeLoad(aws, cache)
+            val largeDataExtraLargeLoadRecommendations = recommendHardwareForLargeDataExtraLargeLoad(aws, cache)
+            val extraLargeDataLargeLoadRecommendations = recommendHardwareForExtraLargeDataLargeLoad(aws, cache)
+            val extraLargeDataExtraLargeLoadRecommendations = recommendHardwareForExtraLargeDataExtraLargeLoad(aws, cache)
+            zipReports(listOf(largeDataLargeLoadRecommendations, largeDataExtraLargeLoadRecommendations,
+                extraLargeDataLargeLoadRecommendations, extraLargeDataExtraLargeLoadRecommendations))
         } finally {
             cache.upload()
         }
     }
 
-    private fun recommendHardwareForExtraLarge(
+    private fun recommendHardwareForExtraLargeDataExtraLargeLoad(
         aws: Aws,
         s3Cache: S3Cache
-    ): ReportedRecommendations = CloseableThreadContext.push("XL").use {
+    ): ReportedRecommendations = CloseableThreadContext.push("XLXL").use {
         recommend(
             scale = ApplicationScales().extraLargeDataExtraLargeLoad(jiraVersion = jswVersion, postgres = false),
             tuning = HeapTuning(50),
@@ -64,13 +67,39 @@ class HardwareRecommendationIT {
         )
     }
 
-    private fun recommendHardwareForLarge(
+    private fun recommendHardwareForExtraLargeDataLargeLoad(
+        aws: Aws,
+        s3Cache: S3Cache
+    ): ReportedRecommendations = CloseableThreadContext.push("XLL").use {
+        recommend(
+            scale = ApplicationScales().extraLargeDateLargeLoad(jiraVersion = jswVersion, postgres = false),
+            tuning = HeapTuning(50),
+            db = M44xlarge,
+            aws = aws,
+            cache = s3Cache
+        )
+    }
+
+    private fun recommendHardwareForLargeDataLargeLoad(
         aws: Aws,
         cache: S3Cache
-    ): ReportedRecommendations = CloseableThreadContext.push("L").use {
+    ): ReportedRecommendations = CloseableThreadContext.push("LL").use {
         recommend(
             scale = ApplicationScales().largeDataLargeLoad(jiraVersion = jswVersion),
-            tuning = NoTuning(),
+            tuning = HeapTuning(50),
+            db = M42xlarge,
+            aws = aws,
+            cache = cache
+        )
+    }
+
+    private fun recommendHardwareForLargeDataExtraLargeLoad(
+        aws: Aws,
+        cache: S3Cache
+    ): ReportedRecommendations = CloseableThreadContext.push("LXL").use {
+        recommend(
+            scale = ApplicationScales().largeDataExtraLargeLoad(jiraVersion = jswVersion),
+            tuning = HeapTuning(50),
             db = M42xlarge,
             aws = aws,
             cache = cache
