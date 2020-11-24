@@ -44,10 +44,10 @@ class HardwareRecommendationIT {
         val cache = cacheOnS3(aws)
         try {
             val largeDataLargeLoadRecommendations = recommendHardwareForLargeDataLargeLoad(aws, cache)
-            val largeDataExtraLargeLoadRecommendations = recommendHardwareForLargeDataExtraLargeLoad(aws, cache)
+            //val largeDataExtraLargeLoadRecommendations = recommendHardwareForLargeDataExtraLargeLoad(aws, cache)
             val extraLargeDataLargeLoadRecommendations = recommendHardwareForExtraLargeDataLargeLoad(aws, cache)
             val extraLargeDataExtraLargeLoadRecommendations = recommendHardwareForExtraLargeDataExtraLargeLoad(aws, cache)
-            zipReports(listOf(largeDataLargeLoadRecommendations, largeDataExtraLargeLoadRecommendations,
+            zipReports(listOf(largeDataLargeLoadRecommendations, //largeDataExtraLargeLoadRecommendations,
                 extraLargeDataLargeLoadRecommendations, extraLargeDataExtraLargeLoadRecommendations))
         } finally {
             cache.upload()
