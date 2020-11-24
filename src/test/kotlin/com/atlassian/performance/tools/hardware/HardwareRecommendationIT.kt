@@ -63,7 +63,10 @@ class HardwareRecommendationIT {
             tuning = HeapTuning(50),
             db = M44xlarge,
             aws = aws,
-            cache = s3Cache
+            cache = s3Cache,
+            dbInstanceTypes = listOf(
+                M44xlarge
+            )
         )
     }
 
@@ -76,7 +79,10 @@ class HardwareRecommendationIT {
             tuning = HeapTuning(50),
             db = M44xlarge,
             aws = aws,
-            cache = s3Cache
+            cache = s3Cache,
+            dbInstanceTypes = listOf(
+                M44xlarge
+            )
         )
     }
 
@@ -89,7 +95,10 @@ class HardwareRecommendationIT {
             tuning = HeapTuning(50),
             db = M42xlarge,
             aws = aws,
-            cache = cache
+            cache = cache,
+            dbInstanceTypes = listOf(
+                M42xlarge
+            )
         )
     }
 
@@ -102,7 +111,10 @@ class HardwareRecommendationIT {
             tuning = HeapTuning(50),
             db = M42xlarge,
             aws = aws,
-            cache = cache
+            cache = cache,
+            dbInstanceTypes = listOf(
+                M42xlarge
+            )
         )
     }
 
@@ -118,7 +130,8 @@ class HardwareRecommendationIT {
         tuning: JiraNodeTuning,
         db: InstanceType,
         aws: Aws,
-        cache: S3Cache
+        cache: S3Cache,
+        dbInstanceTypes: List<InstanceType>
     ): ReportedRecommendations {
         val scaleWorkspace = TaskWorkspace(workspace.directory.resolve(scale.cacheKey))
         val engine = HardwareRecommendationEngine(
@@ -132,10 +145,7 @@ class HardwareRecommendationIT {
             scale = scale,
             tuning = tuning,
             jiraExploration = guideJira(db),
-            dbInstanceTypes = listOf(
-                M42xlarge,
-                M44xlarge
-            ),
+            dbInstanceTypes = dbInstanceTypes,
             requirements = OutcomeRequirements(
                 overallErrorThreshold = OverallError(Ratio(0.01)),
                 maxActionErrorThreshold = Ratio(0.05),
