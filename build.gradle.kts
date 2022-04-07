@@ -1,6 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URI
 
+val log4jVersion = "2.17.2"
+
 buildscript {
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.70")
@@ -85,7 +87,7 @@ dependencies {
         "core",
         "slf4j-impl"
     ).map {
-        "org.apache.logging.log4j:log4j-$it:2.12.0"
+        "org.apache.logging.log4j:log4j-$it:$log4jVersion"
     }.forEach {
         testCompile(it)
     }
@@ -114,7 +116,7 @@ configurations.all {
                 }
                 when (requested.group) {
                     "org.jetbrains.kotlin" -> useVersion("1.2.70")
-                    "org.apache.logging.log4j" -> useVersion("2.12.0")
+                    "org.apache.logging.log4j" -> useVersion(log4jVersion)
                 }
             }
         }

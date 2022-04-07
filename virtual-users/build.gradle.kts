@@ -2,6 +2,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import java.net.URI
 
 val kotlinVersion = "1.2.70"
+val log4jVersion = "2.17.2"
 
 plugins {
     kotlin("jvm")
@@ -11,7 +12,7 @@ plugins {
 dependencies {
     compile("com.atlassian.performance.tools:jira-actions:[3.6.0,4.0.0)")
     compile("com.atlassian.performance.tools:jira-software-actions:[1.0.0,2.0.0)")
-    compile("org.apache.logging.log4j:log4j-api:2.12.0")
+    compile("org.apache.logging.log4j:log4j-api:$log4jVersion")
     compile("org.seleniumhq.selenium:selenium-support:3.141.59")
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     runtime("com.atlassian.performance.tools:io:[1.2.0,2.0.0)") // workaround for JPERF-390
@@ -34,7 +35,7 @@ configurations.all {
             }
             when (requested.group) {
                 "org.jetbrains.kotlin" -> useVersion(kotlinVersion)
-                "org.apache.logging.log4j" -> useVersion("2.12.0")
+                "org.apache.logging.log4j" -> useVersion(log4jVersion)
             }
         }
     }
