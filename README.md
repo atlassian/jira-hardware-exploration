@@ -1,5 +1,4 @@
-[![CircleCI](https://circleci.com/gh/atlassian/jira-hardware-exploration.svg?style=svg)](https://circleci.com/gh/atlassian/jira-hardware-exploration)
-
+[![Build and test](https://github.com/atlassian/jira-hardware-exploration/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/atlassian/jira-hardware-exploration/actions/workflows/build-and-test.yml)
 ### Automated Jira hardware recommendations
 
 This runs the entire hardware recommendation.
@@ -22,9 +21,9 @@ If the Bamboo agent goes offline after 12 hours, rerun the plan. This can take 3
 2. Set up AWS credentials according to [default AWS credentials]
 3. Create a `jira-license.txt` file and fill it with a Jira license
 4. Run `recommendHardware` Gradle task
-    * From terminal: `./gradlew recommendHardware`
-    * Or in short: `./gradlew recHar`
-    * Or from IntelliJ 2019+: `Run anything` (e.g. double tap `Ctrl`) and type `gradle recommendHardware`
+   * From terminal: `./gradlew recommendHardware`
+   * Or in short: `./gradlew recHar`
+   * Or from IntelliJ 2019+: `Run anything` (e.g. double tap `Ctrl`) and type `gradle recommendHardware`
 5. Read the logs and look for results in `build/jpt-workspace`
 
 ### Caching
@@ -32,7 +31,7 @@ If the Bamboo agent goes offline after 12 hours, rerun the plan. This can take 3
 At the beginning of the run, the results from S3 cache (if any) is downloaded and merged with local results.
 Then the local results are reused. Only the results that are missing will be run.
 Use this to your advantage. If the build flakes, rerun to just fill in the missing subresults.
-Naturally, [Bamboo] does not have any local results so it will always download the entire S3 cache. 
+Naturally, [Bamboo] does not have any local results so it will always download the entire S3 cache.
 
 The S3 cache requires read/write permissions to the S3 bucket,
 so either match AWS creds to the bucket or change the bucket in [test source].

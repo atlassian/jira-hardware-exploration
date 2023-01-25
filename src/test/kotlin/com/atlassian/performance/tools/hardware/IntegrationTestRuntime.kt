@@ -16,23 +16,24 @@ object IntegrationTestRuntime {
     private const val roleArn: String = "arn:aws:iam::695067801333:role/server-gdn-bamboo"
     private val region = Regions.EU_WEST_1
 
-    fun prepareAws() = Aws(
-        credentialsProvider = AWSCredentialsProviderChain(
-            STSAssumeRoleSessionCredentialsProvider.Builder(
-                roleArn,
-                UUID.randomUUID().toString()
-            ).build(),
-            ProfileCredentialsProvider("jpt-dev"),
-            EC2ContainerCredentialsProviderWrapper(),
-            WebIdentityTokenCredentialsProvider.builder()
-                .roleArn(roleArn)
-                .roleSessionName(UUID.randomUUID().toString())
-                .build(),
-            DefaultAWSCredentialsProviderChain()
-        ),
-        region = region,
-        regionsWithHousekeeping = listOf(Regions.EU_WEST_1),
-        capacity = TextCapacityMediator(region),
-        batchingCloudformationRefreshPeriod = Duration.ofSeconds(20)
-    )
+    fun prepareAws() = Aws.Builder(region)
+        .credentialsProvider(
+            AWSCredentialsProviderChain(
+                STSAssumeRoleSessionCredentialsProvider.Builder(
+                    roleArn,
+                    UUID.randomUUID().toString()
+                ).build(),
+                ProfileCredentialsProvider("jpt-dev"),
+                EC2ContainerCredentialsProviderWrapper(),
+                WebIdentityTokenCredentialsProvider.builder()
+                    .roleArn(roleArn)
+                    .roleSessionName(UUID.randomUUID().toString())
+                    .build(),
+                DefaultAWSCredentialsProviderChain()
+            )
+        )
+        .regionsWithHousekeeping(listOf(Regions.EU_WEST_1))
+        .capacity(TextCapacityMediator(region))
+        .batchingCloudformationRefreshPeriod(Duration.ofSeconds(20))
+        .build()
 }
