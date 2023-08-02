@@ -20,7 +20,8 @@ class ApplicationScales {
         jiraVersion: String,
         postgres: Boolean
     ): ApplicationScale {
-        val jira8 = isJira8(jiraVersion)
+        val major = jiraVersion.major()
+        val jira8 = major == 8
         return ApplicationScale(
             description = "Jira $jiraVersion XL",
             cacheKey = "xl-jsw-$jiraVersion",
@@ -42,12 +43,12 @@ class ApplicationScales {
     fun large(
         jiraVersion: String
     ): ApplicationScale {
-        val jira8 = isJira8(jiraVersion)
         return ApplicationScale(
             description = "Jira $jiraVersion L",
             cacheKey = "l-jsw-$jiraVersion",
-            dataset = when {
-                jira8 -> datasets.l8Mysql()
+            dataset = when (jiraVersion.major()) {
+                9 -> datasets.l9Mysql()
+                8 -> datasets.l8Mysql()
                 else -> datasets.l7Mysql()
             },
             load = VirtualUserLoad.Builder()
@@ -60,10 +61,10 @@ class ApplicationScales {
         )
     }
 
-    private fun isJira8(jiraVersion: String): Boolean {
-        return jiraVersion
+    private fun String.major(): Int {
+        return this
             .split(".")
             .first()
-            .toInt() >= 8
+            .toInt()
     }
 }

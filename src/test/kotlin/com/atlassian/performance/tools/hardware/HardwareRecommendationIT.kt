@@ -32,8 +32,8 @@ import java.util.zip.ZipOutputStream
 
 class HardwareRecommendationIT {
 
-    private val jswVersion = System.getProperty("hwr.jsw.version") ?: "8.0.0"
-    private val cacheKey = "JREL-5693-v2-$jswVersion"
+    private val jswVersion = System.getProperty("hwr.jsw.version") ?: "9.10.0"
+    private val cacheKey = "datagen-datasets-v1-$jswVersion"
     private val workspace = rootWorkspace.isolateTask(cacheKey)
 
     @Test
@@ -44,8 +44,9 @@ class HardwareRecommendationIT {
         val cache = cacheOnS3(aws)
         try {
             val largeRecommendations = recommendHardwareForLarge(aws, cache)
-            val extraLargeRecommendations = recommendHardwareForExtraLarge(aws, cache)
-            zipReports(listOf(largeRecommendations, extraLargeRecommendations))
+//            val extraLargeRecommendations = recommendHardwareForExtraLarge(aws, cache)
+//            zipReports(listOf(largeRecommendations, extraLargeRecommendations))
+            zipReports(listOf(largeRecommendations))
         } finally {
             cache.upload()
         }

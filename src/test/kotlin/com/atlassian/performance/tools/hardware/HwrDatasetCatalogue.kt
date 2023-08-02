@@ -6,6 +6,8 @@ import com.atlassian.performance.tools.awsinfrastructure.api.DatasetCatalogue
 import com.atlassian.performance.tools.awsinfrastructure.api.dataset.S3DatasetPackage
 import com.atlassian.performance.tools.infrastructure.api.database.Database
 import com.atlassian.performance.tools.infrastructure.api.database.LicenseOverridingMysql
+import com.atlassian.performance.tools.infrastructure.api.database.passwordoverride.JiraUserPasswordOverridingDatabase
+import com.atlassian.performance.tools.infrastructure.api.database.passwordoverride.overrideAdminPassword
 import com.atlassian.performance.tools.infrastructure.api.dataset.Dataset
 import com.atlassian.performance.tools.infrastructure.api.dataset.HttpDatasetPackage
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraHomePackage
@@ -86,15 +88,38 @@ class HwrDatasetCatalogue {
         )
     }
 
+    fun l9Mysql() = DatasetCatalogue().custom(
+        location = StorageLocation(
+            uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-1nrja8d1upind/")
+                .resolve("parent/")
+                .resolve("v01-publish-8.20.0-88cdcb19-4183-450e-9b88-447cbf85be35/")
+                .resolve("child/")
+                .resolve("v01-publish-9.0.0-RC01-ea89f30b-6060-402e-a728-b13ed05d015a"),
+            region = Regions.EU_CENTRAL_1
+        ),
+        label = "1M issues JSW 9 MySQL",
+        databaseDownload = Duration.ofMinutes(30),
+        jiraHomeDownload = Duration.ofMinutes(30)
+    ).let { dataset ->
+        AdminDataset(
+            dataset = fix(dataset),
+            adminLogin = "admin",
+            adminPassword = "admin"
+        )
+    }
+
     fun l8Mysql() = DatasetCatalogue().custom(
         location = StorageLocation(
-            uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-dah44h6l1l8p/")
-                .resolve("dataset-2719279d-0b30-4050-8d98-0a9499ec36a0"),
+            uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-1nrja8d1upind/")
+                .resolve("parent/")
+                .resolve("v01-disable-backup-service-d6c3ed65-2382-460c-9359-90424afe9ea2/")
+                .resolve("child/")
+                .resolve("v01-publish-8.20.0-88cdcb19-4183-450e-9b88-447cbf85be35"),
             region = Regions.EU_CENTRAL_1
         ),
         label = "1M issues JSW 8 MySQL",
-        databaseDownload = Duration.ofMinutes(20),
-        jiraHomeDownload = Duration.ofMinutes(20)
+        databaseDownload = Duration.ofMinutes(30),
+        jiraHomeDownload = Duration.ofMinutes(30)
     ).let { dataset ->
         AdminDataset(
             dataset = fix(dataset),
@@ -108,6 +133,11 @@ class HwrDatasetCatalogue {
     ): Dataset = dataset
         .overrideDatabase {
             overrideLicense(it)
+                .overrideAdminPassword(
+                    "admin",
+                    "{PKCS5S2}Tdl0jlvcysmT9PiRWkZZ1Hr4uHO2OJHvkd3siXt/8OnL7GczWsyzB1tMwkJlI2eX"
+                )
+                .build()
         }.overrideJiraHome {
             AppNukingJiraHome(it.jiraHomeSource)
         }
