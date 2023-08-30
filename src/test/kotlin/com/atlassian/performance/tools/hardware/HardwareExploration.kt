@@ -14,7 +14,6 @@ import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
 import com.atlassian.performance.tools.hardware.vu.CustomScenario
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
-import com.atlassian.performance.tools.infrastructure.api.jira.JiraLaunchTimeouts
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
 import com.atlassian.performance.tools.infrastructure.api.profiler.AsyncProfiler
 import com.atlassian.performance.tools.io.api.dereference
@@ -23,9 +22,9 @@ import com.atlassian.performance.tools.jiraperformancetests.api.ProvisioningPerf
 import com.atlassian.performance.tools.lib.OverallError
 import com.atlassian.performance.tools.lib.Ratio
 import com.atlassian.performance.tools.lib.concurrency.submitWithLogContext
-import com.atlassian.performance.tools.lib.infrastructure.S3HostedJdk
 import com.atlassian.performance.tools.lib.infrastructure.BestEffortProfiler
 import com.atlassian.performance.tools.lib.infrastructure.PatientChromium69
+import com.atlassian.performance.tools.lib.infrastructure.S3HostedJdk
 import com.atlassian.performance.tools.lib.readResult
 import com.atlassian.performance.tools.lib.s3cache.S3Cache
 import com.atlassian.performance.tools.lib.writeStatus
@@ -112,7 +111,7 @@ class HardwareExploration(
     private fun report(
         results: List<HardwareExplorationResult>
     ): List<File> {
-       return guidance.report(
+        return guidance.report(
             results,
             requirements,
             task,
@@ -174,7 +173,7 @@ class HardwareExploration(
             if (otherHardware == hardware) {
                 throw Exception(
                     "Avoiding an infinite loop!" +
-                        " Tried to obtain $hardware results in order to know if we want to obtain these results."
+                            " Tried to obtain $hardware results in order to know if we want to obtain these results."
                 )
             }
             results.computeIfAbsent(otherHardware) {
@@ -302,9 +301,15 @@ class HardwareExploration(
         hardware: Hardware
     ): ProvisioningPerformanceTest = ProvisioningPerformanceTest(
         cohort = cohort,
-        infrastructureFormula = InfrastructureFormula(
-            investment = investment,
-            jiraFormula = DataCenterFormula.Builder(
+        infrastructureFormula = InfrastructureFormula.Builder(
+            aws, MulticastVirtualUsersFormula.Builder(
+                nodes = scale.vuNodes,
+                shadowJar = dereference("jpt.virtual-users.shadow-jar")
+            )
+                .browser(PatientChromium69())
+                .build()
+        ).jiraFormula(
+            DataCenterFormula.Builder(
                 productDistribution = product,
                 jiraHomeSource = scale.dataset.dataset.jiraHomeSource,
                 database = scale.dataset.dataset.database
@@ -320,15 +325,10 @@ class HardwareExploration(
                 .loadBalancerFormula(ElasticLoadBalancerFormula())
                 .computer(EbsEc2Instance(hardware.jira)).jiraVolume(Volume(300))
                 .databaseComputer(EbsEc2Instance(hardware.db)).databaseVolume(Volume(300))
-                .build(),
-            virtualUsersFormula = MulticastVirtualUsersFormula.Builder(
-                nodes = scale.vuNodes,
-                shadowJar = dereference("jpt.virtual-users.shadow-jar")
-            )
-                .browser(PatientChromium69())
-                .build(),
-            aws = aws
+                .build()
         )
+            .investment(investment)
+            .build()
     )
 
     private fun coalesce(
@@ -387,7 +387,6 @@ class HardwareExploration(
                 .seed(78432)
                 .diagnosticsLimit(32)
                 .browser(HeadlessChromeBrowser::class.java)
-                .createUsers(true)
                 .skipSetup(true)
                 .build()
         )

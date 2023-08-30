@@ -68,11 +68,11 @@ task<Test>("cleanUpAfterBamboo").apply {
 
 dependencies {
     testCompile(project(":virtual-users"))
-    testCompile("com.atlassian.performance.tools:jira-performance-tests:[3.3.0,4.0.0)")
+    testCompile("com.atlassian.performance.tools:jira-performance-tests:[4.0.0,5.0.0)")
     testCompile("com.atlassian.performance.tools:infrastructure:[4.14.0,5.0.0)")
     testCompile("com.atlassian.performance.tools:virtual-users:[3.6.2,3.12.0)")
     testCompile("com.atlassian.performance.tools:jira-software-actions:[1.1.0,2.0.0]")
-    testCompile("com.atlassian.performance.tools:aws-infrastructure:[2.15.0,3.0.0)")
+    testCompile("com.atlassian.performance.tools:aws-infrastructure:[3.0.0,4.0.0)")
     testCompile("com.atlassian.performance.tools:aws-resources:[1.3.4,2.0.0)")
     testCompile("com.atlassian.performance.tools:concurrency:[1.0.0,2.0.0)")
     testCompile("org.apache.commons:commons-csv:1.4")
