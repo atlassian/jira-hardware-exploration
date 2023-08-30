@@ -38,17 +38,17 @@ class HardwareRecommendationEngineIT {
     fun shouldRunHardwareRecommendation() {
         val executor = Executors.newCachedThreadPool()
 
-//        val xl = executor.submitWithLogContext("XL") {
-//            recommend(
-//                scale = ApplicationScales().extraLarge(jiraVersion = jswVersion, postgres = false),
-//                tuning = HeapTuning(50),
-//                db = M44xlarge,
-//                // test the hard node limit kicks in before the (relaxed) behaviour limits
-//                minApdexGain = 0.01,
-//                minThroughputGain = TemporalRate(2.0, Duration.ofSeconds(1)),
-//                maxNodeCount = 3
-//            )
-//        }
+        val xl = executor.submitWithLogContext("XL") {
+            recommend(
+                scale = ApplicationScales().extraLarge(jiraVersion = jswVersion),
+                tuning = HeapTuning(50),
+                db = M44xlarge,
+                // test the hard node limit kicks in before the (relaxed) behaviour limits
+                minApdexGain = 0.01,
+                minThroughputGain = TemporalRate(2.0, Duration.ofSeconds(1)),
+                maxNodeCount = 3
+            )
+        }
 
         val l = executor.submitWithLogContext("L") {
             recommend(
@@ -62,7 +62,7 @@ class HardwareRecommendationEngineIT {
             )
         }
 
-//        xl.get()
+        xl.get()
         l.get()
     }
 

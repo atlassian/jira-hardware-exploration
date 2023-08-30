@@ -3,10 +3,8 @@ package com.atlassian.performance.tools.hardware
 import com.amazonaws.regions.Regions
 import com.atlassian.performance.tools.aws.api.StorageLocation
 import com.atlassian.performance.tools.awsinfrastructure.api.DatasetCatalogue
-import com.atlassian.performance.tools.awsinfrastructure.api.dataset.S3DatasetPackage
 import com.atlassian.performance.tools.infrastructure.api.database.Database
 import com.atlassian.performance.tools.infrastructure.api.database.LicenseOverridingMysql
-import com.atlassian.performance.tools.infrastructure.api.database.passwordoverride.JiraUserPasswordOverridingDatabase
 import com.atlassian.performance.tools.infrastructure.api.database.passwordoverride.overrideAdminPassword
 import com.atlassian.performance.tools.infrastructure.api.dataset.Dataset
 import com.atlassian.performance.tools.infrastructure.api.dataset.HttpDatasetPackage
@@ -23,46 +21,70 @@ import java.time.Duration
 
 class HwrDatasetCatalogue {
 
-    fun xl7Mysql() = URI("https://jpt-custom-datasets-storage-a008820-datasetbucket-1sjxdtrv5hdhj.s3-eu-west-1.amazonaws.com/")
-        .resolve("dataset-b9618677-7852-426e-9ca6-19dc11c49ddb/")
-        .let { uri ->
-            Dataset(
-                label = "7M issues JSW 7 MySQL",
-                database = ConfigurableMysqlDatabase(
-                    source = HttpDatasetPackage(
-                        uri = uri.resolve("database.tar.bz2"),
-                        downloadTimeout = Duration.ofMinutes(55)
+    fun xl7Mysql() =
+        URI("https://jpt-custom-datasets-storage-a008820-datasetbucket-1sjxdtrv5hdhj.s3-eu-west-1.amazonaws.com/")
+            .resolve("dataset-b9618677-7852-426e-9ca6-19dc11c49ddb/")
+            .let { uri ->
+                Dataset(
+                    label = "7M issues JSW 7 MySQL",
+                    database = ConfigurableMysqlDatabase(
+                        source = HttpDatasetPackage(
+                            uri = uri.resolve("database.tar.bz2"),
+                            downloadTimeout = Duration.ofMinutes(55)
+                        ),
+                        extraDockerArgs = listOf(
+                            "--max_connections=151",
+                            "--innodb-buffer-pool-size=40G",
+                            "--innodb-log-file-size=2146435072"
+                        )
                     ),
-                    extraDockerArgs = listOf(
-                        "--max_connections=151",
-                        "--innodb-buffer-pool-size=40G",
-                        "--innodb-log-file-size=2146435072"
-                    )
-                ),
-                jiraHomeSource = JiraHomePackage(
-                    HttpDatasetPackage(
-                        uri = uri.resolve("jirahome.tar.bz2"),
-                        downloadTimeout = Duration.ofMinutes(55)
+                    jiraHomeSource = JiraHomePackage(
+                        HttpDatasetPackage(
+                            uri = uri.resolve("jirahome.tar.bz2"),
+                            downloadTimeout = Duration.ofMinutes(55)
+                        )
                     )
                 )
-            )
-        }.let { dataset ->
-            AdminDataset(
-                dataset = fix(dataset),
-                adminLogin = "admin",
-                adminPassword = "admin"
-            )
-        }
+            }.let { dataset ->
+                AdminDataset(
+                    dataset = fix(dataset),
+                    adminLogin = "admin",
+                    adminPassword = "admin"
+                )
+            }
 
     fun xl8Mysql() = DatasetCatalogue().custom(
         location = StorageLocation(
-            uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-dah44h6l1l8p/")
-                .resolve("dataset-6ed65a53-86cb-457e-a87f-cbcce67787c3"),
+            uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-1nrja8d1upind/")
+                .resolve("parent/")
+                .resolve("v02-disable-backup-service-c4a3be0f-8e39-409c-9107-7c236d6a3b29/")
+                .resolve("child/")
+                .resolve("v01-publish-8.20.0-463e3936-cc2e-487c-b126-1fb93cf17de2"),
             region = Regions.EU_CENTRAL_1
         ),
         label = "7M issues JSW 8 MySQL",
-        databaseDownload = Duration.ofMinutes(55),
-        jiraHomeDownload = Duration.ofMinutes(55)
+        databaseDownload = Duration.ofHours(1),
+        jiraHomeDownload = Duration.ofHours(1)
+    ).let { dataset ->
+        AdminDataset(
+            dataset = fix(dataset),
+            adminLogin = "admin",
+            adminPassword = "admin"
+        )
+    }
+
+    fun xl9Mysql() = DatasetCatalogue().custom(
+        location = StorageLocation(
+            uri = URI("s3://jpt-custom-datasets-storage-a008820-datasetbucket-1nrja8d1upind/")
+                .resolve("parent/")
+                .resolve("v01-publish-8.20.0-463e3936-cc2e-487c-b126-1fb93cf17de2/")
+                .resolve("child/")
+                .resolve("v01-publish-9.0.0-RC01-408add83-7576-4424-a8a6-0e6a44381b12"),
+            region = Regions.EU_CENTRAL_1
+        ),
+        label = "7M issues JSW 9 MySQL",
+        databaseDownload = Duration.ofHours(1),
+        jiraHomeDownload = Duration.ofHours(1)
     ).let { dataset ->
         AdminDataset(
             dataset = fix(dataset),
@@ -148,11 +170,13 @@ class HwrDatasetCatalogue {
         val localLicense = Paths.get("jira-license.txt")
         return LicenseOverridingMysql
             .Builder(dataset.database)
-            .licenseFiles(listOf(
-                localLicense
-                    .toExistingFile()
-                    ?: throw Exception("Put a Jira license to ${localLicense.toAbsolutePath()}")
-            ))
+            .licenseFiles(
+                listOf(
+                    localLicense
+                        .toExistingFile()
+                        ?: throw Exception("Put a Jira license to ${localLicense.toAbsolutePath()}")
+                )
+            )
             .build()
     }
 }

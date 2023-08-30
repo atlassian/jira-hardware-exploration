@@ -44,8 +44,8 @@ class HardwareRecommendationIT {
         val cache = cacheOnS3(aws)
         try {
             val largeRecommendations = recommendHardwareForLarge(aws, cache)
-//            val extraLargeRecommendations = recommendHardwareForExtraLarge(aws, cache)
-//            zipReports(listOf(largeRecommendations, extraLargeRecommendations))
+            val extraLargeRecommendations = recommendHardwareForExtraLarge(aws, cache)
+            zipReports(listOf(largeRecommendations, extraLargeRecommendations))
             zipReports(listOf(largeRecommendations))
         } finally {
             cache.upload()
@@ -57,7 +57,7 @@ class HardwareRecommendationIT {
         s3Cache: S3Cache
     ): ReportedRecommendations = CloseableThreadContext.push("XL").use {
         recommend(
-            scale = ApplicationScales().extraLarge(jiraVersion = jswVersion, postgres = false),
+            scale = ApplicationScales().extraLarge(jiraVersion = jswVersion),
             tuning = HeapTuning(50),
             db = M44xlarge,
             aws = aws,
