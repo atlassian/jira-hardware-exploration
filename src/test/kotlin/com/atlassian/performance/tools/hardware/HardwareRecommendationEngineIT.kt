@@ -27,7 +27,7 @@ class HardwareRecommendationEngineIT {
 
     private val cacheKey = "HardwareRecommendationEngineIT/" + GitRepo.findFromCurrentDirectory().getHead()
     private val workspace = IntegrationTestRuntime.rootWorkspace.isolateTask(cacheKey)
-    private val jswVersion = "9.10.0"
+    private val jswVersion = "9.11.0"
 
     @Before
     fun setUp() {
