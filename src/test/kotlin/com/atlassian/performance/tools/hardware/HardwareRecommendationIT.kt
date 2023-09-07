@@ -32,7 +32,7 @@ import java.util.zip.ZipOutputStream
 
 class HardwareRecommendationIT {
 
-    private val jswVersion = System.getProperty("hwr.jsw.version") ?: "9.10.0"
+    private val jswVersion = System.getProperty("hwr.jsw.version") ?: "9.11.0"
     private val cacheKey = "datagen-datasets-v1-$jswVersion"
     private val workspace = rootWorkspace.isolateTask(cacheKey)
 
@@ -46,7 +46,6 @@ class HardwareRecommendationIT {
             val largeRecommendations = recommendHardwareForLarge(aws, cache)
             val extraLargeRecommendations = recommendHardwareForExtraLarge(aws, cache)
             zipReports(listOf(largeRecommendations, extraLargeRecommendations))
-            zipReports(listOf(largeRecommendations))
         } finally {
             cache.upload()
         }
@@ -153,7 +152,7 @@ class HardwareRecommendationIT {
         bucketName = "quicksilver-jhwr-cache-ireland",
         cacheKey = cacheKey,
         localPath = workspace.directory,
-        etags = IntegrationTestRuntime.rootWorkspace.directory.resolve(".etags")
+        etags = rootWorkspace.directory.resolve(".etags")
     )
 
     private fun zipReports(
