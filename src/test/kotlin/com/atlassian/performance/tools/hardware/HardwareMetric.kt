@@ -6,7 +6,7 @@ import com.atlassian.performance.tools.lib.AccessLogThroughput
 import com.atlassian.performance.tools.lib.Apdex
 import com.atlassian.performance.tools.lib.ErrorGauge
 import com.atlassian.performance.tools.lib.report.VirtualUsersPresenceJudge
-import com.atlassian.performance.tools.report.api.StandardTimeline
+import com.atlassian.performance.tools.report.api.TestExecutionTimeline
 import com.atlassian.performance.tools.report.api.result.EdibleResult
 import com.atlassian.performance.tools.report.api.result.RawCohortResult
 
@@ -59,7 +59,7 @@ class HardwareMetric(
     fun postProcess(
         rawResults: RawCohortResult
     ): EdibleResult = synchronized(POST_PROCESSING_LOCK) {
-        val timeline = StandardTimeline(scale.load.total)
+        val timeline = TestExecutionTimeline(scale.load.total)
         val result = rawResults.prepareForJudgement(timeline)
         validate(result)
         return result
