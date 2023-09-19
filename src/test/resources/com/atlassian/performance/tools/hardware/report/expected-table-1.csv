@@ -1,2 +1,2 @@
 jira,jira nodes,database,overall error average [%],overall error spread [%],max action error max [%],max action error label [%],max action error spread [%],apdex average (0.0-1.0),apdex spread (0.0-1.0),throughput average [HTTP requests / second],throughput spread [HTTP requests / second],worth exploring?,reason
-c5.9xlarge,2,m4.xlarge,0.0,0.0,0.0,View Issue,0.0,0.6215296679368536,0.0,41.70824779594451,0.0,YES,It's a unit test
+c5.9xlarge,2,m4.xlarge,0.0,0.0,0.0,Search with JQL,0.0,0.6194429566148902,0.0,41.70824779594451,0.0,YES,It's a unit test
