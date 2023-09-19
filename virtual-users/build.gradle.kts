@@ -10,7 +10,7 @@ plugins {
 }
 
 dependencies {
-    compile("com.atlassian.performance.tools:jira-actions:[3.6.0,4.0.0)")
+    compile("com.atlassian.performance.tools:jira-actions:[3.22.0,4.0.0)")
     compile("com.atlassian.performance.tools:jira-software-actions:[1.0.0,2.0.0)")
     compile("org.apache.logging.log4j:log4j-api:$log4jVersion")
     compile("org.seleniumhq.selenium:selenium-support:3.141.59")
