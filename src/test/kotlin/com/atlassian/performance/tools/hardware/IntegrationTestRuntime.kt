@@ -13,18 +13,12 @@ import java.util.*
 object IntegrationTestRuntime {
 
     val rootWorkspace = RootWorkspace(Paths.get("build"))
-    private const val roleArn: String = "arn:aws:iam::695067801333:role/server-gdn-bamboo"
+    private const val roleArn: String = "arn:aws:iam::695067801333:role/JPT-dev"
     private val region = Regions.EU_WEST_1
 
     fun prepareAws() = Aws.Builder(region)
         .credentialsProvider(
             AWSCredentialsProviderChain(
-                STSAssumeRoleSessionCredentialsProvider.Builder(
-                    roleArn,
-                    UUID.randomUUID().toString()
-                ).build(),
-                ProfileCredentialsProvider("jpt-dev"),
-                EC2ContainerCredentialsProviderWrapper(),
                 WebIdentityTokenCredentialsProvider.builder()
                     .roleArn(roleArn)
                     .roleSessionName(UUID.randomUUID().toString())
