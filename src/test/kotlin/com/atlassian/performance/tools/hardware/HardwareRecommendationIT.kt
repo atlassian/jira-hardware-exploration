@@ -132,7 +132,6 @@ class HardwareRecommendationIT {
         instanceTypes = listOf(
             C52xlarge,
             C54xlarge,
-            C48xlarge,
             C59xlarge,
             C518xlarge
         ),
