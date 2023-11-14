@@ -35,7 +35,7 @@ class JiraExplorationGuidance(
     private fun avoidProblematicHardware(
         hardware: Hardware
     ): Boolean {
-        return (hardware.jira == InstanceType.C52xlarge && hardware.nodeCount >= 10).not()
+        return (hardware.jira == InstanceType.C52xlarge && hardware.nodeCount >= 9).not()
     }
 
     override fun decideTesting(
