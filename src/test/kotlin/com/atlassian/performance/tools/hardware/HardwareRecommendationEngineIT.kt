@@ -46,7 +46,7 @@ class HardwareRecommendationEngineIT {
                 // test the hard node limit kicks in before the (relaxed) behaviour limits
                 minApdexGain = 0.01,
                 minThroughputGain = TemporalRate(2.0, Duration.ofSeconds(1)),
-                maxNodeCount = 3
+                maxNodeCount = 2
             )
         }
 
