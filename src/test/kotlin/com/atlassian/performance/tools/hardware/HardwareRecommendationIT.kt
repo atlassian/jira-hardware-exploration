@@ -32,7 +32,7 @@ import java.util.zip.ZipOutputStream
 
 class HardwareRecommendationIT {
 
-    private val jswVersion = System.getProperty("hwr.jsw.version") ?: "9.11.0"
+    private val jswVersion = System.getProperty("hwr.jsw.version") ?: "9.12.0"
     private val cacheKey = "datagen-datasets-v1-$jswVersion"
     private val workspace = rootWorkspace.isolateTask(cacheKey)
 
