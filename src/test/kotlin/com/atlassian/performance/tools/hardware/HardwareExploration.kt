@@ -35,6 +35,7 @@ import com.atlassian.performance.tools.virtualusers.api.VirtualUserOptions
 import com.atlassian.performance.tools.virtualusers.api.browsers.HeadlessChromeBrowser
 import com.atlassian.performance.tools.virtualusers.api.config.VirtualUserBehavior
 import com.atlassian.performance.tools.virtualusers.api.config.VirtualUserTarget
+import com.atlassian.performance.tools.virtualusers.api.users.RestUserGenerator
 import com.atlassian.performance.tools.workspace.api.TaskWorkspace
 import com.atlassian.performance.tools.workspace.api.TestWorkspace
 import org.apache.logging.log4j.LogManager
@@ -383,7 +384,7 @@ class HardwareExploration(
             ),
             behavior = VirtualUserBehavior.Builder(CustomScenario::class.java)
                 .load(scale.load)
-                .createUsers(true)
+                .userGenerator(RestUserGenerator::class.java)
                 .seed(78432)
                 .diagnosticsLimit(32)
                 .browser(HeadlessChromeBrowser::class.java)
