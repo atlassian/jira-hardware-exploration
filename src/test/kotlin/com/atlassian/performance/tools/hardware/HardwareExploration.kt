@@ -14,6 +14,7 @@ import com.atlassian.performance.tools.hardware.guidance.ExplorationGuidance
 import com.atlassian.performance.tools.hardware.tuning.JiraNodeTuning
 import com.atlassian.performance.tools.hardware.vu.CustomScenario
 import com.atlassian.performance.tools.infrastructure.api.distribution.ProductDistribution
+import com.atlassian.performance.tools.infrastructure.api.jira.JiraLaunchTimeouts
 import com.atlassian.performance.tools.infrastructure.api.jira.JiraNodeConfig
 import com.atlassian.performance.tools.infrastructure.api.jvm.VersionedOracleJdk
 import com.atlassian.performance.tools.infrastructure.api.profiler.AsyncProfiler
@@ -321,6 +322,12 @@ class HardwareExploration(
                         .name("jira-node-$nodeNumber")
                         .profiler(BestEffortProfiler(AsyncProfiler()))
                         .jdk(VersionedOracleJdk.Builder().version("17", "0", "11").build())
+                        .launchTimeouts(
+                            JiraLaunchTimeouts.Builder()
+                                .initTimeout(Duration.ofMinutes(60))
+                                .offlineTimeout(Duration.ofMinutes(60))
+                                .build()
+                        )
                         .build()
                         .let { tuning.tune(it, hardware, scale) }
                 })

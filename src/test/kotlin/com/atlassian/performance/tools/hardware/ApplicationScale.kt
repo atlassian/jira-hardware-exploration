@@ -24,6 +24,7 @@ class ApplicationScales {
             description = "Jira $jiraVersion XL",
             cacheKey = "xl-jsw-$jiraVersion",
             dataset = when (jiraVersion.major()) {
+                10 -> datasets.xl9Mysql()
                 9 -> datasets.xl9Mysql()
                 8 -> datasets.xl8Mysql()
                 else -> datasets.xl7Mysql()
@@ -45,6 +46,7 @@ class ApplicationScales {
             description = "Jira $jiraVersion L",
             cacheKey = "l-jsw-$jiraVersion",
             dataset = when (jiraVersion.major()) {
+                10 -> datasets.l9Mysql()
                 9 -> datasets.l9Mysql()
                 8 -> datasets.l8Mysql()
                 else -> datasets.l7Mysql()
